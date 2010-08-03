@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE weblogic-web-app
+  PUBLIC "-//BEA Systems, Inc.//DTD Web Application 8.1//EN"
+  "http://www.bea.com/servers/wls810/dtd/weblogic810-web-jar.dtd">
+<weblogic-web-app>
+	<security-role-assignment>
+		<role-name>AGSA</role-name>
+		<externally-defined/>
+	</security-role-assignment>
+	
+	<reference-descriptor>
+		<resource-description>
+			<res-ref-name>jdbc/PortalDs</res-ref-name>
+			<jndi-name>PortalDs</jndi-name>
+		</resource-description>
+		<ejb-reference-description>
+			<ejb-ref-name>ejb/PortalSL</ejb-ref-name>
+			<jndi-name>PortalSL</jndi-name>
+		</ejb-reference-description>
+		<ejb-reference-description>
+			<ejb-ref-name>ejb/PublicacionSL</ejb-ref-name>
+			<jndi-name>PublicacionSL</jndi-name>
+		</ejb-reference-description>
+		<ejb-reference-description>
+			<ejb-ref-name>ejb/BitacoraSL</ejb-ref-name>
+			<jndi-name>BitacoraSL</jndi-name>
+		</ejb-reference-description>
+		<ejb-reference-description>
+			<ejb-ref-name>ejb/CatalogoSL</ejb-ref-name>
+			<jndi-name>CatalogoSL</jndi-name>
+		</ejb-reference-description>
+	</reference-descriptor>
+		
+	<session-descriptor>
+		<session-param>
+			<param-name>URLRewritingEnabled</param-name>
+			<param-value>false</param-value>
+		</session-param>	
+		<session-param>
+			<param-name>TimeoutSecs</param-name>
+				<param-value>6000</param-value>
+		</session-param>
+	</session-descriptor>
+	<jsp-descriptor>
+		<jsp-param>
+			<param-name>verbose</param-name>
+			<param-value>true</param-value>
+		</jsp-param>
+		<jsp-param>
+			<param-name>keepgenerated</param-name>
+			<param-value>false</param-value>
+		</jsp-param>
+		<jsp-param>
+			<param-name>precompile</param-name>
+			<param-value>false</param-value>
+		</jsp-param>
+		<jsp-param>
+			<param-name>pageCheckSeconds</param-name>
+			<param-value>0</param-value>
+		</jsp-param>
+	</jsp-descriptor>
+</weblogic-web-app>

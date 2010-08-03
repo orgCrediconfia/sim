@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jnlp spec="1.0+" codebase="http://rapidsis-jpd:8080/AdministradorAplicaciones" href="AdministradorAplicaciones.jnlp">
+  <information>
+	<title>Administrador aplicaciones</title>
+	<vendor>Rapidsist</vendor>
+	<homepage href="AdministradorAplicaciones.html" />
+	<description>Cliente del administrador de aplicaciones</description>
+	<offline-allowed />
+  </information>
+  <resources>
+	<j2se version="1.4+" />
+	<jar href="AdministradorAplicaciones.jar" />
+  </resources>
+  <security>
+	  <all-permissions/>
+  </security>
+  <application-desc main-class="com.rapidsist.administradorapl.cliente.escritorio.ClienteDocumentacion" />
+</jnlp>

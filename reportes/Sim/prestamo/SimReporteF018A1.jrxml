@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteF018A1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="566"
+		 pageHeight="792"
+		 columnWidth="506"
+		 columnSpacing="28"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT 
+M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO) MONTO_AUTORIZADO,
+CANTIDADES_LETRAS(M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO)) MONTO_AUTORIZADO_LETRAS,
+P.NOM_COMPLETO
+FROM
+SIM_PRESTAMO_GPO_DET M,
+RS_GRAL_PERSONA P,
+SIM_PRESTAMO_CARGO_COMISION C
+WHERE ID_PRESTAMO_GRUPO = $P{IdPrestamo}
+AND P.CVE_GPO_EMPRESA =  M.CVE_GPO_EMPRESA
+AND P.CVE_EMPRESA =  M.CVE_EMPRESA
+AND P.ID_PERSONA =  M.ID_INTEGRANTE
+AND C.CVE_GPO_EMPRESA (+)    = M.CVE_GPO_EMPRESA
+AND C.CVE_EMPRESA (+)        = M.CVE_EMPRESA
+AND C.ID_PRESTAMO (+)        = M.ID_PRESTAMO
+AND C.ID_FORMA_APLICACION (+)= 1
+AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
+
+	<field name="MONTO_AUTORIZADO" class="java.lang.Float"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="3"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="1"
+						width="506"
+						height="0"
+						forecolor="#006600"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="19"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="5"
+						y="4"
+						width="200"
+						height="13"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="206"
+						y="4"
+						width="95"
+						height="13"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="301"
+						y="4"
+						width="200"
+						height="13"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N."]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="3"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="2"
+						width="506"
+						height="0"
+						forecolor="#006600"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

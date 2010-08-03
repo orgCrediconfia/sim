@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ReporteAmortizacionGrupoXLS"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="3850"
+		 pageHeight="842"
+		 columnWidth="3790"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="CVE_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.lang.String"/>
+	<field name="NUM_PAGO_AMORTIZACION" class="java.lang.String"/>
+	<field name="FECHA_AMORTIZACION" class="java.sql.Timestamp"/>
+	<field name="IMP_SALDO_INICIAL" class="java.math.BigDecimal"/>
+	<field name="TASA_INTERES" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_EXTRA" class="java.math.BigDecimal"/>
+	<field name="IMP_CAPITAL_AMORT" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO" class="java.math.BigDecimal"/>
+	<field name="IMP_SALDO_FINAL" class="java.math.BigDecimal"/>
+	<field name="IMP_IVA_INTERES" class="java.math.BigDecimal"/>
+	<field name="IMP_IVA_INTERES_EXTRA" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_EXTRA_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_CAPITAL_AMORT_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_IVA_INTERES_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_IVA_INTERES_EXTRA_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO_TARDIO" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO_TARDIO_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_MORA" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_MORA_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_IVA_INTERES_MORA" class="java.math.BigDecimal"/>
+	<field name="IMP_IVA_INTERES_MORA_PAGADO" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_DEV_X_DIA" class="java.math.BigDecimal"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="108"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="90"
+						width="160"
+						height="18"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[NUM_PAGO_AMORTIZACION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="160"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[FECHA_AMORTIZACION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="300"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_SALDO_INICIAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="440"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[TASA_INTERES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="580"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="720"
+						y="90"
+						width="160"
+						height="18"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES_EXTRA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="880"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_CAPITAL_AMORT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1020"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_PAGO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1160"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_SALDO_FINAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1300"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_IVA_INTERES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1440"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_IVA_INTERES_EXTRA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1580"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1720"
+						y="90"
+						width="170"
+						height="18"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES_EXTRA_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1890"
+						y="90"
+						width="200"
+						height="18"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_CAPITAL_AMORT_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="2090"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_PAGO_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="2230"
+						y="90"
+						width="170"
+						height="18"
+						key="staticText-23"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_IVA_INTERES_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="2400"
+						y="90"
+						width="210"
+						height="18"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_IVA_INTERES_EXTRA_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="2610"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_PAGO_TARDIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="2750"
+						y="90"
+						width="170"
+						height="18"
+						key="staticText-26"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_PAGO_TARDIO_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="2920"
+						y="90"
+						width="140"
+						height="18"
+						key="staticText-27"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES_MORA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3060"
+						y="90"
+						width="170"
+						height="18"
+						key="staticText-28"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES_MORA_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3230"
+						y="90"
+						width="170"
+						height="18"
+						key="staticText-29"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_IVA_INTERES_MORA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3400"
+						y="90"
+						width="210"
+						height="18"
+						key="staticText-30"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_IVA_INTERES_MORA_PAGADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3610"
+						y="90"
+						width="180"
+						height="18"
+						key="staticText-31"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IMP_INTERES_DEV_X_DIA]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="36"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="18"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="54"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PRODUCTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="72"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NUM_CICLO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="160"
+						height="18"
+						key="staticText-32"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Clave Prestamo Grupal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="18"
+						width="160"
+						height="18"
+						key="staticText-33"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Nombre del Grupo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="36"
+						width="160"
+						height="18"
+						key="staticText-35"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Id Prestamo Grupo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="54"
+						width="160"
+						height="18"
+						key="staticText-37"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Nombre Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="72"
+						width="160"
+						height="18"
+						key="staticText-38"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Ciclo]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="160"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NUM_PAGO_AMORTIZACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_AMORTIZACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="300"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_INICIAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="440"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TASA_INTERES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="580"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="720"
+						y="0"
+						width="160"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_EXTRA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="880"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_CAPITAL_AMORT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1020"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1160"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_FINAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1300"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_IVA_INTERES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1440"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_IVA_INTERES_EXTRA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1580"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1720"
+						y="0"
+						width="170"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_EXTRA_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1890"
+						y="0"
+						width="200"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_CAPITAL_AMORT_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2090"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2230"
+						y="0"
+						width="170"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_IVA_INTERES_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2400"
+						y="0"
+						width="210"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_IVA_INTERES_EXTRA_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2610"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO_TARDIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2750"
+						y="0"
+						width="170"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO_TARDIO_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2920"
+						y="0"
+						width="140"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_MORA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3060"
+						y="0"
+						width="170"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_MORA_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3230"
+						y="0"
+						width="170"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_IVA_INTERES_MORA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3400"
+						y="0"
+						width="210"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_IVA_INTERES_MORA_PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3610"
+						y="0"
+						width="180"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

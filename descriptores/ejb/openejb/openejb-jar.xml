@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openejb-jar xmlns="http://www.openejb.org/openejb-jar/1.1">
+	<ejb-deployment ejb-name="PublicacionSL" deployment-id="PublicacionSL" container-id="Default Stateless Container">
+		<resource-link res-ref-name="jdbc/PortalDs" res-id="PortalDs"/>
+	</ejb-deployment>
+
+	<ejb-deployment ejb-name="PortalSL" deployment-id="PortalSL" container-id="Default Stateless Container">
+		<resource-link res-ref-name="jdbc/PortalDs" res-id="PortalDs"/>
+	</ejb-deployment>
+
+	<ejb-deployment ejb-name="BitacoraSL" deployment-id="BitacoraSL" container-id="Default Stateless Container">
+		<resource-link res-ref-name="jdbc/PortalDs" res-id="PortalDs"/>
+	</ejb-deployment>
+
+	<ejb-deployment ejb-name="CatalogoSL" deployment-id="CatalogoSL" container-id="Default Stateless Container">	
+		<resource-link res-ref-name="jdbc/PortalDs" res-id="PortalDs"/>
+	</ejb-deployment>
+</openejb-jar>

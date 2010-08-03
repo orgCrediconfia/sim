@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone='yes'?>
+<!DOCTYPE principals PUBLIC "//Evermind - Orion Principals//" "http://xmlns.oracle.com/ias/dtds/principals.dtd">
+<principals>
+	<groups>    
+		<group name="UsuariosPortal" />    
+	</groups> 
+	<users>
+	</users>
+</principals>

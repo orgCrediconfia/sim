@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportesAmortizacion_subreport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="324"
+		 pageHeight="200"
+		 columnWidth="324"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdPrestamoGrupo" isForPrompting="false" class="java.math.BigDecimal"/>
+	<queryString><![CDATA[SELECT DISTINCT
+                GT.CVE_GPO_EMPRESA,
+                GT.CVE_EMPRESA,
+                GT.ID_PRESTAMO_GRUPO,
+                PG.CVE_PRESTAMO_GRUPO,
+                G.NOM_GRUPO,
+                S.TASA_IVA,
+                PG.FECHA_ENTREGA,
+                PG.FECHA_REAL,
+                T.FECHA_AMORTIZACION FECHA_INICIO,
+                PG.ID_PERIODICIDAD_PRODUCTO,
+                P.NOM_PERIODICIDAD,  
+                PG.PLAZO,
+                PT.NOM_PERIODICIDAD PERIODICIDAD_TASA,
+                   DECODE(PG.ID_PERIODICIDAD_TASA,NULL,(SELECT ID_PERIODICIDAD
+                        FROM SIM_CAT_TASA_REFERENCIA
+                        WHERE ID_TASA_REFERENCIA = (SELECT ID_TASA_REFERENCIA
+                                                    FROM SIM_PRESTAMO_GRUPO
+                                                    WHERE ID_PRESTAMO_GRUPO = $P{IdPrestamoGrupo})),PG.ID_PERIODICIDAD_TASA) ID_PERIODICIDAD_TASA,
+                DECODE(PG.VALOR_TASA,NULL,(SELECT VALOR 
+                        FROM SIM_CAT_TASA_REFER_DETALLE
+                        WHERE ID_TASA_REFERENCIA = (SELECT ID_TASA_REFERENCIA
+                                                    FROM SIM_PRESTAMO_GRUPO
+                                                    WHERE ID_PRESTAMO_GRUPO =$P{IdPrestamoGrupo})
+                        AND FECHA_PUBLICACION = (SELECT MAX(FECHA_PUBLICACION) FECHA_TASA_REFERENCIA
+                                                FROM (SELECT FECHA_PUBLICACION
+                                                FROM SIM_CAT_TASA_REFER_DETALLE
+                                                WHERE ID_TASA_REFERENCIA = (SELECT ID_TASA_REFERENCIA
+                                                                            FROM SIM_PRESTAMO_GRUPO
+                                                                            WHERE ID_PRESTAMO_GRUPO = $P{IdPrestamoGrupo})
+                                AND FECHA_PUBLICACION < SYSDATE))),PG.VALOR_TASA) VALOR_TASA ,
+                S.NOM_SUCURSAL,
+                N.NUM_INTEGRANTES
+             
+                FROM
+                SIM_PRESTAMO_GPO_DET GT,
+                SIM_PRESTAMO_GRUPO PG,
+                SIM_TABLA_AMORTIZACION T,
+                SIM_CAT_PERIODICIDAD P,
+                SIM_CAT_PERIODICIDAD PT,
+                SIM_GRUPO G,
+                SIM_CAT_SUCURSAL S,
+                SIM_CAT_ETAPA_PRESTAMO E,
+                (SELECT COUNT(*) NUM_INTEGRANTES
+                FROM SIM_PRESTAMO_GPO_DET
+                WHERE CVE_GPO_EMPRESA = 'SIM'
+                AND CVE_EMPRESA = 'CREDICONFIA'
+                AND ID_PRESTAMO_GRUPO = $P{IdPrestamoGrupo})N
+              
+                WHERE GT.CVE_GPO_EMPRESA = 'SIM'
+                AND GT.CVE_EMPRESA = 'CREDICONFIA'
+                AND GT.ID_PRESTAMO_GRUPO = $P{IdPrestamoGrupo}
+                AND GT.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA
+                AND GT.CVE_EMPRESA = PG.CVE_EMPRESA
+                AND GT.ID_PRESTAMO_GRUPO = PG.ID_PRESTAMO_GRUPO
+                AND T.CVE_GPO_EMPRESA = GT.CVE_GPO_EMPRESA
+                AND T.CVE_EMPRESA = GT.CVE_EMPRESA
+                AND T.ID_PRESTAMO = GT.ID_PRESTAMO
+                AND T.NUM_PAGO_AMORTIZACION = 1
+                AND P.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA
+                AND P.CVE_EMPRESA = PG.CVE_EMPRESA
+                AND P.ID_PERIODICIDAD = PG.ID_PERIODICIDAD_PRODUCTO
+                AND PT.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA
+                AND PT.CVE_EMPRESA = PG.CVE_EMPRESA
+                AND PT.ID_PERIODICIDAD = PG.ID_PERIODICIDAD_TASA 
+                AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA
+                AND G.CVE_EMPRESA = PG.CVE_EMPRESA
+                AND G.ID_GRUPO = PG.ID_GRUPO
+                AND S.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA
+                AND S.CVE_EMPRESA = G.CVE_EMPRESA
+                AND S.ID_SUCURSAL = G.ID_SUCURSAL
+                AND E.CVE_GPO_EMPRESA (+)= PG.CVE_GPO_EMPRESA
+                AND E.CVE_EMPRESA (+)= PG.CVE_EMPRESA
+                AND E.ID_ETAPA_PRESTAMO (+)= PG.ID_ETAPA_PRESTAMO]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO_GRUPO" class="java.math.BigDecimal"/>
+	<field name="CVE_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="TASA_IVA" class="java.math.BigDecimal"/>
+	<field name="FECHA_ENTREGA" class="java.sql.Timestamp"/>
+	<field name="FECHA_REAL" class="java.sql.Timestamp"/>
+	<field name="FECHA_INICIO" class="java.sql.Timestamp"/>
+	<field name="ID_PERIODICIDAD_PRODUCTO" class="java.math.BigDecimal"/>
+	<field name="NOM_PERIODICIDAD" class="java.lang.String"/>
+	<field name="PLAZO" class="java.math.BigDecimal"/>
+	<field name="PERIODICIDAD_TASA" class="java.lang.String"/>
+	<field name="ID_PERIODICIDAD_TASA" class="java.math.BigDecimal"/>
+	<field name="VALOR_TASA" class="java.math.BigDecimal"/>
+	<field name="NOM_SUCURSAL" class="java.lang.String"/>
+	<field name="NUM_INTEGRANTES" class="java.math.BigDecimal"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="190"  isSplitAllowed="false" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="3"
+						width="324"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Datos generales ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="22"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO_GRUPO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="22"
+						width="159"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Clave del préstamo]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="37"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GRUPO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="37"
+						width="159"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nombre del grupo]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="52"
+						width="20"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TASA_IVA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="52"
+						width="159"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[IVA]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="82"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_REAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="82"
+						width="159"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fecha de inicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="97"
+						width="159"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Periodicidad producto]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="97"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PERIODICIDAD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="112"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PLAZO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="112"
+						width="159"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Plazo]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="127"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{VALOR_TASA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="127"
+						width="159"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tasa del prestamo]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="142"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_TASA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="142"
+						width="159"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Peridicidad tasa]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="157"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{NUM_INTEGRANTES}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="157"
+						width="159"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Integrantes]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="172"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_SUCURSAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="172"
+						width="159"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="179"
+						y="52"
+						width="15"
+						height="15"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[% Text]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="1"
+						width="324"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="21"
+						width="324"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="0"
+						y="67"
+						width="159"
+						height="15"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fecha de desembolso]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="67"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_ENTREGA}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

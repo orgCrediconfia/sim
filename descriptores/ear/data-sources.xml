@@ -1,0 +1,66 @@
+<?xml version="1.0" standalone='yes'?>
+<!DOCTYPE data-sources PUBLIC "Orion data-sources" "http://xmlns.oracle.com/ias/dtds/data-sources.dtd">
+
+<data-sources>
+	<!--
+	
+	TSYS (PRODUCCION)
+	<data-source
+		class="oracle.jdbc.pool.OracleDataSource"
+		name="PortalDs"
+		location="jdbc/PortalDs"
+		xa-location="jdbc/PortalDs"
+		ejb-location="jdbc/PortalDs"
+		connection-driver="oracle.jdbc.driver.OracleDriver"
+		username="bank"
+		password="bank"
+		url="jdbc:oracle:thin:@132.254.1.229:1521:BANK01"
+		inactivity-timeout="30"
+		connection-retry-interval="60"
+	/>
+
+	LAPTOP
+	<data-source
+		class="oracle.jdbc.pool.OracleDataSource"
+		name="PortalDs"
+		location="jdbc/PortalDs"
+		xa-location="jdbc/PortalDs"
+		ejb-location="jdbc/PortalDs"
+		connection-driver="oracle.jdbc.driver.OracleDriver"
+		username="bank"
+		password="bank"
+		url="jdbc:oracle:thin:@localhost:1521:LOCAL"
+		inactivity-timeout="30"
+		connection-retry-interval="60"
+	/>	
+
+	MEXCONSA
+	<data-source
+		class="oracle.jdbc.pool.OracleDataSource"
+		name="PortalDs"
+		location="jdbc/PortalDs"
+		xa-location="jdbc/PortalDs"
+		ejb-location="jdbc/PortalDs"
+		connection-driver="oracle.jdbc.driver.OracleDriver"
+		username="bank"
+		password="bank"
+		url="jdbc:oracle:thin:@SAM-4:1521:BANK01"
+		inactivity-timeout="30"
+		connection-retry-interval="60"
+	/>	
+
+	-->
+	<data-source
+		class="oracle.jdbc.pool.OracleDataSource"
+		name="PortalDs"
+		location="jdbc/PortalDs"
+		xa-location="jdbc/PortalDs"
+		ejb-location="jdbc/PortalDs"
+		connection-driver="oracle.jdbc.driver.OracleDriver"
+		username="bank"
+		password="bank"
+		url="jdbc:oracle:thin:@132.254.1.229:1521:BANK01"
+		inactivity-timeout="30"
+		connection-retry-interval="60"
+	/>
+</data-sources>

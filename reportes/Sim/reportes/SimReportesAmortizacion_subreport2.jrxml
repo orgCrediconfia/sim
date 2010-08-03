@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportesAmortizacion_subreport2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="689"
+		 pageHeight="900"
+		 columnWidth="689"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdPrestamoGrupoAcc" isForPrompting="false" class="java.math.BigDecimal"/>
+	<queryString><![CDATA[SELECT 
+                 CC.CVE_GPO_EMPRESA, 
+                 CC.CVE_EMPRESA, 
+                 A.NOM_ACCESORIO, 
+                FA.NOM_FORMA_APLICACION, 
+                 CC.VALOR, 
+                 U.NOM_UNIDAD, 
+                 P.NOM_PERIODICIDAD 
+             FROM SIM_PRESTAMO_GPO_CARGO CC, 
+                  SIM_CAT_ACCESORIO A, 
+                  SIM_CAT_FORMA_APLICACION FA, 
+                  SIM_CAT_UNIDAD U, 
+                  SIM_CAT_PERIODICIDAD P 
+             WHERE CC.CVE_GPO_EMPRESA ='SIM' 
+             AND CC.CVE_EMPRESA ='CREDICONFIA'  
+             AND CC.ID_PRESTAMO_GRUPO = $P{IdPrestamoGrupoAcc} 
+             AND A.CVE_GPO_EMPRESA = CC.CVE_GPO_EMPRESA 
+             AND A.CVE_EMPRESA = CC.CVE_EMPRESA 
+             AND A.ID_ACCESORIO = CC.ID_CARGO_COMISION 
+             AND FA.CVE_GPO_EMPRESA = CC.CVE_GPO_EMPRESA 
+             AND FA.CVE_EMPRESA = CC.CVE_EMPRESA 
+             AND FA.ID_FORMA_APLICACION = CC.ID_FORMA_APLICACION 
+             AND U.CVE_GPO_EMPRESA (+)= CC.CVE_GPO_EMPRESA 
+             AND U.CVE_EMPRESA (+)= CC.CVE_EMPRESA 
+             AND U.ID_UNIDAD (+)= CC.ID_UNIDAD 
+             AND P.CVE_GPO_EMPRESA (+)= CC.CVE_GPO_EMPRESA 
+             AND P.CVE_EMPRESA (+)= CC.CVE_EMPRESA 
+             AND P.ID_PERIODICIDAD (+)= CC.ID_PERIODICIDAD 
+             AND CC.VALOR IS NOT NULL 
+             ORDER BY CC.ID_CARGO_COMISION]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="NOM_ACCESORIO" class="java.lang.String"/>
+	<field name="NOM_FORMA_APLICACION" class="java.lang.String"/>
+	<field name="VALOR" class="java.math.BigDecimal"/>
+	<field name="NOM_UNIDAD" class="java.lang.String"/>
+	<field name="NOM_PERIODICIDAD" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="80"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="2"
+						width="689"
+						height="20"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cargos y comisiones]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="39"
+						width="136"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_ACCESORIO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="24"
+						width="136"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Accesorio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="136"
+						y="24"
+						width="219"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Forma de aplicación]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="136"
+						y="39"
+						width="219"
+						height="41"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_FORMA_APLICACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="356"
+						y="39"
+						width="84"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{VALOR}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="356"
+						y="24"
+						width="85"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Valor]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="440"
+						y="39"
+						width="112"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_UNIDAD}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="441"
+						y="24"
+						width="111"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Unidad
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="39"
+						width="137"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PERIODICIDAD}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="552"
+						y="24"
+						width="137"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Periodicidad
+]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="1"
+						width="689"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="23"
+						width="689"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

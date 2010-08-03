@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE orion-web-app PUBLIC "-//Evermind//DTD Orion Web Application 2.3//EN" "http://xmlns.oracle.com/ias/dtds/orion-web.dtd">
+
+<orion-web-app>
+	<resource-ref-mapping name="jdbc/PortalDs" location="jdbc/PortalDs" />
+    <security-role-mapping name="AGSA">
+		<!--
+        <group name="UsuariosPortal"/>
+		<group name="users"/>
+		-->
+        <group name="UsuariosPortal"/>
+    </security-role-mapping>
+	<ejb-ref-mapping name="ejb/BitacoraSL" location="BitacoraSL" />
+	<ejb-ref-mapping name="ejb/CatalogoSL" location="CatalogoSL" />
+	<ejb-ref-mapping name="ejb/PortalSL" location="PortalSL" />
+	<ejb-ref-mapping name="ejb/PublicacionSL" location="PublicacionSL" />
+</orion-web-app>

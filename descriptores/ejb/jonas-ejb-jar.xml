@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE jonas-ejb-jar PUBLIC "-//ObjectWeb//DTD JOnAS 3.2//EN" "http://www.objectweb.org/jonas/dtds/jonas-ejb-jar_3_2.dtd">
+<jonas-ejb-jar>
+	<jonas-session>
+    	<ejb-name>PublicacionSL</ejb-name>
+		<jndi-name>PublicacionSL</jndi-name>
+		<jonas-resource>
+			<res-ref-name>jdbc/PortalDs</res-ref-name>
+			<jndi-name>PortalDs</jndi-name>
+		</jonas-resource>
+	</jonas-session>
+	<jonas-session>
+    	<ejb-name>PortalSL</ejb-name>
+		<jndi-name>PortalSL</jndi-name>
+		<jonas-resource>
+			<res-ref-name>jdbc/PortalDs</res-ref-name>
+			<jndi-name>PortalDs</jndi-name>
+		</jonas-resource>
+	</jonas-session>
+	<jonas-session>
+    	<ejb-name>BitacoraSL</ejb-name>
+		<jndi-name>BitacoraSL</jndi-name>
+		<jonas-resource>
+			<res-ref-name>jdbc/PortalDs</res-ref-name>
+			<jndi-name>PortalDs</jndi-name>
+		</jonas-resource>
+	</jonas-session>
+	<jonas-session>
+    	<ejb-name>CatalogoSL</ejb-name>
+		<jndi-name>CatalogoSL</jndi-name>
+		<jonas-resource>
+			<res-ref-name>jdbc/PortalDs</res-ref-name>
+			<jndi-name>PortalDs</jndi-name>
+		</jonas-resource>
+	</jonas-session>
+
+</jonas-ejb-jar>

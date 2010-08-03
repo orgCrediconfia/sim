@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteF018A"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="552"
+		 columnSpacing="28"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte1" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte2" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
+	<field name="MONTO_FIJO_PERIODO" class="java.lang.Float"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.Float"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="MONTO_FIJO_PERIODO_LETRAS" class="java.lang.String"/>
+	<field name="FECHA_INICIO" class="java.lang.String"/>
+	<field name="ID_PRESTAMO_GRUPO" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="576"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="552"
+						height="13"
+						key="textField-1">
+							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL} + ", México, a "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="12"
+						width="165"
+						height="13"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="30"
+						width="552"
+						height="48"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R.
+CrediConfía.
+Canoa 521 oficina 502,
+Tizapan, San Angel,
+México, D.F. 01090.
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="84"
+						width="552"
+						height="13"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[LECTURA OBLIGATORIA DEL CLIENTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="110"
+						width="153"
+						height="13"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Le informamos que recibimos la cantidad de]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="123"
+						width="552"
+						height="16"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[del crédito documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma:]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="6"
+						y="144"
+						width="542"
+						height="69"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="0"
+						y="278"
+						width="552"
+						height="16"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[En relación con el crédito antes mencionado, acordamos lo siguiente:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="297"
+						width="552"
+						height="22"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[1)	De registrarse atraso en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar por cada retraso en el pago de cualquier cuota una penalidad de ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="334"
+						width="206"
+						height="13"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[que serán causados al momento de cada incumplimiento.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="355"
+						width="552"
+						height="98"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[2)	De registrarse atrasos con más de 45 días en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar gastos de gestión por $400.00 (cuatrocientos pesos 00/100 M.N.)  que serán causados al momento de dicho incumplimiento.
+
+
+3)	Asimismo, en caso de registrarse atrasos con más de 120 días en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar gastos de recuperación por $1,000.00 (mil pesos 00/100 M.N.)  que serán causados al momento de dicho incumplimiento.
+
+
+4)   Autorizamos a Desarrolladora e Impulsora de Negocios, S.A. de C.V. SOFOM E.N.R.  para que contrate con Seguros Argos, S.A. de C.V.  un seguro de cobertura de saldo deudor,  obligándonos a cubrir las primas por la contratación de este seguro. 
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="461"
+						width="206"
+						height="13"
+						key="staticText-16"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Sin más por el momento.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="478"
+						width="206"
+						height="13"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[A t e n t a m e n t e.]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="2"
+						y="494"
+						width="542"
+						height="80"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="49"
+						y="319"
+						width="54"
+						height="13"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_FIJO_PERIODO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="154"
+						y="110"
+						width="51"
+						height="13"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="255"
+						y="110"
+						width="296"
+						height="13"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.),"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="206"
+						y="110"
+						width="47"
+						height="13"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[pesos M.N.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="104"
+						y="319"
+						width="426"
+						height="13"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(" + $F{MONTO_FIJO_PERIODO_LETRAS} + "00/100 M.N.)"]]></textFieldExpression>
+				</textField>
+				<frame>					<reportElement
+						x="0"
+						y="140"
+						width="552"
+						height="76"
+						key="frame-2"
+						positionType="Float"/>
+					<box></box>
+				</frame>			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="531"
+						y="2"
+						width="20"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-140"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" " + String.valueOf($V{PAGE_NUMBER})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="451"
+						y="2"
+						width="80"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-139"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Página " + String.valueOf($V{PAGE_NUMBER}) + " de"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="249"
+						y="2"
+						width="49"
+						height="12"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[(F0018)]]></text>
+				</staticText>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

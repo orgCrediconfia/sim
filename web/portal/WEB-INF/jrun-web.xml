@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jrun-web-app PUBLIC "-//Macromedia, Inc.//DTD jrun-web 4.0//EN" "http://jrun.macromedia.com/dtds/jrun-web.dtd">
+<jrun-web-app>
+	<session-config>
+    	<persistence-config>
+			<active>false</active>
+		</persistence-config>
+		<replication-config>
+			<active>false</active>
+		</replication-config>
+	</session-config>
+	<context-root>portal</context-root>
+	<compile>true</compile>
+	<reload>true</reload>
+	<uri-character-encoding>UTF-8</uri-character-encoding>
+	<enable-jrun-web-services>false</enable-jrun-web-services>
+	<ejb-ref>
+		<ejb-ref-name>ejb/CatalogoSL</ejb-ref-name>
+		<jndi-name>CatalogoSL</jndi-name>
+	</ejb-ref>	
+	<ejb-ref>
+		<ejb-ref-name>ejb/PortalSL</ejb-ref-name>
+		<jndi-name>PortalSL</jndi-name>
+	</ejb-ref>	
+	<ejb-ref>
+		<ejb-ref-name>ejb/PublicacionSL</ejb-ref-name>
+		<jndi-name>PublicacionSL</jndi-name>
+	</ejb-ref>	
+	<ejb-ref>
+		<ejb-ref-name>ejb/BitacoraSL</ejb-ref-name>
+		<jndi-name>BitacoraSL</jndi-name>
+	</ejb-ref>
+	
+	<!-- Link jdbc/PortalDs to compass JNDI context. -->
+	<resource-ref>
+		<res-ref-name>jdbc/PortalDs</res-ref-name>
+		<jndi-name>PortalDs</jndi-name>
+	</resource-ref>	
+	
+	<load-system-classes-first>true</load-system-classes-first>
+</jrun-web-app>
+

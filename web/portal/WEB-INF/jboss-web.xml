@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss-web
+    PUBLIC "-//JBoss//DTD Web Application 2.3V2//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss-web_3_2.dtd">
+<jboss-web>
+	<security-domain>java:/jaas/PortalSeguridad</security-domain>
+    <resource-ref>
+        <res-ref-name>jdbc/PortalDs</res-ref-name>
+        <jndi-name>java:/PortalDs</jndi-name>
+    </resource-ref>	
+    <ejb-ref>
+        <ejb-ref-name>ejb/PortalSL</ejb-ref-name>
+        <jndi-name>PortalSL</jndi-name>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>ejb/PublicacionSL</ejb-ref-name>
+        <jndi-name>PublicacionSL</jndi-name>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>ejb/BitacoraSL</ejb-ref-name>
+        <jndi-name>BitacoraSL</jndi-name>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>ejb/CatalogoSL</ejb-ref-name>
+        <jndi-name>CatalogoSL</jndi-name>
+    </ejb-ref>
+</jboss-web>

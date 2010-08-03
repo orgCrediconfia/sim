@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimEstadoCuentaResumenGrupoXLS"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="1460"
+		 pageHeight="842"
+		 columnWidth="1400"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="DESC_MOVIMIENTO" class="java.lang.String"/>
+	<field name="IMP_DEBE_TOTAL" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO_TOTAL" class="java.math.BigDecimal"/>
+	<field name="IMP_SALDO_TOTAL" class="java.math.BigDecimal"/>
+	<field name="IMP_DEBE_HOY" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO_HOY" class="java.math.BigDecimal"/>
+	<field name="IMP_SALDO_HOY" class="java.math.BigDecimal"/>
+	<field name="ID_PRESTAMO_GRUPO" class="java.math.BigDecimal"/>
+	<field name="NUM_CICLO" class="java.math.BigDecimal"/>
+	<field name="CVE_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="NOM_PRODUCTO" class="java.lang.String"/>
+
+	<variable name="vNomGrupo" class="java.lang.String" resetType="Group" resetGroup="gNomGrupo" calculation="Nothing">
+		<variableExpression><![CDATA[$F{NOM_GRUPO}]]></variableExpression>
+	</variable>
+	<variable name="vEstadoCuentaResumido" class="java.lang.String" resetType="Group" resetGroup="gEstadoCuentaResumido" calculation="Nothing">
+		<variableExpression><![CDATA[$F{DESC_MOVIMIENTO}]]></variableExpression>
+	</variable>
+	<variable name="vImpPagoTotal" class="java.math.BigDecimal" resetType="Group" resetGroup="gNomGrupo" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_PAGO_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="vImpSaldoTotal" class="java.math.BigDecimal" resetType="Group" resetGroup="gNomGrupo" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_SALDO_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="vImpDebeHoy" class="java.math.BigDecimal" resetType="Group" resetGroup="gNomGrupo" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_DEBE_HOY}]]></variableExpression>
+	</variable>
+	<variable name="vImpSaldoHoy" class="java.math.BigDecimal" resetType="Group" resetGroup="gNomGrupo" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_SALDO_HOY}]]></variableExpression>
+	</variable>
+	<variable name="vImpDebeTotal" class="java.math.BigDecimal" resetType="Group" resetGroup="gNomGrupo" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_DEBE_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="vImpPagoHoy" class="java.math.BigDecimal" resetType="Group" resetGroup="gNomGrupo" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_PAGO_HOY}]]></variableExpression>
+	</variable>
+
+		<group  name="gNomGrupo" >
+			<groupExpression><![CDATA[$F{NOM_GRUPO}]]></groupExpression>
+			<groupHeader>
+			<band height="80"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="200"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GRUPO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="200"
+						height="20"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nombre grupo]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="40"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="200"
+						y="40"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ID_PRESTAMO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="40"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PRODUCTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="600"
+						y="40"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{NUM_CICLO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Clave del préstamo grupal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="200"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Id del préstamo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="400"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-23"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nombre del producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="600"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Número del ciclo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="200"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-25"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe que debe total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="400"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-26"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe pagado total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="600"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-27"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe del saldo total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="800"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-28"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe que debe al día de hoy]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1200"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-29"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe del saldo al día de hoy]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-30"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Descripción del movimiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1000"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-31"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe pagado al día de hoy]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vImpPagoTotal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="200"
+						height="20"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="600"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vImpSaldoTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="800"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vImpDebeHoy}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1200"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vImpSaldoHoy}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="200"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vImpDebeTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1000"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vImpPagoHoy}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="gEstadoCuentaResumido" >
+			<groupExpression><![CDATA[$F{DESC_MOVIMIENTO}]]></groupExpression>
+			<groupHeader>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="600"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="800"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_DEBE_HOY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1200"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_HOY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="200"
+						y="0"
+						width="200"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_DEBE_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="200"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESC_MOVIMIENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1000"
+						y="0"
+						width="200"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO_HOY}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="20"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

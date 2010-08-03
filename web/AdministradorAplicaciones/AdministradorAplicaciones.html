@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Cliente del Administrador de Aplicaciones</title>
+<script type="text/javascript">
+	var javawsInstalled = false;
+	var isIE = false;
+	var isICE = navigator.userAgent.indexOf("ICEBrowser") >= 0;
+
+	if (navigator.mimeTypes && navigator.mimeTypes.length)
+		javawsInstalled = navigator.mimeTypes['application/x-java-jnlp-file'];
+	else
+		isIE = true;
+
+	function insertLink(url, name) {
+		if (javawsInstalled) {
+			document.write("<a href=\"" + url + "\">"  + name + "</a>");
+		}
+		else {
+			if (isICE) {
+				document.write("JBuilder's Web View does not support Web Start (no appropriate Web Start plugin is available). ");
+				document.write("Other popular (external) browsers are supported");
+			}
+			else {
+				document.write("Se detectó que no tiene instalado el jre con Java Web Start<br><br>");
+			}
+			document.writeln("Haga click en la siguiente dirección para instalarlo ");
+			document.write("<a href=\"http://documentos.monex.com.mx:8080/Software/j2re-1_4_2_02-windows-i586-i.exe\">" );
+			document.write("JRE 1.4.2.02");
+			document.write("</a>");
+		}
+	}
+</script>
+
+<script type="text/vbscript">
+	on error resume next
+	If isIE Then
+		If Not(IsObject(CreateObject("JavaWebStart.IsInstalled"))) Then
+			javawsInstalled = false
+		Else
+			javawsInstalled = true
+		End If
+	 End If
+</script>
+
+</head>
+<body>
+<h1>Java Web Start application</h1>
+
+<script type="text/javascript">
+<!--
+insertLink("AdministradorAplicaciones.jnlp","Cliente del administrador de aplicaciones");
+// -->
+</script>
+
+<noscript>
+	<a href="AdministradorAplicaciones.jnlp">Cliente del administrador de aplicaciones</a>
+</noscript>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jonas-web-app PUBLIC "-//ObjectWeb//DTD JOnAS Web App 3.1//EN"
+                               "http://www.objectweb.org/jonas/dtds/jonas-web-app_3_1.dtd">
+<jonas-web-app>
+	<jonas-ejb-ref>
+		<ejb-ref-name>ejb/PortalSL</ejb-ref-name>
+		<jndi-name>PortalSL</jndi-name>
+	</jonas-ejb-ref>
+
+	<jonas-ejb-ref>
+		<ejb-ref-name>ejb/PublicacionSL</ejb-ref-name>
+		<jndi-name>PublicacionSL</jndi-name>
+	</jonas-ejb-ref>
+
+	<jonas-ejb-ref>
+		<ejb-ref-name>ejb/BitacoraSL</ejb-ref-name>
+		<jndi-name>BitacoraSL</jndi-name>
+	</jonas-ejb-ref>
+
+	<jonas-ejb-ref>
+		<ejb-ref-name>ejb/CatalogoSL</ejb-ref-name>
+		<jndi-name>CatalogoSL</jndi-name>
+	</jonas-ejb-ref>
+
+  <context-root>/portal</context-root>
+</jonas-web-app>
+
+

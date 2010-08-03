@@ -1,0 +1,379 @@
+
+/*color de fondo y letra de la hoja de estilo*/
+body {	
+	color: #000;
+	background: #fff;
+	padding: 0em;
+	margin:0;
+	font-size: small;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+pre, code{
+	font-size: x-small;
+	font-family: "Courier New", Courier, monospace;
+}
+
+input, select, textarea{
+	font-size: 8pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+/*color de letra de ligas*/
+a:link,  a:visited {
+	color: #007831;
+}
+
+/*color de letra de ligas cuando se les apunta con el mouse*/
+a:active, a:hover {
+	color: #428BFF;
+}
+
+/*tamaño de letra de titulo de la aplicación*/
+h2{
+	font-size:16pt;
+}
+
+/*color y tamaño de letra de subtitulo de la aplicación*/
+h2 em {
+	font-style: normal;
+	color: #777;
+	font-size: small;	
+}
+
+/*color de fondo y letra del titulo de tabla resultado de busqueda*/
+h3 {
+	color: #fff;
+	background-color: #007831;
+	background-image: url(../img/est/EstiloBase/nw_maj_rond.gif);
+	background-repeat: no-repeat;
+}
+
+/*color de letra del titulo de tabla resultado de busqueda(link)*/
+h3 a:link, h3 a:visited {
+	color: #0041A8;
+	text-decoration: underline;
+}
+
+/*color de fondo del separador*/
+h4 {
+	color: #fff;
+	background-color: #007831;
+	background-image: url(../img/est/EstiloBase/nw_maj_rond.gif);
+	background-repeat: no-repeat;
+}
+
+
+h3, h4 {
+	font-size: 9pt;
+	padding: 5px;
+	margin-right: 2px;
+	margin-left: 2px;
+	margin-bottom: 0;	
+}
+
+table {
+	font-size: 8pt;
+}
+
+/*color de fondo del encabezado de la tabla resultado de busqueda*/
+th {
+	background-color: #AAAAAA;
+	color: #F0F8FF;
+}
+
+form {
+	margin: 0;
+}
+
+ol ol {
+	list-style-type: lower-alpha;
+}
+
+ol ol ol {
+	list-style-type: lower-roman;
+}
+
+p, ul, ol, dl{
+	margin-top: .67em;
+	margin-bottom: .67em;
+}
+
+/* -----------------------------------------------------------*/
+
+/*color de fondo del renglon obscuro de tabla resultado de busqueda*/
+.RenglonObscuro td {
+	background: #D9E3D8 0px;
+	color: #00017b;
+	}
+
+/*color de fondo del renglon claro de tabla resultado de busqueda*/
+.RenglonClaro td {
+	background: #EBF0E9;
+	color: #00017b;
+}
+
+#MenuAplicacion a:visited {
+	color: #0041A8;
+}
+
+.MenuAplicacionGrupo {
+	background: #0041A8;
+	color: #94A7D5;
+}
+
+/* titulo del menu aplicacion*/
+.MenuAplicacionGrupo .MenuAplicacionTitulo {
+	background: #007831 no-repeat;
+	color: #F0F8FF;
+	padding: 4px;
+	}
+
+.MenuAplicacionGrupo .MenuAplicacionItems {
+	}
+
+.MenuAplicacionItems div {
+	background-image: url(../img/est/EstiloBase/strich.gif);
+	background-repeat: no-repeat;
+	background-position: .5em .5em;	
+}
+
+#MenuAplicacion a, #BarraNavegacion a {
+	text-decoration: none;
+}
+
+#MenuAplicacionCelda{
+	width: 10em;	
+}
+
+/*Linea gruesa debajo de pestaña de aplicaciones*/
+#BarraNavegacion {
+	border-top: 1px solid White;
+	background-color: #25227B;
+	font-size: x-small;
+}
+
+/*pestaña de datos de usuario*/
+#Usuario{
+	color: #000148;
+	background-color:white;
+	text-align:left;
+	width: 100%;
+}
+
+#ContenidoPagina {
+	padding-left: 12px;
+	padding-right: 12px;
+	width: 100%;
+	width: auto;
+}
+
+html>body #ContenidoPagina{
+	width : auto;
+}
+
+#ContenidoPagina h2 {
+	margin-top: .3em;
+	margin-bottom: .5em;
+}
+
+#main {
+	border-top: 1px solid #999;	
+}
+
+#BarraNavegacion {
+	padding: 2px 8px;
+}
+
+#logo {
+	width: 10px;
+}
+
+#logo img {
+	cursor: pointer;
+}
+
+#Encabezado{
+	margin : 0px;
+	border: 0px;			
+	width: 100%;
+	border-collapse: collapse;
+  	border-spacing: 0px
+}
+
+#EncabezadoCuerpo {
+	text-align: right;	
+	font-size: xx-small;
+	vertical-align: top;
+}
+
+/*pie de pagina, tipo de letra, color de fondo, de letra */
+#PiePagina{
+	position: absolute;
+	margin-top: 30px;
+	margin-left: 5px;
+	margin-right: 5px;	
+	border-top: 1pt solid #007831;
+	font-size: xx-small;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	width: 98.5%;
+	background-color: #007831#007831#007831;
+}
+
+#PiePagina .Ligas{
+	border-top: 0pt none;
+	margin-top:5px;
+}
+
+/* linea delgada debajo de las pestañas */
+.tabs{
+	margin-top: 0px;
+	border-bottom: 6px solid #007831;
+	font-family: Arial, Helvetica, sans-serif;	
+	font-size: 8pt;
+	font-weight: bold;			
+	border-collapse: collapse;
+	border-spacing: 0px
+}		
+
+/*color de pestaña actual*/
+.tabs th {
+	color: #F0F8FF;
+	border-right: 1px solid White;
+	background-color: #007831;
+	border-left: 1px solid #fff;
+}
+
+/*color de pestañas no seleccionadas*/
+.tabs td {
+	background-color: #6DB08A;
+	border-bottom: 1px solid #fff;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+}
+
+.tabs td, .tabs th{
+	background-image: url(../img/est/EstiloBase/nw_maj_rond.gif);
+	background-repeat: no-repeat;	
+	font-size: 8pt;
+	font-weight: bold;	
+	padding: 3px 9px;	
+}
+
+.tabs a {
+	text-decoration: none;
+}
+
+/*color de letra en pestaña seleccionada*/
+.tabs th, .tabs th a:link, .tabs th a:visited {
+	color: #F0F8FF;
+}
+
+.tabs td, .tabs td a:link, .tabs td a:visited {
+	color: White;
+}
+
+/*color de botones*/
+.SeccionBotones {
+	padding: 5px;
+	margin: .67em 2px;
+	margin-top: 0;
+	background-color: #ddd;
+	background-image: url(../img/est/EstiloBase/sw_med_rond.gif);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	color: #000;
+	font-size: x-small;	
+}
+
+.SeccionBotones a {
+	color: #000;
+	text-decoration: underline;
+}
+
+/*color de fondo en encabezados de captura*/
+.FormularioCaptura td th {
+	text-align: left;
+}
+
+/*color de fondo en pie de cuadro de captura (donde estan los botones)*/
+.FormularioCaptura th {
+	color: white;
+	background-color: #ADADAD;
+	text-align: right;			
+	font-size: 8pt;
+	width: 13em;
+}
+
+/*color de letra en encabezado de cuadro de captura*/
+.FormularioCaptura td {
+	color: black;
+	background-color: white;
+	text-align: left;			
+	font-size: 8pt;
+	width: 100em;
+}
+
+#MenuAplicacion {
+	width : 15em;	
+	white-space : normal;	
+	font-size: xx-small;
+	font-size: x-small;	
+}
+
+/*color de letra en cuerpo de menu (no seleccionado)*/
+#MenuAplicacion a:link {
+	color: #708090;
+}
+
+/*color de fondo en cuerpo de menu*/
+.MenuAplicacionGrupo {
+	font-size: 8pt;
+	background-color: #AAD9BE;
+	border-bottom: 1px solid Gray;
+	border-right: 1px solid Gray;
+	}
+
+.MenuAplicacionGrupo .MenuAplicacionItems {
+	padding: 4px 4px 4px 0;
+}
+
+.MenuAplicacionGrupo .MenuAplicacionTitulo {
+	padding: 4px;
+}
+
+.MenuAplicacionGrupo .MenuAplicacionItems div {
+	padding-bottom: .3em;
+	padding-left: 1em;
+}
+
+.MenuAplicacionGrupo .MenuAplicacionItems div div {
+	margin-top: .3em;
+	padding-bottom: 0;
+}
+
+#MenuAplicacion a:active, #MenuAplicacion a:hover {
+	color: #FF75C1;
+}
+
+.ClonarRegistroImg{
+	border:0;
+	padding:0px;
+	width:34px;
+	height:15px;
+	background-image:url('../img/est/EstiloBase/ClonarRegistro.gif');
+}
+
+#bgVerde {
+	background-color: #00FF00;
+}
+
+#bgAmarillo {
+	background-color: #FFFF00;
+}
+
+#bgRojo {
+	background-color: #FF0000;
+}

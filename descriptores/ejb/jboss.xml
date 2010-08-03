@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
+
+<jboss>
+
+   <enterprise-beans>
+
+     <!--
+       To add beans that you have deployment descriptor info for, add
+       a file to your XDoclet merge directory called jboss-beans.xml that contains
+       the <session></session>, <entity></entity> and <message-driven></message-driven>
+       markup for those beans.
+     -->
+
+      <session>
+         <ejb-name>PublicacionSL</ejb-name>
+         <jndi-name>PublicacionSL</jndi-name>
+         <local-jndi-name>PublicacionSLLocal</local-jndi-name>
+         <resource-ref>
+            <res-ref-name>jdbc/PortalDs</res-ref-name>
+            <jndi-name>java:/PortalDs</jndi-name>
+         </resource-ref>
+
+        <method-attributes>
+        </method-attributes>
+      </session>
+      <session>
+         <ejb-name>PortalSL</ejb-name>
+         <jndi-name>PortalSL</jndi-name>
+         <local-jndi-name>PortalSLLocal</local-jndi-name>
+         <resource-ref>
+            <res-ref-name>jdbc/PortalDs</res-ref-name>
+            <jndi-name>java:/PortalDs</jndi-name>
+         </resource-ref>
+
+        <method-attributes>
+        </method-attributes>
+      </session>
+      <session>
+         <ejb-name>BitacoraSL</ejb-name>
+         <jndi-name>BitacoraSL</jndi-name>
+         <local-jndi-name>BitacoraSLLocal</local-jndi-name>
+         <resource-ref>
+            <res-ref-name>jdbc/PortalDs</res-ref-name>
+            <jndi-name>java:/PortalDs</jndi-name>
+         </resource-ref>
+
+        <method-attributes>
+        </method-attributes>
+      </session>
+      <session>
+         <ejb-name>CatalogoSL</ejb-name>
+         <jndi-name>CatalogoSL</jndi-name>
+         <local-jndi-name>CatalogoSLLocal</local-jndi-name>
+         <resource-ref>
+            <res-ref-name>jdbc/PortalDs</res-ref-name>
+            <jndi-name>java:/PortalDs</jndi-name>
+         </resource-ref>
+
+        <method-attributes>
+        </method-attributes>
+      </session>
+
+   </enterprise-beans>
+
+   <resource-managers>
+   </resource-managers>
+
+  <!--
+    | for container settings, you can merge in jboss-container.xml
+    | this can contain <invoker-proxy-bindings/> and <container-configurations/>
+  -->
+
+</jboss>
