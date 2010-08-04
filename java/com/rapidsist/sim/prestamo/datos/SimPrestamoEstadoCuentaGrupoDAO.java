@@ -93,27 +93,28 @@ public class SimPrestamoEstadoCuentaGrupoDAO extends Conexion2 implements Operac
 		}else if (parametros.getDefCampo("CONSULTA").equals("MOVIMIENTOS")){	
 			
 			sSql =  "SELECT \n"+
-			"CVE_GPO_EMPRESA, \n"+
-			"CVE_EMPRESA, \n"+
-			"ID_PRESTAMO, \n"+
-			"F_APLICACION, \n"+
-			"F_OPERACION FECHA_OPERACION, \n"+
-			"DESC_MOVIMIENTO DESCRIPCION, \n"+
-			"TO_CHAR(NVL(ROUND(IMP_PAGO,2),0),'999,999,999.99') IMPORTE, \n"+
-         	"NUM_PAGO_AMORTIZACION, \n"+
-         	"ID_MOVIMIENTO, \n"+
-         	"TO_CHAR(NVL(ROUND(IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE \n"+
-    		"FROM V_SIM_PRESTAMO_GPO_MOV_EDO_CTA \n"+
-   			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
-         	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
-         	"ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-            "AND F_OPERACION <= (SELECT  F_MEDIO \n"+ 
-			"                    FROM    PFIN_PARAMETRO \n"+ 
-			"                    WHERE   CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
-			"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
-			"AND NUM_PAGO_AMORTIZACION != 0 \n"+
-			"ORDER BY F_APLICACION, FECHA_OPERACION, ID_MOVIMIENTO, IMPORTE DESC \n";
+					"CVE_GPO_EMPRESA, \n"+
+					"CVE_EMPRESA, \n"+
+					"ID_PRESTAMO, \n"+
+					"F_APLICACION, \n"+
+					"NUM_PAGO_AMORTIZACION, \n"+
+					"F_OPERACION FECHA_OPERACION, \n"+
+					"DESC_MOVIMIENTO DESCRIPCION, \n"+
+					"TO_CHAR(SUM(NVL(ROUND(IMP_PAGO,2),0)),'999,999,999.99') IMPORTE, \n"+
+		         	"TO_CHAR(SUM(NVL(ROUND(IMP_CONCEPTO,2),0)),'999,999,999.99') IMP_DESGLOSE, \n"+
+		         	"SUM(NVL(ROUND(IMP_CONCEPTO,2),0)) \n"+
+		    		"FROM V_SIM_PRESTAMO_GPO_MOV_EDO_CTA \n"+
+		   			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
+		         	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
+		         	"ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+		            "AND F_OPERACION <= (SELECT  F_MEDIO \n"+ 
+					"                    FROM    PFIN_PARAMETRO \n"+ 
+					"                    WHERE   CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
+					"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
+					"AND NUM_PAGO_AMORTIZACION != 0 \n"+
+					"GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, ID_PRESTAMO, F_APLICACION, NUM_PAGO_AMORTIZACION, F_OPERACION, DESC_MOVIMIENTO \n"+
+					"ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(IMP_CONCEPTO,2),0)) \n";
 			
 		}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_FECHA")){	
 		 

@@ -236,12 +236,13 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"CVE_EMPRESA, \n"+
 					"ID_PRESTAMO, \n"+
 					"F_APLICACION, \n"+
+					"NUM_PAGO_AMORTIZACION, \n"+
 					"F_OPERACION FECHA_OPERACION, \n"+
 					"DESC_MOVIMIENTO DESCRIPCION, \n"+
 					"TO_CHAR(NVL(ROUND(IMP_PAGO,2),0),'999,999,999.99') IMPORTE, \n"+
-		         	"NUM_PAGO_AMORTIZACION, \n"+
-		         	"ID_MOVIMIENTO, \n"+
-		         	"TO_CHAR(NVL(ROUND(IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE \n"+
+					"TO_CHAR(NVL(ROUND(IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE, \n"+
+					"NVL(ROUND(IMP_CONCEPTO,2),0) \n"+
+		         	
 		    		"FROM V_SIM_PRESTAMO_MOV_EDO_CTA \n"+
 		   			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
 		         	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
@@ -252,7 +253,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
 					"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
 					"AND NUM_PAGO_AMORTIZACION != 0 \n"+
-					"ORDER BY F_APLICACION, FECHA_OPERACION, ID_MOVIMIENTO, IMPORTE DESC \n";
+					"ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, NVL(ROUND(IMP_CONCEPTO,2),0) \n";
 			
 			}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_FECHA")){	
 				
