@@ -97,7 +97,6 @@
 			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/portal/catalogos"					includes="**/*.class"/>
 			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/portal/configuracion"				includes="**/*.class"/>
 			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/publicaciones/datos"				includes="**/*.class"/>
-			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/reportes/datos"				includes="**/*.class"/>
 			<srcfiles dir= "${ejb-descriptores-}" 													includes="**/*" />
 			<srcfiles dir= "${bibliotecas}"															includes="RapidsistComunes.jar " />
 		</uptodate>
@@ -127,7 +126,7 @@
 					com/rapidsist/portal/catalogos/**,
 					com/rapidsist/portal/configuracion/**,
 					com/rapidsist/publicaciones/datos/*,
-			        com/rapidsist/sim/reportes/datos/*,
+			        
 					meta-inf/*"
 		>
 			<metainf dir="${ejb-descriptores-}"/>
