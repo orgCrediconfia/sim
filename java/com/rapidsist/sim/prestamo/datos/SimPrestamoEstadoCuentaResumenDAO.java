@@ -84,11 +84,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
    "           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
    "           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+ 
-   "           AND T.FECHA_AMORTIZACION <= (SELECT  F_MEDIO \n"+  
-   "                                       FROM    PFIN_PARAMETRO \n"+  
-   "                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-   "                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-   "                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+   
    "           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
    "           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
    "           AND C.CVE_CONCEPTO    = 'IVAINT' \n"+
@@ -117,11 +113,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
    "           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
    "           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
-   "           AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+ 
-   "                                       FROM    PFIN_PARAMETRO \n"+  
-   "                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-   "                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-   "                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+  
    "           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
    "           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
    "           AND C.CVE_CONCEPTO    = 'IVAINTEX' \n"+
@@ -179,7 +171,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
    "           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
    "           AND C.CVE_CONCEPTO    = 'INTMORA' \n"+
-   "           AND T.IMP_INTERES_EXTRA  > 0 \n"+
+   "           AND T.IMP_INTERES_MORA  > 0 \n"+
 
    "       UNION ALL \n"+ 
 
@@ -191,15 +183,11 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
    "           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
    "           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
-   "           AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+ 
-   "                                       FROM    PFIN_PARAMETRO \n"+  
-   "                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-   "                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-   "                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+   
    "           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
    "           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
    "           AND C.CVE_CONCEPTO    = 'IVAINTMO' \n"+
-   "           AND T.IMP_IVA_INTERES_EXTRA  > 0 \n"+
+   "           AND T.IMP_IVA_INTERES_MORA  > 0 \n"+
 
    "   UNION ALL \n"+ 
 
@@ -292,11 +280,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
 			"           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
 			"           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+ 
-			"           AND T.FECHA_AMORTIZACION <= (SELECT  F_MEDIO \n"+  
-			"                                       FROM    PFIN_PARAMETRO \n"+  
-			"                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-			"                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-			"                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+			
 			"           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 			"           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
 			"           AND C.CVE_CONCEPTO    = 'IVAINT' \n"+
@@ -325,11 +309,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
 			"           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
 			"           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
-			"           AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+ 
-			"                                       FROM    PFIN_PARAMETRO \n"+  
-			"                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-			"                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-			"                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+			
 			"           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 			"           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
 			"           AND C.CVE_CONCEPTO    = 'IVAINTEX' \n"+
@@ -387,7 +367,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 			"           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
 			"           AND C.CVE_CONCEPTO    = 'INTMORA' \n"+
-			"           AND T.IMP_INTERES_EXTRA  > 0 \n"+
+			"           AND T.IMP_INTERES_MORA  > 0 \n"+
 			
 			"       UNION ALL \n"+ 
 			
@@ -399,15 +379,11 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
 			"           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
 			"           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
-			"           AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+ 
-			"                                       FROM    PFIN_PARAMETRO \n"+  
-			"                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-			"                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-			"                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+			
 			"           AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 			"           AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
 			"           AND C.CVE_CONCEPTO    = 'IVAINTMO' \n"+
-			"           AND T.IMP_IVA_INTERES_EXTRA  > 0 \n"+
+			"           AND T.IMP_IVA_INTERES_MORA  > 0 \n"+
 			
 			"   UNION ALL \n"+ 
 			
