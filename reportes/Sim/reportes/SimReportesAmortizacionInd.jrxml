@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="1290"
+		 pageWidth="1340"
 		 pageHeight="842"
-		 columnWidth="1230"
+		 columnWidth="1280"
 		 columnSpacing="0"
 		 leftMargin="30"
 		 rightMargin="30"
@@ -170,7 +170,7 @@
 					<reportElement
 						x="719"
 						y="19"
-						width="141"
+						width="191"
 						height="15"
 						key="staticText-7"/>
 					<box></box>
@@ -181,7 +181,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="860"
+						x="910"
 						y="19"
 						width="120"
 						height="15"
@@ -194,7 +194,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="980"
+						x="1030"
 						y="19"
 						width="120"
 						height="15"
@@ -207,7 +207,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1100"
+						x="1150"
 						y="19"
 						width="130"
 						height="15"
@@ -235,7 +235,7 @@
 					<reportElement
 						x="0"
 						y="2"
-						width="1230"
+						width="1280"
 						height="15"
 						key="staticText-12"/>
 					<box></box>
@@ -248,7 +248,7 @@
 					<reportElement
 						x="0"
 						y="1"
-						width="1230"
+						width="1280"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -257,7 +257,7 @@
 					<reportElement
 						x="0"
 						y="18"
-						width="1230"
+						width="1280"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -348,7 +348,7 @@
 					<reportElement
 						x="719"
 						y="0"
-						width="141"
+						width="191"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -359,7 +359,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="860"
+						x="910"
 						y="0"
 						width="120"
 						height="15"
@@ -372,7 +372,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="980"
+						x="1030"
 						y="0"
 						width="120"
 						height="15"
@@ -385,7 +385,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1100"
+						x="1150"
 						y="0"
 						width="130"
 						height="15"
