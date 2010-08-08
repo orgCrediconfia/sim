@@ -31,68 +31,6 @@ public class SimGenerarTablaAmortizacionDAO extends Conexion2 implements Operaci
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
-		int iNumPagos = 0;
-		
-		sSql =  "SELECT COUNT(1) NUM_PAGOS \n"+
-		        "FROM PFIN_MOVIMIENTO \n"+
-		       "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
-		       "      CVE_EMPRESA     = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' AND \n"+ 
-		       "      ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' AND \n"+
-		       "      CVE_OPERACION   = 'CRPAGOPRES'  AND \n"+
-		       "      SIT_MOVIMIENTO  <> 'CA' \n";
-		ejecutaSql();
-		if (rs.next()){
-			iNumPagos = rs.getInt("NUM_PAGOS");
-			System.out.println("iNumPagos"+iNumPagos);
-		}
-		
-		if (iNumPagos == 0){
-		
-			sSql =  "SELECT \n"+
-				   "CVE_GPO_EMPRESA, \n" +
-				   "CVE_EMPRESA, \n" +
-				   "ID_PRESTAMO \n"+
-				" FROM SIM_TABLA_AMORT_ACCESORIO \n"+
-				" WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
-			
-			ejecutaSql();
-			if (rs.next()){
-				sSql = "DELETE FROM SIM_TABLA_AMORT_ACCESORIO " +
-					" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-					" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-				
-				//VERIFICA SI DIO DE ALTA EL REGISTRO
-				if (ejecutaUpdate() == 0){
-					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-				}
-			}
-			
-			sSql =  "SELECT \n"+
-				   "CVE_GPO_EMPRESA, \n" +
-				   "CVE_EMPRESA, \n" +
-				   "ID_PRESTAMO \n"+
-				" FROM SIM_TABLA_AMORTIZACION \n"+
-				" WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
-			
-			ejecutaSql();
-			if (rs.next()){	
-				sSql = "DELETE FROM SIM_TABLA_AMORTIZACION " +
-					" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-					" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-				
-				//VERIFICA SI DIO DE ALTA EL REGISTRO
-				if (ejecutaUpdate() == 0){
-					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-				}
-			}
-		
-		
 			String sTxrespuesta = "";
 		
 			String sCveGpoEmpresa = (String)registro.getDefCampo("CVE_GPO_EMPRESA");
@@ -100,27 +38,20 @@ public class SimGenerarTablaAmortizacionDAO extends Conexion2 implements Operaci
 			String sIdEmpresa = (String)registro.getDefCampo("ID_PRESTAMO");
 			
 			CallableStatement sto = conn.prepareCall("begin PKG_CREDITO.pGeneraTablaAmortizacion(?,?,?,?); end;");
-			
 			sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
-		
 			sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
-			
 			sto.setString(3, (String)registro.getDefCampo("ID_PRESTAMO"));
-			
 			sto.registerOutParameter(4, java.sql.Types.VARCHAR);
-			
 			//EJECUTA EL PROCEDIMIENTO ALMACENADO
 			sto.execute();
-			
 			sTxrespuesta  = sto.getString(4);
-			
 			sto.close();
 			
 			// SE AGREGA LA RESPUESTA
 			System.out.println("sTxrespuesta"+sTxrespuesta);
 			registro.addDefCampo("RESPUESTA" ,sTxrespuesta);
 			resultadoCatalogo.Resultado = registro;
-		}
+		
 		return resultadoCatalogo;
 	}
 }
