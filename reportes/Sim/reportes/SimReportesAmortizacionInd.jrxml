@@ -61,8 +61,8 @@
 						width="740"
 						height="40"
 						key="subreport-1"/>
-					<subreportParameter  name="IdPrestamo">
-						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					<subreportParameter  name="CvePrestamo">
+						<subreportParameterExpression><![CDATA[$F{CVE_PRESTAMO}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>

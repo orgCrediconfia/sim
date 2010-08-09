@@ -23,7 +23,7 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="CvePrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT
 CVE_GPO_EMPRESA,
 CVE_EMPRESA,
@@ -40,7 +40,7 @@ NOM_SUCURSAL
 FROM V_CREDITO
 WHERE CVE_GPO_EMPRESA = 'SIM'
 AND CVE_EMPRESA = 'CREDICONFIA'
-AND ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
+AND ID_PRESTAMO = $P{CvePrestamo}]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
