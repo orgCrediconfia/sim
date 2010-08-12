@@ -24,7 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="IdPrestamoAcc" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[   SELECT 
+	<queryString><![CDATA[SELECT 
                  CC.CVE_GPO_EMPRESA, 
                  CC.CVE_EMPRESA, 
                  CC.ID_PRESTAMO,
@@ -38,8 +38,8 @@
                   SIM_CAT_FORMA_APLICACION FA, 
                   SIM_CAT_UNIDAD U, 
                   SIM_CAT_PERIODICIDAD P 
-             WHERE CC.CVE_GPO_EMPRESA = 'SIM' 
-             AND CC.CVE_EMPRESA = 'CREDICONFIA' 
+             WHERE CC.CVE_GPO_EMPRESA = 'SIM'
+             AND CC.CVE_EMPRESA = 'CREDICONFIA'
              AND CC.ID_PRESTAMO = $P{IdPrestamoAcc}
              AND A.CVE_GPO_EMPRESA = CC.CVE_GPO_EMPRESA 
              AND A.CVE_EMPRESA = CC.CVE_EMPRESA 
@@ -54,8 +54,7 @@
              AND P.CVE_EMPRESA (+)= CC.CVE_EMPRESA 
              AND P.ID_PERIODICIDAD (+)= CC.ID_PERIODICIDAD 
              AND CC.VALOR IS NOT NULL 
-             ORDER BY CC.ID_CARGO_COMISION 
-]]></queryString>
+             ORDER BY CC.ID_CARGO_COMISION]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
