@@ -38,7 +38,9 @@ public class SimReporteTablaAmortizacionGrupoREP implements ReporteControlIN {
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
 
-        String sClaveGrupo = request.getParameter("CvePrestamoGrupo");
+		String sCveGpoEmpresa = request.getParameter("CveGpoEmpresa");
+		String sCveEmpresa = request.getParameter("CveEmpresa");
+		String sClaveGrupo = request.getParameter("CvePrestamoGrupo");
 		
 		System.out.println("sClaveGrupo:"+sClaveGrupo);
 		
@@ -85,8 +87,8 @@ public class SimReporteTablaAmortizacionGrupoREP implements ReporteControlIN {
 							 "SIM_PRESTAMO_GRUPO PG,\n"+
 							 "SIM_GRUPO G,\n"+
 							 "SIM_PRODUCTO P\n"+
-							"WHERE GT.CVE_GPO_EMPRESA = 'SIM'\n"+
-							"AND GT.CVE_EMPRESA = 'CREDICONFIA'\n"+
+							 "WHERE GT.CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND GT.CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
 							"AND T.CVE_GPO_EMPRESA = GT.CVE_GPO_EMPRESA\n"+
 							"AND T.CVE_EMPRESA = GT.CVE_EMPRESA\n"+
 							"AND T.ID_PRESTAMO = GT.ID_PRESTAMO\n"+

@@ -38,9 +38,9 @@ public class SimReportesAmortizacionIndREP implements ReporteControlIN {
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
 
+		String sCveGpoEmpresa = request.getParameter("CveGpoEmpresa");
+		String sCveEmpresa = request.getParameter("CveEmpresa");
 		String sClave = request.getParameter("CvePrestamo");
-		
-		System.out.println("sClave:"+sClave);
 		
 		String sSql = 	"SELECT \n"+   
 					        "CVE_GPO_EMPRESA,\n"+ 
@@ -58,11 +58,10 @@ public class SimReportesAmortizacionIndREP implements ReporteControlIN {
 					        "PAGO_TOTAL, \n"+
 					        "IMP_SALDO_FINAL \n"+
 					        "FROM  \n"+
-					        "V_TABLA_AMORT_INDIVIDUAL\n";
-		
-		                    if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								
-								sSql = sSql + "WHERE CVE_PRESTAMO = '" + sClave + "' \n";
-							}
+					        "V_TABLA_AMORT_INDIVIDUAL\n"+
+					        "WHERE CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
+							"AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "' \n";
 		                    
 							 sSql = sSql +
 						

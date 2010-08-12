@@ -38,6 +38,8 @@ public class SimReporteTabAmorAccREP implements ReporteControlIN {
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
 
+		String sCveGpoEmpresa = request.getParameter("CveGpoEmpresa");
+		String sCveEmpresa = request.getParameter("CveEmpresa");
 		String sClave = request.getParameter("CvePrestamo");
 		
 		System.out.println("sClave:"+sClave);
@@ -66,8 +68,8 @@ public class SimReporteTabAmorAccREP implements ReporteControlIN {
         "SIM_PRESTAMO P,\n"+
         "RS_GRAL_PERSONA C,\n"+
         "SIM_PRODUCTO O\n"+
-        "WHERE T.CVE_GPO_EMPRESA = 'SIM'\n"+
-        "AND T.CVE_EMPRESA = 'CREDICONFIA'\n"+
+        "WHERE T.CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+		"AND T.CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
         "AND A.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA\n"+
         "AND A.CVE_EMPRESA = T.CVE_EMPRESA\n"+
         "AND A.ID_PRESTAMO = T.ID_PRESTAMO\n"+

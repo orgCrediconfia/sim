@@ -37,7 +37,7 @@ public class SimReportesAmortizacionREP implements ReporteControlIN {
 	 */
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
-
+		
 		String sClave = request.getParameter("CvePrestamoGrupo");
 		
 		System.out.println("sClave:"+sClave);
@@ -59,6 +59,7 @@ public class SimReportesAmortizacionREP implements ReporteControlIN {
 		                    "IMP_SALDO_FINAL\n"+ 
 		                    "FROM \n"+ 
 		                    "V_TABLA_AMORTIZACION_GRUPAL\n";
+		                   
 		
 		                    if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								
 								sSql = sSql + "WHERE CVE_PRESTAMO_GRUPO = '" + sClave + "' \n";
