@@ -229,8 +229,6 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "   GROUP BY A.ID_ORDEN, INITCAP('TOTAL DE '||C.DESC_LARGA) \n"+ 
    "   ORDER BY ID_ORDEN \n";
 	
-		System.out.println("resumen de individual***************"+sSql);
-		
 	}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_TOTAL")){
 		
 		sSql =	 "SELECT \n"+	 
@@ -425,9 +423,6 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"   GROUP BY A.ID_ORDEN, INITCAP('TOTAL DE '||C.DESC_LARGA) \n"+ 
 			"   ORDER BY ID_ORDEN) \n";
 			
-					
-		System.out.println("saldo total del resumen de individual"+sSql);
-		
 	}
 		 	
 		ejecutaSql();

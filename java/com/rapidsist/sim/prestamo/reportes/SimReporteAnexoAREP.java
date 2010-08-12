@@ -35,12 +35,12 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"C.NUM_CICLO, \n"+
 						"TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD \"de\" MONTH \"de\" YYYY') FECHA_ENTREGA, \n"+
 						"C.NOMBRE NOM_COMPLETO, \n"+ 
-						"C.MONTO_AUTORIZADO, \n"+
+						"TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_AUTORIZADO, \n"+ 
 						"CANTIDADES_LETRAS(C.MONTO_AUTORIZADO) MONTO_AUTORIZADO_LETRAS, \n"+ 
 						"C.VALOR_TASA, \n"+
 						"C.PERIODICIDAD_PRODUCTO, \n"+ 
 						"C.CARGO_INICIAL CONSULTA_BURO, \n"+ 
-						"NVL(CA.CARGO_INICIAL,CA.PORCENTAJE_MONTO/100*C.MONTO_AUTORIZADO) COMISION_APERTURA, \n"+
+						"NVL(NVL(CA.CARGO_INICIAL,CA.PORCENTAJE_MONTO/100*C.MONTO_AUTORIZADO),0) COMISION_APERTURA, \n"+
 						"TO_CHAR(TO_DATE(C.FECHA_FIN),'DD \"de\" MONTH \"de\" YYYY') FECHA_FIN, \n"+
 						"C.PLAZO, \n"+
 						"C.ID_SUCURSAL, \n"+ 
@@ -48,11 +48,11 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"C.MONTO_FIJO_PERIODO, \n"+
 						"CANTIDADES_LETRAS(C.MONTO_FIJO_PERIODO) MONTO_FIJO_PERIODO_LETRAS, \n"+
 						"PA.ID_PERSONA ID_AVAL, \n"+
-						"PPA.NOM_COMPLETO NOM_AVAL, \n"+
+						"DECODE(PPA.NOM_COMPLETO,'',' ',PPA.NOM_COMPLETO) NOM_AVAL, \n"+
 						"PD.ID_PERSONA ID_DEPOSITARIO, \n"+
-						"PPD.NOM_COMPLETO NOM_DEPOSITARIO, \n"+
+						"DECODE(PPD.NOM_COMPLETO,'',' ',PPD.NOM_COMPLETO) NOM_DEPOSITARIO, \n"+ 
 						"PG.ID_PERSONA ID_GARANTE, \n"+
-						"PPG.NOM_COMPLETO NOM_GARANTE, \n"+
+						"DECODE(PPG.NOM_COMPLETO,'',' ',PPG.NOM_COMPLETO) NOM_GARANTE, \n"+ 
 						"G.ID_GARANTIA, \n"+
 						"CG.DESCRIPCION, \n"+
 						"CG.NUMERO_FACTURA_ESCRITURA, \n"+ 
@@ -103,6 +103,8 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"AND CG.CVE_GPO_EMPRESA (+)= G.CVE_GPO_EMPRESA \n"+ 
 						"AND CG.CVE_EMPRESA (+)= G.CVE_EMPRESA \n"+
 						"AND CG.ID_GARANTIA (+)= G.ID_GARANTIA  \n";
+		
+		System.out.println("sSql"+sSql);
 		
 		parametros.put("Sql", sSql);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));

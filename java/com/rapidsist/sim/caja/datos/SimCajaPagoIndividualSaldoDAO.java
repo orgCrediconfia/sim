@@ -47,8 +47,10 @@ public class SimCajaPagoIndividualSaldoDAO extends Conexion2 implements Operacio
 		sImporte = (String)registro.getDefCampo("IMPORTE");
 		fImporte = (Float.parseFloat(sImporte.replace(",","")));
 		
-		sSaldoFecha = (String)registro.getDefCampo("SALDO_FECHA");
-		fSaldoFecha = (Float.parseFloat(sSaldoFecha.replace(",","")));
+		if (registro.getDefCampo("SALDO_FECHA") != null){
+			sSaldoFecha = (String)registro.getDefCampo("SALDO_FECHA");
+			fSaldoFecha = (Float.parseFloat(sSaldoFecha.replace(",","")));
+		}
 		
 		sSaldoTotal = (String)registro.getDefCampo("SALDO_TOTAL");
 		fSaldoTotal = (Float.parseFloat(sSaldoTotal.replace(",",""))); 

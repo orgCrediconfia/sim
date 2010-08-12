@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="566"
 		 pageHeight="792"
-		 columnWidth="506"
+		 columnWidth="556"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="2"
+		 bottomMargin="2"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -24,9 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[SELECT ID_PRESTAMO
-FROM SIM_PRESTAMO
-WHERE ID_PRESTAMO = 73]]></queryString>
+	<queryString><![CDATA[select id_prestamo from sim_prestamo where id_prestamo = $P{IdPrestamo}]]></queryString>
 
 	<field name="ID_PRESTAMO" class="java.lang.String"/>
 
@@ -40,26 +38,6 @@ WHERE ID_PRESTAMO = 73]]></queryString>
 		</title>
 		<pageHeader>
 			<band height="0"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="224"
-						y="-16"
-						width="0"
-						height="0"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="element-85"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
-					</textElement>
-				<text><![CDATA[Static text]]></text>
-				</staticText>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -67,13 +45,13 @@ WHERE ID_PRESTAMO = 73]]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="715"  isSplitAllowed="true" >
+			<band height="727"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="0"
+						x="24"
 						y="0"
 						width="233"
-						height="713"
+						height="727"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -102,20 +80,20 @@ SEXTA. COMISIÓN. El DEUDOR paga a DINSA una Comisión de Apertura, equivalente 
 
 SÉPTIMA. PAGOS ANTICIPADOS. En caso de que el DEUDOR realice pago alguno de principal del Crédito, con anterioridad a la fecha en que el mismo deba ser pagado de conformidad con este contrato y la Tabla de Amortización establecida en el Anexo A, el DEUDOR deberá notificarlo con 5 días de anticipación a DINSA y estará obligado a pagar la comisión por pago anticipado establecido en el Anexo A del presente instrumento, bajo el rubro Comisión por Pago Anticipado.
 
-OCTAVA. PENA CONVENCIONAL. Las partes convienen que para el caso de vencimiento anticipado del contrato, derivada del incumplimiento de cualquiera de las obligaciones y/o cualesquiera de las causas de vencimiento anticipado señaladas en este contrato a cargo del DEUDOR y/o del OTORGANTE, el DEUDOR se obliga a pagar a DINSA como pena convencional a título de ]]></text>
+OCTAVA. PENA CONVENCIONAL. Las partes convienen que para el caso de vencimiento anticipado del contrato, derivada del incumplimiento de cualquiera de las obligaciones y/o cualesquiera de las causas de vencimiento anticipado señaladas en este contrato a cargo del DEUDOR y/o del OTORGANTE, el DEUDOR se obliga a pagar a DINSA como pena convencional a]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="270"
+						x="294"
 						y="0"
 						width="236"
-						height="713"
+						height="727"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[daños y perjuicios que le ocasione, la cantidad que para tal efecto se señala en el Anexo A de este contrato, bajo el rubro Pena Convencional, además de cualesquiera otras cantidades que en su momento sean adeudadas a DINSA.
+				<text><![CDATA[título de daños y perjuicios que le ocasione, la cantidad que para tal efecto se señala en el Anexo A de este contrato, bajo el rubro Pena Convencional, además de cualesquiera otras cantidades que en su momento sean adeudadas a DINSA.
 
 NOVENA. OBLIGADO SOLIDARIO. La(s) persona(s) que con tal carácter suscribe(n) este contrato, se constituye(n) en OBLIGADO(S) SOLIDARIO(S) del DEUDOR y comparece(n) a la firma de este contrato, suscribiendo el Pagaré que se emite, para constituirse en OBLIGADO(S) SOLIDARIO(S) del DEUDOR, frente a DINSA, en términos del Artículo 1989 y demás aplicables del Código Civil Federal, respondiendo absoluta e incondicionalmente del pago total y puntual, de las obligaciones de pago del DEUDOR que le derivan o le puedan derivar conforme a este contrato. Para estos efectos, se considera que las obligaciones derivadas de este contrato, son indivisibles, por lo que el (los) OBLIGADO(S) SOLIDARIO(S) responde(n) por todas las obligaciones de pago del DEUDOR que le derivan o le puedan derivar conforme a este contrato. El (los) OBLIGADO(S) SOLIDARIO(S) se obliga(n) a cumplir con todos y cada uno de los términos aquí contenidos y en el Anexo A, así como a suscribir el Pagaré en su carácter de aval(es).
 

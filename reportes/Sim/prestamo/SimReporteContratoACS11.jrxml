@@ -6,10 +6,10 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="566"
-		 pageHeight="792"
-		 columnWidth="506"
-		 columnSpacing="28"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
 		 leftMargin="30"
 		 rightMargin="30"
 		 topMargin="20"
@@ -17,104 +17,47 @@
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
-	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.scriptlethandling" value="2" />
 	<property name="ireport.encoding" value="UTF-8" />
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="Subreporte1" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[SELECT ID_PRESTAMO
-FROM SIM_PRESTAMO
-WHERE ID_PRESTAMO = '1422']]></queryString>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</background>
 		<title>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="50"  isSplitAllowed="true" >
 			</band>
 		</title>
 		<pageHeader>
-			<band height="0"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="224"
-						y="-16"
-						width="0"
-						height="0"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="element-85"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
-					</textElement>
-				<text><![CDATA[Static text]]></text>
-				</staticText>
+			<band height="50"  isSplitAllowed="true" >
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="30"  isSplitAllowed="true" >
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="665"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						x="0"
-						y="8"
-						width="233"
-						height="597"
-						key="staticText-3"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[globales del Crédito, los cuales serán cobrados por periodos vencidos más (iii) cualquier otro accesorio que sea exigible conforme a este contrato y su Anexo A correspondiente, así como cualquier otro pago derivado de dichos documentos y de aquellos pagos incluidos en los estados de cuenta que emita DINSA. 
-
-Para efectos de este contrato, se entiende como día inhábil, los sábados, domingos y días en que las Instituciones de Crédito del país se encuentren obligadas a cerrar sus puertas al público.
-DINSA se reserva el derecho de cambiar el lugar de pago para lo cual notificará por escrito, vía fax o cualquier medio electrónico al DEUDOR sobre dicho cambio.
-
-Los pagos efectuados por el DEUDOR serán aplicados en el orden siguiente: impuestos, comisiones, gastos, Intereses Moratorios, Intereses Ordinarios, Pagos Parciales vencidos y Pagos Parciales por vencerse.
-
-En caso de que el DEUDOR deba hacer retenciones sobre el pago del Crédito, por cualquier concepto, se obliga a pagar a DINSA, las cantidades adicionales que se requieran a efecto de que DINSA, reciba la cantidad íntegra que debiera recibir si no se hubiera realizado la retención.
-
-CUARTA. INTERESES. Los Intereses Ordinarios empezarán a devengarse a partir de la fecha de firma del presente contrato y hasta la fecha de su vencimiento, y serán calculados con la periodicidad señalada en el Anexo A. La tasa de interés aplicable para calcular los intereses ordinarios, será la tasa fija señalada en el Anexo A bajo el rubro Tasa de Interés Aplicable. Los Intereses Ordinarios se pagarán con la periodicidad señalada en el Anexo A y se calcularán sobre los saldos globales pendiente de pagarse.
-
-Los intereses se calcularán sobre la base de un año de 360 días, de meses de 30 días, quincenas de 15 días, catorcenas de 14 días o semanas de 7 días, multiplicando el resultado así obtenido por el número de días efectivamente concluidos y su resultado por el importe de las cantidades adeudadas a esa fecha.
-
-Si el DEUDOR incurre en mora de cualquier obligación de pago establecida en este contrato y el Anexo A, el DEUDOR pagará a DINSA Intereses Moratorios, calculados a razón de multiplicar la Tasa de Interés Aplicable vigente al momento del incumplimiento por el número de veces que se establece en el Anexo A bajo el rubro Factor, desde la fecha en que se dé el incumplimiento hasta la fecha de su pago total.
-
-Los Intereses Moratorios serán calculados sobre la base de un año de 360 días y de meses de 30 días.
-
-QUINTA. PAGARÉ. En la fecha de disposición del Crédito, el DEUDOR se obliga a suscribir un pagaré a la orden de DINSA, por la totalidad del Crédito el cual contendrá las características del artículo 170 y demás aplicables de la LGTOC, y no constituirá novación, modificación, extinción o pago de las obligaciones que el DEUDOR asume ante DINSA.
-
-El DEUDOR faculta a DINSA para ceder, descontar, endosar y negociar el Pagaré y este contrato, aún antes de su vencimiento, sirviendo la presente como autorización expresa requerida por el artículo 299 de la LGTOC, en cuyo caso subsistirán las garantías concedidas y sin que ello implique responsabilidad alguna para DINSA.
-
-SEXTA. COMISIÓN. El DEUDOR paga a DINSA una Comisión de Apertura, equivalente al monto señalado en el Anexo A más el IVA, la cual será cubierta en la fecha señalada en el Anexo A respectivo.
-
-SÉPTIMA. PAGOS ANTICIPADOS. En caso de que el DEUDOR realice pago alguno de principal del Crédito, con anterioridad a la fecha en que el mismo deba ser pagado de conformidad con este contrato y la Tabla de Amortización establecida en el Anexo A, el DEUDOR deberá notificarlo con 5 días de anticipación a DINSA y estará obligado a pagar la comisión por pago anticipado establecido en el Anexo A del presente instrumento, bajo el rubro Comisión por Pago Anticipado.
-]]></text>
-				</staticText>
+			<band height="100"  isSplitAllowed="true" >
 			</band>
 		</detail>
 		<columnFooter>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="30"  isSplitAllowed="true" >
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="50"  isSplitAllowed="true" >
 			</band>
 		</pageFooter>
+		<lastPageFooter>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
 		<summary>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="50"  isSplitAllowed="true" >
 			</band>
 		</summary>
 </jasperReport>

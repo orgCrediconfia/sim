@@ -39,57 +39,31 @@ public class SimCajaPagoIndividualREP implements ReporteControlIN {
 						"T.CVE_EMPRESA, \n"+
 						"T.ID_TRANSACCION, \n"+
 						"T.ID_CLIENTE, \n"+
-						"T.NUM_CICLO, \n"+ 
+						"T.NUM_CICLO, \n"+
 						"T.ID_PRESTAMO, \n"+
 						"CANTIDADES_LETRAS(" + request.getParameter("Importe")+") PAGO_LETRAS, \n"+
-						"B.NOM_COMPLETO, \n"+
-						"NVL(P.FECHA_ENTREGA,P.FECHA_REAL) FECHA, \n"+
+						"C.NOMBRE NOM_COMPLETO, \n"+
+						"TO_CHAR(TO_DATE(NVL(C.FECHA_ENTREGA,C.FECHA_REAL)),'DD \"de\" MONTH \"de\" YYYY') FECHA, \n"+
 						"T.ID_SUCURSAL, \n"+
-						"A.NOM_SUCURSAL, \n"+
+						"C.NOM_SUCURSAL, \n"+
 						"T.ID_CAJA, \n"+
-						"TA.NUM_PAGO_AMORTIZACION, \n"+
-						"D.CALLE||' '||D.NUMERO_INT||' '||'COL.'||' '||D.NOM_ASENTAMIENTO||' '||'C.P.'||' '||D.CODIGO_POSTAL||','||' '||D.NOM_DELEGACION||','||' '||D.NOM_ESTADO DOMICILIO \n"+
+						"C.DIRECCION_SUCURSAL DOMICILIO \n"+
 						"FROM SIM_CAJA_TRANSACCION T, \n"+
-						"SIM_PRESTAMO P, \n"+
 						"SIM_SUCURSAL_CAJA S, \n"+
-						"RS_GRAL_PERSONA B, \n"+
-						"SIM_CAT_SUCURSAL A, \n"+
-						"RS_GRAL_DOMICILIO D, \n"+
-						"SIM_TABLA_AMORTIZACION TA \n"+
+						"V_CREDITO C \n"+
 						"WHERE T.CVE_GPO_EMPRESA = 'SIM' \n"+
 						"AND T.CVE_EMPRESA = 'CREDICONFIA' \n"+
 						"AND T.ID_TRANSACCION = '" + request.getParameter("IdTransaccion")+"' \n"+
-						"AND S.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+
+						"AND S.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+ 
 						"AND S.CVE_EMPRESA = T.CVE_EMPRESA \n"+
 						"AND S.ID_SUCURSAL = T.ID_SUCURSAL \n"+
 						"AND S.ID_SUCURSAL||'-'||S.ID_CAJA = '" + request.getParameter("IdCaja")+"' \n"+
-						"AND P.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
-						"AND P.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
-						"AND P.ID_PRESTAMO (+)= T.ID_PRESTAMO \n"+
-						"AND B.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
-						"AND B.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
-						"AND B.ID_PERSONA (+)= T.ID_CLIENTE \n"+
-						"AND A.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+
-						"AND A.CVE_EMPRESA = T.CVE_EMPRESA \n"+
-						"AND A.ID_SUCURSAL = T.ID_SUCURSAL \n"+
-						"AND D.CVE_GPO_EMPRESA (+)= A.CVE_GPO_EMPRESA \n"+
-						"AND D.CVE_EMPRESA (+)= A.CVE_EMPRESA \n"+
-						"AND D.ID_DOMICILIO (+)= A.ID_DIRECCION \n"+
-						"AND TA.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-						"AND TA.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-						"AND TA.ID_PRESTAMO = P.ID_PRESTAMO \n"+
-						"AND TA.NUM_PAGO_AMORTIZACION = (SELECT \n"+
-														"MAX(NUM_PAGO_AMORTIZACION) \n"+
-														"FROM  \n"+
-														"SIM_TABLA_AMORTIZACION \n"+
-														"WHERE ID_PRESTAMO = '" + request.getParameter("IdPrestamo")+"' \n"+
-														"AND FECHA_AMORTIZACION <= (SELECT  F_MEDIO \n"+ 
-																					" FROM    PFIN_PARAMETRO \n"+
-																			 		" WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-																			 		" AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-																			 		" AND CVE_MEDIO       = 'SYSTEM')) \n";
+						"AND C.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
+						"AND C.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
+						"AND C.ID_PRESTAMO (+)= T.ID_PRESTAMO \n"+
+						"AND C.APLICA_A = 'INDIVIDUAL' \n";
 		
-		
+		System.out.println("recibo individual"+sSql);
 		
 		String sReimpresion = request.getParameter("Reimpresion");
 		

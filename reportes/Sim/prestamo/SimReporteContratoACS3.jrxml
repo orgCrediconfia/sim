@@ -12,8 +12,8 @@
 		 columnSpacing="28"
 		 leftMargin="30"
 		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 topMargin="2"
+		 bottomMargin="2"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -23,8 +23,10 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select id_prestamo from sim_prestamo where id_prestamo = $P{IdPrestamo}]]></queryString>
 
-	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="ID_PRESTAMO" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -36,26 +38,6 @@
 		</title>
 		<pageHeader>
 			<band height="0"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="224"
-						y="-16"
-						width="0"
-						height="0"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="element-85"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
-					</textElement>
-				<text><![CDATA[Static text]]></text>
-				</staticText>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -63,16 +45,16 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="710"  isSplitAllowed="true" >
+			<band height="719"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
 						y="0"
 						width="233"
-						height="708"
+						height="719"
 						key="staticText-3"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[OTORGANTE de toda clase de perturbaciones de hecho o de derecho, que en alguna forma menoscabe o altere la propiedad de DINSA sobre el(los) BIEN(ES), que le será(n) transmitido(s) conforme a lo establecido en la presente cláusula.
@@ -97,10 +79,10 @@ DÉCIMA CUARTA. MODIFICACIONES. Las partes que suscriben el presente contrato co
 						x="270"
 						y="0"
 						width="236"
-						height="708"
+						height="710"
 						key="staticText-4"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[En caso de que DINSA solicite la modificación del contrato, al Anexo A y pagaré respectivo, este último tendrá un plazo de 40 días naturales de anticipación a la entrada en vigor, debiendo notificar al DEUDOR las modificaciones propuestas, mediante aviso incluido en el estado de cuenta correspondiente. El aviso deberá especificar de forma notoria la fecha en que las modificaciones surtirán efecto.

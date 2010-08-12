@@ -441,9 +441,7 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 		"		            AND A.CVE_CONCEPTO      = C.CVE_CONCEPTO \n"+
 		"		        GROUP BY A.ID_ORDEN, INITCAP('TOTAL DE '||C.DESC_LARGA) \n"+ 
 		"		        ORDER BY ID_ORDEN \n";
-		          
-			 System.out.println("resumen grupal*****************************"+sSql);
-			 
+		    
 		}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_TOTAL")){
 		
 			 sSql =	 "SELECT \n"+
@@ -856,9 +854,7 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 			"		        GROUP BY A.ID_ORDEN, INITCAP('TOTAL DE '||C.DESC_LARGA) \n"+ 
 			"		        ORDER BY ID_ORDEN \n"+
 		") \n";
-		          
-			 
-			 System.out.println("saldo total del resumen grupal*****************************"+sSql);
+		   
 		}
 		   
 		ejecutaSql();

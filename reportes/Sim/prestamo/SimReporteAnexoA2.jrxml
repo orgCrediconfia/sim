@@ -6,14 +6,14 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="510"
+		 pageWidth="566"
 		 pageHeight="792"
-		 columnWidth="450"
+		 columnWidth="538"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="14"
+		 rightMargin="14"
+		 topMargin="2"
+		 bottomMargin="2"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -147,8 +147,8 @@
 			<band height="368"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="0"
-						y="92"
+						x="16"
+						y="88"
 						width="216"
 						height="29"
 						key="staticText-2"/>
@@ -160,8 +160,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="234"
-						y="92"
+						x="250"
+						y="88"
 						width="216"
 						height="10"
 						key="staticText-3"/>
@@ -173,8 +173,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="0"
-						y="162"
+						x="16"
+						y="158"
 						width="216"
 						height="11"
 						key="staticText-4"/>
@@ -186,8 +186,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="0"
-						y="160"
+						x="16"
+						y="156"
 						width="216"
 						height="0"
 						key="line-1"/>
@@ -195,8 +195,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="234"
-						y="161"
+						x="250"
+						y="157"
 						width="216"
 						height="11"
 						key="staticText-5"/>
@@ -208,8 +208,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="234"
-						y="159"
+						x="250"
+						y="155"
 						width="216"
 						height="0"
 						key="line-2"/>
@@ -217,8 +217,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="1"
-						y="187"
+						x="17"
+						y="186"
 						width="216"
 						height="10"
 						key="staticText-6"/>
@@ -230,8 +230,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="234"
-						y="187"
+						x="250"
+						y="186"
 						width="216"
 						height="10"
 						key="staticText-7"/>
@@ -243,8 +243,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="0"
-						y="257"
+						x="16"
+						y="256"
 						width="216"
 						height="11"
 						key="staticText-8"/>
@@ -256,8 +256,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="0"
-						y="255"
+						x="16"
+						y="254"
 						width="216"
 						height="0"
 						key="line-3"/>
@@ -265,8 +265,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="234"
-						y="256"
+						x="250"
+						y="255"
 						width="216"
 						height="11"
 						key="staticText-9"/>
@@ -278,8 +278,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="234"
-						y="254"
+						x="250"
+						y="253"
 						width="216"
 						height="0"
 						key="line-4"/>
@@ -287,8 +287,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="0"
-						y="283"
+						x="16"
+						y="285"
 						width="216"
 						height="10"
 						key="staticText-10"/>
@@ -300,8 +300,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="0"
-						y="341"
+						x="16"
+						y="343"
 						width="216"
 						height="11"
 						key="staticText-11"/>
@@ -313,8 +313,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="-1"
-						y="339"
+						x="15"
+						y="341"
 						width="216"
 						height="0"
 						key="line-5"/>
@@ -324,7 +324,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="450"
+						width="482"
 						height="32"
 						key="staticText-12"/>
 					<box></box>
@@ -334,68 +334,23 @@
 				<text><![CDATA[LOS TÉRMINOS Y CONDICIONES DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE, SON, EN ESTE ACTO, INCORPORADOS Y FORMAN PARTE DEL PRESENTE ANEXO, COMO SÍ DICHOS TÉRMINOS Y CONDICIONES ESTUVIESEN TOTALMENTE PREVISTOS EN EL PRESENTE DOCUMENTO.
 ]]></text>
 				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="38"
-						width="386"
-						height="13"
-						key="staticText-13"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[LEÍDO QUE FUE EL PRESENTE ANEXO, LAS PARTES LO FIRMAN, POR DUPLICADO EN LA CIUDAD DE 
-]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="1"
-						y="51"
-						width="426"
-						height="13"
-						key="textField-1"/>
-					<box>					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
-					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
-</box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="427"
-						y="51"
-						width="23"
-						height="13"
-						key="staticText-14"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[el día]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="64"
-						width="145"
-						height="13"
+						y="46"
+						width="482"
+						height="25"
 						key="textField-2"/>
 					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_ENTREGA}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LEÍDO QUE FUE EL PRESENTE ANEXO, LAS PARTES LO FIRMAN, POR DUPLICADO EN " + $F{DIRECCION_SUCURSAL}+ ", EL DÍA " + $F{FECHA_ENTREGA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="352"
+						x="16"
+						y="354"
 						width="216"
 						height="13"
 						key="textField"/>
@@ -407,8 +362,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="234"
-						y="268"
+						x="250"
+						y="267"
 						width="216"
 						height="13"
 						key="textField"/>
@@ -420,8 +375,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="268"
+						x="16"
+						y="267"
 						width="216"
 						height="13"
 						key="textField"/>
@@ -433,8 +388,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="234"
-						y="173"
+						x="250"
+						y="169"
 						width="216"
 						height="13"
 						key="textField-5"/>

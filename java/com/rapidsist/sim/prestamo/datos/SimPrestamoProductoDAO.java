@@ -644,7 +644,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 						ResultSet rs26 = ps26.getResultSet();		
 						
 						sSql = "SELECT SQ01_PFIN_CUENTA.nextval AS ID_CUENTA FROM DUAL";
-				
+						
 						PreparedStatement ps27 = this.conn.prepareStatement(sSql);
 						ps27.execute();
 						ResultSet rs27 = ps27.getResultSet();	
@@ -667,7 +667,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 								"'CREDITO', \n" +
 								"'F', \n" +
 								"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "') \n" ;
-						
+							System.out.println("SQ01_PFIN_CUENTA.nextval"+sSql);
 							PreparedStatement ps28 = this.conn.prepareStatement(sSql);
 							ps28.execute();
 							ResultSet rs28 = ps28.getResultSet();
@@ -677,7 +677,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 								" WHERE ID_PRESTAMO		='" + sIdPrestamo + "' \n" +
 								" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-							
+							System.out.println("UPDATE SIM_PRESTAMO"+sSql);
 							//VERIFICA SI DIO DE ALTA EL REGISTRO
 							PreparedStatement ps29 = this.conn.prepareStatement(sSql);
 							ps29.execute();
@@ -694,7 +694,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 								"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND ID_TITULAR = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n"+
 								"AND CVE_TIP_CUENTA = 'VISTA' \n";
-										
+						System.out.println("PFIN_CUENTA"+sSql);
 							PreparedStatement ps30 = this.conn.prepareStatement(sSql);
 							ps30.execute();
 							ResultSet rs30 = ps30.getResultSet();
@@ -723,7 +723,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 										"'VISTA', \n" +
 										"'V', \n" +
 										"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "') \n" ;
-									
+									System.out.println("no la tengo"+sSql);
 									PreparedStatement ps32 = this.conn.prepareStatement(sSql);
 									ps32.execute();
 									ResultSet rs32 = ps32.getResultSet();
@@ -747,7 +747,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 										" WHERE ID_PRESTAMO		='" + sIdPrestamo + "' \n" +
 										" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 										" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-									
+								System.out.println("ya la tengo"+sSql);
 									//VERIFICA SI DIO DE ALTA EL REGISTRO
 									PreparedStatement ps34 = this.conn.prepareStatement(sSql);
 									ps34.execute();

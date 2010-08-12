@@ -592,11 +592,11 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND ID_TITULAR = '" + (String)registro.getDefCampo("ID_CLIENTE") + "' \n"+
 				"AND CVE_TIP_CUENTA = 'VISTA' \n";
-					
+				
 			ejecutaSql();
 			if (!rs.next()){
 				sSql = "SELECT SQ01_PFIN_CUENTA.nextval AS ID_CUENTA FROM DUAL";
-				
+				System.out.println("SQ01_PFIN_CUENTA.nextval");
 				PreparedStatement ps17 = this.conn.prepareStatement(sSql);
 				ps17.execute();
 				ResultSet rs17 = ps17.getResultSet();	
@@ -635,6 +635,20 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 					ps19.execute();
 					ResultSet rs19 = ps19.getResultSet();
 				}
+			}else{
+				registro.addDefCampo("ID_CUENTA",rs.getString("ID_CUENTA")== null ? "": rs.getString("ID_CUENTA"));
+				
+				sSql =  " UPDATE SIM_PRESTAMO SET "+
+						" ID_CUENTA_REFERENCIA 		='" + (String)registro.getDefCampo("ID_CUENTA") + "' \n"+
+						" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+						" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+			
+					//VERIFICA SI DIO DE ALTA EL REGISTRO
+					PreparedStatement ps25 = this.conn.prepareStatement(sSql);
+					ps25.execute();
+					ResultSet rs25 = ps25.getResultSet();
+			
 			}
 			
 			sSql = "SELECT SQ01_PFIN_CUENTA.nextval AS ID_CUENTA FROM DUAL";

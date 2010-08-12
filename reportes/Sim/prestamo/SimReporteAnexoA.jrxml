@@ -85,7 +85,7 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 </box>
-					<textElement>
+					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[No. Pago]]></text>
@@ -103,7 +103,7 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 </box>
-					<textElement>
+					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[Fecha de Pago]]></text>
@@ -121,7 +121,7 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 </box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[Saldo Insoluto]]></text>
@@ -139,7 +139,7 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 </box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[Amortización]]></text>
@@ -147,20 +147,16 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="10"  isSplitAllowed="true" >
+			<band height="14"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1"
-						y="0"
+						y="2"
 						width="75"
 						height="10"
 						key="textField-1"/>
-					<box>					<topPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-</box>
-					<textElement>
+					<box></box>
+					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{NUM_PAGO_AMORTIZACION}]]></textFieldExpression>
@@ -168,16 +164,12 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="76"
-						y="0"
+						y="2"
 						width="121"
 						height="10"
 						key="textField-2"/>
-					<box>					<topPen lineWidth="0.25" lineStyle="Dashed"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed"/>
-</box>
-					<textElement>
+					<box></box>
+					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA_AMORTIZACION}]]></textFieldExpression>
@@ -185,15 +177,11 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="197"
-						y="0"
-						width="137"
+						y="2"
+						width="126"
 						height="10"
 						key="textField-3"/>
-					<box>					<topPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-</box>
+					<box></box>
 					<textElement textAlignment="Right">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -202,20 +190,25 @@ WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="334"
-						y="0"
-						width="137"
+						y="2"
+						width="128"
 						height="10"
 						key="textField-4"/>
-					<box>					<topPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
-</box>
+					<box></box>
 					<textElement textAlignment="Right">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{IMP_CAPITAL_AMORT}]]></textFieldExpression>
 				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="11"
+						width="470"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</detail>
 		<columnFooter>

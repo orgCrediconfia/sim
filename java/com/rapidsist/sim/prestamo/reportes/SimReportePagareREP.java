@@ -38,7 +38,7 @@ public class SimReportePagareREP implements ReporteControlIN {
 						"C.ID_PERIODICIDAD_PRODUCTO, \n"+ 
 						"C.PERIODICIDAD_PRODUCTO NOM_PERIODICIDAD, \n"+
 						"DC.CALLE||' '||DC.NUMERO_INT||' '||DC.NOM_ASENTAMIENTO||' '||DC.NOM_DELEGACION||' '||DC.NOM_ESTADO||' '||'C.P.'||' '||DC.CODIGO_POSTAL DIRECCION_CLIENTE, \n"+
-						"C.MONTO_AUTORIZADO + CARGO_INICIAL MONTO_AUTORIZADO, \n"+ 
+						"TO_CHAR(C.MONTO_AUTORIZADO + CARGO_INICIAL,'999,999,999.99') MONTO_AUTORIZADO, \n"+ 
 						"CANTIDADES_LETRAS(MONTO_AUTORIZADO + CARGO_INICIAL) MONTO_AUTORIZADO_LETRAS, \n"+ 
 						"PA.ID_PERSONA ID_AVAL, \n"+
 						"PPA.NOM_COMPLETO NOM_AVAL, \n"+
@@ -67,8 +67,7 @@ public class SimReportePagareREP implements ReporteControlIN {
 						"AND DA.CVE_EMPRESA (+)= PA.CVE_EMPRESA \n"+
 						"AND DA.IDENTIFICADOR (+)= PA.ID_PERSONA \n"+
 						"AND DA.DOMICILIO_FISCAL (+)= 'V' \n";
-						
-				        
+					
 		parametros.put("Sql", sSql);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));

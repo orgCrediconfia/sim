@@ -56,48 +56,44 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		String sTxrespuestaActualiza = "";
 		String sFMedio = "";
 		
-		CallableStatement sto = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESOS.RecorreFecha(?,?,?)); end;");
-		
-		sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
-		
-		sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
-		
-		sto.registerOutParameter(3, java.sql.Types.VARCHAR);
-		
-		
-		//EJECUTA EL PROCEDIMIENTO ALMACENADO
-		sto.execute();
-		sTxrespuestaRecorreFecha  = sto.getString(3);
-		sto.close();
-		
-		sSql =  "SELECT TO_CHAR(TO_DATE(F_MEDIO,'DD-MM-YYYY'),'DD-MON-YYYY') AS F_MEDIO \n"+
-				"FROM PFIN_PARAMETRO \n"+
-				"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND CVE_MEDIO = 'SYSTEM' \n";
+		sSql = "SELECT TO_CHAR(TO_DATE(F_LIQUIDACION,'DD-MM-YYYY'),'DD-MON-YYYY') AS F_MEDIO \n"+
+        "FROM PFIN_DIA_LIQUIDACION \n"+
+       "WHERE CVE_GPO_EMPRESA  = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+         "AND CVE_EMPRESA      = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+         "AND CVE_LIQUIDACION  = 'T+1' \n"+   
+         "AND F_INFORMACION    = (SELECT F_MEDIO \n"+
+        "		 				FROM PFIN_PARAMETRO \n"+
+        "		 				WHERE CVE_GPO_EMPRESA  = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+        "		 				AND CVE_EMPRESA      = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "') \n";
 		ejecutaSql();
 			
 		if (rs.next()){
 			sFMedio = rs.getString("F_MEDIO");
-			
 		}
 		
 		CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fActualizaInformacionCredito(?,?,?,?,?)); end;");
-		
 		sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 		sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 		sto1.setString(3, "0");
 		sto1.setString(4, sFMedio);
 		sto1.registerOutParameter(5, java.sql.Types.VARCHAR);
 		
-		
 		//EJECUTA EL PROCEDIMIENTO ALMACENADO
 		sto1.execute();
 		sTxrespuestaActualiza = sto1.getString(5);
 		sto1.close();
 		
-		System.out.println("sTxrespuestaActualiza"+sTxrespuestaActualiza);
+		System.out.println("sTxrespuestaActualiza"+sTxrespuestaActualiza+"con fecha: "+sFMedio);
 		
+		CallableStatement sto = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESOS.RecorreFecha(?,?,?)); end;");
+		sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
+		sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
+		sto.registerOutParameter(3, java.sql.Types.VARCHAR);
+		
+		//EJECUTA EL PROCEDIMIENTO ALMACENADO
+		sto.execute();
+		sTxrespuestaRecorreFecha  = sto.getString(3);
+		sto.close();
 		
 		return resultadoCatalogo;
 	}

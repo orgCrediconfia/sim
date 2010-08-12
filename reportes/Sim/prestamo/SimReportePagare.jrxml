@@ -28,7 +28,7 @@
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="ID_CLIENTE" class="java.lang.String"/>
-	<field name="MONTO_AUTORIZADO" class="java.lang.Float"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="NUM_CICLO" class="java.lang.String"/>
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
 	<field name="PLAZO" class="java.lang.String"/>
@@ -58,11 +58,11 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="716"  isSplitAllowed="true" >
+			<band height="584"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="22"
-						y="562"
+						y="493"
 						width="235"
 						height="10"
 						key="staticText-4"/>
@@ -75,7 +75,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="21"
-						y="597"
+						y="528"
 						width="234"
 						height="0"
 						key="line-1"/>
@@ -84,7 +84,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="620"
+						y="551"
 						width="235"
 						height="10"
 						key="staticText-6"/>
@@ -97,7 +97,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="639"
+						y="570"
 						width="40"
 						height="13"
 						key="staticText-7"/>
@@ -120,36 +120,10 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="297"
-						y="31"
-						width="50"
-						height="13"
-						key="textField-2"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="504"
-						width="556"
-						height="15"
-						key="staticText-14"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscrita(s) por el Suscriptor y el (los) Avale(s).]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="46"
-						y="522"
+						y="461"
 						width="510"
 						height="13"
 						key="textField-6"/>
@@ -159,1040 +133,63 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="31"
-						width="293"
-						height="13"
-						key="staticText-16"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[BUENO. Por]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="329"
-						y="45"
-						width="46"
-						height="13"
-						key="staticText-17"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Suscriptor]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="61"
-						y="74"
-						width="49"
-						height="13"
-						key="staticText-18"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Beneficiaria]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="31"
-						y="45"
-						width="33"
-						height="13"
-						key="staticText-19"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Pagaré,]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="45"
-						width="31"
-						height="13"
-						key="staticText-20"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Por este]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="64"
-						y="45"
-						width="91"
-						height="13"
-						key="textField-11"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="158"
-						y="45"
-						width="171"
-						height="13"
-						key="staticText-21"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[a quien(es) en lo sucesivo se le(s) denominará (el]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="374"
-						y="45"
-						width="182"
-						height="13"
-						key="staticText-22"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[), se obliga(n) a pagar ncondicionalmente a la orden]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="13"
-						y="61"
-						width="543"
-						height="13"
-						key="staticText-23"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE, ENTIDAD NO REGULADA,]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
 						x="0"
-						y="61"
-						width="13"
-						height="14"
-						key="staticText-24"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[de]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="74"
-						width="62"
-						height="13"
-						key="staticText-25"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[en lo sucesivo (la]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="109"
-						y="74"
-						width="62"
-						height="13"
-						key="staticText-26"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[), la cantidad de (la]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="170"
-						y="74"
-						width="57"
-						height="13"
-						key="textField-12"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="87"
-						width="125"
-						height="13"
-						key="staticText-27"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[a la vista, en el domicilio ubicado en ]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="125"
-						y="87"
-						width="158"
-						height="13"
-						key="textField-13">
-							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
-						</reportElement>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="282"
-						y="87"
-						width="43"
-						height="13"
-						key="staticText-28"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[mediante]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="326"
-						y="87"
-						width="229"
-						height="13"
+						y="48"
+						width="555"
+						height="51"
 						key="textField-14"/>
 					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PLAZO} + " pagos " + $F{NOM_PERIODICIDAD} + "(es)."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré, " + $F{NOM_COMPLETO} + " a quien(es) en lo sucesivo se le(s) denominará (el Suscriptor), se obliga(n) a pagar ncondicionalmente a la orden de DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE, ENTIDAD NO REGULADA, en lo sucesivo (la Beneficiaria), la cantidad de $ " + $F{MONTO_AUTORIZADO} + " M.N. (" + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N.) a la vista, en el domicilio ubicado en  " + $F{DIRECCION_SUCURSAL} + " mediante " + $F{PLAZO} + " pagos " + $F{NOM_PERIODICIDAD} + "(es)."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
-						x="347"
-						y="31"
-						width="21"
-						height="13"
-						key="staticText-29"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[M.N.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="233"
-						y="108"
-						width="38"
-						height="13"
-						key="staticText-30"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="133"
-						width="401"
-						height="13"
-						key="staticText-31"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[ transcurridos durante cada periodo de intereses y su resultado será multiplicado por el importe principal del presente]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="108"
-						width="233"
-						height="13"
-						key="staticText-32"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Los intereses ordinarios que se generen al amparo del presente ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="272"
-						y="108"
-						width="284"
-						height="13"
-						key="staticText-33"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[, serán calculados a partir de la fecha de su suscripción y hasta la fecha de su ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="2"
-						y="120"
+						x="0"
+						y="102"
 						width="554"
-						height="13"
-						key="staticText-34"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[vencimiento, sobre una base de un año de 360 días y meses de 30 días, multiplicando el resultado así obtenido por el número de días  efectivamente]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="401"
-						y="133"
-						width="38"
-						height="13"
-						key="staticText-35"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="151"
-						width="193"
-						height="13"
-						key="staticText-36"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Los intereses ordinarios se devengarán y pagarán]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="193"
-						y="151"
-						width="54"
-						height="13"
-						key="textField-15"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PERIODICIDAD}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="247"
-						y="151"
-						width="309"
-						height="13"
-						key="staticText-37"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[(mente), en las mismas fechas señaladas en la tabla de amortización de]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="164"
-						width="176"
-						height="13"
-						key="staticText-38"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[conformidad con el Contrato de crédito numero]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="176"
-						y="164"
-						width="166"
-						height="13"
-						key="textField-16"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="143"
-						y="192"
-						width="413"
-						height="13"
-						key="staticText-39"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[, y hasta la fecha en que el importe adeudado sea pagado en su totalidad (el “Periodo de Mora”), a razón de la tasa ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="204"
-						width="556"
-						height="13"
-						key="staticText-40"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[ que resulte de multiplicar por 1.5 (UNO PUNTO CINCO)  la tasa de interés ordinaria.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="180"
-						width="556"
-						height="13"
-						key="staticText-41"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Si no fuere cubierto a su vencimiento el importe referido, las cantidades no pagadas causarán intereses moratorios mensuales calculados desde la fecha de]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="105"
-						y="192"
-						width="38"
-						height="13"
-						key="staticText-42"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="192"
-						width="105"
-						height="13"
-						key="staticText-43"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[vencimiento del presente]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="304"
-						y="225"
-						width="38"
-						height="13"
-						key="staticText-44"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="225"
-						width="303"
-						height="13"
-						key="staticText-45"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Si la fecha en que deba efectuarse cualquier pago de acuerdo a lo estipulado en este ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="237"
-						width="154"
-						height="13"
-						key="staticText-46"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[inmediato posterior. Para efectos de este ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="342"
-						y="225"
-						width="214"
-						height="13"
-						key="staticText-47"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[resulta día inhábil, el pago será realizado el día hábil]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="154"
-						y="237"
-						width="38"
-						height="13"
-						key="staticText-48"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="193"
-						y="237"
-						width="363"
-						height="13"
-						key="staticText-49"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[ por día hábil se entiende cualquier otro diverso a Sábados y Domingos y de aquellos que por]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="249"
-						width="555"
-						height="13"
-						key="staticText-50"/>
+						height="33"
+						key="staticText-32"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[disposición de la Ley las Instituciones de Crédito en México Distrito Federal o Torreón Coahuila, estén obligadas a mantener sus puertas cerradas al público.]]></text>
+				<text><![CDATA[Los intereses ordinarios que se generen al amparo del presente PAGARÉ, serán calculados a partir de la fecha de su suscripción y hasta la fecha de su vencimiento, sobre una base de un año de 360 días y meses de 30 días, multiplicando el resultado así obtenido por el número de días efectivamente transcurridos durante cada periodo de intereses y su resultado será multiplicado por el importe principal del presente PAGARÉ.]]></text>
 				</staticText>
-				<staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="142"
-						y="267"
-						width="46"
-						height="13"
-						key="staticText-51"/>
+						x="0"
+						y="138"
+						width="556"
+						height="25"
+						key="textField-16"/>
 					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Suscriptor]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="267"
-						width="142"
-						height="13"
-						key="staticText-52"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Todas las cantidades pagaderas por el ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="189"
-						y="267"
-						width="18"
-						height="13"
-						key="staticText-53"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[a la]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="257"
-						y="267"
-						width="299"
-						height="13"
-						key="staticText-54"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[serán cubiertas sin deducción y libres de cualesquiera impuestos, contribuciones,]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="279"
-						width="555"
-						height="13"
-						key="staticText-55"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[deducciones o retenciones de cualquier naturaleza que se impongan o graven en cualquier tiempo, por cualquier autoridad, respecto del pago del principal]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="205"
-						y="267"
-						width="51"
-						height="13"
-						key="staticText-56"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Beneficiaria]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="291"
-						width="36"
-						height="13"
-						key="staticText-57"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[bajo este]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="36"
-						y="291"
-						width="38"
-						height="13"
-						key="staticText-58"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="72"
-						y="291"
-						width="484"
-						height="13"
-						key="staticText-59"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[incluyendo especialmente, pero sin limitación, el Impuesto Sobre la Renta en vigor. En caso de ser aplicables cualesquiera de los]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="304"
-						width="246"
-						height="13"
-						key="staticText-60"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[anteriores impuestos, contribuciones, deducciones o retenciones, el ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="247"
-						y="304"
-						width="46"
-						height="13"
-						key="staticText-61"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Suscriptor]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="292"
-						y="304"
-						width="264"
-						height="13"
-						key="staticText-62"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[ deberá cubrir las cantidades adicionales que sean necesarias a fin de que ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="13"
-						y="316"
-						width="50"
-						height="13"
-						key="staticText-63"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Beneficiaria]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="63"
-						y="316"
-						width="209"
-						height="13"
-						key="staticText-64"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[reciba las sumas que le corresponderían conforme a este]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="271"
-						y="316"
-						width="38"
-						height="13"
-						key="staticText-65"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="309"
-						y="316"
-						width="247"
-						height="13"
-						key="staticText-66"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[si no hubieran sido aplicables tales impuestos, contribuciones,]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1"
-						y="328"
-						width="102"
-						height="13"
-						key="staticText-67"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[deducciones o retenciones.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="342"
-						y="348"
-						width="38"
-						height="13"
-						key="staticText-68"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="12"
-						y="348"
-						width="43"
-						height="13"
-						key="staticText-69"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Suscriptor]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="55"
-						y="348"
-						width="287"
-						height="13"
-						key="staticText-70"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[por medio del presente promete pagar los gastos que impliquen el cobro de este]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="380"
-						y="348"
-						width="176"
-						height="13"
-						key="staticText-71"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[y los honorarios de los abogados que intervengan]]></text>
-				</staticText>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los intereses ordinarios se devengarán y pagarán " + $F{NOM_PERIODICIDAD} + "(mente), en las mismas fechas señaladas en la tabla de amortización de conformidad con el Contrato de crédito numero " + $F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
+				</textField>
 				<staticText>
 					<reportElement
 						x="0"
-						y="360"
-						width="292"
-						height="13"
-						key="staticText-72"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[en el cobro del mismo, en caso de que haya un incumplimiento en el pago de este este]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="293"
-						y="360"
-						width="38"
-						height="13"
-						key="staticText-73"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="348"
-						width="10"
-						height="13"
-						key="staticText-74"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[El]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="378"
-						width="10"
-						height="13"
-						key="staticText-75"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[El]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="11"
-						y="378"
-						width="43"
-						height="13"
-						key="staticText-76"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Suscriptor]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="54"
-						y="378"
-						width="427"
-						height="13"
-						key="staticText-77"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[en términos del artículo 128 de la Ley General de Títulos y Operaciones de Crédito, conviene en extender el plazo de presentación del                  ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="33"
-						y="390"
-						width="38"
-						height="13"
-						key="staticText-78"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="390"
-						width="35"
-						height="13"
-						key="staticText-79"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[presente]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="73"
-						y="390"
-						width="483"
-						height="13"
-						key="staticText-80"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[por un periodo de tres años a partir de la fecha de su suscripción, en la inteligencia de que la extensión de dicho plazo no deberá]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="402"
-						width="168"
-						height="13"
-						key="staticText-81"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[entenderse como un impedimento para que la ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="166"
-						y="402"
-						width="49"
-						height="13"
-						key="staticText-82"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Beneficiaria]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="265"
-						y="402"
-						width="38"
-						height="13"
-						key="staticText-83"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="215"
-						y="402"
-						width="50"
-						height="13"
-						key="staticText-84"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[presente este]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="303"
-						y="402"
-						width="163"
-						height="13"
-						key="staticText-85"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[para su pago, con anterioridad a dicha fecha.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="423"
-						width="46"
-						height="13"
-						key="staticText-86"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[El presente]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="46"
-						y="423"
-						width="38"
-						height="13"
-						key="staticText-87"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[PAGARÉ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="84"
-						y="423"
-						width="290"
+						y="362"
+						width="369"
 						height="13"
 						key="staticText-88"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[se suscribe de conformidad con el Contrato de Crédito identificado con el número ]]></text>
+				<text><![CDATA[El presente PAGARE se suscribe de conformidad con el Contrato de Crédito identificado con el número ]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="374"
-						y="423"
-						width="182"
+						x="369"
+						y="362"
+						width="184"
 						height="13"
 						key="textField-17"/>
 					<box></box>
@@ -1204,22 +201,25 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="444"
+						y="379"
 						width="555"
-						height="60"
+						height="79"
 						key="staticText-89"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[Para la interpretación, ejecución y cumplimiento de lo pactado en este Pagaré, el Suscriptor se somete expresamente a la legislación Federal y a la jurisdicción de los tribunales que tengan competencia en el domicilio del Suscriptor del presente pagaré renunciando desde este momento a cualquier otro fuero que pudiera corresponder por cualquier otra causa.
+				<text><![CDATA[Para la interpretación, ejecución y cumplimiento de lo pactado en este Pagaré, el Suscriptor se somete expresamente a la legislación Federal y a la jurisdicción de los tribunales que tengan competencia en el domicilio del Suscriptor del presente pagaré renunciando desde este momento a cualquier otro fuero que pudiera corresponder por cualquier otra causa. 
 
-En el evento de existir varios tribunales competentes por existir domicilios en distintos distritos o poblaciones lo será en definitiva el que conozca primero del juicio correspondiente.]]></text>
+En el evento de existir varios tribunales competentes por existir domicilios en distintos distritos o poblaciones lo será en definitiva el que conozca primero del juicio correspondiente. 
+
+Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscrita(s) por el Suscriptor  y el (los) Avale (s).
+]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="0"
-						y="522"
+						y="461"
 						width="46"
 						height="13"
 						key="staticText-96"/>
@@ -1232,7 +232,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<staticText>
 					<reportElement
 						x="0"
-						y="535"
+						y="474"
 						width="22"
 						height="13"
 						key="staticText-97"/>
@@ -1245,7 +245,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="22"
-						y="599"
+						y="530"
 						width="235"
 						height="13"
 						key="textField-19"/>
@@ -1258,7 +258,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="61"
-						y="639"
+						y="570"
 						width="196"
 						height="13"
 						key="textField-20"/>
@@ -1268,23 +268,10 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_CLIENTE}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="316"
-						width="10"
-						height="13"
-						key="staticText-98"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[la]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" pattern="dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="22"
-						y="535"
+						y="474"
 						width="136"
 						height="13"
 						key="textField-21"/>
@@ -1296,42 +283,16 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="368"
+						x="0"
 						y="31"
-						width="188"
+						width="556"
 						height="13"
 						key="textField-26"/>
 					<box></box>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Right">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N."]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="227"
-						y="74"
-						width="21"
-						height="13"
-						key="staticText-102"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[M.N.]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="247"
-						y="74"
-						width="306"
-						height="13"
-						key="textField-27"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.)"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BUENO. Por $ " + $F{MONTO_AUTORIZADO} + " M.N. " + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -1349,7 +310,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<staticText>
 					<reportElement
 						x="301"
-						y="562"
+						y="493"
 						width="235"
 						height="10"
 						key="staticText-104"/>
@@ -1362,7 +323,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<line direction="TopDown">
 					<reportElement
 						x="300"
-						y="597"
+						y="528"
 						width="234"
 						height="0"
 						key="line-2"/>
@@ -1371,7 +332,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<staticText>
 					<reportElement
 						x="300"
-						y="623"
+						y="554"
 						width="235"
 						height="10"
 						key="staticText-105"/>
@@ -1384,7 +345,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<staticText>
 					<reportElement
 						x="300"
-						y="639"
+						y="570"
 						width="40"
 						height="13"
 						key="staticText-106"/>
@@ -1397,7 +358,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="340"
-						y="639"
+						y="570"
 						width="196"
 						height="13"
 						key="textField-28"/>
@@ -1410,7 +371,7 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="300"
-						y="598"
+						y="529"
 						width="235"
 						height="13"
 						key="textField-29"/>
@@ -1420,6 +381,28 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="169"
+						width="553"
+						height="189"
+						key="staticText-107"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Si no fuere cubierto a su vencimiento el importe referido, las cantidades no pagadas causarán intereses moratorios mensuales calculados desde la fecha de vencimiento del presente PAGARÉ, y hasta la fecha en que el importe adeudado sea pagado en su totalidad (el “Periodo de Mora”), a razón de la tasa que resulte de multiplicar por 1.5 (UNO PUNTO CINCO) la tasa de interés ordinaria.
+
+Si la fecha en que deba efectuarse cualquier pago de acuerdo a lo estipulado en este PAGARÉ resulta día inhábil, el pago será realizado el día hábil inmediato posterior. Para efectos de este PAGARÉ por día hábil se entiende cualquier otro diverso a Sábados y Domingos y de aquellos que por disposición de la Ley las Instituciones de Crédito en México Distrito Federal o Torreón Coahuila, estén obligadas a mantener sus puertas cerradas al público.
+
+Todas las cantidades pagaderas por el Suscriptor a la Beneficiaria serán cubiertas sin deducción y libres de cualesquiera impuestos, contribuciones, deducciones o retenciones de cualquier naturaleza que se impongan o graven en cualquier tiempo, por cualquier autoridad, respecto del pago del principal bajo este PAGARÉ, incluyendo especialmente, pero sin limitación, el Impuesto Sobre la Renta en vigor. En caso de ser aplicables cualesquiera de los anteriores impuestos, contribuciones, deducciones o retenciones, el Suscriptor deberá cubrir las cantidades adicionales que sean necesarias a fin de que la Beneficiaria reciba las sumas que le corresponderían conforme a este PAGARÉ si no hubieran sido aplicables tales impuestos, contribuciones, deducciones o retenciones.
+
+El Suscriptor por medio del presente promete pagar los gastos que impliquen el cobro de este PAGARÉ y los honorarios de los abogados que intervengan en el cobro del mismo, en caso de que haya un incumplimiento en el pago de este PAGARÉ.
+
+El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Operaciones de Crédito, conviene en extender el plazo de presentación del presente PAGARÉ por un periodo de tres años a partir de la fecha de su suscripción, en la inteligencia de que la extensión de dicho plazo no deberá entenderse como un impedimento para que la Beneficiaria presente este PAGARÉ para su pago, con anterioridad a dicha fecha.
+]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
