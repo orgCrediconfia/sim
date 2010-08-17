@@ -20,7 +20,7 @@ import com.rapidsist.portal.configuracion.Usuario;
 /**
  * Realiza la consulta para obtener los datos que ser�n utilizados para generar el reporte de cat�logo de aplicaciones.
  */
-public class SimReportesAmortizacionREP implements ReporteControlIN {
+public class SimReporteEstadoCuentaIndREP implements ReporteControlIN {
 
 	/**
 	 * Obtiene la consulta en la base de datos y par�metros que ser�n utilizados por el reporte.
@@ -37,48 +37,38 @@ public class SimReportesAmortizacionREP implements ReporteControlIN {
 	 */
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
+
+		String sCveGpoEmpresa = request.getParameter("CveGpoEmpresa");
+		String sCveEmpresa = request.getParameter("CveEmpresa");
+		String sClave = request.getParameter("CvePrestamo");
 		
-		String sClave = request.getParameter("CvePrestamoGrupo");
-		
-		System.out.println("sClave:"+sClave);
-		
-		String sSql = 	"SELECT \n"+ 
-		                    "CVE_GPO_EMPRESA,\n"+ 
-		                    "CVE_EMPRESA,\n"+ 
-		                    "ID_PRESTAMO_GRUPO,\n"+ 
-		                    "CVE_PRESTAMO_GRUPO,\n"+ 
-		                    "NUM_PAGO_AMORTIZACION,\n"+ 
-		                    "FECHA_AMORTIZACION,\n"+ 
-		                    "IMP_SALDO_INICIAL,\n"+ 
-		                    "TASA_INTERES,\n"+ 
-		                    "INTERES,\n"+ 
-		                    "IMP_CAPITAL_AMORT,\n"+ 
-		                    "IMP_PAGO,\n"+ 
-		                    "IMP_ACCESORIO,\n"+ 
-		                    "PAGO_TOTAL,\n"+ 
-		                    "IMP_SALDO_FINAL\n"+ 
-		                    "FROM \n"+ 
-		                    "V_TABLA_AMORTIZACION_GRUPAL\n";
-		                   
-		
-		                    if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								
-								sSql = sSql + "WHERE CVE_PRESTAMO_GRUPO = '" + sClave + "' \n";
-							}
-		                    
-							 sSql = sSql +
-						
-							 "ORDER BY  NUM_PAGO_AMORTIZACION\n";
+		String sSql = 	"SELECT \n"+   
+							"CVE_GPO_EMPRESA,\n"+
+							"CVE_EMPRESA,\n"+
+							"CVE_PRESTAMO,\n"+
+							"ID_PRESTAMO,\n"+
+							"NOMBRE,\n"+
+							"NOM_SUCURSAL,\n"+
+							"FECHA_ENTREGA,\n"+
+							"FECHA_REAL,\n"+
+							"PERIODICIDAD_PRODUCTO,\n"+
+							"PLAZO,\n"+
+							"VALOR_TASA,\n"+
+							"PERIODICIDAD_TASA\n"+
+							"FROM V_CREDITO\n"+
+							"WHERE CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
+							"AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "'\n";
 							
 							 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
 	    String sTipoReporte = request.getParameter("TipoReporte");
 	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
-		parametros.put("PathLogotipo", contextoServlet.getRealPath("Portales/Sam/img/Imagentsys1.gif"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReportesAmortizacion.jasper");
-		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReportesAmortizacion_subreport.jasper"));
-		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReportesAmortizacion_subreport2.jasper"));
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteEstadoCuentaInd.jasper");
+		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReporteEstadoCuentaInd1.jasper"));
+		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReporteEstadoCuentaInd2.jasper"));
 		parametros.put("NombreReporte", "rep"+sClave);
 		                             
 		
