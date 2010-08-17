@@ -139,11 +139,12 @@ public class ProcesaReporteS extends HttpServlet{
 						if(request.getParameter("Bd")!=null){
 							//ABRE CONEXION A MYSQL
 							try{
+								System.out.println("Conexion a Mysql");
 								Class.forName("com.mysql.jdbc.Driver");
-								conexionBd = DriverManager.getConnection("jdbc:mysql://localhost/sim", "root", "system");
+								conexionBd = DriverManager.getConnection("jdbc:mysql://localhost:3307/sim", "root", "system");
 							}catch(Exception e){
 					            System.out.println("******************************************************");
-					            System.out.println("Error al abrir la conexion a la base de datos");
+					            System.out.println("Error al abrir la conexion a la base de datos Mysql");
 					            System.out.println("");
 					            System.out.println("Descripcion del error:" + e.getMessage());
 					            System.out.println("******************************************************");
