@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  * Copyright (c) 2003 Rapidisist S.A de C.V. Todos los derechos reservados
  */
@@ -11,6 +11,9 @@ import net.sf.jasperreports.engine.export.*;
 import it.businesslogic.ireport.export.JRTxtExporter;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 import javax.naming.*;
 import javax.servlet.*;
@@ -34,14 +37,15 @@ public class ProcesaReporteS extends HttpServlet{
 	
 	/**
 	 *
-	 * @param request Objeto que provee de información al servlet sobre el request del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletRequest y lo envía como un parámetro a este método.
+	 * @param request Objeto que provee de informaciï¿½n al servlet sobre el request del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletRequest y lo envï¿½a como un parï¿½metro a este mï¿½todo.
 	 * @param response Objeto que asiste al servlet en enviar una respuesta HTTP al cliente. El
-	 * contenedor  de servlets crea un objeto HttpServletResponse y lo envía como parámetro a este método.
+	 * contenedor  de servlets crea un objeto HttpServletResponse y lo envï¿½a como parï¿½metro a este mï¿½todo.
 	 */
 
 	public void service(HttpServletRequest request,	HttpServletResponse response){
 		Conexion2 conexion = new Conexion2();
+		Connection conexionBd = null;
 		try{
 			//SE VERIFICARA SI HA CADUCADO LA SESION DEL USUARIO
 			HttpSession session = SesionUsuario.compruebaSesionUsuario(request, response);
@@ -110,25 +114,6 @@ public class ProcesaReporteS extends HttpServlet{
 					
 						//SE INSTANCIA LA CLASE CONTROLADORA DEL REPORTE
 						
-						/*
-						Class claseErp = this.getClass().getClassLoader().loadClass(funcion.getNomClaseReporte());
-						Object instanciaObj = claseErp.newInstance();
-						URL urlClase= contextoServlet.getResource("/WEB-INF/classes/");
-						URL arregloUrl[] = new URL[1];
-						arregloUrl[0] = urlClase;
-						URLClassLoader cargadorClase =  URLClassLoader.newInstance(arregloUrl, this.getClass().getClassLoader());
-						Class claseErp = cargadorClase.findClass(funcion.getNomClaseReporte());				
-						instanciaObj = claseErp.newInstance();						
-						*/
-						
-						/*
-						Interpreter interprete = new Interpreter();
-						BshClassManager beanManager = interprete.getClassManager();
-						beanManager.addClassPath(contextoServlet.getResource("/WEB-INF/controladoras/"));
-						beanManager.reloadClasses(new String[]{funcion.getNomClaseReporte()});
-						Class claseErp = beanManager.classForName(funcion.getNomClaseReporte());
-						*/
-						
 						Class claseErp = this.getClass().getClassLoader().loadClass(funcion.getNomClaseReporte());
 						Object instanciaObj = claseErp.newInstance();
 						
@@ -142,7 +127,7 @@ public class ProcesaReporteS extends HttpServlet{
 						
 					}
 					catch(Exception e){
-						System.out.println("Se encontró un error en la clase controladora del reporte: " + funcion.getNomClaseReporte() + " \n exception: " + e.getClass().getName() + ", mensaje:  " + e.getMessage());
+						System.out.println("Se encontrï¿½ un error en la clase controladora del reporte: " + funcion.getNomClaseReporte() + " \n exception: " + e.getClass().getName() + ", mensaje:  " + e.getMessage());
 						e.printStackTrace();
 						response.sendRedirect( request.getContextPath() + "/comun/FormasInfraestructura/fGralMen.jsp?Mensaje=" + MensajeSistema.getMensajeSistema(110));
 						return;
@@ -150,32 +135,39 @@ public class ProcesaReporteS extends HttpServlet{
 
 					if (request.getParameter("TipoReporte") != null){
 						
+						//ABRE CONEXION A BASE DE DATOS
+						if(request.getParameter("Bd")!=null){
+							//ABRE CONEXION A MYSQL
+							try{
+								Class.forName("com.mysql.jdbc.Driver");
+								conexionBd = DriverManager.getConnection("jdbc:mysql://localhost/sim", "root", "system");
+							}catch(Exception e){
+					            System.out.println("******************************************************");
+					            System.out.println("Error al abrir la conexion a la base de datos");
+					            System.out.println("");
+					            System.out.println("Descripcion del error:" + e.getMessage());
+					            System.out.println("******************************************************");
+					            e.printStackTrace();
+					            conexionBd.close();
+					            throw new SQLException();		
+							}							
+						}else{
+							//ABRE CONEXION A BASE DE DATOS
+							conexion.abreConexion("java:comp/env/jdbc/PortalDs");
+							conexionBd = conexion.getConexion();
+						}
+						
 						ByteArrayOutputStream reporte = new ByteArrayOutputStream();
 
 						//VERIFICA EL TIPO DE REPORTE QUE DEBE GENERAR
 						if(request.getParameter("TipoReporte").equals("Pdf")){
-							
 							//TIPO DE REPORTE PDF
-							if (parametros.get("ConexionBd") == null){
-								//ABRE CONEXION A BASE DE DATOS
-								conexion.abreConexion("java:comp/env/jdbc/PortalDs");
-								reporte.write(JasperRunManager.runReportToPdf(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexion.getConexion()));
-							}
-							else{	
-								reporte.write(JasperRunManager.runReportToPdf(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, new JREmptyDataSource()));
-							}
+							reporte.write(JasperRunManager.runReportToPdf(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexionBd));
 						}
 						else if (request.getParameter("TipoReporte").equals("Xls")){
 							//TIPO DE REPORTE XLS
 							JasperPrint jasperPrint = null;
-							if (parametros.get("ConexionBd") == null){
-								//ABRE CONEXION A BASE DE DATOS
-								conexion.abreConexion("java:comp/env/jdbc/PortalDs");
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexion.getConexion());
-							}
-							else{
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, new JREmptyDataSource());
-							}							
+							jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexionBd);
 							JRXlsExporter exporter = new JRXlsExporter();
 							//ASIGNA PARAMETROS DE EXPORTACION PARA LA HOJA DE CALCULO
 							exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -186,14 +178,7 @@ public class ProcesaReporteS extends HttpServlet{
 						else if (request.getParameter("TipoReporte").equals("Txt")){
 							//TIPO DE REPORTE TXT
 							JasperPrint jasperPrint = null;
-							if (parametros.get("ConexionBd") == null){
-								//ABRE CONEXION A BASE DE DATOS
-								conexion.abreConexion("java:comp/env/jdbc/PortalDs");
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexion.getConexion());
-							}
-							else{
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, new JREmptyDataSource());
-							}
+							jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexionBd);
 							JRTxtExporter exporter = new JRTxtExporter();
 							//ASIGNA PARAMETROS DE EXPORTACION PARA EL ARCHIVO TEXTO
 							exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -204,14 +189,7 @@ public class ProcesaReporteS extends HttpServlet{
 						else if (request.getParameter("TipoReporte").equals("Html")){
 							//TIPO DE REPORTE HTML
 							JasperPrint jasperPrint = null;
-							if (parametros.get("ConexionBd") == null){
-								//ABRE CONEXION A BASE DE DATOS
-								conexion.abreConexion("java:comp/env/jdbc/PortalDs");
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexion.getConexion());
-							}
-							else{
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, new JREmptyDataSource());
-							}							
+							jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexionBd);
 							JRHtmlExporter exporter = new JRHtmlExporter();
 							//ASIGNA PARAMETROS DE EXPORTACION PARA EL ARCHIVO HTML
 							exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -222,14 +200,7 @@ public class ProcesaReporteS extends HttpServlet{
 						else if (request.getParameter("TipoReporte").equals("Csv")){
 							//TIPO DE REPORTE CSV
 							JasperPrint jasperPrint = null;
-							if (parametros.get("ConexionBd") == null){
-								//ABRE CONEXION A BASE DE DATOS
-								conexion.abreConexion("java:comp/env/jdbc/PortalDs");
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexion.getConexion());
-							}
-							else{
-								jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, new JREmptyDataSource());
-							}							
+							jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexionBd);
 							JRCsvExporter exporter = new JRCsvExporter();
 							//ASIGNA PARAMETROS DE EXPORTACION PARA EL ARCHIVO HTML
 							exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -310,7 +281,7 @@ public class ProcesaReporteS extends HttpServlet{
 		catch (JRException e){
 			try {
 				
-				String sPagina="/comun/FormasInfraestructura/fGralMen.jsp?Mensaje=" + "Se generó un error al ejecutar el reporte";
+				String sPagina="/comun/FormasInfraestructura/fGralMen.jsp?Mensaje=" + "Se generï¿½ un error al ejecutar el reporte";
 				response.sendRedirect(request.getContextPath() + sPagina);
 				e.printStackTrace();
 			}
