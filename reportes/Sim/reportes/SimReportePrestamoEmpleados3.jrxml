@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportePrestamoEmpleados3"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="CVE_PRESTAMO" class="java.lang.String"/>
+	<field name="ID_CLIENTE" class="java.math.BigDecimal"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.math.BigDecimal"/>
+	<field name="FECHA_FIN" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="NOM_PERIODICIDAD" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="VALOR_TASA" class="java.math.BigDecimal"/>
+	<field name="ID_AVAL" class="java.math.BigDecimal"/>
+	<field name="NOM_AVAL" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="378"
+						y="0"
+						width="42"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Pagaré No.]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="502"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="157"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[PAGARE AVAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="15"
+						width="157"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Por este pagaré el(los) señior(es)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="157"
+						y="15"
+						width="184"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="341"
+						y="15"
+						width="194"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[se le obliga(n) a pagar a  DESARROLLADORA E]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="30"
+						width="535"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[IMPULSORA DE NEGOCIOS S.A. DE C.V. SOFOM E.N.R. ("DINSA"), en su domicilio ubicado en Canoa 521 oficina 502, col Tizapan San Angel C.P. 01090]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="45"
+						width="203"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Del. Alvaro Obregon, México, Distro Federal la cantidad de ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="45"
+						width="173"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO_LETRAS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="$ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="221"
+						y="45"
+						width="82"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="476"
+						y="45"
+						width="59"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[a la vista,]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="60"
+						width="535"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[más sus intereses.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="203"
+						y="45"
+						width="18"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[$]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="75"
+						width="535"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Asimismo, me (nos) obligo (amos) incondicionalmente a pagar intereses ordinarios sobre el saldo global del crédito y los impuestos que genere de acuerdo ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="396"
+						y="90"
+						width="39"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{VALOR_TASA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="90"
+						width="396"
+						height="15"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[a la legislación aplicable, pagaderos quincesa (es), conjuntamente con el capital a la tasa de interes mensual fija de ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="435"
+						y="90"
+						width="18"
+						height="15"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="105"
+						width="535"
+						height="42"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[La falta de pago oportuno de cualquier cantidad que esté(n) obligado(s) a pagar el(los) Firmantes(es) en este Pagaré, causara intereses moratorios con su Impuesto al Valor Agregado (IVA), a partir de la fecha en el que dejó de pagarse hasta la fecha de su pago total, a una tasa calculada a razón de 1.5 veces la tasa mensual de intereses ordinarios, siendo calculados sobre el saldo del capital que ampare este Pagaré y hasta tanto no
+este integramente pagada la cantidad de que adeude.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="147"
+						width="535"
+						height="22"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Los Subscriptores por medio del presente PAGARE, se obligan a pagar a DINSA, los gastos que impliquen el cobro de este PAGARÉ y los honorarios de los abogados que intervengan en el mismo cobro, en caso de que haya incumplimiento en el pago de este PAGARÉ.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="169"
+						width="535"
+						height="15"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Los Subscripotores convienen extender el plazo de presentación de este PAGARÉ para efectos del Articulo 128 de la Ley General de Titulos y Operaciones ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="184"
+						width="67"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[del credito al día]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="67"
+						y="184"
+						width="190"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="199"
+						width="535"
+						height="75"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Este Pagaré consta de una página, misma que ha sido debidamente suscrita por los Subscriptores
+
+Este Pagaré se podrá dar un vencido anticipadamente, en caso de falta de pago de cualquier cantidad y solicitar por consiguiente, en un solo pago la cantidad pendiente de pagarse.
+
+Para todo lo relativo a este Pagaré, el(los) Firmante(es) y Aval(es), se someten a su jurisdicción de los tribunales y leyes competentes de la ciudad México, Distrito Federal renunciando a cualquier otro fuero que en razón de sus domicilios presentes o futuros pudiera corresponderles y al efecto señalan como sus domicilios los siguientes:
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="274"
+						width="77"
+						height="15"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[El(los) firmante(es):]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="289"
+						width="77"
+						height="15"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Aval(es):]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="304"
+						width="221"
+						height="15"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Este Pagaré se firma en la ciudad de México, Distrito Federal, el]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="221"
+						y="304"
+						width="190"
+						height="15"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="77"
+						y="424"
+						width="86"
+						height="15"
+						key="staticText-21"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[El(Los) Firmante(es)]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="77"
+						y="467"
+						width="180"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="77"
+						y="472"
+						width="184"
+						height="15"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="77"
+						y="487"
+						width="184"
+						height="15"
+						key="staticText-22"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre y Firma]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="328"
+						y="424"
+						width="86"
+						height="15"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Aval(es)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="328"
+						y="487"
+						width="184"
+						height="15"
+						key="staticText-24"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre y Firma]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="328"
+						y="466"
+						width="180"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="77"
+						y="274"
+						width="458"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
