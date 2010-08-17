@@ -240,6 +240,9 @@
 						  log4j-1.2.7.jar,
 						  standard.jar,
 						  jstl.jar,
+				          	  mysql-connector-java-3.1.11-bin.jar,
+						  rapidsistGroovy.jar,
+						  groovy-all-1.7.3.jar
 						  "
 			/>
 			<fileset dir="${bibliotecas}/iReport3" 
