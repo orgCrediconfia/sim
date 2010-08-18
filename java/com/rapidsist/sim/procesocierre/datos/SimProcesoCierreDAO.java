@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  * Copyright (c) 2008 Rapidisist S.A de C.V. Todos los derechos reservados
  */
@@ -16,6 +16,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.rapidsist.mysql.historicoMysql;
 
 /**
  * Administra los accesos a la base de datos para el proceso de cierre.
@@ -25,7 +26,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 
 	/**
 	 * Obtiene un registro en base a una llave primaria.
-	 * @param parametros Parámetros que se le envían a la consulta para obtener el registro
+	 * @param parametros Parï¿½metros que se le envï¿½an a la consulta para obtener el registro
 	 * deseado.
 	 * @return Los campos del registro.
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
@@ -46,11 +47,12 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 	/**
 	 * Inserta un registro.
 	 * @param registro Campos del nuevo registro.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
+	 * @return Objeto que contiene el resultado de la ejecuciï¿½n de este mï¿½todo.
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
+		Conexion2 conexionOracle = new Conexion2();		
 		
 		String sTxrespuestaRecorreFecha = "";
 		String sTxrespuestaActualiza = "";
@@ -94,6 +96,24 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		sto.execute();
 		sTxrespuestaRecorreFecha  = sto.getString(3);
 		sto.close();
+		
+		//COPIA INFORMACION HISTORICA A MYSQL
+		historicoMysql historicoMysql = new historicoMysql();
+		try{
+			conexionOracle.abreConexion("java:comp/env/jdbc/PortalDs");
+			historicoMysql.copyToMysql(conexionOracle.getConexion());
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage());
+			System.out.println("YA EXISTEN REGISTROS EN EL HISTORICO");
+		}
+		finally{
+				if (conexionOracle.isConectado()){
+					conexionOracle.cierraConexion();
+				}
+		}		
 		
 		return resultadoCatalogo;
 	}

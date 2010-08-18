@@ -70,7 +70,7 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="42"  isSplitAllowed="true" >
+			<band height="41"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="1"
