@@ -113,6 +113,9 @@ public class SimPrestamoActividadRequisitoCON implements CatalogoControlConsulta
 		registro.addDefCampo("FECHA_REGISTRO", request.getParameter("FechaRegistro"));
 		registro.addDefCampo("ESTATUS", request.getParameter("Estatus"));
 		registro.addDefCampo("COMENTARIO", request.getParameter("Comentario"));
+		registro.addDefCampo("APLICA_A", request.getParameter("AplicaA"));
+		
+		System.out.println("$#$#$#$%$!#$&%/%/"+request.getParameter("AplicaA"));
 		
 		if (request.getParameter("Estatus").equals("Completada")){
 			registro.addDefCampo("FECHA_REALIZADA", "SI");

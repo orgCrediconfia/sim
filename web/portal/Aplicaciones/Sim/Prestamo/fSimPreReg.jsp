@@ -147,23 +147,6 @@
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
 		
-		<Portal:TablaForma maestrodetallefuncion="SimPrestamoEstatusHistorico" nombre="Histórico" funcion="SimPrestamoEstatusHistorico" operacion="BA">
-			<Portal:TablaListaTitulos>
-				<Portal:Columna tipovalor='texto' ancho='250' valor='Estatus del préstamo'/>
-				<Portal:Columna tipovalor='texto' ancho='250' valor='Usuario'/>
-				<Portal:Columna tipovalor='texto' ancho='100%' valor='Fecha'/>
-			</Portal:TablaListaTitulos>	
-			<c:forEach var="registro" items="${requestScope.ListaEstatusHistorico}">
-				<Portal:TablaListaRenglon>
-					<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_ESTATUS_PRESTAMO"]}'/>
-					<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_COMPLETO"]}'/>
-					<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["FECHA"]}'/>
-				</Portal:TablaListaRenglon>
-			</c:forEach>
-			<Portal:FormaBotones>
-			</Portal:FormaBotones>		
-		</Portal:TablaForma>
-		
 		<Portal:TablaForma maestrodetallefuncion="SimPrestamoActividadRequisito" nombre="Actividades o requisito del préstamo" funcion="SimPrestamoActividadRequisito" operacion="BA">
 			<Portal:TablaListaTitulos>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
@@ -176,7 +159,7 @@
 			<c:forEach var="registro" items="${requestScope.ListaActividadRequisito}">
 				<Portal:TablaListaRenglon>
 					<Portal:Columna tipovalor='texto' ancho='100' valor=''>					
-						<Portal:Url tipo='catalogo' nombreliga='${registro.campos["ID_ACTIVIDAD_REQUISITO"]}' funcion='SimPrestamoActividadRequisito' operacion='CR' parametros='IdActividadRequisito=${registro.campos["ID_ACTIVIDAD_REQUISITO"]}&IdEstatusPrestamo=${registro.campos["ID_ETAPA_PRESTAMO"]}&IdPrestamo=${registro.campos["ID_PRESTAMO"]}&IdProducto=${registro.campos["ID_PRODUCTO"]}'/>
+						<Portal:Url tipo='catalogo' nombreliga='${registro.campos["ID_ACTIVIDAD_REQUISITO"]}' funcion='SimPrestamoActividadRequisito' operacion='CR' parametros='IdActividadRequisito=${registro.campos["ID_ACTIVIDAD_REQUISITO"]}&IdEstatusPrestamo=${registro.campos["ID_ETAPA_PRESTAMO"]}&IdPrestamo=${registro.campos["ID_PRESTAMO"]}&IdProducto=${registro.campos["ID_PRODUCTO"]}&AplicaA=${requestScope.registro.campos["APLICA_A"]}'/>
 					</Portal:Columna>
 					<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_ACTIVIDAD_REQUISITO"]}'/>
 					<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_ESTATUS_PRESTAMO"]}'/>

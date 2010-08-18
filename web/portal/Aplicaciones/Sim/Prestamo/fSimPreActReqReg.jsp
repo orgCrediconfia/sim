@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <Portal:Pagina funcion="SimPrestamoActividadRequisito">
 	<Portal:PaginaNombre titulo="Actividades o requisitos" subtitulo="Modificaci&oacute;n de datos" subtituloalta="Alta de datos"/>
-	<Portal:Forma tipo='catalogo' funcion='SimPrestamoActividadRequisito' parametros='IdPrestamo=${param.IdPrestamo}&IdActividadRequisito=${param.IdActividadRequisito}&IdPrestamo=${param.IdPrestamo}'>
+	<Portal:Forma tipo='catalogo' funcion='SimPrestamoActividadRequisito' parametros='IdPrestamo=${param.IdPrestamo}&IdActividadRequisito=${param.IdActividadRequisito}&IdPrestamo=${param.IdPrestamo}&AplicaA=${param.AplicaA}'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
 		
 		<Portal:FormaElemento etiqueta='Clave' control='etiqueta-controlreferencia' controlnombre='IdActividadRequisito' controlvalor='${requestScope.registro.campos["ID_ACTIVIDAD_REQUISITO"]}' />

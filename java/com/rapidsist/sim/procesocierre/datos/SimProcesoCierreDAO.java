@@ -56,7 +56,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		String sTxrespuestaActualiza = "";
 		String sFMedio = "";
 		
-		sSql = "SELECT TO_CHAR(TO_DATE(F_LIQUIDACION,'DD-MM-YYYY'),'DD-MON-YYYY') AS F_MEDIO \n"+
+		sSql = "SELECT TO_CHAR(TO_DATE(F_LIQUIDACION,'DD-MM-YYYY'),'DD-MON-YY') AS F_MEDIO \n"+
         "FROM PFIN_DIA_LIQUIDACION \n"+
        "WHERE CVE_GPO_EMPRESA  = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
          "AND CVE_EMPRESA      = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
