@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteResEdoCtaInd"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="1753"
+		 pageHeight="842"
+		 columnWidth="1693"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_PRESTAMO" class="java.lang.String"/>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="NOM_SUCURSAL" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.sql.Timestamp"/>
+	<field name="FECHA_REAL" class="java.sql.Timestamp"/>
+	<field name="PERIODICIDAD_PRODUCTO" class="java.lang.String"/>
+	<field name="PLAZO" class="java.math.BigDecimal"/>
+	<field name="VALOR_TASA" class="java.math.BigDecimal"/>
+	<field name="PERIODICIDAD_TASA" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="153"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="1"
+						y="1"
+						width="324"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-1"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Datos generales ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="18"
+						width="160"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Clave del integrante]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="33"
+						width="160"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nombre del integrante]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="78"
+						width="160"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fecha de inicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="138"
+						width="160"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Plazo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="123"
+						width="160"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tasa del prestamo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="108"
+						width="160"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Peridicidad tasa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="48"
+						width="160"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="63"
+						width="160"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fecha de desembolso]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="18"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="33"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="48"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_SUCURSAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="63"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_ENTREGA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="78"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_REAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="93"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_PRODUCTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="108"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_TASA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="123"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{VALOR_TASA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="138"
+						width="164"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_PRODUCTO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="1"
+						y="-60"
+						width="160"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Periodicidad producto]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
