@@ -7,6 +7,39 @@
 		<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CveOperacion' controllongitud='10' controllongitudmax='10' editarinicializado='true'/>
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='DescCorta' controllongitud='20' controllongitudmax='20' editarinicializado='true'/>
 	</Portal:Forma>
+  	<Portal:FormaBotones>
+        <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">
+        <input type="button" name="Imprimir" value="Reporte en Pdf" onClick="javascript:fReportePdf();">
+    </Portal:FormaBotones>
+	
+	<script>
+         function fReporteXls(){
+      
+      		if (document.frmRegistro.CveOperacion.value == "" ){
+                  alert ("La clave de la operación es obligatoria para generar el reporte");
+                  
+      		}else{
+      		
+      
+              url = '/portal/ProcesaReporte?Funcion=SimPrestamoCatalogoConceptoReporte&TipoReporte=Xls&CveOperacion='+document.frmRegistro.CveOperacion.value;
+              MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+           }
+        }
+      
+       function fReportePdf(){
+  
+  		if (document.frmRegistro.CveOperacion.value == "" ){
+              alert ("La clave de la operación es obligatoria para generar el reporte");
+              
+  		}else{
+  		
+  
+          url = '/portal/ProcesaReporte?Funcion=SimPrestamoCatalogoConceptoReporte&TipoReporte=Pdf&CveOperacion='+document.frmRegistro.CveOperacion.value;
+          MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+        }
+  }
+     </script>
+	
 	
 	<Portal:TablaLista tipo="alta" nombre="Consulta de operaciones" botontipo="url" url='/ProcesaCatalogo?Funcion=SimPrestamoCatalogoOperacion&OperacionCatalogo=IN&Filtro=Alta'>
 		<Portal:TablaListaTitulos> 
