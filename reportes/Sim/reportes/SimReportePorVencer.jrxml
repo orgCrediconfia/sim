@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportePorVencer"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="1625"
+		 pageHeight="595"
+		 columnWidth="1565"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="F_MEDIO" class="java.sql.Timestamp"/>
+	<field name="ID_REGIONAL" class="java.math.BigDecimal"/>
+	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
+	<field name="NOM_SUCURSAL" class="java.lang.String"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="MONTO_PRESTADO" class="java.lang.String"/>
+	<field name="FECHA_SIG_PAGO" class="java.sql.Timestamp"/>
+	<field name="FECHA_ULT_MOV" class="java.sql.Timestamp"/>
+	<field name="FECHA_FIN_CICLO" class="java.sql.Timestamp"/>
+	<field name="INTERES" class="java.math.BigDecimal"/>
+	<field name="RECARGOS" class="java.math.BigDecimal"/>
+	<field name="SEGUROS" class="java.math.BigDecimal"/>
+	<field name="CAPITAL" class="java.math.BigDecimal"/>
+	<field name="INSOLUTO" class="java.math.BigDecimal"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="1565"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Reporte de créditos  por vencer]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="30"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="351"
+						y="0"
+						width="74"
+						height="15"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Regional]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1439"
+						y="0"
+						width="126"
+						height="15"
+						key="staticText-24"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Fecha]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="30"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Llave
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="74"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[#]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="148"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Cate
+goria]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="222"
+						y="15"
+						width="129"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="351"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Monto
+Prestado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="425"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="499"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Intereses]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="573"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Seguros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="647"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Recargos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="721"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Capital]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="425"
+						y="0"
+						width="370"
+						height="15"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Vencido]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="795"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Antigüedad
+DIAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="869"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Insoluto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="943"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Interes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1017"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Seguros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="869"
+						y="0"
+						width="222"
+						height="15"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Saldos para liquidar el crédito]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1091"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Total 
+más recargos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1165"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Fecha
+Fin Ciclo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1239"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-20"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Saldo liq
+vs cuota]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1313"
+						y="15"
+						width="126"
+						height="15"
+						key="staticText-21"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Oficial]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1439"
+						y="15"
+						width="126"
+						height="15"
+						key="staticText-22"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sucursal]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="74"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO_GRUPO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="30"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
