@@ -57,7 +57,7 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 				"RS_GRAL_PERSONA C, \n"+
 				"SIM_GRUPO G, \n" +
 				"SIM_CAT_ETAPA_PRESTAMO E, \n" +
-				"SIM_USUARIO_SUCURSAL US \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 			"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND P.ID_PRODUCTO IS NOT NULL \n"+

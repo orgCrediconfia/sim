@@ -42,7 +42,7 @@ public class SimGrupoDAO extends Conexion2 implements OperacionConsultaTabla, Op
 				" G.NOM_GRUPO, \n" +
 				" G.FECHA_FORMACION \n" +
 				" FROM SIM_GRUPO G, \n"+
-				" SIM_USUARIO_SUCURSAL US \n"+
+				" SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				" WHERE G.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				" AND G.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				" AND US.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+

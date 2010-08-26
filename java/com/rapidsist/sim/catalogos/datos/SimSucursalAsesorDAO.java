@@ -36,12 +36,11 @@ public class SimSucursalAsesorDAO extends Conexion2 implements OperacionConsulta
 		sSql =  "SELECT \n"+
 			"U.CVE_GPO_EMPRESA, \n"+
 			"U.CVE_EMPRESA, \n"+
-			"U.ID_PERSONA ID_ASESOR, \n"+
 			"U.CVE_USUARIO, \n"+
 			"P.NOM_COMPLETO \n"+
 			"FROM RS_GRAL_USUARIO U, \n"+
 			"RS_GRAL_PERSONA P, \n"+
-			"SIM_USUARIO_SUCURSAL US \n"+
+			"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 			"WHERE U.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND U.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND U.CVE_PUESTO = 'AseSuc' \n"+
@@ -58,18 +57,22 @@ public class SimSucursalAsesorDAO extends Conexion2 implements OperacionConsulta
 			"SELECT \n"+
 			"A.CVE_GPO_EMPRESA, \n"+
 			"A.CVE_EMPRESA, \n"+
-			"A.ID_ASESOR, \n"+
 			"A.CVE_USUARIO, \n"+
 			"P.NOM_COMPLETO \n"+
-			"FROM SIM_SUCURSAL_ASESOR A, \n"+
+			"FROM SIM_USUARIO_ACCESO_SUCURSAL A, \n"+
+			"RS_GRAL_USUARIO U, \n"+
 			"RS_GRAL_PERSONA P \n"+
 			"WHERE A.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND A.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND A.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-			"AND P.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
-			"AND P.CVE_EMPRESA = A.CVE_EMPRESA \n"+
-			"AND P.ID_PERSONA = A.ID_ASESOR \n"; 
-			
+			"AND U.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
+			"AND U.CVE_EMPRESA = A.CVE_EMPRESA \n"+
+			"AND U.CVE_USUARIO = A.CVE_USUARIO \n"+
+			"AND U.CVE_PUESTO = 'AseSuc' \n"+
+			"AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+
+			"AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+
+			"AND P.ID_PERSONA = U.ID_PERSONA \n"; 
+	
 		ejecutaSql();
 		return getConsultaLista();
 	}
@@ -83,17 +86,15 @@ public class SimSucursalAsesorDAO extends Conexion2 implements OperacionConsulta
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
-		sSql =  "INSERT INTO SIM_SUCURSAL_ASESOR ( \n"+
+		sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
 			"CVE_GPO_EMPRESA, \n" +
 			"CVE_EMPRESA, \n" +
 			"ID_SUCURSAL, \n" +
-			"ID_ASESOR, \n" +
 			"CVE_USUARIO) \n" +
 		        "VALUES ( \n"+
 			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 			"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 			"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_ASESOR") + "', \n" +
 			"'" + (String)registro.getDefCampo("CVE_USUARIO") + "') \n" ;
 		
 		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
@@ -112,13 +113,12 @@ public class SimSucursalAsesorDAO extends Conexion2 implements OperacionConsulta
 	public ResultadoCatalogo baja(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		//BORRA LA FUNCION
-		sSql =  "DELETE FROM SIM_SUCURSAL_ASESOR " +
-		 	" WHERE ID_ASESOR  ='" + (String)registro.getDefCampo("ID_ASESOR") + "' \n" +
-		 	" AND CVE_USUARIO  ='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n" +
+		sSql =  "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL " +
+		 	" WHERE CVE_USUARIO  ='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n" +
 			" AND CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
 			" AND CVE_EMPRESA 	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 			" AND ID_SUCURSAL 	='" + (String)registro.getDefCampo("ID_SUCURSAL") + "'\n";
-
+		
 		//VERIFICA SI DIO DE ALTA EL REGISTRO
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");

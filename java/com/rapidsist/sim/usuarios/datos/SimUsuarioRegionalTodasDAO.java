@@ -51,7 +51,7 @@ public class SimUsuarioRegionalTodasDAO extends Conexion2 implements OperacionAl
 			
 			sIdRegional = rs.getString("ID_REGIONAL");
 			
-			sSql =  "INSERT INTO SIM_USUARIO_REGIONAL ( \n"+
+			sSql =  "INSERT INTO SIM_USUARIO_ACCESO_REGIONAL ( \n"+
 					"CVE_GPO_EMPRESA, \n" +
 					"CVE_EMPRESA, \n" +
 					"CVE_USUARIO, \n"+
@@ -95,13 +95,13 @@ public class SimUsuarioRegionalTodasDAO extends Conexion2 implements OperacionAl
 				"CVE_USUARIO, \n"+
 				"ID_REGIONAL \n"+
 			"FROM \n"+
-				"SIM_USUARIO_REGIONAL \n"+
+				"SIM_USUARIO_ACCESO_REGIONAL \n"+
 			" WHERE CVE_USUARIO ='" + registro.getDefCampo("CLAVE_USUARIO") + "' \n";
 			ejecutaSql();
 			
 			while (rs.next()){
 				
-				sSql = "DELETE FROM SIM_USUARIO_REGIONAL" +
+				sSql = "DELETE FROM SIM_USUARIO_ACCESO_REGIONAL" +
 				       " WHERE ID_REGIONAL		='" + rs.getString("ID_REGIONAL") + "' \n"+
 				       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CLAVE_USUARIO") + "' \n"+
 				       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -119,13 +119,13 @@ public class SimUsuarioRegionalTodasDAO extends Conexion2 implements OperacionAl
 				"CVE_USUARIO, \n"+
 				"ID_SUCURSAL \n"+
 			"FROM \n"+
-				"SIM_USUARIO_SUCURSAL \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL \n"+
 			" WHERE CVE_USUARIO ='" + registro.getDefCampo("CLAVE_USUARIO") + "' \n";
 			ejecutaSql();
 			
 			while (rs.next()){
 				
-				sSql = "DELETE FROM SIM_USUARIO_SUCURSAL" +
+				sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL" +
 				       " WHERE ID_SUCURSAL		='" + rs.getString("ID_SUCURSAL") + "' \n"+
 				       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CLAVE_USUARIO") + "' \n"+
 				       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -153,7 +153,7 @@ public class SimUsuarioRegionalTodasDAO extends Conexion2 implements OperacionAl
 				
 				sIdRegional = rs.getString("ID_REGIONAL");
 				
-				sSql =  "INSERT INTO SIM_USUARIO_REGIONAL ( \n"+
+				sSql =  "INSERT INTO SIM_USUARIO_ACCESO_REGIONAL ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
 						"CVE_USUARIO, \n"+
@@ -189,13 +189,13 @@ public class SimUsuarioRegionalTodasDAO extends Conexion2 implements OperacionAl
 				"CVE_USUARIO, \n"+
 				"ID_REGIONAL \n"+
 			"FROM \n"+
-				"SIM_USUARIO_REGIONAL \n"+
+				"SIM_USUARIO_ACCESO_REGIONAL \n"+
 			" WHERE CVE_USUARIO ='" + registro.getDefCampo("CLAVE_USUARIO") + "' \n";
 			ejecutaSql();
 			
 			while (rs.next()){
 				
-				sSql = "DELETE FROM SIM_USUARIO_REGIONAL" +
+				sSql = "DELETE FROM SIM_USUARIO_ACCESO_REGIONAL" +
 				       " WHERE ID_REGIONAL		='" + rs.getString("ID_REGIONAL") + "' \n"+
 				       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CLAVE_USUARIO") + "' \n"+
 				       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -213,13 +213,13 @@ public class SimUsuarioRegionalTodasDAO extends Conexion2 implements OperacionAl
 				"CVE_USUARIO, \n"+
 				"ID_SUCURSAL \n"+
 			"FROM \n"+
-				"SIM_USUARIO_SUCURSAL \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL \n"+
 			" WHERE CVE_USUARIO ='" + registro.getDefCampo("CLAVE_USUARIO") + "' \n";
 			ejecutaSql();
 			
 			while (rs.next()){
 				
-				sSql = "DELETE FROM SIM_USUARIO_SUCURSAL" +
+				sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL" +
 				       " WHERE ID_SUCURSAL		='" + rs.getString("ID_SUCURSAL") + "' \n"+
 				       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CLAVE_USUARIO") + "' \n"+
 				       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+

@@ -48,7 +48,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 						   "C.NUM_CICLO \n"+
 						   "FROM V_CREDITO C, \n"+
 						   "SIM_CAT_ETAPA_PRESTAMO E, \n"+
-						   "SIM_USUARIO_SUCURSAL US \n"+
+						   "SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 						   "WHERE  C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					       "AND    C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 					       	   "AND C.APLICA_A != 'INDIVIDUAL_GRUPO' \n"+
@@ -75,7 +75,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 						"SIM_PRODUCTO O, \n"+
 						"SIM_PRODUCTO_CICLO C, \n"+
 						"RS_GRAL_PERSONA N, \n"+
-						"SIM_USUARIO_SUCURSAL US \n"+
+						"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 						"WHERE \n"+
 						"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -115,7 +115,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 						"SIM_PRODUCTO O, \n"+
 						"SIM_PRODUCTO_CICLO C, \n"+
 						"SIM_GRUPO N, \n"+
-						"SIM_USUARIO_SUCURSAL US \n"+
+						"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 						"WHERE \n"+
 						"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
@@ -157,7 +157,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"SIM_PRODUCTO O, \n"+
 					"SIM_PRODUCTO_CICLO C, \n"+
 					"RS_GRAL_PERSONA N, \n"+
-					"SIM_USUARIO_SUCURSAL US \n"+
+					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 					"WHERE \n"+
 					"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -197,7 +197,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"SIM_PRODUCTO O, \n"+
 					"SIM_PRODUCTO_CICLO C, \n"+
 					"SIM_GRUPO N, \n"+
-					"SIM_USUARIO_SUCURSAL US \n"+
+					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 					"WHERE \n"+
 					"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
@@ -243,7 +243,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"TO_CHAR(NVL(ROUND(IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE, \n"+
 					"NVL(ROUND(IMP_CONCEPTO,2),0) \n"+
 		         	
-		    		"FROM V_SIM_PRESTAMO_MOV_EDO_CTA \n"+
+		    		"FROM V_MOV_EDO_CTA_IND \n"+
 		   			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
 		         	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
 		         	"ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
@@ -253,6 +253,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
 					"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
 					"AND NUM_PAGO_AMORTIZACION != 0 \n"+
+					"AND DESC_MOVIMIENTO != ' ' \n"+
 					"ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, NVL(ROUND(IMP_CONCEPTO,2),0) \n";
 			
 			}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_FECHA")){	
@@ -275,7 +276,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 	         	"NUM_PAGO_AMORTIZACION, \n"+
 	         	"ID_MOVIMIENTO, \n"+
 	         	"DESC_MOVIMIENTO) AS IMP_SALDO \n"+
-	    		"FROM V_SIM_PRESTAMO_MOV_EDO_CTA \n"+
+	    		"FROM V_MOV_EDO_CTA_IND \n"+
 	   			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
 	         	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
 	         	"ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+

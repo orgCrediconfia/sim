@@ -33,13 +33,13 @@ public class SimPrestamoAsesorCreditoDAO extends Conexion2 implements OperacionC
 		sSql =  "SELECT \n"+
 				"A.CVE_GPO_EMPRESA, \n"+
 		  		"A.CVE_EMPRESA, \n"+
-		  		"A.ID_ASESOR, \n"+
 		  		"A.ID_SUCURSAL, \n"+ 
 		  		"A.CVE_USUARIO, \n"+ 
 		  		"P.NOM_COMPLETO, \n"+
 		  		"S.NOM_SUCURSAL \n"+
-				"FROM SIM_SUCURSAL_ASESOR A, \n"+
-		  		"SIM_USUARIO_SUCURSAL B, \n"+
+				"FROM SIM_USUARIO_ACCESO_SUCURSAL A, \n"+
+		  		"SIM_USUARIO_ACCESO_SUCURSAL B, \n"+
+		  		"RS_GRAL_USUARIO U, \n"+
 		  		"RS_GRAL_PERSONA P, \n"+
 		  		"SIM_CAT_SUCURSAL S \n"+
 				"WHERE A.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -48,12 +48,17 @@ public class SimPrestamoAsesorCreditoDAO extends Conexion2 implements OperacionC
 				 "AND B.CVE_EMPRESA = A.CVE_EMPRESA \n"+
 				 "AND B.ID_SUCURSAL = A.ID_SUCURSAL \n"+
 				 "AND B.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
-				 "AND P.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
-				 "AND P.CVE_EMPRESA = A.CVE_EMPRESA \n"+ 
-				 "AND P.ID_PERSONA = A.ID_ASESOR \n"+
+				 "AND U.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
+				 "AND U.CVE_EMPRESA = A.CVE_EMPRESA \n"+
+				 "AND U.CVE_USUARIO = A.CVE_USUARIO \n"+
+				 "AND U.CVE_PUESTO = 'AseSuc' \n"+
+				 "AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+
+				 "AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+ 
+				 "AND P.ID_PERSONA = U.ID_PERSONA \n"+
 				 "AND S.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
 				 "AND S.CVE_EMPRESA = A.CVE_EMPRESA \n"+ 
 				 "AND S.ID_SUCURSAL = A.ID_SUCURSAL \n";
+		
 			/*		
 			if (parametros.getDefCampo("CLAVE_USUARIO") != null) {
 				sSql = sSql + " AND UPPER(U.CVE_USUARIO) LIKE '%" + ((String) parametros.getDefCampo("CLAVE_USUARIO")).toUpperCase()  + "%' \n";

@@ -33,40 +33,50 @@ public class SimPrestamoCambioAsesorDAO extends Conexion2 implements OperacionCo
 	public LinkedList getRegistros(Registro parametros) throws SQLException{
 		
 		if (parametros.getDefCampo("CONSULTA").equals("ASESOR")){
-			sSql =  "SELECT DISTINCT \n"+ 
-					"U.CVE_USUARIO, \n"+ 
-					"U.ID_SUCURSAL, \n"+ 
-					"P.NOM_COMPLETO \n"+ 
-					"FROM SIM_SUCURSAL_ASESOR U, \n"+ 
-					"RS_GRAL_PERSONA P \n"+ 
-					"WHERE U.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					"AND U.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
-					"AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+ 
-					"AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+ 
-					"AND P.ID_PERSONA = U.ID_ASESOR \n";
+			sSql =  "SELECT \n"+
+					"U.CVE_GPO_EMPRESA, \n"+
+					"U.CVE_EMPRESA, \n"+
+					"U.CVE_USUARIO, \n"+
+					"U.CVE_PUESTO, \n"+
+					"P.NOM_COMPLETO, \n"+
+					"P.ID_SUCURSAL \n"+
+					"FROM \n"+
+					"RS_GRAL_USUARIO U, \n"+
+					"RS_GRAL_PERSONA P \n"+
+					"WHERE U.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND U.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND U.CVE_PUESTO = 'AseSuc' \n"+
+					"AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+
+					"AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+
+					"AND P.ID_PERSONA = U.ID_PERSONA \n";
 			
 			if (parametros.getDefCampo("NOM_COMPLETO") != null) {
 				sSql = sSql + "AND UPPER(P.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase() + "%' \n";
 			}
 		
 			if (parametros.getDefCampo("ID_SUCURSAL") != null) {
-				sSql = sSql + "AND U.ID_SUCURSAL = '" + (String) parametros.getDefCampo("ID_SUCURSAL") + "' \n";
+				sSql = sSql + "AND P.ID_SUCURSAL = '" + (String) parametros.getDefCampo("ID_SUCURSAL") + "' \n";
 			}
 			
 			sSql = sSql + "ORDER BY P.NOM_COMPLETO \n";
 		}else if (parametros.getDefCampo("CONSULTA").equals("CAMBIO_ASESOR")){
-			sSql =  "SELECT DISTINCT \n"+ 
-					"U.CVE_USUARIO, \n"+ 
-					"P.NOM_COMPLETO \n"+ 
-					"FROM SIM_SUCURSAL_ASESOR U, \n"+ 
-					"RS_GRAL_PERSONA P \n"+ 
-					"WHERE U.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					"AND U.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
-					"AND U.ID_SUCURSAL = '" + (String) parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-					"AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+ 
-					"AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+ 
-					"AND P.ID_PERSONA = U.ID_ASESOR \n"+
-					"ORDER BY P.NOM_COMPLETO \n";
+			sSql =  "SELECT \n"+
+					"U.CVE_GPO_EMPRESA, \n"+
+					"U.CVE_EMPRESA, \n"+
+					"U.CVE_USUARIO, \n"+
+					"U.CVE_PUESTO, \n"+
+					"P.NOM_COMPLETO, \n"+
+					"P.ID_SUCURSAL \n"+
+					"FROM \n"+
+					"RS_GRAL_USUARIO U, \n"+
+					"RS_GRAL_PERSONA P \n"+
+					"WHERE U.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND U.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND U.CVE_PUESTO = 'AseSuc' \n"+
+					"AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+
+					"AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+
+					"AND P.ID_PERSONA = U.ID_PERSONA \n"+
+					"AND P.ID_SUCURSAL = '" + (String) parametros.getDefCampo("ID_SUCURSAL") + "' \n";
 			
 		}
 		

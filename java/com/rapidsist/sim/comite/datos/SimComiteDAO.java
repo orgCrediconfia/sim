@@ -44,7 +44,7 @@ public class SimComiteDAO extends Conexion2 implements OperacionConsultaTabla, O
 			   "C.FECHA \n" +	
 			" FROM SIM_COMITE C, \n"+
 			"      SIM_CAT_SUCURSAL S, \n"+
-			"	   SIM_USUARIO_SUCURSAL US \n"+
+			"	   SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 			" WHERE C.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			" AND C.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			" AND S.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+

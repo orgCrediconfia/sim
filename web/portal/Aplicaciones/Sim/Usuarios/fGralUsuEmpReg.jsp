@@ -28,12 +28,12 @@
 		<Portal:Calendario2 etiqueta='Fecha de Ingreso a la Empresa' contenedor='frmRegistro' controlnombre='FechaIngresoEmpresa' controlvalor='${requestScope.registro.campos["FECHA_INGRESO_EMPRESA"]}'  esfechasis='false'/>
 		
 		<c:if test='${(requestScope.registro == null)}'>
-			<Portal:FormaElemento etiqueta='Asignar a todas las regiones' control='checkbox' controlnombre='BRegionales' controlvalor='${requestScope.registro.campos["B_REGIONALES"]}'/>	
+			<Portal:FormaElemento etiqueta='Asignar a todas las regiones (Superusuario)' control='checkbox' controlnombre='BRegionales' controlvalor='${requestScope.registro.campos["B_REGIONALES"]}'/>	
 		</c:if>
 		<c:if test='${(requestScope.registro != null)}'>
 			<c:if test='${(requestScope.registro.campos["B_REGIONALES"] == "V")}'>
 				<tr> 
-				   	<th>Asignar a todas las regiones</th>
+				   	<th>Asignar a todas las regiones (Superusuario)</th>
 					<td> 
 						<input type='checkbox' name='BRegionales'/ checked >
 					</td>
@@ -41,13 +41,14 @@
 			</c:if>
 			<c:if test='${(requestScope.registro.campos["B_REGIONALES"] == "F")}'>
 				<tr> 
-				   	<th>Asignar a todas las regiones</th>
+				   	<th>Asignar a todas las regiones (Superusuario)</th>
 					<td> 
 						<input type='checkbox' name='BRegionales'/>
 					</td>
 				</tr>
 			</c:if>
 		</c:if>
+		<Portal:FormaElemento etiqueta='Sucursal a la que pertenece' control='selector' controlnombre='IdSucursal' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='true' obligatorio='true' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursalPertenece}'/>
 	    	<Portal:FormaBotones>
 			<Portal:FormaBotonAltaModificacion/>
 			<Portal:FormaBotonBaja/>
@@ -94,7 +95,7 @@
 		</Portal:FormaBotones>		
 	</Portal:TablaForma>
     	
-	<Portal:TablaForma maestrodetallefuncion="SimUsuarioRegional" nombre="Regionales" funcion="SimUsuarioRegional" operacion="BA" parametros='CveUsuario=${registro.campos["CVE_USUARIO"]}&IdPersona=${registro.campos["ID_PERSONA"]}'>
+	<Portal:TablaForma maestrodetallefuncion="SimUsuarioRegional" nombre="Regionales a las que tiene acceso" funcion="SimUsuarioRegional" operacion="BA" parametros='CveUsuario=${registro.campos["CVE_USUARIO"]}&IdPersona=${registro.campos["ID_PERSONA"]}'>
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Seleccione'/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
@@ -113,7 +114,7 @@
 		</Portal:FormaBotones>		
 	</Portal:TablaForma>
 		
-	<Portal:TablaForma maestrodetallefuncion="SimUsuarioSucursal" nombre="Sucursales" funcion="SimUsuarioSucursal" operacion="BA" parametros='CveUsuario=${registro.campos["CVE_USUARIO"]}&IdPersona=${registro.campos["ID_PERSONA"]}'>
+	<Portal:TablaForma maestrodetallefuncion="SimUsuarioSucursal" nombre="Sucursales a las que tiene acceso" funcion="SimUsuarioSucursal" operacion="BA" parametros='CveUsuario=${registro.campos["CVE_USUARIO"]}&IdPersona=${registro.campos["ID_PERSONA"]}'>
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Seleccione'/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>

@@ -47,7 +47,7 @@ public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements
 				" FROM SIM_PRESTAMO P, \n"+
 				" RS_GRAL_PERSONA N, \n"+
 				" SIM_CAT_ETAPA_PRESTAMO E, \n"+
-				" SIM_USUARIO_SUCURSAL US \n"+
+				" SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				" WHERE P.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				" AND P.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				" AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
@@ -283,36 +283,6 @@ public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements
 			String sCveEmpresa = (String)registro.getDefCampo("CVE_EMPRESA");
 			String sIdPreMovi = (String)registro.getDefCampo("ID_PREMOVTO");
 			String sCveUsuario = (String)registro.getDefCampo("CVE_USUARIO");
-		
-			
-		
-			
-			/*
-			CallableStatement sto = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?); end;");
-			
-			sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
-		
-			sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
-			
-			sto.setString(3, (String)registro.getDefCampo("ID_PREMOVTO"));
-	
-			sto.setString(4, "PV");
-			
-			sto.setString(5, (String)registro.getDefCampo("CVE_USUARIO"));
-		
-			sto.setString(6, "F");
-		
-			sto.registerOutParameter(7, java.sql.Types.VARCHAR);
-		
-			//EJECUTA EL PROCEDIMIENTO ALMACENADO
-			sto.execute();
-		
-			sTxrespuesta3  = sto.getString(7);
-		
-			sto.close();
-			
-			*/
-		
 		
 			String sCallable="begin ? := PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?); end;";
 		

@@ -44,7 +44,7 @@ public class SimConsultaTablaAmortizacionDAO extends Conexion2 implements Operac
 					   "C.NUM_CICLO \n"+
 					   "FROM V_CREDITO C, \n"+
 					   "SIM_CAT_ETAPA_PRESTAMO E, \n"+
-					   "SIM_USUARIO_SUCURSAL US \n"+
+					   "SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 					   "WHERE  C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				       "AND    C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				       	   "AND C.APLICA_A != 'INDIVIDUAL_GRUPO' \n"+
@@ -71,7 +71,7 @@ public class SimConsultaTablaAmortizacionDAO extends Conexion2 implements Operac
 					"SIM_PRODUCTO O, \n"+
 					"SIM_PRODUCTO_CICLO C, \n"+
 					"RS_GRAL_PERSONA N, \n"+
-					"SIM_USUARIO_SUCURSAL US \n"+
+					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 					"WHERE \n"+
 					"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -111,7 +111,7 @@ public class SimConsultaTablaAmortizacionDAO extends Conexion2 implements Operac
 					"SIM_PRODUCTO O, \n"+
 					"SIM_PRODUCTO_CICLO C, \n"+
 					"SIM_GRUPO N, \n"+
-					"SIM_USUARIO_SUCURSAL US \n"+
+					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 					"WHERE \n"+
 					"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
@@ -153,7 +153,7 @@ public class SimConsultaTablaAmortizacionDAO extends Conexion2 implements Operac
 				"SIM_PRODUCTO O, \n"+
 				"SIM_PRODUCTO_CICLO C, \n"+
 				"RS_GRAL_PERSONA N, \n"+
-				"SIM_USUARIO_SUCURSAL US \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				"WHERE \n"+
 				"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -193,7 +193,7 @@ public class SimConsultaTablaAmortizacionDAO extends Conexion2 implements Operac
 				"SIM_PRODUCTO O, \n"+
 				"SIM_PRODUCTO_CICLO C, \n"+
 				"SIM_GRUPO N, \n"+
-				"SIM_USUARIO_SUCURSAL US \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				"WHERE \n"+
 				"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +

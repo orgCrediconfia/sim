@@ -48,7 +48,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 			"R.CVE_EMPRESA, \n"+
 			"R.ID_REGIONAL, \n"+ 
 			"CR.NOM_REGIONAL \n"+
-			"FROM SIM_USUARIO_REGIONAL R, \n"+
+			"FROM SIM_USUARIO_ACCESO_REGIONAL R, \n"+
 			"     SIM_CAT_REGIONAL CR \n"+
 			"WHERE R.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND R.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -76,7 +76,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 				"UR.CVE_USUARIO, \n"+	
 				"UR.ID_REGIONAL, \n"+ 
 				"CR.NOM_REGIONAL \n"+
-		    	"FROM  SIM_USUARIO_REGIONAL UR, \n"+
+		    	"FROM  SIM_USUARIO_ACCESO_REGIONAL UR, \n"+
 			"      RS_GRAL_USUARIO GU, \n"+
 			"      SIM_CAT_REGIONAL CR \n"+
 			" WHERE UR.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -106,7 +106,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 	
 		String sIdSucursal = "";
 	
-		sSql =  "INSERT INTO SIM_USUARIO_REGIONAL ( \n"+
+		sSql =  "INSERT INTO SIM_USUARIO_ACCESO_REGIONAL ( \n"+
 			"CVE_GPO_EMPRESA, \n" +
 			"CVE_EMPRESA, \n" +
 			"CVE_USUARIO, \n" +
@@ -127,7 +127,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 				"CVE_EMPRESA, \n" +
 				"ID_REGIONAL, \n"+
 				"ID_SUCURSAL \n"+
-			"FROM SIM_REGIONAL_SUCURSAL \n" +
+			"FROM SIM_CAT_SUCURSAL \n" +
 			"WHERE CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND ID_REGIONAL ='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n";
@@ -143,7 +143,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 				"CVE_USUARIO, \n"+
 				"ID_SUCURSAL \n"+
 			"FROM \n"+
-				"SIM_USUARIO_SUCURSAL \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL \n"+
 			"WHERE CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND CVE_USUARIO ='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
@@ -155,7 +155,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 			
 			if (!rs1.next()){
 				
-				sSql =  "INSERT INTO SIM_USUARIO_SUCURSAL ( \n"+
+				sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
 				"CVE_USUARIO, \n" +
@@ -190,7 +190,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 		String sIdSucursal = "";
 		
 		//BORRA LA FUNCION
-		sSql =  "DELETE FROM SIM_USUARIO_REGIONAL " +
+		sSql =  "DELETE FROM SIM_USUARIO_ACCESO_REGIONAL " +
 			" WHERE ID_REGIONAL			='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n" +
 			" AND CVE_USUARIO			='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
 			" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -207,7 +207,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 				"ID_SUCURSAL, \n"+
 				"ID_REGIONAL \n"+
 				"FROM \n"+
-					"SIM_REGIONAL_SUCURSAL \n"+
+					"SIM_CAT_SUCURSAL \n"+
 				" WHERE ID_REGIONAL ='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n" ;
 			ejecutaSql();
 			
@@ -215,23 +215,7 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 				
 				sIdSucursal = rs.getString("ID_SUCURSAL");
 			
-				/*
-				sSql =  "SELECT \n"+
-				 	"CVE_GPO_EMPRESA, \n" +
-					"CVE_EMPRESA, \n" +
-					"ID_SUCURSAL, \n"+
-					"CVE_USUARIO \n"+
-					"FROM \n"+
-						"SIM_USUARIO_SUCURSAL \n"+
-					" WHERE CVE_USUARIO ='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
-					" AND ID_SUCURSAL ='" + sIdSucursal + "' \n";
-				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-				ps1.execute();
-				ps1.close();
-				
-				
-				*/
-					sSql = "DELETE FROM SIM_USUARIO_SUCURSAL" +
+					sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL" +
 					       " WHERE ID_SUCURSAL		='" + sIdSucursal + "' \n"+
 					       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
 					       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+

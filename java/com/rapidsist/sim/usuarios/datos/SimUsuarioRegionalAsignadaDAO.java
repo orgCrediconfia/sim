@@ -40,7 +40,7 @@ public class SimUsuarioRegionalAsignadaDAO extends Conexion2 implements Operacio
 			"R.ID_REGIONAL, \n"+ 
 			"R.CVE_USUARIO, \n"+
 			"CR.NOM_REGIONAL \n"+
-			"FROM SIM_USUARIO_REGIONAL R, \n"+
+			"FROM SIM_USUARIO_ACCESO_REGIONAL R, \n"+
 			"     SIM_CAT_REGIONAL CR \n"+
 			"WHERE R.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND R.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -68,7 +68,7 @@ public class SimUsuarioRegionalAsignadaDAO extends Conexion2 implements Operacio
 		"US.CVE_USUARIO, \n"+	
 		"US.ID_SUCURSAL, \n"+ 
 		"CS.NOM_SUCURSAL \n"+
-    "FROM  SIM_USUARIO_SUCURSAL US, \n"+
+    "FROM  SIM_USUARIO_ACCESO_SUCURSAL US, \n"+
 	"	   RS_GRAL_USUARIO GU, \n"+
 	"	   SIM_CAT_SUCURSAL CS \n"+
 	" WHERE US.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -100,7 +100,7 @@ public class SimUsuarioRegionalAsignadaDAO extends Conexion2 implements Operacio
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
 		
-		sSql =  "INSERT INTO SIM_USUARIO_SUCURSAL ( \n"+
+		sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
 			"CVE_GPO_EMPRESA, \n" +
 			"CVE_EMPRESA, \n" +
 			"CVE_USUARIO, \n" +
@@ -161,7 +161,7 @@ public class SimUsuarioRegionalAsignadaDAO extends Conexion2 implements Operacio
 	public ResultadoCatalogo baja(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		//BORRA LA FUNCION
-		sSql = "DELETE FROM SIM_USUARIO_SUCURSAL " +
+		sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL " +
 			" WHERE ID_SUCURSAL			='" + (String)registro.getDefCampo("ID_SUCURSAL") + "' \n" +
 			" AND CVE_USUARIO			='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
 			" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+

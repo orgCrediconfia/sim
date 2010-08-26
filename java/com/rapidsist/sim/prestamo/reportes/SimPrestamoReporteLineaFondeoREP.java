@@ -39,7 +39,7 @@ public class SimPrestamoReporteLineaFondeoREP implements ReporteControlIN {
 						"C.NUM_LINEA, \n"+
 						"C.MONTO_AUTORIZADO + C.CARGO_INICIAL MONTO_PRESTADO \n"+
 						" FROM V_CREDITO C, \n"+
-						"SIM_USUARIO_SUCURSAL US \n"+
+						"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 						"WHERE C.CVE_GPO_EMPRESA = 'SIM' \n"+
 						"AND C.CVE_EMPRESA = 'CREDICONFIA' \n"+
 						"AND C.APLICA_A != 'INDIVIDUAL_GRUPO' \n"+

@@ -28,6 +28,8 @@
 			</td>
 		</tr>
 		
+		<Portal:FormaElemento etiqueta='Regional a la que pertenece' control='selector' controlnombre='IdRegional' controlvalor='${requestScope.registro.campos["ID_REGIONAL"]}' editarinicializado='true' obligatorio='true' campoclave="ID_REGIONAL" campodescripcion="NOM_REGIONAL" datosselector='${requestScope.ListaRegional}'/>
+		
 		
 		<Portal:FormaSeparador nombre="Direcci&oacute;n de Sucursal"/>				
 		<Portal:FormaElemento etiqueta='Calle' control='Texto' controlnombre='Calle' controlvalor='${requestScope.registro.campos["CALLE"]}' controllongitud='100' controllongitudmax='100' editarinicializado='true' obligatorio='false' />
@@ -97,8 +99,6 @@
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:FormaBotones>
-			<Portal:Boton tipo='url' etiqueta='Alta' url='/ProcesaCatalogo?Funcion=SimSucursalAsesor&OperacionCatalogo=CT&Filtro=Todos&IdSucursal=${registro.campos["ID_SUCURSAL"]}&IdDomicilio=${registro.campos["ID_DOMICILIO"]}'/>
-			<Portal:Boton tipo='submit' etiqueta='Baja' />
 		</Portal:FormaBotones>		
 	</Portal:TablaForma>
 	

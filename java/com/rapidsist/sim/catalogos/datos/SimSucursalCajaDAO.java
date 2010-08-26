@@ -9,11 +9,9 @@ package com.rapidsist.sim.catalogos.datos;
 import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.OperacionAlta;
-import com.rapidsist.portal.catalogos.OperacionBaja;
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
-import com.rapidsist.portal.catalogos.OperacionModificacion;
 import java.util.LinkedList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +21,7 @@ import java.sql.SQLException;
  * Administra las cjas de la sucursal.
  */
  
-public class SimSucursalCajaDAO extends Conexion2 implements OperacionConsultaTabla, OperacionConsultaRegistro, OperacionAlta, OperacionModificacion, OperacionBaja {
+public class SimSucursalCajaDAO extends Conexion2 implements OperacionConsultaTabla, OperacionConsultaRegistro, OperacionAlta {
 
 	/**
 	 * Obtiene un conjunto de registros en base ael filtro de búsqueda.
@@ -141,53 +139,6 @@ public class SimSucursalCajaDAO extends Conexion2 implements OperacionConsultaTa
 				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 			}
 		}
-		return resultadoCatalogo;
-	}
-	
-	/**
-	 * Modifica un registro.
-	 * @param registro Campos del registro a modificar.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public ResultadoCatalogo modificacion(Registro registro) throws SQLException{
-		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		sSql = " UPDATE RS_GRAL_TELEFONO SET "+
-			   " ID_DESC_TEL    	='" + (String)registro.getDefCampo("ID_DESC_TEL")  + "', \n" +
-			   " TELEFONO    	='" + (String)registro.getDefCampo("TELEFONO")  + "' \n" +
-			   " WHERE ID_TELEFONO  ='" + (String)registro.getDefCampo("ID_TELEFONO") + "' \n" +
-			   " AND CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
-			   " AND CVE_EMPRESA 	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			   " AND IDENTIFICADOR 	='" + (String)registro.getDefCampo("IDENTIFICADOR") + "'\n"+
-			   " AND CVE_TIPO_IDENTIFICADOR 	='REGION'\n";
-			   
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-		return resultadoCatalogo;
-	}
-	
-	/**
-	 * Borra un registro.
-	 * @param registro Llave primaria.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public ResultadoCatalogo baja(Registro registro) throws SQLException{
-		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		//BORRA LA FUNCION
-		sSql =  "DELETE FROM SIM_SUCURSAL_ASESOR " +
-		 	" WHERE ID_ASESOR  ='" + (String)registro.getDefCampo("ID_ASESOR") + "' \n" +
-			" AND CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
-			" AND CVE_EMPRESA 	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND ID_SUCURSAL 	='" + (String)registro.getDefCampo("ID_SUCURSAL") + "'\n";
-
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-
 		return resultadoCatalogo;
 	}
 }

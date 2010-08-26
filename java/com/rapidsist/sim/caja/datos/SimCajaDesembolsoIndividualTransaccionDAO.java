@@ -53,7 +53,7 @@ public class SimCajaDesembolsoIndividualTransaccionDAO extends Conexion2 impleme
 				"RS_GRAL_PERSONA B, \n"+
 				"SIM_CAT_SUCURSAL A, \n"+
 				"RS_GRAL_DOMICILIO D, \n"+
-				"SIM_USUARIO_SUCURSAL US \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				"WHERE T.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND T.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND T.CVE_MOVIMIENTO_CAJA = 'DESIND' \n"+

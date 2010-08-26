@@ -37,7 +37,7 @@ public class SimProductoSucursalTodasDAO extends Conexion2 implements OperacionA
 				" CVE_GPO_EMPRESA, \n"+
 				" CVE_EMPRESA, \n"+
 				" ID_SUCURSAL \n"+
-			" FROM SIM_USUARIO_SUCURSAL \n"+
+			" FROM SIM_USUARIO_ACCESO_SUCURSAL \n"+
 			" WHERE CVE_GPO_EMPRESA ='" + registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			" AND CVE_EMPRESA = '" + registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 			" AND CVE_USUARIO = '" + registro.getDefCampo("CVE_USUARIO") + "' \n";
@@ -93,7 +93,7 @@ public class SimProductoSucursalTodasDAO extends Conexion2 implements OperacionA
 						" CVE_GPO_EMPRESA, \n"+
 						" CVE_EMPRESA, \n"+
 						" ID_SUCURSAL \n"+
-					" FROM SIM_USUARIO_SUCURSAL \n"+
+					" FROM SIM_USUARIO_ACCESO_SUCURSAL \n"+
 					" WHERE CVE_GPO_EMPRESA ='" + registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 					" AND CVE_EMPRESA = '" + registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 					" AND CVE_USUARIO = '" + registro.getDefCampo("CVE_USUARIO") + "' \n";
@@ -133,7 +133,7 @@ public class SimProductoSucursalTodasDAO extends Conexion2 implements OperacionA
 							" CVE_GPO_EMPRESA, \n"+
 							" CVE_EMPRESA, \n"+
 							" ID_SUCURSAL \n"+
-						" FROM SIM_USUARIO_SUCURSAL \n"+
+						" FROM SIM_USUARIO_ACCESO_SUCURSAL \n"+
 						" WHERE CVE_GPO_EMPRESA ='" + registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 						" AND CVE_EMPRESA = '" + registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 						" AND ID_SUCURSAL = '" + rs.getString("ID_SUCURSAL") + "' \n"+
@@ -161,7 +161,7 @@ public class SimProductoSucursalTodasDAO extends Conexion2 implements OperacionA
 						" CVE_GPO_EMPRESA, \n"+
 						" CVE_EMPRESA, \n"+
 						" ID_SUCURSAL \n"+
-					" FROM SIM_USUARIO_SUCURSAL \n"+
+					" FROM SIM_USUARIO_ACCESO_SUCURSAL \n"+
 					" WHERE CVE_GPO_EMPRESA ='" + registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 					" AND CVE_EMPRESA = '" + registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 					" AND CVE_USUARIO = '" + registro.getDefCampo("CVE_USUARIO") + "' \n";

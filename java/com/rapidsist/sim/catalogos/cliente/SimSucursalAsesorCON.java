@@ -56,14 +56,8 @@ public class SimSucursalAsesorCON implements CatalogoControlConsultaIN, Catalogo
 			parametros.addDefCampo("ID_SUCURSAL",request.getParameter("IdSucursal"));
 			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimSucursalAsesor", parametros));
 			registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimSucAse.jsp?IdSucursal="+request.getParameter("IdSucursal");
-		}else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
-			//RECUPERA CAMPOS
-			parametros.addDefCampo("IDENTIFICADOR",request.getParameter("IdSucursal"));
-			parametros.addDefCampo("ID_TELEFONO",request.getParameter("IdTelefono"));
-			registroControl.respuesta.addDefCampo("ListaDescripcionTelefono", catalogoSL.getRegistros("SimCatalogoDescripcionTelefono", parametros));
-			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimSucursalTelefono", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimSucTel.jsp?IdSucursal="+request.getParameter("IdSucursal")+"&IdTelefono="+request.getParameter("IdTelefono");
 		}
+		
 		else if (iTipoOperacion == CatalogoControl.CON_INICIALIZACION){
 			//RECUPERA CAMPOS
 			if (request.getParameter("Filtro").equals("Alta")){
@@ -102,15 +96,7 @@ public class SimSucursalAsesorCON implements CatalogoControlConsultaIN, Catalogo
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		//RECUPERA LA LISTA DE LAS FUNCIONES QUE SE VAN A PROCESAR
-		
-		String sIdAsesor;
 		String sCveUsuario;
-		String sVariable1;
-		String sVariable2;
-		int iVariable2 = 0;
-		String sVariable4;
-		int iVariable4 = 0;
 		
 		Enumeration lista = request.getParameterNames();
 		//RECORRE LA LISTA DE PARAMETROS QUE VIENEN EN EL REQUEST
@@ -120,17 +106,9 @@ public class SimSucursalAsesorCON implements CatalogoControlConsultaIN, Catalogo
 			if (sNombre.startsWith("FuncionAlta")){
 				//VERIFICA SI LA LISTA DE FUNCIONES ESTA INICIALIZADA
 				
-				sVariable1 = sNombre.substring(11, sNombre.length());
-				
-				iVariable2 = sVariable1.indexOf("_");
-				iVariable4 = sVariable1.length();
-				
-				sIdAsesor = sVariable1.substring(0,iVariable2);
-				
-				sCveUsuario = sVariable1.substring(iVariable2+1,iVariable4);
+				sCveUsuario = sNombre.substring(12, sNombre.length());
 				
 				registro.addDefCampo("ID_SUCURSAL", request.getParameter("IdSucursal"));
-				registro.addDefCampo("ID_ASESOR", sIdAsesor);
 				registro.addDefCampo("CVE_USUARIO", sCveUsuario);
 				
 				//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS

@@ -9,7 +9,6 @@ package com.rapidsist.sim.catalogos.datos;
 import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.OperacionAlta;
-import com.rapidsist.portal.catalogos.OperacionBaja;
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
@@ -23,7 +22,7 @@ import java.sql.SQLException;
  * Administra los supervisores de las sucursales.
  */
  
-public class SimSucursalSupervisorAsignadoDAO extends Conexion2 implements OperacionConsultaTabla, OperacionConsultaRegistro, OperacionAlta, OperacionModificacion, OperacionBaja {
+public class SimSucursalSupervisorAsignadoDAO extends Conexion2 implements OperacionConsultaTabla, OperacionConsultaRegistro, OperacionAlta, OperacionModificacion {
 
 	/**
 	 * Obtiene un conjunto de registros en base ael filtro de búsqueda.
@@ -129,29 +128,6 @@ public class SimSucursalSupervisorAsignadoDAO extends Conexion2 implements Opera
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
-		return resultadoCatalogo;
-	}
-	
-	/**
-	 * Borra un registro.
-	 * @param registro Llave primaria.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public ResultadoCatalogo baja(Registro registro) throws SQLException{
-		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		//BORRA LA FUNCION
-		sSql =  "DELETE FROM SIM_REGIONAL_SUCURSAL " +
-		 	" WHERE ID_REGIONAL  ='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n" +
-			" AND CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
-			" AND CVE_EMPRESA 	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND ID_SUCURSAL 	='" + (String)registro.getDefCampo("ID_SUCURSAL") + "'\n";
-
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-
 		return resultadoCatalogo;
 	}
 }

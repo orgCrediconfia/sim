@@ -103,7 +103,7 @@ public class SimPrestamoEstadoCuentaGrupoDAO extends Conexion2 implements Operac
 					"TO_CHAR(SUM(NVL(ROUND(IMP_PAGO,2),0)),'999,999,999.99') IMPORTE, \n"+
 		         	"TO_CHAR(SUM(NVL(ROUND(IMP_CONCEPTO,2),0)),'999,999,999.99') IMP_DESGLOSE, \n"+
 		         	"SUM(NVL(ROUND(IMP_CONCEPTO,2),0)) \n"+
-		    		"FROM V_SIM_PRESTAMO_GPO_MOV_EDO_CTA \n"+
+		    		"FROM V_MOV_EDO_CTA_GPO \n"+
 		   			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
 		         	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
 		         	"ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
@@ -113,6 +113,7 @@ public class SimPrestamoEstadoCuentaGrupoDAO extends Conexion2 implements Operac
 					"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
 					"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
 					"AND NUM_PAGO_AMORTIZACION != 0 \n"+
+					"AND DESC_MOVIMIENTO != ' ' \n"+
 					"GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, ID_PRESTAMO, F_APLICACION, NUM_PAGO_AMORTIZACION, F_OPERACION, DESC_MOVIMIENTO \n"+
 					"ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(IMP_CONCEPTO,2),0)) \n";
 			
@@ -136,7 +137,7 @@ public class SimPrestamoEstadoCuentaGrupoDAO extends Conexion2 implements Operac
          	"NUM_PAGO_AMORTIZACION, \n"+
          	"ID_MOVIMIENTO, \n"+
          	"DESC_MOVIMIENTO) AS IMP_SALDO \n"+
-    		"FROM V_SIM_PRESTAMO_GPO_MOV_EDO_CTA \n"+
+    		"FROM V_MOV_EDO_CTA_GPO \n"+
    			"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
          	"CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
          	"ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+

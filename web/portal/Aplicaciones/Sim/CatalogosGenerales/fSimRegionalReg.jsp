@@ -1,6 +1,6 @@
 <%@ taglib uri="Portal" prefix="Portal" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
-<Portal:Pagina funcion="SimCatalogoRegional" precarga="SimRegionalTelefono SimRegionalSucursal">
+<Portal:Pagina funcion="SimCatalogoRegional" precarga="SimRegionalTelefono">
 	
 	<Portal:PaginaNombre titulo="Catálogo Regional" subtitulo="Modificaci&oacute;n de datos" subtituloalta="Alta de datos"/>
 	
@@ -69,24 +69,20 @@
 		</Portal:FormaBotones>		
 	</Portal:TablaForma>	
 	
-	<Portal:TablaForma maestrodetallefuncion="SimRegionalSucursal" nombre="Sucursales" funcion="SimRegionalSucursal" operacion="BA" parametros='IdRegional=${registro.campos["ID_REGIONAL"]}&IdDomicilio=${registro.campos["ID_DOMICILIO"]}'>
+	<Portal:TablaLista tipo="consulta" nombre="Sucursales" >
 		<Portal:TablaListaTitulos>
-			<Portal:Columna tipovalor='texto' ancho='100' valor='Seleccione'/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Nombre'/>
 		</Portal:TablaListaTitulos>	
 		<c:forEach var="registro" items="${requestScope.ListaSucursal}">
-			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["ID_SUCURSAL"]}' />		
+			<Portal:TablaListaRenglon>		
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["ID_SUCURSAL"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_SUCURSAL"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:FormaBotones>
-			<Portal:Boton tipo='url' etiqueta='Alta' url='/ProcesaCatalogo?Funcion=SimRegionalSucursal&OperacionCatalogo=CT&Filtro=Todos&IdRegional=${registro.campos["ID_REGIONAL"]}&IdDomicilio=${registro.campos["ID_DOMICILIO"]}'/>
-			<Portal:Boton tipo='submit' etiqueta='Baja' />
 		</Portal:FormaBotones>		
-	</Portal:TablaForma>
+	</Portal:TablaLista>
 		
 		
 </Portal:Pagina>

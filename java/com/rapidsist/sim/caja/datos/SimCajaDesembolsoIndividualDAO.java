@@ -47,7 +47,7 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 				"TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_PRESTADO \n"+
 				"FROM V_CREDITO C, \n"+
 				"SIM_CAT_ETAPA_PRESTAMO E, \n"+
-				"SIM_USUARIO_SUCURSAL US \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				"WHERE C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND C.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+

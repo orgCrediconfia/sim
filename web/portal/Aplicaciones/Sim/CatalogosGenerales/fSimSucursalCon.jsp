@@ -7,7 +7,7 @@
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='NomSucursal'  controllongitud='30' controllongitudmax='30' editarinicializado='true'/>
 	</Portal:Forma>
 	
-	<Portal:TablaLista tipo="alta" nombre="Consulta cat&aacute;logo Sucursal" botontipo="url" url="/Aplicaciones/Sim/CatalogosGenerales/fSimSucursalReg.jsp?OperacionCatalogo=AL">
+	<Portal:TablaLista tipo="alta" nombre="Consulta cat&aacute;logo Sucursal" botontipo="url" url='/ProcesaCatalogo?Funcion=SimCatalogoSucursal&OperacionCatalogo=IN&Filtro=Alta'>
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='80' valor='Id Sucursal'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Nombre'/>

@@ -13,7 +13,7 @@
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["ID_ASESOR"]}_${registro.campos["CVE_USUARIO"]}' />		
+				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["CVE_USUARIO"]}' />		
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["CVE_USUARIO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_COMPLETO"]}'/>
 			</Portal:TablaListaRenglon>

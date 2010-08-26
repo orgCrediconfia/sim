@@ -37,7 +37,7 @@ public class SimUsuarioRegionalSucursalTodasDAO extends Conexion2 implements Ope
 				"CVE_EMPRESA, \n" +
 				"ID_REGIONAL, \n"+
 				"ID_SUCURSAL \n"+
-			" FROM SIM_REGIONAL_SUCURSAL \n"+
+			" FROM SIM_CAT_SUCURSAL \n"+
 			" WHERE CVE_GPO_EMPRESA ='" + registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			" AND CVE_EMPRESA = '" + registro.getDefCampo("CVE_EMPRESA") + "' \n";
 			
@@ -47,7 +47,7 @@ public class SimUsuarioRegionalSucursalTodasDAO extends Conexion2 implements Ope
 			
 			sIdSucursal = rs.getString("ID_SUCURSAL");
 			
-			sSql =  "INSERT INTO SIM_USUARIO_SUCURSAL ( \n"+
+			sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
 				"CVE_USUARIO, \n" +

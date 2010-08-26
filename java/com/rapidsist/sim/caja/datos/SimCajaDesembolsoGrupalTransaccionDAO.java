@@ -76,7 +76,7 @@ public class SimCajaDesembolsoGrupalTransaccionDAO extends Conexion2 implements 
 				"P.ID_PRESTAMO_GRUPO)B, \n"+
 				"SIM_GRUPO G, \n"+
 				"SIM_PRESTAMO_GRUPO PG, \n"+
-				"SIM_USUARIO_SUCURSAL US \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				"WHERE T.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND T.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND T.CVE_MOVIMIENTO_CAJA = 'DESGPO' \n"+

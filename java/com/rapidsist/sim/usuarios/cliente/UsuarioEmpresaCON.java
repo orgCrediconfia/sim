@@ -69,6 +69,7 @@ public class UsuarioEmpresaCON implements CatalogoControlConsultaIN, CatalogoCon
 			}else if (request.getParameter("Filtro").equals("Alta")){
 				registroControl.respuesta.addDefCampo("ListaPerfil", catalogoSL.getRegistros("SimCatalogoPerfil", parametros));
 				registroControl.respuesta.addDefCampo("ListaPuesto", catalogoSL.getRegistros("SimCatalogoPuesto", parametros));
+				registroControl.respuesta.addDefCampo("ListaSucursalPertenece", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
 				registroControl.sPagina = "/Aplicaciones/Sim/Usuarios/fGralUsuEmpReg.jsp";
 			}
 		}
@@ -80,6 +81,7 @@ public class UsuarioEmpresaCON implements CatalogoControlConsultaIN, CatalogoCon
 			registroControl.respuesta.addDefCampo("ListaDireccion", catalogoSL.getRegistros("SimUsuarioDireccion", parametros));
 			registroControl.respuesta.addDefCampo("ListaTelefono", catalogoSL.getRegistros("SimUsuarioTelefono", parametros));
 			registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimUsuarioRegionalAsignada", parametros));
+			registroControl.respuesta.addDefCampo("ListaSucursalPertenece", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
 			registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimUsuarioSucursalAsignada", parametros));
 			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimUsuarioEmpresa", parametros));
 			//VERIFICA SI SOLO CONSULTA LOS DATOS DEL REGISTRO
@@ -132,6 +134,7 @@ public class UsuarioEmpresaCON implements CatalogoControlConsultaIN, CatalogoCon
 		registro.addDefCampo("CVE_PERFIL", request.getParameter("CvePerfil"));
 		registro.addDefCampo("NUM_NOMINA", request.getParameter("NumNomina"));
 		registro.addDefCampo("FECHA_INGRESO_EMPRESA", request.getParameter("FechaIngresoEmpresa"));
+		registro.addDefCampo("ID_SUCURSAL", request.getParameter("IdSucursal") != null ? request.getParameter("IdSucursal") : "");
 		
 		if(request.getParameter("BRegionales")!=null){
 			registro.addDefCampo("B_REGIONALES","V");

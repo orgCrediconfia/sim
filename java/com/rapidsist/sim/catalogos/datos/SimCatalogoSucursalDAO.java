@@ -91,6 +91,7 @@ public class SimCatalogoSucursalDAO extends Conexion2 implements OperacionConsul
 				" S.CVE_EMPRESA, \n"+
 				" S.ID_SUCURSAL, \n"+
 				" S.NOM_SUCURSAL, \n"+
+				" S.ID_REGIONAL, \n"+
 				" S.ID_DIRECCION, \n"+
 				" S.ID_DIRECCION_TRIBUNAL, \n"+
 				" S.CVE_USUARIO_GERENTE, \n"+
@@ -242,6 +243,7 @@ public class SimCatalogoSucursalDAO extends Conexion2 implements OperacionConsul
 						"CVE_EMPRESA, \n" +
 						"ID_SUCURSAL, \n" +
 						"NOM_SUCURSAL, \n" +
+						"ID_REGIONAL, \n" +
 						"ID_DIRECCION, \n" +
 						"ID_DIRECCION_TRIBUNAL, \n" +
 						"CVE_USUARIO_GERENTE, \n" +
@@ -252,6 +254,7 @@ public class SimCatalogoSucursalDAO extends Conexion2 implements OperacionConsul
 						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 						sIdSucursal + ", \n "+
 						"'" + (String)registro.getDefCampo("NOM_SUCURSAL") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_REGIONAL") + "', \n" +
 						" " + sIdDomicilio +", \n" +
 						" " + sIdDomicilioTribunal +", \n" +
 						"'" + (String)registro.getDefCampo("CVE_USUARIO_GERENTE") + "', \n" +
@@ -303,6 +306,7 @@ public class SimCatalogoSucursalDAO extends Conexion2 implements OperacionConsul
 		
 		sSql = " UPDATE SIM_CAT_SUCURSAL SET "+
 			   " NOM_SUCURSAL    			='" + (String)registro.getDefCampo("NOM_SUCURSAL")  + "', \n" +
+			   " ID_REGIONAL    			='" + (String)registro.getDefCampo("ID_REGIONAL")  + "', \n" +
 			   " CVE_USUARIO_GERENTE    		='" + (String)registro.getDefCampo("CVE_USUARIO_GERENTE")  + "', \n" +
 			   " CVE_USUARIO_COORDINADOR    	='" + (String)registro.getDefCampo("CVE_USUARIO_COORDINADOR")  + "', \n" +
 			   " TASA_IVA    	='" + (String)registro.getDefCampo("TASA_IVA")  + "' \n" +

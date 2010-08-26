@@ -75,11 +75,19 @@ public class SimCatalogoSucursalCON implements CatalogoControlConsultaIN, Catalo
 			//OBTIENE SOLO EL REGISTRO SOLICITADO
 			parametros.addDefCampo("ID_SUCURSAL",request.getParameter("IdSucursal"));
 			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCatalogoSucursal", parametros));
+			registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
 			registroControl.respuesta.addDefCampo("ListaTelefono", catalogoSL.getRegistros("SimSucursalTelefono", parametros));
 			registroControl.respuesta.addDefCampo("ListaAsesores", catalogoSL.getRegistros("SimSucursalAsesorAsignado", parametros));
 			registroControl.respuesta.addDefCampo("ListaSupervisores", catalogoSL.getRegistros("SimSucursalSupervisorAsignado", parametros));
 			registroControl.respuesta.addDefCampo("ListaCajas", catalogoSL.getRegistros("SimSucursalCaja", parametros));
 			registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimSucursalReg.jsp";
+		}else if (iTipoOperacion == CON_INICIALIZACION){
+			if (request.getParameter("Filtro").equals("Alta")){
+				registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimSucursalReg.jsp";
+			}
+			
+			
 		}
 		return registroControl;
 	}
@@ -118,6 +126,7 @@ public class SimCatalogoSucursalCON implements CatalogoControlConsultaIN, Catalo
 		//RECUPERA LOS CAMPOS DE LA MODIFICACION
 		registro.addDefCampo("ID_SUCURSAL",request.getParameter("IdSucursal"));
 		registro.addDefCampo("NOM_SUCURSAL",request.getParameter("NomSucursal"));
+		registro.addDefCampo("ID_REGIONAL",request.getParameter("IdRegional"));
 		registro.addDefCampo("CVE_USUARIO_GERENTE",request.getParameter("CveUsuarioGerente"));
 		registro.addDefCampo("CVE_USUARIO_COORDINADOR",request.getParameter("CveUsuarioCoordinador"));
 		registro.addDefCampo("TASA_IVA",request.getParameter("TasaIva"));

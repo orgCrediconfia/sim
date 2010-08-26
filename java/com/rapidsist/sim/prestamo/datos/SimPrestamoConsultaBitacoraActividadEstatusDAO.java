@@ -47,7 +47,7 @@ public class SimPrestamoConsultaBitacoraActividadEstatusDAO extends Conexion2 im
 				   "C.NOMBRE, \n"+
 				   "C.NUM_CICLO \n"+
 				   "FROM V_CREDITO C, \n"+
-				   "     SIM_USUARIO_SUCURSAL US \n"+
+				   "     SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 				   "WHERE  C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			       "AND    C.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			       "AND C.APLICA_A != 'INDIVIDUAL_GRUPO' \n"+

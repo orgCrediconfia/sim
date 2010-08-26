@@ -101,6 +101,7 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			 " 	P.NOMBRE_1, \n" +
 			 " 	P.NOMBRE_2, \n" +
 			 " 	P.NOM_COMPLETO, \n" +
+			 " 	P.ID_SUCURSAL, \n" +
 			 "	B_REGIONALES \n" +
 			" FROM  RS_GRAL_USUARIO U, \n" +
 			"	RS_GRAL_PERSONA P \n" +
@@ -145,6 +146,7 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 				"NOMBRE_1, \n" +
 				"NOMBRE_2, \n" +
 				"NOM_COMPLETO, \n" +
+				"ID_SUCURSAL, \n" +
 				"B_PERSONA_FISICA) \n" +
 			" VALUES (" +
 			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
@@ -155,6 +157,7 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			"'" + (String)registro.getDefCampo("NOMBRE_1") + "', \n" +
 			"'" + (String)registro.getDefCampo("NOMBRE_2") + "', \n" +
 			"'" + (String)registro.getDefCampo("NOM_COMPLETO") + "', \n" +
+			"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 			"'V') \n" ;
 					
 		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
@@ -261,7 +264,8 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			" AP_MATERNO = '" + (String)registro.getDefCampo("AP_MATERNO") + "', \n" +
 			" NOMBRE_1 = '" + (String)registro.getDefCampo("NOMBRE_1") + "', \n" +
 			" NOMBRE_2 = '" + (String)registro.getDefCampo("NOMBRE_2") + "', \n" +
-			" NOM_COMPLETO = '" + (String)registro.getDefCampo("NOM_COMPLETO") + "' \n" +
+			" NOM_COMPLETO = '" + (String)registro.getDefCampo("NOM_COMPLETO") + "', \n" +
+			" ID_SUCURSAL = '" + (String)registro.getDefCampo("ID_SUCURSAL") + "' \n" +
 			" WHERE ID_PERSONA = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
 			" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
