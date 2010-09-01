@@ -152,7 +152,6 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
    "                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
    "                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
-   "           AND T.B_PAGO_PUNTUAL    = 'F' \n"+
    "           AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+ 
    "           AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
    "           AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
@@ -346,7 +345,6 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
 			"                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
 			"                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
-			"           AND T.B_PAGO_PUNTUAL    = 'F' \n"+
 			"           AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+ 
 			"           AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
 			"           AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
