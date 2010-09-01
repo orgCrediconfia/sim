@@ -38,6 +38,49 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 		
 		if (registro.getDefCampo("ALTA").equals("CREDITO_GRUPAL")){
 			
+			sSql =	" SELECT \n"+
+					" GI.CVE_GPO_EMPRESA, \n"+
+					" GI.CVE_EMPRESA, \n"+
+					" GI.ID_INTEGRANTE ID_PERSONA, \n"+
+					" GI.FECHA_ALTA, \n"+
+					" P.NOM_COMPLETO, \n"+
+					" P.CVE_ASESOR_CREDITO, \n"+
+					" NA.NOM_COMPLETO NOM_ASESOR_CREDITO, \n"+
+					" DECODE(N.B_PRINCIPAL,'V','Principal','F','Secundario') B_PRINCIPAL, \n"+
+					" TN.ID_TIPO_NEGOCIO, \n"+
+					" TN.NOM_TIPO_NEGOCIO \n"+
+					" FROM SIM_GRUPO_INTEGRANTE GI, \n"+
+					"      RS_GRAL_PERSONA P, \n"+
+					"      SIM_CLIENTE_NEGOCIO N, \n" +
+					"      SIM_CAT_TIPO_NEGOCIO TN, \n" +
+					"      RS_GRAL_USUARIO U, \n"+
+					"      RS_GRAL_PERSONA NA \n"+
+					" WHERE "+
+					" GI.CVE_GPO_EMPRESA='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					" AND GI.CVE_EMPRESA='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND GI.ID_GRUPO='" + (String)registro.getDefCampo("ID_GRUPO") + "' \n"+
+					" AND P.CVE_GPO_EMPRESA = GI.CVE_GPO_EMPRESA \n"+
+					" AND P.CVE_EMPRESA = GI.CVE_EMPRESA \n"+
+					" AND P.ID_PERSONA = GI.ID_INTEGRANTE \n"+
+					" AND GI.FECHA_BAJA_LOGICA IS NULL \n"+
+					" AND N.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n" +
+					" AND N.CVE_EMPRESA (+)= P.CVE_EMPRESA \n" +
+					" AND N.ID_PERSONA (+)= P.ID_PERSONA \n" +
+					" AND N.B_PRINCIPAL (+)= 'V' \n" +
+					" AND TN.CVE_GPO_EMPRESA (+)= N.CVE_GPO_EMPRESA \n" +
+					" AND TN.CVE_EMPRESA (+)= N.CVE_EMPRESA \n" +
+					" AND TN.ID_TIPO_NEGOCIO (+)= N.ID_TIPO_NEGOCIO \n" +
+					" AND U.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n" +
+					" AND U.CVE_EMPRESA (+)= P.CVE_EMPRESA \n" +
+					" AND U.CVE_USUARIO (+)= P.CVE_ASESOR_CREDITO \n" +
+					" AND NA.CVE_GPO_EMPRESA (+)= U.CVE_GPO_EMPRESA \n"+
+					" AND NA.CVE_EMPRESA (+)= U.CVE_EMPRESA \n"+
+					" AND NA.ID_PERSONA (+)= U.ID_PERSONA \n"+
+					" ORDER BY ID_PERSONA \n";
+			ejecutaSql();
+			if(rs.next()){
+				registro.addDefCampo("CVE_ASESOR_CREDITO",rs.getString("CVE_ASESOR_CREDITO")== null ? "": rs.getString("CVE_ASESOR_CREDITO"));
+			}
 			
 			sSql = "SELECT \n"+
 					"PC.CVE_GPO_EMPRESA, \n"+
@@ -146,6 +189,8 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						"ID_TASA_REFERENCIA_RECARGO, \n"+
 						"FACTOR_TASA_RECARGO, \n"+
 						"MONTO_FIJO_PERIODO, \n"+
+						"CVE_ASESOR_CREDITO, \n"+
+						"CVE_ASESOR_FUNDADOR, \n"+
 						"B_ENTREGADO) \n"+
 				        "VALUES ( \n"+
 					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
@@ -177,6 +222,8 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					"'" + (String)registro.getDefCampo("ID_TASA_REFERENCIA_RECARGO") + "', \n" +
 					"'" + (String)registro.getDefCampo("FACTOR_TASA_RECARGO") + "', \n" +
 					"'" + (String)registro.getDefCampo("MONTO_FIJO_PERIODO") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
 					"'F') \n" ;
 				
 				//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
