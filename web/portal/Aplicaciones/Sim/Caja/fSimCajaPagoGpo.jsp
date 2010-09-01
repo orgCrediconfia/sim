@@ -3,7 +3,7 @@
 <Portal:Pagina funcion="SimCajaPagoGrupal">
 	<Portal:PaginaNombre titulo="Pago de amortizaci&oacute;n" subtitulo="Grupal"/>
 	
-	<Portal:TablaForma nombre="Pago grupal" funcion='SimCajaPagoGrupal' operacion='AL' parametros='TxRespuesta=${param.TxRespuesta}&TxPregunta=${param.TxPregunta}&PagoTotal=${param.PagoTotal}&Saldo=${param.Saldo}&IdCaja=${param.IdCaja}&FechaMovimiento=${param.FechaMovimiento}&IdProducto=${param.IdProducto}&IdGrupo=${param.IdGrupo}&NumCiclo=${param.NumCiclo}&Importe=${param.Importe}&IdPrestamoGrupo=${param.IdPrestamoGrupo}'>
+	<Portal:TablaForma nombre="Pago grupal" funcion='SimCajaPagoGrupal' operacion='AL' parametros='TxRespuesta=${param.TxRespuesta}&TxPregunta=${param.TxPregunta}&PagoTotal=${param.PagoTotal}&Saldo=${param.Saldo}&IdCaja=${param.IdCaja}&FechaMovimiento=${param.FechaMovimiento}&IdProducto=${param.IdProducto}&IdGrupo=${param.IdGrupo}&NumCiclo=${param.NumCiclo}&Importe=${param.Importe}&IdPrestamoGrupo=${param.IdPrestamoGrupo}&Rango=${param.Rango}'>
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='250' valor='Prestamo'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Importe'/>

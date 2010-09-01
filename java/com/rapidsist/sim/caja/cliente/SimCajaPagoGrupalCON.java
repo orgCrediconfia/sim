@@ -74,6 +74,11 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 			parametros.addDefCampo("ID_PRESTAMO_GRUPO",request.getParameter("IdPrestamo"));
 			parametros.addDefCampo("FECHA_MOVIMIENTO",request.getParameter("FechaMovimiento"));
 			
+			//Obtiene el rango
+			Registro rango = new Registro();
+			rango = catalogoSL.getRegistro("SimCajaDistribucionPago", parametros);
+			String sRango =(String)rango.getDefCampo("VALOR_PROPORCION");
+			
 			//En la ListaImporte debe de esta el cursor de la cantidades en propociones.
 			registroControl.respuesta.addDefCampo("ListaImportes", catalogoSL.getRegistros("SimCajaDistribucionPago", parametros));
 			
@@ -93,7 +98,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 			
 			registroControl.respuesta.addDefCampo("SaldoTotal", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumenGrupo", parametros));
 			
-			registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagoGpo.jsp?TxRespuesta="+request.getParameter("TxRespuesta")+"&TxPregunta="+request.getParameter("TxPregunta")+"&Pregunta="+request.getParameter("Pregunta")+"&PagoTotal="+request.getParameter("PagoTotal")+"&Saldo="+request.getParameter("Saldo")+"&Importe="+request.getParameter("Importe")+"&IdPrestamoGrupo="+request.getParameter("IdPrestamo")+"&FechaMovimiento="+request.getParameter("FechaMovimiento");
+			registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagoGpo.jsp?TxRespuesta="+request.getParameter("TxRespuesta")+"&TxPregunta="+request.getParameter("TxPregunta")+"&Pregunta="+request.getParameter("Pregunta")+"&PagoTotal="+request.getParameter("PagoTotal")+"&Saldo="+request.getParameter("Saldo")+"&Importe="+request.getParameter("Importe")+"&IdPrestamoGrupo="+request.getParameter("IdPrestamo")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Rango="+sRango;
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
@@ -142,6 +147,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		
 		String sMontoPago = "";
 		String sImporte = "";
+		String sRango = "";
 		
 		//RECUPERA LA SESION DEL USUARIO
 		HttpSession session = request.getSession();
@@ -176,7 +182,11 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		String[] sIdCliente = request.getParameterValues("IdCliente");
 		String[] sIdPrestamoIndividual = request.getParameterValues("IdPrestamoIndividual");
 		
+		sRango = request.getParameter("Rango");
 		sImporte = request.getParameter("Importe");
+		java.math.BigDecimal dRangoInferior = new java.math.BigDecimal("0.00");
+		java.math.BigDecimal dRangoSuperior = new java.math.BigDecimal("0.00");
+		java.math.BigDecimal dRango = new BigDecimal(sRango);
 		java.math.BigDecimal dImporte = new BigDecimal(sImporte); 
 		java.math.BigDecimal dPago = new java.math.BigDecimal("0.00");
 		if (sMontos != null) {
@@ -190,15 +200,18 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 			}
 		}
 		
+		dRangoSuperior = dImporte.add(dRango);
+		dRangoInferior = dImporte.subtract(dRango);
+		
 		if (sMontos != null) {
-			if (dPago.doubleValue() > dImporte.doubleValue()){
+			if (dPago.doubleValue() > dRangoSuperior.doubleValue()){
 				
 				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
 				resultadoCatalogoControlado.mensaje.setClave("SUMA_IMPORTE_INCORRECTO");
 				resultadoCatalogoControlado.mensaje.setTipo("Aviso");
 				resultadoCatalogoControlado.mensaje.setDescripcion("La suma de todo los importes individuales debe ser igual a la ingresada anteriormente");
 				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
-			}else if (dPago.doubleValue() < dImporte.doubleValue()){
+			}else if (dPago.doubleValue() < dRangoInferior.doubleValue()){
 				
 				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
 				resultadoCatalogoControlado.mensaje.setClave("SUMA_IMPORTE_INCORRECTO");

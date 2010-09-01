@@ -10,6 +10,7 @@ import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.configuracion.Usuario;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
+import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ import java.sql.ResultSet;
  * Administra los accesos a la base de datos para la Distribución automática del pago grupal.
  */
  
-public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionConsultaTabla  {
+public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionConsultaTabla, OperacionConsultaRegistro {
 	
 
 	/**
@@ -60,37 +61,23 @@ public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionCo
 		}
 		
 		sIdPrestamoGrupo = (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO");
-		
 		String sCallable="begin ? := PKG_CREDITO.fCalculaProporcion(?,?,?,?,?,?); end;";
-		
 	    CallableStatement cstmt =conn.prepareCall(sCallable);
-	 
 	    cstmt.setFetchSize(10000);
-	  
 	    cstmt.registerOutParameter(1,OracleTypes.CURSOR);
-	  
 	    cstmt.registerOutParameter(7,java.sql.Types.VARCHAR); //registra parametro de salida
-	  
 	    cstmt.setString(2, (String)parametros.getDefCampo("CVE_GPO_EMPRESA"));
-	  
 		cstmt.setString(3, (String)parametros.getDefCampo("CVE_EMPRESA"));
-		
 	    cstmt.setString(4, sIdPrestamoGrupo);
-	
 	    cstmt.setString(5, sFechaAplicacion);
-	   
 	    cstmt.setString(6, sImporte);
-	  
 	    cstmt.setString(7, "");
-	  
 	    //EJECUTA EL PROCEDIMIENTO ALMACENADO
 	    cstmt.executeQuery();
-	 
 		ResultSet rs = (ResultSet)
 		cstmt.getObject(1);
-		
+
 		while (rs.next()){
-			
 			registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO"));
 			registro.addDefCampo("ID_CLIENTE",rs.getString("ID_CLIENTE"));
 			registro.addDefCampo("NOM_COMPLETO",rs.getString("NOM_COMPLETO"));
@@ -98,11 +85,28 @@ public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionCo
 			lista.add(registro);
 			registro = new Registro();
 		}
-		
 		rs.close();
-		
 		cstmt.close();
-	   	
 		return lista;
 	}
+	
+	
+	/**
+	 * Obtiene un registro en base a una llave primaria.
+	 * @param parametros Parámetros que se le envían a la consulta para obtener el registro
+	 * deseado.
+	 * @return Los campos del registro.
+	 * @throws SQLException Si se genera un error al accesar la base de datos.
+	 */
+	public Registro getRegistro(Registro parametros) throws SQLException{
+		sSql =  " SELECT \n"+
+			" 	VALOR_PROPORCION \n"+
+			" FROM PFIN_PARAMETRO \n"+
+			" WHERE CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			" AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n";
+	
+		ejecutaSql();
+		return this.getConsultaRegistro();
+	}
+	
 }
