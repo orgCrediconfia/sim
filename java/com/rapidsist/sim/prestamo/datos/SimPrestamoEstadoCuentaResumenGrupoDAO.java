@@ -263,44 +263,38 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 		"'I'  \n"+
 
 		"  UNION ALL \n"+
-		  
-		"   SELECT  -5 AS ID_ORDEN, \n"+ 
-		"  GD.CVE_GPO_EMPRESA, \n"+
-		"GD.CVE_EMPRESA, \n"+
-		"GD.ID_PRESTAMO_GRUPO, \n"+
-		"   P.ID_TIPO_RECARGO AS ID_ACCESORIO, \n"+ 
-		"	ROUND(NVL(SUM(P.MONTO_FIJO_PERIODO * -1),0),2) AS IMP_NETO, \n"+ 
-		"  'PAGOTARD' AS CVE_CONCEPTO, \n"+
-	    "  'I' AS CVE_AFECTA \n"+
-		"	FROM    \n"+
-		"  SIM_PRESTAMO_GPO_DET GD, \n"+
-		"  SIM_TABLA_AMORTIZACION T, \n"+
-		"  SIM_PRESTAMO P \n"+
-	    "	 WHERE   GD.CVE_GPO_EMPRESA = 'SIM' \n"+ 
-		"    AND GD.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-		"    AND GD.ID_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-		"    AND T.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+
-		"    AND T.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-		"    AND T.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
-		"	 AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+  
-		"		                           FROM    PFIN_PARAMETRO \n"+ 
-		"		                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-		"		                         AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-		"		                         AND CVE_MEDIO       = 'SYSTEM') \n"+
-		"		  AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+ 
-		"		  AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-		"		 AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-		"		  AND P.ID_TIPO_RECARGO  IN (4,5) \n"+
-		"	 AND ROUND(NVL(P.MONTO_FIJO_PERIODO,0),2) > 0 \n"+ 
-		"    GROUP BY \n"+
-		"   -5, \n"+
-		"  GD.CVE_GPO_EMPRESA, \n"+ 
-		"GD.CVE_EMPRESA, \n"+
-		"GD.ID_PRESTAMO_GRUPO, \n"+
-		"   P.ID_TIPO_RECARGO, \n"+
-		"  'PAGOTARD' , \n"+
-		"	'I' \n"+
-		 
+		
+		" SELECT  -5 AS ID_ORDEN, \n"+  
+		"	  GD.CVE_GPO_EMPRESA, \n"+
+		"	GD.CVE_EMPRESA, \n"+
+		"	GD.ID_PRESTAMO_GRUPO, \n"+ 
+		"	   4 AS ID_ACCESORIO,  \n"+
+		"		ROUND(NVL(SUM(T.IMP_PAGO_TARDIO * -1),0),2) AS IMP_NETO, \n"+  
+		"	  'PAGOTARD' AS CVE_CONCEPTO, \n"+
+		"      'I' AS CVE_AFECTA \n"+
+		"		FROM    \n"+
+		"	  SIM_PRESTAMO_GPO_DET GD, \n"+ 
+		"	  SIM_TABLA_AMORTIZACION T \n"+
+		"    	 WHERE   GD.CVE_GPO_EMPRESA = 'SIM' \n"+  
+		"	    AND GD.CVE_EMPRESA     = 'CREDICONFIA' \n"+
+		"       AND GD.ID_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+		"	    AND T.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+
+		"	    AND T.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
+		"	    AND T.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
+		"		 AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+   
+		"			                           FROM    PFIN_PARAMETRO \n"+  
+		"			                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+  
+		"			                         AND CVE_EMPRESA     = 'CREDICONFIA' \n"+  
+		"			                         AND CVE_MEDIO       = 'SYSTEM')  \n"+
+		"		 AND ROUND(NVL(T.IMP_PAGO_TARDIO,0),2) > 0  \n"+
+		"	    GROUP BY -5, \n"+
+	    "    GD.CVE_GPO_EMPRESA, \n"+
+	    "    GD.CVE_EMPRESA, \n"+
+	    "    GD.ID_PRESTAMO_GRUPO, \n"+ 
+	    "    4, \n"+
+	    "    'PAGOTARD', \n"+ 
+	    "    'I' \n"+
+		
 		"UNION ALL \n"+
 		    
 		"SELECT  \n"+
@@ -674,42 +668,36 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 
 			"  UNION ALL \n"+
 			  
-			"   SELECT  -5 AS ID_ORDEN, \n"+ 
-			"  GD.CVE_GPO_EMPRESA, \n"+
-			"GD.CVE_EMPRESA, \n"+
-			"GD.ID_PRESTAMO_GRUPO, \n"+
-			"   P.ID_TIPO_RECARGO AS ID_ACCESORIO, \n"+ 
-			"	ROUND(NVL(SUM(P.MONTO_FIJO_PERIODO * -1),0),2) AS IMP_NETO, \n"+ 
-			"  'PAGOTARD' AS CVE_CONCEPTO, \n"+
-		    "  'I' AS CVE_AFECTA \n"+
-			"	FROM    \n"+
-			"  SIM_PRESTAMO_GPO_DET GD, \n"+
-			"  SIM_TABLA_AMORTIZACION T, \n"+
-			"  SIM_PRESTAMO P \n"+
-		    "	 WHERE   GD.CVE_GPO_EMPRESA = 'SIM' \n"+ 
-			"    AND GD.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-			"    AND GD.ID_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-			"    AND T.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+
-			"    AND T.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-			"    AND T.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
-			"	 AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+  
-			"		                           FROM    PFIN_PARAMETRO \n"+ 
-			"		                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-			"		                         AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-			"		                         AND CVE_MEDIO       = 'SYSTEM') \n"+
-			"		  AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+ 
-			"		  AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-			"		 AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-			"		  AND P.ID_TIPO_RECARGO  IN (4,5) \n"+
-			"	 AND ROUND(NVL(P.MONTO_FIJO_PERIODO,0),2) > 0 \n"+ 
-			"    GROUP BY \n"+
-			"   -5, \n"+
-			"  GD.CVE_GPO_EMPRESA, \n"+ 
-			"GD.CVE_EMPRESA, \n"+
-			"GD.ID_PRESTAMO_GRUPO, \n"+
-			"   P.ID_TIPO_RECARGO, \n"+
-			"  'PAGOTARD' , \n"+
-			"	'I' \n"+
+			" SELECT  -5 AS ID_ORDEN, \n"+  
+			"	  GD.CVE_GPO_EMPRESA, \n"+
+			"	GD.CVE_EMPRESA, \n"+
+			"	GD.ID_PRESTAMO_GRUPO, \n"+ 
+			"	   4 AS ID_ACCESORIO,  \n"+
+			"		ROUND(NVL(SUM(T.IMP_PAGO_TARDIO * -1),0),2) AS IMP_NETO, \n"+  
+			"	  'PAGOTARD' AS CVE_CONCEPTO, \n"+
+			"      'I' AS CVE_AFECTA \n"+
+			"		FROM    \n"+
+			"	  SIM_PRESTAMO_GPO_DET GD, \n"+ 
+			"	  SIM_TABLA_AMORTIZACION T \n"+
+			"    	 WHERE   GD.CVE_GPO_EMPRESA = 'SIM' \n"+  
+			"	    AND GD.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
+			"       AND GD.ID_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+			"	    AND T.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+
+			"	    AND T.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
+			"	    AND T.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
+			"		 AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+   
+			"			                           FROM    PFIN_PARAMETRO \n"+  
+			"			                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+  
+			"			                         AND CVE_EMPRESA     = 'CREDICONFIA' \n"+  
+			"			                         AND CVE_MEDIO       = 'SYSTEM')  \n"+
+			"		 AND ROUND(NVL(T.IMP_PAGO_TARDIO,0),2) > 0  \n"+
+			"	    GROUP BY -5, \n"+
+		    "    GD.CVE_GPO_EMPRESA, \n"+
+		    "    GD.CVE_EMPRESA, \n"+
+		    "    GD.ID_PRESTAMO_GRUPO, \n"+ 
+		    "    4, \n"+
+		    "    'PAGOTARD', \n"+ 
+		    "    'I' \n"+
 			 
 			"UNION ALL \n"+
 			    

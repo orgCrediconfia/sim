@@ -140,10 +140,10 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
       
    "       UNION ALL \n"+ 
       
-   "       SELECT  -5 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, P.ID_TIPO_RECARGO AS ID_ACCESORIO, \n"+ 
-   "               ROUND(NVL(P.MONTO_FIJO_PERIODO * -1,0),2) AS IMP_NETO, 'PAGOTARD' AS CVE_CONCEPTO, \n"+
+   "       SELECT  -5 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, 4 AS ID_ACCESORIO, \n"+ 
+   "               ROUND(NVL(T.IMP_PAGO_TARDIO * -1,0),2) AS IMP_NETO, 'PAGOTARD' AS CVE_CONCEPTO, \n"+
    "               'I' AS CVE_AFECTA \n"+
-   "       FROM    SIM_TABLA_AMORTIZACION T, SIM_PRESTAMO P \n"+ 
+   "       FROM    SIM_TABLA_AMORTIZACION T \n"+ 
    "       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
    "           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
    "           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+ 
@@ -152,11 +152,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
    "                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
    "                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
    "                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
-   "           AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+ 
-   "           AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-   "           AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-   "           AND P.ID_TIPO_RECARGO  IN (4,5) \n"+
-   "           AND ROUND(NVL(P.MONTO_FIJO_PERIODO,0),2) > 0 \n"+ 
+   "           AND ROUND(NVL(T.IMP_PAGO_TARDIO,0),2) > 0 \n"+ 
           
    "      UNION ALL \n"+ 
       
@@ -332,24 +328,20 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 			"           AND ROUND(A.IMP_ACCESORIO,2)> 0 \n"+
 			
 			"       UNION ALL \n"+ 
-			
-			"       SELECT  -5 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, P.ID_TIPO_RECARGO AS ID_ACCESORIO, \n"+ 
-			"               ROUND(NVL(P.MONTO_FIJO_PERIODO * -1,0),2) AS IMP_NETO, 'PAGOTARD' AS CVE_CONCEPTO, \n"+
-			"               'I' AS CVE_AFECTA \n"+
-			"       FROM    SIM_TABLA_AMORTIZACION T, SIM_PRESTAMO P \n"+ 
-			"       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-			"           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-			"           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+ 
-			"           AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+  
-			"                                       FROM    PFIN_PARAMETRO \n"+ 
-			"                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
-			"                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
-			"                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
-			"           AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+ 
-			"           AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-			"           AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-			"           AND P.ID_TIPO_RECARGO  IN (4,5) \n"+
-			"           AND ROUND(NVL(P.MONTO_FIJO_PERIODO,0),2) > 0 \n"+ 
+		
+			 "       SELECT  -5 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, 4 AS ID_ACCESORIO, \n"+ 
+			 "               ROUND(NVL(T.IMP_PAGO_TARDIO * -1,0),2) AS IMP_NETO, 'PAGOTARD' AS CVE_CONCEPTO, \n"+
+			 "               'I' AS CVE_AFECTA \n"+
+			 "       FROM    SIM_TABLA_AMORTIZACION T \n"+ 
+			 "       WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
+			 "           AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
+			 "           AND T.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+ 
+			 "           AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+  
+			 "                                       FROM    PFIN_PARAMETRO \n"+ 
+			 "                                       WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+ 
+			 "                                           AND CVE_EMPRESA     = 'CREDICONFIA' \n"+ 
+			 "                                           AND CVE_MEDIO       = 'SYSTEM') \n"+
+			 "           AND ROUND(NVL(T.IMP_PAGO_TARDIO,0),2) > 0 \n"+ 
 			  
 			"      UNION ALL \n"+ 
 			
