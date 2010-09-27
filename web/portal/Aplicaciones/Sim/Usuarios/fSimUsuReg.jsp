@@ -13,7 +13,9 @@
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["ID_REGIONAL"]}' />		
+				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='RegionAlta${registro.campos["ID_REGIONAL"]}'>
+					<input type="hidden" name="IdRegional" value='<c:out value='${registro.campos["ID_REGIONAL"]}'/>'>		
+				</Portal:Columna>	
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["ID_REGIONAL"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_REGIONAL"]}'/>
 			</Portal:TablaListaRenglon>

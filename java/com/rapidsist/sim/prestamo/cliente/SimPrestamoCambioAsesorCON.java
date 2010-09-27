@@ -113,34 +113,20 @@ public class SimPrestamoCambioAsesorCON implements CatalogoControlConsultaIN, Ca
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sAsesor = new String();
-		String sPrestamo = new String();
-		String sAplicaA = new String();
 		
 		//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
 		String[] sCveAsesorCredito = request.getParameterValues("CveAsesorCredito");
 		String[] sIdPrestamo = request.getParameterValues("IdPrestamo");
 		String[] sAplica = request.getParameterValues("Aplica");
 		
+		registro.addDefCampo("DAO_ID_PRESTAMO",sIdPrestamo);
+		registro.addDefCampo("DAO_CVE_ASESOR_CREDITO",sCveAsesorCredito);
+		registro.addDefCampo("DAO_APLICA",sAplica);
+		
+		
 		//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
 		if (sCveAsesorCredito != null) {
-			
-			for (int iNumParametro = 0; iNumParametro < sCveAsesorCredito.length; iNumParametro++) {
-				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
-				
-				//OBTIENE LA CLAVE DE LA APLICACION
-				sPrestamo = sIdPrestamo[iNumParametro];
-				sAsesor = sCveAsesorCredito[iNumParametro];
-				sAplicaA = sAplica[iNumParametro];
-				
-				registro.addDefCampo("ID_PRESTAMO",sPrestamo);
-				registro.addDefCampo("CVE_ASESOR_CREDITO",sAsesor);
-				registro.addDefCampo("APLICA",sAplicaA);
-			
-				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoCambioAsesor", registro, 1);//MODIFICACION
-				
-			}
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoCambioAsesor", registro, 1);//MODIFICACION
 		}
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamoCambioAsesor&OperacionCatalogo=IN&Filtro=Inicio";
 	

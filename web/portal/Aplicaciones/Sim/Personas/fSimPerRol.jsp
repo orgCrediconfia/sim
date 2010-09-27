@@ -9,7 +9,7 @@
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["CVE_TIPO_PERSONA"]}' />		
+				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='RolAlta${registro.campos["CVE_TIPO_PERSONA"]}' />		
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_TIPO_PERSONA"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>

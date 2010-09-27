@@ -100,8 +100,8 @@ public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionCo
 	 */
 	public Registro getRegistro(Registro parametros) throws SQLException{
 		sSql =  " SELECT \n"+
-			" 	VALOR_PROPORCION \n"+
-			" FROM PFIN_PARAMETRO \n"+
+			" 	IMP_VAR_PROPORCION \n"+
+			" FROM SIM_PARAMETRO_GLOBAL \n"+
 			" WHERE CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			" AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n";
 	

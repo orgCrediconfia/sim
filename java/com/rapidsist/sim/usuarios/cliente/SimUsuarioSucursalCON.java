@@ -105,23 +105,42 @@ public class SimUsuarioSucursalCON implements CatalogoControlConsultaIN, Catalog
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sIdSucursal;
-		Enumeration lista = request.getParameterNames();
-		//RECORRE LA LISTA DE PARAMETROS QUE VIENEN EN EL REQUEST
-		while (lista.hasMoreElements()){
-			String sNombre = (String)lista.nextElement();
-			//VERIFICA SI EL PARAMETRO TIENE EL PREFIJO "FuncionAlta"
-			if (sNombre.startsWith("FuncionAlta")){
-				//VERIFICA SI LA LISTA DE FUNCIONES ESTA INICIALIZADA
+		LinkedList listaSucursales = null;
+		String sIdSucursal = new String();
+		Registro registroSucursal = null;
+		
+		registro.addDefCampo("CVE_USUARIO", request.getParameter("CveUsuario"));
+		
+		String[] sIdSucursales = request.getParameterValues("IdSucursal");
+		
+		if (sIdSucursales != null) {
+			for (int iNumParametro = 0; iNumParametro < sIdSucursales.length; iNumParametro++) {
+				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
+				if (listaSucursales == null) {
+					listaSucursales = new LinkedList();
+				}
+				//OBTIENE LA CLAVE DE LA APLICACION
+				sIdSucursal = sIdSucursales[iNumParametro];
 				
-				sIdSucursal = sNombre.substring(11, sNombre.length());
-				registro.addDefCampo("CVE_USUARIO", request.getParameter("CveUsuario"));
-				registro.addDefCampo("ID_SUCURSAL", sIdSucursal);
-				
-				//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimUsuarioSucursal", registro, iTipoOperacion);
+				if (request.getParameter("SucursalAlta" + sIdSucursal) != null) {
+					registroSucursal = new Registro();
+					registroSucursal.addDefCampo("ID_SUCURSAL", sIdSucursal);
+					listaSucursales.add(registroSucursal);
+				}else if (request.getParameter("SucursalBaja" + sIdSucursal) != null) {
+					registroSucursal = new Registro();
+					registroSucursal.addDefCampo("ID_SUCURSAL", sIdSucursal);
+					listaSucursales.add(registroSucursal);
+				}
 			}
 		}
+		
+		if (listaSucursales != null) {
+			registro.addDefCampo("ListaSucursales", listaSucursales);
+
+			//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimUsuarioSucursal", registro, iTipoOperacion);
+		}
+		
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimUsuarioEmpresa&OperacionCatalogo=CR&CveUsuario="+request.getParameter("CveUsuario")+"&IdPersona="+request.getParameter("IdPersona");
 		return registroControl;
 	}

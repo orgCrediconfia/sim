@@ -105,28 +105,43 @@ public class SimUsuarioRegionalCON implements CatalogoControlConsultaIN, Catalog
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		//RECUPERA LA LISTA DE LAS FUNCIONES QUE SE VAN A PROCESAR
-		LinkedList listaRegional = null;
-		String sIdRegional;
-		Enumeration lista = request.getParameterNames();
-		//RECORRE LA LISTA DE PARAMETROS QUE VIENEN EN EL REQUEST
-		while (lista.hasMoreElements()){
-			String sNombre = (String)lista.nextElement();
-			//VERIFICA SI EL PARAMETRO TIENE EL PREFIJO "FuncionAlta"
-			if (sNombre.startsWith("FuncionAlta")){
-				//VERIFICA SI LA LISTA DE FUNCIONES ESTA INICIALIZADA
-				if (listaRegional == null){
-					listaRegional = new LinkedList();
+		LinkedList listaRegionales = null;
+		String sIdRegional = new String();
+		Registro registroRegional = null;
+		
+		registro.addDefCampo("CVE_USUARIO", request.getParameter("CveUsuario"));
+		
+		String[] sIdRegionales = request.getParameterValues("IdRegional");
+		
+		if (sIdRegionales != null) {
+			for (int iNumParametro = 0; iNumParametro < sIdRegionales.length; iNumParametro++) {
+				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
+				if (listaRegionales == null) {
+					listaRegionales = new LinkedList();
 				}
-				sIdRegional = sNombre.substring(11, sNombre.length());
+				//OBTIENE LA CLAVE DE LA APLICACION
+				sIdRegional = sIdRegionales[iNumParametro];
 				
-				registro.addDefCampo("CVE_USUARIO", request.getParameter("CveUsuario"));
-				registro.addDefCampo("ID_REGIONAL", sIdRegional);
-				
-				//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimUsuarioRegional", registro, iTipoOperacion);
+				if (request.getParameter("RegionAlta" + sIdRegional) != null) {
+					registroRegional = new Registro();
+					registroRegional.addDefCampo("ID_REGIONAL", sIdRegional);
+					listaRegionales.add(registroRegional);
+				}else if (request.getParameter("RegionBaja" + sIdRegional) != null) {
+					registroRegional = new Registro();
+					registroRegional.addDefCampo("ID_REGIONAL", sIdRegional);
+					listaRegionales.add(registroRegional);
+				}
 			}
 		}
+		
+		if (listaRegionales != null) {
+			registro.addDefCampo("ListaRegionales", listaRegionales);
+
+			//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimUsuarioRegional", registro, iTipoOperacion);
+		}
+		
+		
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimUsuarioEmpresa&OperacionCatalogo=CR&CveUsuario="+request.getParameter("CveUsuario")+"&IdPersona="+request.getParameter("IdPersona");
 		return registroControl;
 	}

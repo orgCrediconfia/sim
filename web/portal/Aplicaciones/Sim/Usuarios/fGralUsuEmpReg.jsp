@@ -103,7 +103,8 @@
 		</Portal:TablaListaTitulos>	
 		<c:forEach var="registro" items="${requestScope.ListaRegional}">
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["ID_REGIONAL"]}' />		
+				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='RegionBaja${registro.campos["ID_REGIONAL"]}' />
+				<input type="hidden" name="IdRegional" value='<c:out value='${registro.campos["ID_REGIONAL"]}'/>'>				
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["ID_REGIONAL"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_REGIONAL"]}'/>			
 			</Portal:TablaListaRenglon>
@@ -122,7 +123,8 @@
 		</Portal:TablaListaTitulos>	
 		<c:forEach var="registro" items="${requestScope.ListaSucursal}">
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='FuncionAlta${registro.campos["ID_SUCURSAL"]}' />		
+				<Portal:Columna tipovalor='texto' ancho='100' valor='' control='checkbox' controlnombre='SucursalBaja${registro.campos["ID_SUCURSAL"]}' />
+				<input type="hidden" name="IdSucursal" value='<c:out value='${registro.campos["ID_SUCURSAL"]}'/>'>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["ID_SUCURSAL"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_SUCURSAL"]}'/>
 			</Portal:TablaListaRenglon>

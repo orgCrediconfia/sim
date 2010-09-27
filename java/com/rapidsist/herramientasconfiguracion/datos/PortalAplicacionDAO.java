@@ -102,10 +102,15 @@ public class PortalAplicacionDAO extends Conexion2 implements OperacionAlta, Ope
 
 		String sCveAplicacion = "";
 		LinkedList listaAplicaciones = (LinkedList)registro.getDefCampo("ListaAplicaciones");
+		System.out.println("la lista listaAplicaciones: "+listaAplicaciones);
 		if (listaAplicaciones != null){
+			
 			Iterator lista = listaAplicaciones.iterator();
+			System.out.println("que es lista: "+lista);
 			while (lista.hasNext()){
+				System.out.println("lista.hasNext(): "+lista.hasNext());
 				sCveAplicacion = (String)lista.next();
+				System.out.println("sCveAplicacion: "+sCveAplicacion);
 				sSql = "INSERT INTO RS_CONF_PORTAL_APL( \n"+
 							   "CVE_GPO_EMPRESA, \n"+
 							   "CVE_APLICACION, \n"+

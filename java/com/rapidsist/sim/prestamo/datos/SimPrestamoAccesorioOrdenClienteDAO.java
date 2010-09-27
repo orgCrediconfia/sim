@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Enumeration;
 
 /**
  * Administra los accesos a la base de datos para las actividades o requisitos del préstamo.
@@ -103,17 +103,34 @@ public class SimPrestamoAccesorioOrdenClienteDAO extends Conexion2 implements Op
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
-		sSql =  " UPDATE SIM_PRESTAMO_ACCESORIO SET "+
-			" ORDEN			='" + (String)registro.getDefCampo("ORDEN") + "' \n" +
-			" WHERE ID_PRESTAMO  	='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-			" AND ID_ACCESORIO   	='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n"+
-			" AND CVE_EMPRESA   	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CVE_GPO_EMPRESA   ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-			
+		String sOrdenAccesorio = new String();
+		String sIdAccesorio = new String();
+		
+		String[] sOrden = (String[]) registro.getDefCampo("DAO_ORDEN");
+		String[] sAccesorio = (String[]) registro.getDefCampo("DAO_ACCESORIO");
+		
+		if (sAccesorio != null) {
+			for (int iNumParametro = 0; iNumParametro < sAccesorio.length; iNumParametro++) {
+				
+				sOrdenAccesorio = sOrden[iNumParametro];
+				sIdAccesorio= sAccesorio[iNumParametro];
+				
+				registro.addDefCampo("ORDEN",sOrdenAccesorio);
+				registro.addDefCampo("ID_ACCESORIO",sIdAccesorio);
+				
+				sSql =  " UPDATE SIM_PRESTAMO_ACCESORIO SET "+
+						" ORDEN			='" + (String)registro.getDefCampo("ORDEN") + "' \n" +
+						" WHERE ID_PRESTAMO  	='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+						" AND ID_ACCESORIO   	='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n"+
+						" AND CVE_EMPRESA   	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						" AND CVE_GPO_EMPRESA   ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+					//VERIFICA SI DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+			}
+		}	
+		
 		return resultadoCatalogo;
 	}
 	

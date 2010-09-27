@@ -16,8 +16,26 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
+import javax.servlet.http.HttpServletRequest;
+import com.rapidsist.comun.bd.Registro;
+import com.rapidsist.portal.catalogos.CatalogoSL;
+import com.rapidsist.portal.cliente.CatalogoControlConsultaIN;
+import com.rapidsist.portal.cliente.CatalogoControlActualizaIN;
+import com.rapidsist.portal.cliente.RegistroControl;
+import javax.naming.Context;
+import javax.servlet.ServletConfig;
+import java.rmi.RemoteException;
+import java.util.Enumeration;
+import com.rapidsist.portal.configuracion.Usuario;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+
+
 /**
- * Administra los accesos a la base de datos para realizar el pago de amortizaciòn.
+ * Administra los accesos a la base de datos para realizar el pago de amortizaciòn del grupo.
  */
  
 public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
@@ -32,10 +50,36 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 		
-		if (registro.getDefCampo("MOVIMIENTO").equals("CADA_UNO")){
+		String sMontoAutorizado = new String();
+		String sCliente = new String();
+		String sPrestamoIndividual = new String();
+		String sTxrespuesta3 = "";
+		
+		if (registro.getDefCampo("DAO_MONTOS") == null){
+			System.out.println("DAO_MONTOS im goint to resolve the problem");
+		}else{
+			System.out.println("DAO_MONTOS YAHOOO 1");
+		}
+		
+		String[] sMontos = (String[]) registro.getDefCampo("DAO_MONTOS");
+		String[] sIdCliente = (String[]) registro.getDefCampo("DAO_CLIENTE");
+		String[] sIdPrestamoIndividual = (String[]) registro.getDefCampo("DAO_ID_PRESTAMO_IND");
+		
+		if (sMontos != null) {
+			for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
+				
+			//OBTIENE LA CLAVE DE LA APLICACION
+			sMontoAutorizado = sMontos[iNumParametro];
+			sCliente = sIdCliente[iNumParametro];
+			sPrestamoIndividual = sIdPrestamoIndividual[iNumParametro];
+				
+			registro.addDefCampo("MOVIMIENTO","CADA_UNO");
+			registro.addDefCampo("IMP_NETO",sMontoAutorizado);
+			registro.addDefCampo("ID_CLIENTE",sCliente);
+			registro.addDefCampo("ID_PRESTAMO",sPrestamoIndividual);
+		
 			String sTxrespuesta1 = "";
 			String sTxrespuesta2 = "";
-			String sTxrespuesta3 = "";
 			
 			String sIdPreMovimiento = "";
 			String sFLiquidacion = "";
@@ -145,11 +189,6 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 			sTxrespuesta1 = sto.getString(17);
 			sto.close();
 				
-			// SE AGREGA LA RESPUESTA
-			//registro.addDefCampo("RESPUESTA",sTxrespuesta);
-		
-			//resultadoCatalogo.Resultado = registro;
-			
 			CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?)); end;");
 				
 			sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
@@ -164,39 +203,28 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 			sto1.execute();
 			sTxrespuesta2  = sto1.getString(7);
 			sto1.close();
-				
-			// SE AGREGA LA RESPUESTA
-			System.out.println("sTxrespuestaProcesaMovimiento"+sTxrespuesta2);
-			
 			
 			CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?); end;");
-			
 			sto2.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
-			
 			sto2.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
-			
 			sto2.setString(3, (String)registro.getDefCampo("ID_PRESTAMO"));
-			
 			sto2.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
-		
 			sto2.setString(5, sFechaAplicacion);
-			
 			sto2.registerOutParameter(6, java.sql.Types.VARCHAR);
 		
 			//EJECUTA EL PROCEDIMIENTO ALMACENADO
 			sto2.execute();
-			
 			sTxrespuesta3  = sto2.getString(6);
-			
 			sto2.close();
 			
 			// SE AGREGA LA RESPUESTA
 			
 			resultadoCatalogo.Resultado.addDefCampo("RESPUESTA", sTxrespuesta3);
+			}
+		}
 			
-		
-		}else if (registro.getDefCampo("MOVIMIENTO").equals("TOTAL")){
-			
+		if (sTxrespuesta3 == null){
+					
 			//Ingresa el pago grupal en la caja.
 			String sIdTransaccion = "";
 			int iIdTransaccion = 0;
@@ -274,10 +302,8 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 			if (ejecutaUpdate() == 0){
 				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 			}
-			resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION", sIdTransaccion);
-			
-		}
-		
+			resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION", sIdTransaccion);		
+		}	
 		return resultadoCatalogo;
 	}
 }

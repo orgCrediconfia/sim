@@ -94,7 +94,7 @@ public class GrupoEmpresaAplicacionDAO extends Conexion2 implements OperacionAlt
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		String sCveAplicacion = "";
+		
 		LinkedList listaAplicaciones = (LinkedList)registro.getDefCampo("ListaAplicaciones");
 		if (listaAplicaciones != null){
 			Iterator lista = listaAplicaciones.iterator();

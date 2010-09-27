@@ -18,7 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * Administra los accesos a la base de datos para mostrar movimientos de Caja.
+ * Administra los accesos a la base de datos para hacer desembolsos de Caja.
  */
  
 public class SimCajaDesembolsoDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta {

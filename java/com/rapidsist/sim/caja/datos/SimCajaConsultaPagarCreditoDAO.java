@@ -18,7 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * Administra los accesos a la base de datos para mostrar movimientos de Caja.
+ * Administra los accesos a la base de datos para consultar los créditos a pagar.
  */
  
 public class SimCajaConsultaPagarCreditoDAO extends Conexion2 implements OperacionConsultaTabla, OperacionConsultaRegistro {
@@ -99,8 +99,6 @@ public class SimCajaConsultaPagarCreditoDAO extends Conexion2 implements Operaci
 				"AND E.ID_ETAPA_PRESTAMO = C.ID_ETAPA_PRESTAMO \n"+
 				"AND E.B_ENTREGADO = 'V' \n" ;
 		
-		System.out.println("que jaislllllllllllllllll"+sSql);
-				
 		ejecutaSql();
 		return this.getConsultaRegistro();
 	}

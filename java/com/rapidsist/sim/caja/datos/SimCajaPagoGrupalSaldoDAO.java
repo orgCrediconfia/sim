@@ -48,7 +48,15 @@ public class SimCajaPagoGrupalSaldoDAO extends Conexion2 implements OperacionAlt
 		
 		fImporte = (Float.parseFloat(sImporte.replace(",","")));
 		
-		sSaldoFecha = (String)registro.getDefCampo("SALDO_FECHA");
+		
+		
+		if (registro.getDefCampo("SALDO_FECHA") == null){
+			System.out.println("***********no hay saldo a la fecha");
+			sSaldoFecha = "0";
+		}else {
+			sSaldoFecha = (String)registro.getDefCampo("SALDO_FECHA");
+			System.out.println("el saldo a la fecha es: **********:"+sSaldoFecha);
+		}
 		
 		fSaldoFecha = (Float.parseFloat(sSaldoFecha.replace(",","")));
 		

@@ -77,7 +77,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 			//Obtiene el rango
 			Registro rango = new Registro();
 			rango = catalogoSL.getRegistro("SimCajaDistribucionPago", parametros);
-			String sRango =(String)rango.getDefCampo("VALOR_PROPORCION");
+			String sRango =(String)rango.getDefCampo("IMP_VAR_PROPORCION");
 			
 			//En la ListaImporte debe de esta el cursor de la cantidades en propociones.
 			registroControl.respuesta.addDefCampo("ListaImportes", catalogoSL.getRegistros("SimCajaDistribucionPago", parametros));
@@ -173,6 +173,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		registro.addDefCampo("ID_SUCURSAL", sIdSucursal);
 		registro.addDefCampo("CVE_MOVIMIENTO_CAJA", "PAGOGPO");
 		
+		
 		String sMontoAutorizado = new String();
 		String sCliente = new String();
 		String sPrestamoIndividual = new String();
@@ -181,6 +182,10 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		String[] sMontos = request.getParameterValues("MontoAutorizado");
 		String[] sIdCliente = request.getParameterValues("IdCliente");
 		String[] sIdPrestamoIndividual = request.getParameterValues("IdPrestamoIndividual");
+		
+		registro.addDefCampo("DAO_MONTOS", sMontos);
+		registro.addDefCampo("DAO_CLIENTE", sIdCliente);
+		registro.addDefCampo("DAO_ID_PRESTAMO_IND", sIdPrestamoIndividual);
 		
 		sRango = request.getParameter("Rango");
 		sImporte = request.getParameter("Importe");
@@ -204,6 +209,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		dRangoInferior = dImporte.subtract(dRango);
 		
 		if (sMontos != null) {
+			
 			if (dPago.doubleValue() > dRangoSuperior.doubleValue()){
 				
 				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
@@ -218,37 +224,21 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 				resultadoCatalogoControlado.mensaje.setTipo("Aviso");
 				resultadoCatalogoControlado.mensaje.setDescripcion("La suma de todo los importes individuales debe ser igual a la ingresada anteriormente");
 				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
-			}else {
+			}else{
 			
-				for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
-		
-					//OBTIENE LA CLAVE DE LA APLICACION
-					sMontoAutorizado = sMontos[iNumParametro];
-					sCliente = sIdCliente[iNumParametro];
-					sPrestamoIndividual = sIdPrestamoIndividual[iNumParametro];
-					
-					registro.addDefCampo("MOVIMIENTO","CADA_UNO");
-					registro.addDefCampo("IMP_NETO",sMontoAutorizado);
-					registro.addDefCampo("ID_CLIENTE",sCliente);
-					registro.addDefCampo("ID_PRESTAMO",sPrestamoIndividual);
-					
-					
-					//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-					registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaPagoGrupal", registro, 1);//MODIFICACION	
-				}
+				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaPagoGrupal", registro, 1);//MODIFICACION
 				sRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("RESPUESTA");
 				
 				if (sRespuesta == null){
-					registro.addDefCampo("MOVIMIENTO","TOTAL");
-					registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaPagoGrupal", registro, 1);
 					sIdTransaccion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_TRANSACCION");
 				}else {
 					sIdTransaccion = "null";
 				}
-				
 				registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=GRUPO&IdPrestamo="+request.getParameter("IdPrestamoGrupo")+"&TxRespuesta=0&TxPregunta=0&PagoTotal=0&IdCaja="+request.getParameter("IdCaja")+"&Importe="+request.getParameter("Importe")+"&IdTransaccion="+sIdTransaccion+"&Respuesta="+sRespuesta;
+				
 			}
 		}
+		
 		return registroControl;
 	}
 }

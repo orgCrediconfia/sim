@@ -126,6 +126,17 @@ public class SimComitePrestamoMontoAutorizadoCON implements CatalogoControlConsu
 		String[] sIdCliente = request.getParameterValues("IdCliente");
 		String[] sIdPrestamoIndividual = request.getParameterValues("IdPrestamoIndividual");
 		
+		registro.addDefCampo("DAO_MONTOS", sMontos);
+		registro.addDefCampo("DAO_CLIENTE", sIdCliente);
+		registro.addDefCampo("DAO_ID_PRESTAMO_IND", sIdPrestamoIndividual);
+		registro.addDefCampo("ID_PRESTAMO_IND_GPO", request.getParameter("IdPrestamo"));
+		System.out.println("IdPrestamogrupo"+request.getParameter("IdPrestamo"));
+		registro.addDefCampo("PRESTAMO", request.getParameter("Prestamo"));
+		
+		registro.addDefCampo("FECHA_ENTREGA", request.getParameter("FechaDesembolso"));
+		registro.addDefCampo("DIA_SEMANA_PAGO", request.getParameter("DiaSemanaPago"));
+		registro.addDefCampo("APLICA", request.getParameter("Prestamo"));
+		
 		sMontoMaximo = request.getParameter("MontoMaximo");
 		sMontoMinimo = request.getParameter("MontoMinimo");
 		
@@ -148,7 +159,6 @@ public class SimComitePrestamoMontoAutorizadoCON implements CatalogoControlConsu
 					}
 				}
 			}
-			
 		}	
 		
 		if (sMontos != null) {
@@ -165,34 +175,11 @@ public class SimComitePrestamoMontoAutorizadoCON implements CatalogoControlConsu
 				resultadoCatalogoControlado.mensaje.setDescripcion("Al menos un monto es mayor al monto máximo permitido");
 				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
 			}else {
-				for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
-					//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
-					//OBTIENE LA CLAVE DE LA APLICACION
-					sMontoAutorizado = sMontos[iNumParametro];
-					sCliente = sIdCliente[iNumParametro];
-					sPrestamoIndividual = sIdPrestamoIndividual[iNumParametro];
-					registro.addDefCampo("MONTO_AUTORIZADO",sMontoAutorizado);
-					registro.addDefCampo("ID_CLIENTE",sCliente);
-					registro.addDefCampo("ID_PRESTAMO_INDIVIDUAL",sPrestamoIndividual);
-					registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-					registro.addDefCampo("PRESTAMO", request.getParameter("Prestamo"));
-					//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-					registroControl.resultadoCatalogo = catalogoSL.modificacion("SimComitePrestamoMontoAutorizado", registro, 1);//MODIFICACION
-				}
-				
-				String sFechaDesembolso = request.getParameter("FechaDesembolso");
-				String sDiaSemanaPago = request.getParameter("DiaSemanaPago");
-			
-				registro.addDefCampo("FECHA_ENTREGA", sFechaDesembolso);
-				registro.addDefCampo("DIA_SEMANA_PAGO", sDiaSemanaPago);
-				registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-				registro.addDefCampo("APLICA", request.getParameter("Prestamo"));
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoFechaDesembolso", registro, 1);//MODIFICACION	
-				
-				registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimComite&OperacionCatalogo=CR&IdComite="+request.getParameter("IdComite");
-				
+				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimComitePrestamoMontoAutorizado", registro, 1);//MODIFICACION	
 			}
 		}
+		
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimComite&OperacionCatalogo=CR&IdComite="+request.getParameter("IdComite");
 		
 		return registroControl;
 	}

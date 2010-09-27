@@ -353,14 +353,14 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 					
 					sSql = " SELECT \n" + 
 						  " CREDITOS_SIMULTANEOS, \n" +
-						  " DEUDA_MINIMA \n" +
+						  " IMP_DEUDA_MINIMA \n" +
 						  "	FROM SIM_PARAMETRO_GLOBAL  \n" +
 						  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
 					ejecutaSql();
 					if (rs.next()){
 						sCreditosSimultaneos = rs.getString("CREDITOS_SIMULTANEOS");
-						sDeudaMinima = rs.getString("DEUDA_MINIMA");
+						sDeudaMinima = rs.getString("IMP_DEUDA_MINIMA");
 						iDeudaMinima = (Integer.parseInt(sDeudaMinima));
 					}
 					

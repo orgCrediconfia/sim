@@ -124,52 +124,129 @@ public class SimPrestamoGrupalCargoComisionDAO extends Conexion2 implements Oper
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-
-		sSql =  " UPDATE SIM_PRESTAMO_GPO_CARGO SET "+
-				" ID_FORMA_APLICACION		='" + (String)registro.getDefCampo("ID_FORMA_APLICACION") + "', \n" +
-				" CARGO_INICIAL			='" + (String)registro.getDefCampo("CARGO_INICIAL") + "', \n" +
-				" PORCENTAJE_MONTO		='" + (String)registro.getDefCampo("PORCENTAJE_MONTO") + "', \n" +
-				" CANTIDAD_FIJA			='" + (String)registro.getDefCampo("CANTIDAD_FIJA") + "', \n" +
-				" VALOR				='" + (String)registro.getDefCampo("VALOR") + "', \n" +
-				" ID_UNIDAD			='" + (String)registro.getDefCampo("ID_UNIDAD") + "', \n" +
-				" ID_PERIODICIDAD		='" + (String)registro.getDefCampo("ID_PERIODICIDAD") + "' \n" +
-				" WHERE ID_PRESTAMO_GRUPO 		='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
-				" AND ID_CARGO_COMISION   	='" + (String)registro.getDefCampo("ID_CARGO_COMISION") + "' \n"+
-				" AND CVE_EMPRESA   		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND CVE_GPO_EMPRESA   	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-		ps1.execute();
-		ResultSet rs1 = ps1.getResultSet();	
-			
-		sSql = "SELECT ID_PRESTAMO \n" +
-				"FROM SIM_PRESTAMO_GPO_DET \n" +
-				" WHERE ID_PRESTAMO_GRUPO 		='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
-				" AND CVE_EMPRESA   		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND CVE_GPO_EMPRESA   	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-		ps2.execute();
-		ResultSet rs2 = ps2.getResultSet();	
 		
+		String sCargoC = new String();
+		String sForma = new String();
+		String sCargoI = new String();
+		String sPorcentaje = new String();
+		String sCantidad = new String();
+		String sValorT = new String();
+		String sUnidad = new String();
+		String sPeriodicidad = new String();
 		
-		while (rs2.next()){
-			registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO"));
-			
-			sSql =  " UPDATE SIM_PRESTAMO_CARGO_COMISION SET "+
-					" ID_FORMA_APLICACION		='" + (String)registro.getDefCampo("ID_FORMA_APLICACION") + "', \n" +
-					" CARGO_INICIAL			='" + (String)registro.getDefCampo("CARGO_INICIAL") + "', \n" +
-					" PORCENTAJE_MONTO		='" + (String)registro.getDefCampo("PORCENTAJE_MONTO") + "', \n" +
-					" CANTIDAD_FIJA			='" + (String)registro.getDefCampo("CANTIDAD_FIJA") + "', \n" +
-					" VALOR				='" + (String)registro.getDefCampo("VALOR") + "', \n" +
-					" ID_UNIDAD			='" + (String)registro.getDefCampo("ID_UNIDAD") + "', \n" +
-					" ID_PERIODICIDAD		='" + (String)registro.getDefCampo("ID_PERIODICIDAD") + "' \n" +
-					" WHERE ID_PRESTAMO 		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-					" AND ID_CARGO_COMISION   	='" + (String)registro.getDefCampo("ID_CARGO_COMISION") + "' \n"+
+		String[] sIdCargoComision = (String[]) registro.getDefCampo("DAO_ID_CARGO_COMISION");
+		String[] sIdFormaAplicacion = (String[]) registro.getDefCampo("DAO_ID_FORMA_APLICACION");
+		String[] sCargoInicial = (String[]) registro.getDefCampo("DAO_CARGO_INICIAL");
+		String[] sPorcentajeMonto = (String[]) registro.getDefCampo("DAO_PORCENTAJE_MONTO");
+		String[] sCantidadFija = (String[]) registro.getDefCampo("DAO_CANTIDAD_FIJA");
+		String[] sValor = (String[]) registro.getDefCampo("DAO_VALOR");
+		String[] sIdUnidad = (String[]) registro.getDefCampo("DAO_ID_UNIDAD");
+		String[] sIdPeriodicidad = (String[]) registro.getDefCampo("DAO_ID_PERIODICIDAD");
+		
+		if (sIdCargoComision != null) {
+			for (int iNumParametro = 0; iNumParametro < sIdCargoComision.length; iNumParametro++) {
+				sCargoC = sIdCargoComision[iNumParametro];
+				sForma = sIdFormaAplicacion[iNumParametro];
+				sCargoI = sCargoInicial[iNumParametro];
+				sPorcentaje = sPorcentajeMonto[iNumParametro];
+				sCantidad = sCantidadFija[iNumParametro];
+				sValorT = sValor[iNumParametro];
+				sUnidad= sIdUnidad[iNumParametro];
+				sPeriodicidad = sIdPeriodicidad[iNumParametro];
+				registro.addDefCampo("ID_CARGO_COMISION",sCargoC == null ? "" : sCargoC);
+				registro.addDefCampo("ID_FORMA_APLICACION",sForma == null ? "" : sForma);
+				registro.addDefCampo("CARGO_INICIAL",sCargoI == null ? "" : sCargoI);
+				registro.addDefCampo("PORCENTAJE_MONTO",sPorcentaje == null ? "" : sPorcentaje);
+				registro.addDefCampo("CANTIDAD_FIJA",sCantidad == null ? "" : sCantidad);
+				registro.addDefCampo("VALOR",sValorT == null ? "" : sValorT);
+				
+				if (sUnidad.equals("null")){
+					registro.addDefCampo("ID_UNIDAD","");
+				}else {
+					registro.addDefCampo("ID_UNIDAD",sUnidad);
+				}
+				
+				if (sPeriodicidad.equals("null")){
+					registro.addDefCampo("ID_PERIODICIDAD","");
+				}else {
+					registro.addDefCampo("ID_PERIODICIDAD",sPeriodicidad);
+				}	
+				
+				sSql =  " UPDATE SIM_PRESTAMO_GPO_CARGO SET "+
+						" ID_FORMA_APLICACION		='" + (String)registro.getDefCampo("ID_FORMA_APLICACION") + "', \n" +
+						" CARGO_INICIAL			='" + (String)registro.getDefCampo("CARGO_INICIAL") + "', \n" +
+						" PORCENTAJE_MONTO		='" + (String)registro.getDefCampo("PORCENTAJE_MONTO") + "', \n" +
+						" CANTIDAD_FIJA			='" + (String)registro.getDefCampo("CANTIDAD_FIJA") + "', \n" +
+						" VALOR				='" + (String)registro.getDefCampo("VALOR") + "', \n" +
+						" ID_UNIDAD			='" + (String)registro.getDefCampo("ID_UNIDAD") + "', \n" +
+						" ID_PERIODICIDAD		='" + (String)registro.getDefCampo("ID_PERIODICIDAD") + "' \n" +
+						" WHERE ID_PRESTAMO_GRUPO 		='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
+						" AND ID_CARGO_COMISION   	='" + (String)registro.getDefCampo("ID_CARGO_COMISION") + "' \n"+
+						" AND CVE_EMPRESA   		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						" AND CVE_GPO_EMPRESA   	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+				ps1.execute();
+				ResultSet rs1 = ps1.getResultSet();	
+			}
+				
+			sSql = "SELECT ID_PRESTAMO \n" +
+					"FROM SIM_PRESTAMO_GPO_DET \n" +
+					" WHERE ID_PRESTAMO_GRUPO 		='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
 					" AND CVE_EMPRESA   		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 					" AND CVE_GPO_EMPRESA   	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-			//VERIFICA SI DIO DE ALTA EL REGISTRO
-			PreparedStatement ps3 = this.conn.prepareStatement(sSql);
-			ps3.execute();
-			ResultSet rs3 = ps3.getResultSet();	
+			PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+			ps2.execute();
+			ResultSet rs2 = ps2.getResultSet();	
+			
+			
+			while (rs2.next()){
+				registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO"));
+					for (int iNumParametro = 0; iNumParametro < sIdCargoComision.length; iNumParametro++) {
+						sCargoC = sIdCargoComision[iNumParametro];
+						sForma = sIdFormaAplicacion[iNumParametro];
+						sCargoI = sCargoInicial[iNumParametro];
+						sPorcentaje = sPorcentajeMonto[iNumParametro];
+						sCantidad = sCantidadFija[iNumParametro];
+						sValorT = sValor[iNumParametro];
+						sUnidad= sIdUnidad[iNumParametro];
+						sPeriodicidad = sIdPeriodicidad[iNumParametro];
+						registro.addDefCampo("ID_CARGO_COMISION",sCargoC == null ? "" : sCargoC);
+						registro.addDefCampo("ID_FORMA_APLICACION",sForma == null ? "" : sForma);
+						registro.addDefCampo("CARGO_INICIAL",sCargoI == null ? "" : sCargoI);
+						registro.addDefCampo("PORCENTAJE_MONTO",sPorcentaje == null ? "" : sPorcentaje);
+						registro.addDefCampo("CANTIDAD_FIJA",sCantidad == null ? "" : sCantidad);
+						registro.addDefCampo("VALOR",sValorT == null ? "" : sValorT);
+						
+						if (sUnidad.equals("null")){
+							registro.addDefCampo("ID_UNIDAD","");
+						}else {
+							registro.addDefCampo("ID_UNIDAD",sUnidad);
+						}
+						
+						if (sPeriodicidad.equals("null")){
+							registro.addDefCampo("ID_PERIODICIDAD","");
+						}else {
+							registro.addDefCampo("ID_PERIODICIDAD",sPeriodicidad);
+						}	
+						
+						sSql =  " UPDATE SIM_PRESTAMO_CARGO_COMISION SET "+
+								" ID_FORMA_APLICACION		='" + (String)registro.getDefCampo("ID_FORMA_APLICACION") + "', \n" +
+								" CARGO_INICIAL			='" + (String)registro.getDefCampo("CARGO_INICIAL") + "', \n" +
+								" PORCENTAJE_MONTO		='" + (String)registro.getDefCampo("PORCENTAJE_MONTO") + "', \n" +
+								" CANTIDAD_FIJA			='" + (String)registro.getDefCampo("CANTIDAD_FIJA") + "', \n" +
+								" VALOR				='" + (String)registro.getDefCampo("VALOR") + "', \n" +
+								" ID_UNIDAD			='" + (String)registro.getDefCampo("ID_UNIDAD") + "', \n" +
+								" ID_PERIODICIDAD		='" + (String)registro.getDefCampo("ID_PERIODICIDAD") + "' \n" +
+								" WHERE ID_PRESTAMO 		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+								" AND ID_CARGO_COMISION   	='" + (String)registro.getDefCampo("ID_CARGO_COMISION") + "' \n"+
+								" AND CVE_EMPRESA   		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+								" AND CVE_GPO_EMPRESA   	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+						//VERIFICA SI DIO DE ALTA EL REGISTRO
+						PreparedStatement ps3 = this.conn.prepareStatement(sSql);
+						ps3.execute();
+						ResultSet rs3 = ps3.getResultSet();	
+					}
+				}
 		
 		}
 			

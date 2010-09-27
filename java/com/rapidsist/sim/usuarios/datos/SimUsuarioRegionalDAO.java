@@ -14,9 +14,11 @@ import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
+import java.util.Iterator;
+import java.sql.SQLException;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Administra los accesos a la base de datos para el catálogo de Documentaci¿ón Envio Sedena Detalle.
@@ -103,75 +105,81 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-	
+		
 		String sIdSucursal = "";
-	
-		sSql =  "INSERT INTO SIM_USUARIO_ACCESO_REGIONAL ( \n"+
-			"CVE_GPO_EMPRESA, \n" +
-			"CVE_EMPRESA, \n" +
-			"CVE_USUARIO, \n" +
-			"ID_REGIONAL) \n" +
-		        "VALUES ( \n"+
-			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-			"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-			"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_REGIONAL") + "') \n" ;
-
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
 		
-		sSql =  "SELECT  \n"+
-				"CVE_GPO_EMPRESA, \n" +
-				"CVE_EMPRESA, \n" +
-				"ID_REGIONAL, \n"+
-				"ID_SUCURSAL \n"+
-			"FROM SIM_CAT_SUCURSAL \n" +
-			"WHERE CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND ID_REGIONAL ='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n";
+		LinkedList listaRegionales = (LinkedList)registro.getDefCampo("ListaRegionales");
 		
-		ejecutaSql();		
-		while (rs.next()){
-			
-			sIdSucursal = rs.getString("ID_SUCURSAL");
-			
-			sSql =  "SELECT \n"+
-				"CVE_GPO_EMPRESA, \n" +
-				"CVE_EMPRESA, \n" +
-				"CVE_USUARIO, \n"+
-				"ID_SUCURSAL \n"+
-			"FROM \n"+
-				"SIM_USUARIO_ACCESO_SUCURSAL \n"+
-			"WHERE CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND CVE_USUARIO ='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
-			"AND ID_SUCURSAL ='" + sIdSucursal +"' \n";
-			
-			PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-			ps1.execute();
-			ResultSet rs1 = ps1.getResultSet();
-			
-			if (!rs1.next()){
+		if (listaRegionales != null){
+			Iterator lista = listaRegionales.iterator();
+			while (lista.hasNext()){
+				Registro registroRegional = (Registro)lista.next();
+				sSql =  "INSERT INTO SIM_USUARIO_ACCESO_REGIONAL ( \n"+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"CVE_USUARIO, \n" +
+						"ID_REGIONAL) \n" +
+					        "VALUES ( \n"+
+						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+						"'" + (String)registroRegional.getDefCampo("ID_REGIONAL") + "') \n" ;
+		
+					//VERIFICA SI DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+					
+					sSql =  "SELECT  \n"+
+								"CVE_GPO_EMPRESA, \n" +
+								"CVE_EMPRESA, \n" +
+								"ID_REGIONAL, \n"+
+								"ID_SUCURSAL \n"+
+							"FROM SIM_CAT_SUCURSAL \n" +
+							"WHERE CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							"AND ID_REGIONAL ='" + (String)registroRegional.getDefCampo("ID_REGIONAL") + "' \n";
+							
+					ejecutaSql();		
+					while (rs.next()){
 				
-				sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
-				"CVE_GPO_EMPRESA, \n" +
-				"CVE_EMPRESA, \n" +
-				"CVE_USUARIO, \n" +
-				"ID_SUCURSAL) \n" +
-			        "VALUES ( \n"+
-				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-				"'" + sIdSucursal +"') \n" ;
-	
-				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-				ps2.execute();
-				ps2.close();
-			}
-			rs1.close();
-			ps1.close();
+						sIdSucursal = rs.getString("ID_SUCURSAL");
+						
+						sSql =  "SELECT \n"+
+									"CVE_GPO_EMPRESA, \n" +
+									"CVE_EMPRESA, \n" +
+									"CVE_USUARIO, \n"+
+									"ID_SUCURSAL \n"+
+								"FROM \n"+
+									"SIM_USUARIO_ACCESO_SUCURSAL \n"+
+								"WHERE CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+								"AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+								"AND CVE_USUARIO ='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
+								"AND ID_SUCURSAL ='" + sIdSucursal +"' \n";
+					
+						PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+						ps1.execute();
+						ResultSet rs1 = ps1.getResultSet();
+						
+						if (!rs1.next()){
+							
+							sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
+									"CVE_GPO_EMPRESA, \n" +
+									"CVE_EMPRESA, \n" +
+									"CVE_USUARIO, \n" +
+									"ID_SUCURSAL) \n" +
+								        "VALUES ( \n"+
+									"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+									"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+									"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+									"'" + sIdSucursal +"') \n" ;
+				
+							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+							ps2.execute();
+							ps2.close();
+						}
+					}	 
+				}
 		}
 		
 		return resultadoCatalogo;
@@ -189,46 +197,53 @@ public class SimUsuarioRegionalDAO extends Conexion2 implements OperacionConsult
 		
 		String sIdSucursal = "";
 		
-		//BORRA LA FUNCION
-		sSql =  "DELETE FROM SIM_USUARIO_ACCESO_REGIONAL " +
-			" WHERE ID_REGIONAL			='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n" +
-			" AND CVE_USUARIO			='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
-			" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-			
-			sSql =  "SELECT \n"+
-			 	"CVE_GPO_EMPRESA, \n" +
-				"CVE_EMPRESA, \n" +
-				"ID_SUCURSAL, \n"+
-				"ID_REGIONAL \n"+
-				"FROM \n"+
-					"SIM_CAT_SUCURSAL \n"+
-				" WHERE ID_REGIONAL ='" + (String)registro.getDefCampo("ID_REGIONAL") + "' \n" ;
-			ejecutaSql();
-			
-			while (rs.next()){
-				
-				sIdSucursal = rs.getString("ID_SUCURSAL");
-			
-					sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL" +
-					       " WHERE ID_SUCURSAL		='" + sIdSucursal + "' \n"+
-					       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
-					       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					       " AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-					
-					//VERIFICA SI DIO DE ALTA EL REGISTRO
-					PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-					ps2.execute();
-					ps2.close();
-				
-			}
+		LinkedList listaRegionales = (LinkedList)registro.getDefCampo("ListaRegionales");
 		
-
+		if (listaRegionales != null){
+			Iterator lista = listaRegionales.iterator();
+			while (lista.hasNext()){
+				Registro registroRegional = (Registro)lista.next();
+		
+				sSql =  "DELETE FROM SIM_USUARIO_ACCESO_REGIONAL " +
+					" WHERE ID_REGIONAL			='" + (String)registroRegional.getDefCampo("ID_REGIONAL") + "' \n" +
+					" AND CVE_USUARIO			='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
+					" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+		
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			
+				sSql =  "SELECT \n"+
+				 	"CVE_GPO_EMPRESA, \n" +
+					"CVE_EMPRESA, \n" +
+					"ID_SUCURSAL, \n"+
+					"ID_REGIONAL \n"+
+					"FROM \n"+
+						"SIM_CAT_SUCURSAL \n"+
+					" WHERE ID_REGIONAL ='" + (String)registroRegional.getDefCampo("ID_REGIONAL") + "' \n" ;
+				ejecutaSql();
+				
+				while (rs.next()){
+				
+					sIdSucursal = rs.getString("ID_SUCURSAL");
+				
+						sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL" +
+						       " WHERE ID_SUCURSAL		='" + sIdSucursal + "' \n"+
+						       " AND CVE_USUARIO		='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
+						       " AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						       " AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+						
+						//VERIFICA SI DIO DE ALTA EL REGISTRO
+						PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+						ps2.execute();
+						ps2.close();
+					
+				}
+			}
+		}
+		
 		return resultadoCatalogo;
 	}
 }

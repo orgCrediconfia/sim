@@ -102,27 +102,51 @@ public class SimPrestamoCambioAsesorDAO extends Conexion2 implements OperacionCo
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
-		if (registro.getDefCampo("APLICA").equals("GRUPO")){
-			sSql =  " UPDATE SIM_PRESTAMO_GRUPO SET \n"+
-			 		" CVE_ASESOR_CREDITO     	= '" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO")  + "' \n" +
-			 		" WHERE ID_PRESTAMO_GRUPO   = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-			 		" AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-			 		" AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-			   
-			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
-			if (ejecutaUpdate() == 0){
-				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-			}
-		}else if (registro.getDefCampo("APLICA").equals("INDIVIDUAL")){
-			sSql =  " UPDATE SIM_PRESTAMO SET \n"+
-			 		" CVE_ASESOR_CREDITO     	= '" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO")  + "' \n" +
-			 		" WHERE ID_PRESTAMO   = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-			 		" AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-			 		" AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-			   
-			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
-			if (ejecutaUpdate() == 0){
-				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		String sAsesor = new String();
+		String sPrestamo = new String();
+		String sAplicaA = new String();
+		
+		String[] sCveAsesorCredito = (String[]) registro.getDefCampo("DAO_CVE_ASESOR_CREDITO");
+		String[] sIdPrestamo = (String[]) registro.getDefCampo("DAO_ID_PRESTAMO");
+		String[] sAplica = (String[]) registro.getDefCampo("DAO_APLICA");
+		
+		if (sCveAsesorCredito != null) {
+			
+			for (int iNumParametro = 0; iNumParametro < sCveAsesorCredito.length; iNumParametro++) {
+				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
+				
+				//OBTIENE LA CLAVE DE LA APLICACION
+				sPrestamo = sIdPrestamo[iNumParametro];
+				sAsesor = sCveAsesorCredito[iNumParametro];
+				sAplicaA = sAplica[iNumParametro];
+				
+				registro.addDefCampo("ID_PRESTAMO",sPrestamo);
+				registro.addDefCampo("CVE_ASESOR_CREDITO",sAsesor);
+				registro.addDefCampo("APLICA",sAplicaA);
+			
+				if (registro.getDefCampo("APLICA").equals("GRUPO")){
+					sSql =  " UPDATE SIM_PRESTAMO_GRUPO SET \n"+
+					 		" CVE_ASESOR_CREDITO     	= '" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO")  + "' \n" +
+					 		" WHERE ID_PRESTAMO_GRUPO   = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					 		" AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					 		" AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
+					   
+					//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+				}else if (registro.getDefCampo("APLICA").equals("INDIVIDUAL")){
+					sSql =  " UPDATE SIM_PRESTAMO SET \n"+
+					 		" CVE_ASESOR_CREDITO     	= '" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO")  + "' \n" +
+					 		" WHERE ID_PRESTAMO   = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					 		" AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					 		" AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
+					   
+					//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+				}
 			}
 		}
 				

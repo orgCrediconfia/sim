@@ -14,7 +14,8 @@ import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.OperacionModificacion;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
-import com.rapidsist.sim.prestamo.datos.SimPrestamoGrupalCreditoIndividualDAO;
+import com.rapidsist.sim.prestamo.datos.SimPrestamoFechaDesembolsoDAO;
+
 
 import java.util.LinkedList;
 import java.sql.PreparedStatement;
@@ -162,17 +163,36 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
+		String[] sMontos = (String[]) registro.getDefCampo("DAO_MONTOS");
+		String[] sIdCliente = (String[]) registro.getDefCampo("DAO_CLIENTE");
+		String[] sIdPrestamoIndividual = (String[]) registro.getDefCampo("DAO_ID_PRESTAMO_IND");
+		
+		String sMontoAutorizado = new String();
+		String sCliente = new String();
+		String sPrestamoIndividual = new String();
+		
+		if (sMontos != null) {
+			for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
+				System.out.println("iNumParametro"+iNumParametro);
+				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
+				//OBTIENE LA CLAVE DE LA APLICACION
+				sMontoAutorizado = sMontos[iNumParametro];
+				sCliente = sIdCliente[iNumParametro];
+				sPrestamoIndividual = sIdPrestamoIndividual[iNumParametro];
+				registro.addDefCampo("MONTO_AUTORIZADO",sMontoAutorizado);
+				registro.addDefCampo("ID_CLIENTE",sCliente);
+				registro.addDefCampo("ID_PRESTAMO_INDIVIDUAL",sPrestamoIndividual);
+				
 		if (registro.getDefCampo("PRESTAMO").equals("Grupo")){
 		
 			
 				sSql = " UPDATE SIM_PRESTAMO_GPO_DET SET "+
 					   " MONTO_AUTORIZADO     		= '" + (String)registro.getDefCampo("MONTO_AUTORIZADO")  + "' \n" +
-					   
-					   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
 					   " AND ID_PRESTAMO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
 					   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-					   
+				System.out.println("mediocre 1");
 				//VERIFICA SI DIO DE ALTA EL REGISTRO
 				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 				ps1.execute();
@@ -184,6 +204,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 						" WHERE ID_PRESTAMO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
 						" AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						" AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
+
 				//VERIFICA SI DIO DE ALTA EL REGISTRO
 				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 				ps2.execute();
@@ -308,7 +329,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 			"							  SIM_PRESTAMO_ETAPA E \n" +
 			"							 WHERE D.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			"							  AND D.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-			"							  AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +    
+			"							  AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +    
 			"							  AND E.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
 			"							  AND E.CVE_EMPRESA = D.CVE_EMPRESA \n" + 
 			"							  AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
@@ -320,7 +341,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 			"							  SIM_PRESTAMO_ETAPA E \n" +
 			"							  WHERE D.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			"							  AND D.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-			"							  AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +    
+			"							  AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +    
 			"							  AND E.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
 			"							  AND E.CVE_EMPRESA = D.CVE_EMPRESA \n" + 
 			"							  AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
@@ -340,7 +361,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 				"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n"+
 				"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
+				"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" ;
 			
 			PreparedStatement ps7 = this.conn.prepareStatement(sSql);
 			ps7.execute();
@@ -374,7 +395,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 						"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
-						"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
+						"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" ;
 				
 				PreparedStatement ps9 = this.conn.prepareStatement(sSql);
 				ps9.execute();
@@ -475,7 +496,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 				
 				sSql =  " UPDATE SIM_PRESTAMO_GPO_DET SET "+
 						" COMENTARIO 		='' \n"+
-						" WHERE ID_PRESTAMO_GRUPO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+						" WHERE ID_PRESTAMO_GRUPO		='" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n"+
 						" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 						" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 						" AND ID_ETAPA_PRESTAMO	='" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n"+
@@ -712,8 +733,17 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 							}
 					}
 					
-				}
-					
+				}			
+			}
+		
+		ResultadoCatalogo resultadoCatalogoFechaDesembolso = new ResultadoCatalogo();
+		SimPrestamoFechaDesembolsoDAO simPrestamoFechaDesembolsoDAO = new SimPrestamoFechaDesembolsoDAO();
+		simPrestamoFechaDesembolsoDAO.setConexion(this.getConexion());
+		
+		resultadoCatalogoFechaDesembolso = simPrestamoFechaDesembolsoDAO.alta(registro);
+		
+		simPrestamoFechaDesembolsoDAO.cierraConexion();
+			}
 		}
 		
 		return resultadoCatalogo;

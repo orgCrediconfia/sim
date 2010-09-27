@@ -108,89 +108,30 @@ public class SimPrestamoGrupalCargoComisionCON implements CatalogoControlConsult
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sCargoC = new String();
-		String sForma = new String();
-		String sCargoI = new String();
-		String sPorcentaje = new String();
-		String sCantidad = new String();
-		String sValorT = new String();
-		String sUnidad = new String();
-		String sPeriodicidad = new String();
-
 		//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
 		String[] sIdCargoComision = request.getParameterValues("IdCargoComision");
-		
 		String[] sIdFormaAplicacion = request.getParameterValues("IdFormaAplicacion");
-		
 		String[] sCargoInicial = request.getParameterValues("CargoInicial");
-		
 		String[] sPorcentajeMonto = request.getParameterValues("PorcentajeMonto");
-		
 		String[] sCantidadFija = request.getParameterValues("CantidadFija");
-	
 		String[] sValor = request.getParameterValues("Valor");
-		
 		String[] sIdUnidad = request.getParameterValues("IdUnidad");
-		
 		String[] sIdPeriodicidad = request.getParameterValues("IdPeriodicidad");
+		
+		registro.addDefCampo("DAO_ID_CARGO_COMISION",sIdCargoComision);
+		registro.addDefCampo("DAO_ID_FORMA_APLICACION",sIdFormaAplicacion);
+		registro.addDefCampo("DAO_CARGO_INICIAL",sCargoInicial);
+		registro.addDefCampo("DAO_PORCENTAJE_MONTO",sPorcentajeMonto);
+		registro.addDefCampo("DAO_CANTIDAD_FIJA",sCantidadFija);
+		registro.addDefCampo("DAO_VALOR",sValor);
+		registro.addDefCampo("DAO_ID_UNIDAD",sIdUnidad);
+		registro.addDefCampo("DAO_ID_PERIODICIDAD",sIdPeriodicidad);
+		
+		registro.addDefCampo("ID_PRESTAMO_GRUPO", request.getParameter("IdPrestamoGrupo"));
 		
 		//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
 		if (sIdCargoComision != null) {
-			
-			for (int iNumParametro = 0; iNumParametro < sIdCargoComision.length; iNumParametro++) {
-				
-				//OBTIENE LA CLAVE DE LA APLICACION
-				sCargoC = sIdCargoComision[iNumParametro];
-				
-				sForma = sIdFormaAplicacion[iNumParametro];
-			
-				sCargoI = sCargoInicial[iNumParametro];
-				
-				sPorcentaje = sPorcentajeMonto[iNumParametro];
-				
-				sCantidad = sCantidadFija[iNumParametro];
-				
-				sValorT = sValor[iNumParametro];
-				
-				sUnidad= sIdUnidad[iNumParametro];
-			
-				sPeriodicidad = sIdPeriodicidad[iNumParametro];
-				
-				registro.addDefCampo("ID_CARGO_COMISION",sCargoC == null ? "" : sCargoC);
-				
-				registro.addDefCampo("ID_FORMA_APLICACION",sForma == null ? "" : sForma);
-				
-				registro.addDefCampo("CARGO_INICIAL",sCargoI == null ? "" : sCargoI);
-				
-				registro.addDefCampo("PORCENTAJE_MONTO",sPorcentaje == null ? "" : sPorcentaje);
-			
-				registro.addDefCampo("CANTIDAD_FIJA",sCantidad == null ? "" : sCantidad);
-				
-				registro.addDefCampo("VALOR",sValorT == null ? "" : sValorT);
-				
-				
-				if (sUnidad.equals("null")){
-				
-					registro.addDefCampo("ID_UNIDAD","");
-				}else {
-					
-					registro.addDefCampo("ID_UNIDAD",sUnidad);
-				}
-				
-				if (sPeriodicidad.equals("null")){
-					
-					registro.addDefCampo("ID_PERIODICIDAD","");
-				}else {
-				
-					registro.addDefCampo("ID_PERIODICIDAD",sPeriodicidad);
-				}				
-				
-				registro.addDefCampo("ID_PRESTAMO_GRUPO", request.getParameter("IdPrestamoGrupo"));
-				
-				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCargoComision", registro, 1);
-				
-			}
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCargoComision", registro, 1);
 		}
 		
 		//INDICA A DONDE IRA AL TERMINAR LA ACTUALIZACION

@@ -92,32 +92,18 @@ public class SimProductoCicloAccesorioCON implements CatalogoControlConsultaIN, 
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sOrdenAccesorio = new String();
-		String sAccesorio = new String();
-		
 		//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
 		String[] sOrden = request.getParameterValues("Orden");
 		String[] sIdAccesorio = request.getParameterValues("IdAccesorio");
-		//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
-		if (sOrden != null) {
-			
-			for (int iNumParametro = 0; iNumParametro < sOrden.length; iNumParametro++) {
-				
-				//OBTIENE LA CLAVE DE LA APLICACION
-				sOrdenAccesorio = sOrden[iNumParametro];
-				sAccesorio= sIdAccesorio[iNumParametro];
-				
-				registro.addDefCampo("ORDEN",sOrdenAccesorio);
-				registro.addDefCampo("ID_ACCESORIO",sAccesorio);
-				registro.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
-				registro.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
-				
-				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimProductoCicloAccesorio", registro, 1);
-				
-			}
-		}
 		
+		registro.addDefCampo("DAO_ORDEN", sOrden);
+		registro.addDefCampo("DAO_ID_ACCESORIO", sIdAccesorio);
+		registro.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
+		registro.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
+		
+		if (sOrden != null) {
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimProductoCicloAccesorio", registro, 1);
+		}
 		
 		//INDICA A DONDE IRA AL TERMINAR LA ACTUALIZACION
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimProducto&OperacionCatalogo=CR&IdProducto="+request.getParameter("IdProducto");

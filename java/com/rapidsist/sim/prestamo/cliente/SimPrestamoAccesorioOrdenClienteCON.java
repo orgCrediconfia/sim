@@ -103,31 +103,18 @@ public class SimPrestamoAccesorioOrdenClienteCON implements CatalogoControlConsu
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sIdAccesorio = new String();
-		String sOrdenAccesorio = new String();
-		
 		//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
 		String[] sAccesorio = request.getParameterValues("IdAccesorio");
 		String[] sOrden = request.getParameterValues("Orden");
 		
+		registro.addDefCampo("DAO_ACCESORIO",sAccesorio);
+		registro.addDefCampo("DAO_ORDEN",sOrden);
+		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
+		registro.addDefCampo("ID_CLIENTE", request.getParameter("IdCliente"));
+		
 		//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
 		if (sAccesorio != null) {
-			
-			for (int iNumParametro = 0; iNumParametro < sAccesorio.length; iNumParametro++) {
-				
-				sIdAccesorio= sAccesorio[iNumParametro];
-				sOrdenAccesorio = sOrden[iNumParametro];
-				
-				registro.addDefCampo("ID_ACCESORIO",sIdAccesorio == null ? "" : sIdAccesorio);
-				registro.addDefCampo("ORDEN",sOrdenAccesorio == null ? "" : sOrdenAccesorio);
-				
-				registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-				registro.addDefCampo("ID_CLIENTE", request.getParameter("IdCliente"));
-				
-				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoAccesorioOrdenCliente", registro, 1);
-				
-			}
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoAccesorioOrdenCliente", registro, 1);
 		}
 		
 		//INDICA A DONDE IRA AL TERMINAR LA ACTUALIZACION

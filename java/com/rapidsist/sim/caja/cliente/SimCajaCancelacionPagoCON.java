@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Esta clase se encarga de administrar las operaciones (alta, baja,
- * modificación y consulta) para mostrar movimientos de Caja. Esta clase es llamada por
+ * modificación y consulta) para cancelar pagos. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
 public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, CatalogoControlActualizaIN{

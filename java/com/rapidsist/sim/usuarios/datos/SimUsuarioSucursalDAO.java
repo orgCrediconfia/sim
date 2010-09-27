@@ -13,6 +13,8 @@ import com.rapidsist.portal.catalogos.OperacionBaja;
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
+
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -106,57 +108,32 @@ public class SimUsuarioSucursalDAO extends Conexion2 implements OperacionConsult
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		
-		
-		sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
-			"CVE_GPO_EMPRESA, \n" +
-			"CVE_EMPRESA, \n" +
-			"CVE_USUARIO, \n" +
-			"ID_SUCURSAL) \n" +
-		        "VALUES ( \n"+
-			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-			"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-			"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "') \n" ;
 
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		LinkedList listaSucursales = (LinkedList)registro.getDefCampo("ListaSucursales");
+		
+		if (listaSucursales != null){
+			Iterator lista = listaSucursales.iterator();
+			while (lista.hasNext()){
+				Registro registroSucursal = (Registro)lista.next();
+		
+				sSql =  "INSERT INTO SIM_USUARIO_ACCESO_SUCURSAL ( \n"+
+					"CVE_GPO_EMPRESA, \n" +
+					"CVE_EMPRESA, \n" +
+					"CVE_USUARIO, \n" +
+					"ID_SUCURSAL) \n" +
+				        "VALUES ( \n"+
+					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+					"'" + (String)registroSucursal.getDefCampo("ID_SUCURSAL") + "') \n" ;
+		
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			}
 		}
 		
-		return resultadoCatalogo;
-	}
-	
-	/**
-	 * Modifica un registro.
-	 * @param registro Campos del registro a modificar.
-	 * @return Objeto que contiene el resultado de la ejecuci�n de este m�todo.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public ResultadoCatalogo modificacion(Registro registro) throws SQLException{
-		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		sSql = " UPDATE ACIV_ANALISIS_RIESGO SET "+
-			   " FECHA_ACTUALIZACION    	='" + (String)registro.getDefCampo("FECHA_ACTUALIZACION")  + "', \n" +
-			   " DESCRIPCION    			='" + (String)registro.getDefCampo("DESCRIPCION")  + "', \n" +
-			   " SEGURIDAD    				='" + (String)registro.getDefCampo("SEGURIDAD")  + "', \n" +
-			   " PROTECCION    				='" + (String)registro.getDefCampo("PROTECCION")  + "', \n" +
-			   " APOYO    					='" + (String)registro.getDefCampo("APOYO")  + "', \n" +
-			   " ACTIVIDAD    				='" + (String)registro.getDefCampo("ACTIVIDAD")  + "', \n" +
-			   " AREAS_CRITICAS    			='" + (String)registro.getDefCampo("AREAS_CRITICAS")  + "', \n" +
-			   " IMPORTANCIA    			='" + (String)registro.getDefCampo("IMPORTANCIA")  + "', \n" +
-			   " IMPACTO_SOCIAL    			='" + (String)registro.getDefCampo("IMPACTO_SOCIAL")  + "', \n" +
-			   " CONFIDENCIALIDAD 			='" + (String)registro.getDefCampo("CONFIDENCIALIDAD")  + "', \n" +
-			   " CONCLUSIONES    			='" + (String)registro.getDefCampo("CONCLUSIONES")  + "', \n" +
-			   
-			   " INFORME    			='" + (String)registro.getDefCampo("INFORME")  + "' \n" +
-			   " WHERE NUM_FOLIO    	='" + (String)registro.getDefCampo("NUM_FOLIO") + "' \n" +
-			   " AND CVE_GPO_EMPRESA 	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
-			   " AND ID_RIESGO 			='" + (String)registro.getDefCampo("ID_RIESGO") + "'\n"+
-			   " AND CVE_EMPRESA 		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
 		return resultadoCatalogo;
 	}
 	
@@ -168,16 +145,26 @@ public class SimUsuarioSucursalDAO extends Conexion2 implements OperacionConsult
 	 */
 	public ResultadoCatalogo baja(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		//BORRA LA FUNCION
-		sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL " +
-		" WHERE ID_SUCURSAL			='" + (String)registro.getDefCampo("ID_SUCURSAL") + "' \n" +
-		" AND CVE_USUARIO			='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
-		" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-		" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		
+		LinkedList listaSucursales = (LinkedList)registro.getDefCampo("ListaSucursales");
+		
+		if (listaSucursales != null){
+			Iterator lista = listaSucursales.iterator();
+			while (lista.hasNext()){
+				Registro registroSucursal = (Registro)lista.next();
+				
+				//BORRA LA FUNCION
+				sSql = "DELETE FROM SIM_USUARIO_ACCESO_SUCURSAL " +
+				" WHERE ID_SUCURSAL			='" + (String)registroSucursal.getDefCampo("ID_SUCURSAL") + "' \n" +
+				" AND CVE_USUARIO			='" + (String)registro.getDefCampo("CVE_USUARIO") + "' \n"+
+				" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+				" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+		
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			}
 		}
 
 		return resultadoCatalogo;

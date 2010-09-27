@@ -7,11 +7,9 @@
 package com.rapidsist.sim.producto.datos;
 
 import com.rapidsist.comun.bd.Conexion2;
-import com.rapidsist.portal.catalogos.OperacionBaja;
 import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
-import com.rapidsist.portal.catalogos.OperacionModificacion;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
@@ -21,7 +19,7 @@ import java.sql.SQLException;
  * Administra los accesos a la base de datos para el catálogo de producto.
  */
  
-public class SimProductoCicloAccesorioDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta,  OperacionConsultaRegistro, OperacionModificacion, OperacionBaja  {
+public class SimProductoCicloAccesorioDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta,  OperacionConsultaRegistro {
 
 	/**
 	 * Obtiene un conjunto de registros en base a el filtro de búsqueda.
@@ -112,68 +110,35 @@ public class SimProductoCicloAccesorioDAO extends Conexion2 implements Operacion
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
-		sSql =  " UPDATE SIM_PRODUCTO_CICLO_ACCESORIO SET "+
-			" ORDEN			='" + (String)registro.getDefCampo("ORDEN") + "' \n" +
-			" WHERE ID_PRODUCTO  	='" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
-			" AND NUM_CICLO   	='" + (String)registro.getDefCampo("NUM_CICLO") + "' \n"+
-			" AND ID_ACCESORIO   	='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n"+
-			" AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-
-				
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-		return resultadoCatalogo;
-	}
-	
-	/**
-	 * Modifica un registro.
-	 * @param registro Campos del registro a modificar.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public ResultadoCatalogo modificacion(Registro registro) throws SQLException{
-		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		sSql =  " UPDATE SIM_PRODUCTO_CICLO_ACCESORIO SET "+
-			" ORDEN			='" + (String)registro.getDefCampo("ORDEN") + "' \n" +
-			" WHERE ID_PRODUCTO  	='" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
-			" AND NUM_CICLO   	='" + (String)registro.getDefCampo("NUM_CICLO") + "' \n"+
-			" AND ID_ACCESORIO   	='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n"+
-			" AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-
-				
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
+		String sOrdenAccesorio = new String();
+		String sAccesorio = new String();
+		String[] sOrden = (String[]) registro.getDefCampo("DAO_ORDEN");
+		String[] sIdAccesorio = (String[]) registro.getDefCampo("DAO_ID_ACCESORIO");
 		
-		return resultadoCatalogo;
-	}
-	
-	/**
-	 * Borra un registro.
-	 * @param registro Llave primaria.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public ResultadoCatalogo baja(Registro registro) throws SQLException{
-		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		//BORRA EL REGISTRO
-		sSql = "DELETE FROM SIM_PRODUCTO_ACCESORIO" +
-				" WHERE ID_PRODUCTO		='" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
-				" AND ID_ACCESORIO		='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n"+
-				" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		if (sOrden != null) {
+			for (int iNumParametro = 0; iNumParametro < sOrden.length; iNumParametro++) {
+				
+				//OBTIENE LA CLAVE DE LA APLICACION
+				sOrdenAccesorio = sOrden[iNumParametro];
+				sAccesorio= sIdAccesorio[iNumParametro];
+				
+				registro.addDefCampo("ORDEN",sOrdenAccesorio);
+				registro.addDefCampo("ID_ACCESORIO",sAccesorio);
+				
+				sSql =  " UPDATE SIM_PRODUCTO_CICLO_ACCESORIO SET "+
+					" ORDEN			='" + (String)registro.getDefCampo("ORDEN") + "' \n" +
+					" WHERE ID_PRODUCTO  	='" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
+					" AND NUM_CICLO   	='" + (String)registro.getDefCampo("NUM_CICLO") + "' \n"+
+					" AND ID_ACCESORIO   	='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n"+
+					" AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			}
 		}
-
 		return resultadoCatalogo;
 	}
-
 }

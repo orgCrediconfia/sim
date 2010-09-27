@@ -253,7 +253,7 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 								   " FECHA_ENTREGA     		= TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY'), \n" +
 								   " FECHA_REAL     		= TO_TIMESTAMP('" + (String)registro.getDefCampo("FECHA_REAL") + "','yyyy-MM-dd HH24:MI:SSXFF'), \n" +
 								   " DIA_SEMANA_PAGO     		= '" + (String)registro.getDefCampo("DIA_SEMANA_PAGO") + "' \n" +
-								   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+								   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
 								   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 								   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 							
@@ -264,7 +264,8 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 							sSql = " SELECT \n" +
 								   " ID_PRESTAMO \n" +
 								   " FROM SIM_PRESTAMO_GPO_DET \n" +
-								   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+								   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
+								   " AND ID_PRESTAMO   	= '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
 								   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 								   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 							
@@ -273,7 +274,7 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 							ResultSet rs2 = ps2.getResultSet();
 							
 							
-							while (rs2.next()){
+							if (rs2.next()){
 							
 								registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO")== null ? "": rs2.getString("ID_PRESTAMO"));
 								
@@ -318,7 +319,7 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 			
 				sSql = " UPDATE SIM_PRESTAMO_GRUPO SET \n" +
 				   " FECHA_ENTREGA     		= TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') \n" +
-				   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+				   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
 				   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 				
@@ -327,18 +328,19 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 				ResultSet rs1 = ps1.getResultSet();
 				
 				sSql = " SELECT \n" +
-					   " ID_PRESTAMO \n" +
-					   " FROM SIM_PRESTAMO_GPO_DET \n" +
-					   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-					   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
+				   " ID_PRESTAMO \n" +
+				   " FROM SIM_PRESTAMO_GPO_DET \n" +
+				   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
+				   " AND ID_PRESTAMO   	= '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
+				   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 			
 				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 				ps2.execute();
 				ResultSet rs2 = ps2.getResultSet();
 				
 				
-				while (rs2.next()){
+				if (rs2.next()){
 					
 					registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO")== null ? "": rs2.getString("ID_PRESTAMO"));
 					
@@ -352,30 +354,13 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 					ps3.execute();
 					ResultSet rs3 = ps3.getResultSet();
 					
-				}
-				
-				sSql = " SELECT \n" +
-					   " ID_PRESTAMO \n" +
-					   " FROM SIM_PRESTAMO_GPO_DET \n" +
-					   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-					   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-				
-				PreparedStatement ps4 = this.conn.prepareStatement(sSql);
-				ps4.execute();
-				ResultSet rs4 = ps4.getResultSet();
-				
-				while (rs4.next()){
-					
-					registro.addDefCampo("ID_PRESTAMO",rs4.getString("ID_PRESTAMO")== null ? "": rs4.getString("ID_PRESTAMO"));
-					
 					resultadoCatalogoGenerarTablaAmortizacion = simGenerarTablaAmortizacionDAO.alta(registro);
-				}
 					
+				}
 			}
 		}
 			
-			
+		System.out.println("actualia la fecha desembolso nnnnn");	
 		}else if (registro.getDefCampo("APLICA").equals("Individual")){
 			
 			if (!registro.getDefCampo("DIA_SEMANA_PAGO").equals("ninguno")) {
@@ -455,7 +440,7 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 					   " FECHA_ENTREGA     		= TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY'), \n" +
 					   " FECHA_REAL     		= TO_TIMESTAMP('" + (String)registro.getDefCampo("FECHA_REAL") + "','yyyy-MM-dd HH24:MI:SSXFF'), \n" +
 					   " DIA_SEMANA_PAGO     	= '" + (String)registro.getDefCampo("DIA_SEMANA_PAGO") + "' \n" +
-					   " WHERE ID_PRESTAMO     	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					   " WHERE ID_PRESTAMO     	= '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
 					   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 				System.out.println("Fecha de entrega en SIM_PRESTAMO**************"+sSql);
@@ -470,7 +455,7 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 				System.out.println("SE TRATA DE UN CREDITO QUE NO ES SEMANAL NI CATORCENAL, POR LO QUE SU FECHA DE ENTREGA ES LA FECHA DE DESEMBOLSO");
 				sSql = " UPDATE SIM_PRESTAMO SET \n" +
 				   " FECHA_ENTREGA     		= TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') \n" +
-				   " WHERE ID_PRESTAMO      = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+				   " WHERE ID_PRESTAMO      = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" +
 				   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 				

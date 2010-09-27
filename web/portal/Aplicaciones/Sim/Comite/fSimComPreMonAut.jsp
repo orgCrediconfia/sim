@@ -49,8 +49,8 @@
 	</Portal:TablaForma>
 	
 	<script>
-
 	function fAceptar(){
+		
 			document.frmTablaForma.action="ProcesaCatalogo?Funcion=SimComitePrestamoMontoAutorizado&OperacionCatalogo=MO&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdComite="+document.frmRegistro.IdComite.value+"&Prestamo="+document.frmRegistro.Prestamo.value+"&FechaDesembolso="+document.frmRegistro.FechaDesembolso.value+"&DiaSemanaPago="+document.frmRegistro.DiaSemanaPago.value;
 			document.frmTablaForma.submit();	
 		}
