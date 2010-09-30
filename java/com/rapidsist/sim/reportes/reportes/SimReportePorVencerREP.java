@@ -42,29 +42,26 @@ public class SimReportePorVencerREP implements ReporteControlIN {
 		//String sCveEmpresa = request.getParameter("CveEmpresa");
 		String sClave = request.getParameter("CvePrestamoGpo");
 		
-		String sSql = 	"SELECT\n"+
-							"CVE_GPO_EMPRESA,\n"+
-							"CVE_EMPRESA,\n"+
-							"CVE_PRESTAMO_GRUPO,\n"+
-							"F_MEDIO,\n"+
+		String sSql = 	"SELECT \n"+
+							"FECHA_REPORTE,\n"+
 							"ID_REGIONAL,\n"+
+							"NOM_REGIONAL,\n"+
 							"ID_SUCURSAL,\n"+
 							"NOM_SUCURSAL,\n"+
-							"NOM_COMPLETO,\n"+
+							"CVE_ASESOR,\n"+
+							"NOM_ASESOR,\n"+
+							"CVE_PRESTAMO,\n"+
+							"NUM_INTEGRANTES,\n"+
+							"CATEGORIA,\n"+
 							"NOM_GRUPO,\n"+
-							"MONTO_PRESTADO,\n"+
-							"FECHA_SIG_PAGO,\n"+
-							"FECHA_ULT_MOV,\n"+
+							"DIAS_ANTIGUEDAD,\n"+
+							"FECHA_PROX_PAGO,\n"+
+							"FECHA_ULTIMO_MOV,\n"+
 							"FECHA_FIN_CICLO,\n"+
-							"INTERES,\n"+
-							"RECARGOS,\n"+
-							"SEGUROS,\n"+
-							"CAPITAL,\n"+
-							"INSOLUTO\n"+
-							"FROM SIM_REPORTES_TEMPORAL\n"+
-							"WHERE CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-							"AND CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
-							"AND CVE_PRESTAMO_GRUPO = '" + (String)request.getParameter("CvePrestamoGpo") + "'\n";
+							"COORDINADOR_GRUPO,\n"+
+							"TELEFONO_COORDINADOR\n"+
+							"FROM V_DATOS_REPORTES\n"+
+							"WHERE CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamoGpo") + "'\n";
 							
 							 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
