@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import java.rmi.RemoteException;
 import java.util.Enumeration;
+import java.util.LinkedList;
 
 /**
  * Esta clase se encarga de administrar las operaciones (alta, baja,
@@ -91,22 +92,41 @@ public class SimPersonaRolesCON implements CatalogoControlConsultaIN, CatalogoCo
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sIdExConyuge = request.getParameter("sIdExConyuge");
-		String sCveTipoPersona;
-		Enumeration lista = request.getParameterNames();
-		//RECORRE LA LISTA DE PARAMETROS QUE VIENEN EN EL REQUEST
-		while (lista.hasMoreElements()){
-			String sNombre = (String)lista.nextElement();
-			//VERIFICA SI EL PARAMETRO TIENE EL PREFIJO "FuncionAlta"
-			if (sNombre.startsWith("FuncionAlta")){
-				//VERIFICA SI LA LISTA DE FUNCIONES ESTA INICIALIZADA
-				sCveTipoPersona = sNombre.substring(11, sNombre.length());
-				registro.addDefCampo("ID_PERSONA", request.getParameter("IdPersona"));
-				registro.addDefCampo("CVE_TIPO_PERSONA", sCveTipoPersona);
+		LinkedList listaTipoPersona = null;
+		String sClaveTipoPersona = new String();
+		Registro registroTipoPersona = null;
+		
+		registro.addDefCampo("ID_PERSONA", request.getParameter("IdPersona"));
+		String sIdExConyuge = request.getParameter("IdExConyuge");
+		String[] sCveTipoPersona = request.getParameterValues("CveTipoPersona");
+		
+		
+		if (sCveTipoPersona != null) {
+			for (int iNumParametro = 0; iNumParametro < sCveTipoPersona.length; iNumParametro++) {
+				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
+				if (listaTipoPersona == null) {
+					listaTipoPersona = new LinkedList();
+				}
+				//OBTIENE LA CLAVE DE LA APLICACION
+				sClaveTipoPersona = sCveTipoPersona[iNumParametro];
 				
-				//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPersonaRoles", registro, iTipoOperacion);
+				if (request.getParameter("RolAlta" + sClaveTipoPersona) != null) {
+					registroTipoPersona = new Registro();
+					registroTipoPersona.addDefCampo("CVE_TIPO_PERSONA", sClaveTipoPersona);
+					listaTipoPersona.add(registroTipoPersona);
+				}else if (request.getParameter("RolBaja" + sClaveTipoPersona) != null) {
+					registroTipoPersona = new Registro();
+					registroTipoPersona.addDefCampo("CVE_TIPO_PERSONA", sClaveTipoPersona);
+					listaTipoPersona.add(registroTipoPersona);
+				}
 			}
+		}
+		
+		if (listaTipoPersona != null) {
+			registro.addDefCampo("ListaTipoPersona", listaTipoPersona);
+
+			//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPersonaRoles", registro, iTipoOperacion);
 		}
 		
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimClientes&OperacionCatalogo=CR&IdPersona="+request.getParameter("IdPersona")+"&IdExConyuge="+sIdExConyuge;

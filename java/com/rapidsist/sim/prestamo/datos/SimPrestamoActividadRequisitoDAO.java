@@ -407,7 +407,7 @@ public class SimPrestamoActividadRequisitoDAO extends Conexion2 implements Opera
 						}
 					}
 					if (registro.getDefCampo("APLICA_A").equals("Grupo")){
-						System.out.println("$#$#$#$%$!#$&%/%/");
+						
 					//Como se trata de un prestamo individual que pertenece a un grupo se actualiza el id_etapa_prestamo en SIM_PRESTAMO_GPO_DET.
 					sSql =  " UPDATE SIM_PRESTAMO_GPO_DET SET \n"+
 							"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n"+

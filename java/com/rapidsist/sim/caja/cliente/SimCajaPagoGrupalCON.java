@@ -187,13 +187,20 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		registro.addDefCampo("DAO_CLIENTE", sIdCliente);
 		registro.addDefCampo("DAO_ID_PRESTAMO_IND", sIdPrestamoIndividual);
 		
+		System.out.println("Rango"+sRango);
 		sRango = request.getParameter("Rango");
+		System.out.println("Importe"+sImporte);
 		sImporte = request.getParameter("Importe");
 		java.math.BigDecimal dRangoInferior = new java.math.BigDecimal("0.00");
+		
 		java.math.BigDecimal dRangoSuperior = new java.math.BigDecimal("0.00");
+	
 		java.math.BigDecimal dRango = new BigDecimal(sRango);
-		java.math.BigDecimal dImporte = new BigDecimal(sImporte); 
+	
+		java.math.BigDecimal dImporte = new BigDecimal(sImporte);
+
 		java.math.BigDecimal dPago = new java.math.BigDecimal("0.00");
+	
 		if (sMontos != null) {
 			for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
 				sMontoPago = sMontos[iNumParametro];

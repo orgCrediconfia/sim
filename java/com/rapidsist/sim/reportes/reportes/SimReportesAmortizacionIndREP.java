@@ -67,10 +67,7 @@ public class SimReportesAmortizacionIndREP implements ReporteControlIN {
 						
 							 "ORDER BY  NUM_PAGO_AMORTIZACION\n";
 							
-							 System.out.println("*****************Paso por aqui****************:"+sSql);
-		
 	    String sTipoReporte = request.getParameter("TipoReporte");
-	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReportesAmortizacionInd.jasper");
