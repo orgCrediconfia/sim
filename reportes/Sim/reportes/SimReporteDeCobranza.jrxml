@@ -28,24 +28,23 @@
 	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
-	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
-	<field name="CVE_EMPRESA" class="java.lang.String"/>
-	<field name="CVE_PRESTAMO_GRUPO" class="java.lang.String"/>
-	<field name="F_MEDIO" class="java.sql.Timestamp"/>
+	<field name="FECHA_REPORTE" class="java.sql.Timestamp"/>
 	<field name="ID_REGIONAL" class="java.math.BigDecimal"/>
+	<field name="NOM_REGIONAL" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
-	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="CVE_ASESOR" class="java.lang.String"/>
+	<field name="NOM_ASESOR" class="java.lang.String"/>
+	<field name="CVE_PRESTAMO" class="java.lang.String"/>
+	<field name="NUM_INTEGRANTES" class="java.math.BigDecimal"/>
+	<field name="CATEGORIA" class="java.lang.String"/>
 	<field name="NOM_GRUPO" class="java.lang.String"/>
-	<field name="MONTO_PRESTADO" class="java.lang.String"/>
-	<field name="FECHA_SIG_PAGO" class="java.sql.Timestamp"/>
-	<field name="FECHA_ULT_MOV" class="java.sql.Timestamp"/>
+	<field name="DIAS_ANTIGUEDAD" class="java.math.BigDecimal"/>
+	<field name="FECHA_PROX_PAGO" class="java.sql.Timestamp"/>
+	<field name="FECHA_ULTIMO_MOV" class="java.sql.Timestamp"/>
 	<field name="FECHA_FIN_CICLO" class="java.sql.Timestamp"/>
-	<field name="INTERES" class="java.math.BigDecimal"/>
-	<field name="RECARGOS" class="java.math.BigDecimal"/>
-	<field name="SEGUROS" class="java.math.BigDecimal"/>
-	<field name="CAPITAL" class="java.math.BigDecimal"/>
-	<field name="INSOLUTO" class="java.math.BigDecimal"/>
+	<field name="COORDINADOR_GRUPO" class="java.math.BigDecimal"/>
+	<field name="TELEFONO_COORDINADOR" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -85,7 +84,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1439"
+						x="1653"
 						y="0"
 						width="126"
 						height="15"
@@ -96,6 +95,32 @@
 					</textElement>
 				<text><![CDATA[Fecha]]></text>
 				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="15"
+						width="74"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_REGIONAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1653"
+						y="15"
+						width="126"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_REPORTE}]]></textFieldExpression>
+				</textField>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -419,10 +444,114 @@ o cliente]]></text>
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement>
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO_GRUPO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="74"
+						y="0"
+						width="74"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{NUM_INTEGRANTES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="148"
+						y="0"
+						width="74"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CATEGORIA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="222"
+						y="0"
+						width="129"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1165"
+						y="0"
+						width="74"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_PROX_PAGO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1401"
+						y="0"
+						width="126"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TELEFONO_COORDINADOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1313"
+						y="0"
+						width="88"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{COORDINADOR_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1527"
+						y="0"
+						width="126"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_ASESOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1653"
+						y="0"
+						width="126"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_SUCURSAL}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
