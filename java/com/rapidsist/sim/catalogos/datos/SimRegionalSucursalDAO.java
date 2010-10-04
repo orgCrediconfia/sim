@@ -36,28 +36,16 @@ public class SimRegionalSucursalDAO extends Conexion2 implements OperacionConsul
 		//PREPARA LA CONSULTA QUE VA A HACER EN LA BD, PARA TRAER LOS REGISTROS QUE COINCIDAN CON LAS CONDICIONES
 		
 		sSql =  "SELECT \n"+
-			"CVE_GPO_EMPRESA, \n"+
-			"CVE_EMPRESA, \n"+
-			"ID_SUCURSAL, \n"+ 
-			"NOM_SUCURSAL \n"+
-			"FROM SIM_CAT_SUCURSAL \n"+
-			"WHERE CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"MINUS \n"+
-			"SELECT \n"+
-			"S.CVE_GPO_EMPRESA, \n"+
-			"S.CVE_EMPRESA, \n"+
-			"S.ID_SUCURSAL, \n"+ 
-			"CS.NOM_SUCURSAL \n"+
-			"FROM SIM_REGIONAL_SUCURSAL S, \n"+
-			"     SIM_CAT_SUCURSAL CS \n"+
-			"WHERE S.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND S.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND S.ID_REGIONAL = '" + (String)parametros.getDefCampo("ID_REGIONAL") + "' \n"+
-			"AND CS.CVE_GPO_EMPRESA = S.CVE_GPO_EMPRESA \n"+
-			"AND CS.CVE_EMPRESA = S.CVE_EMPRESA \n"+
-			"AND CS.ID_SUCURSAL = S.ID_SUCURSAL \n";
-			
+				"CS.CVE_GPO_EMPRESA, \n"+
+				"CS.CVE_EMPRESA, \n"+
+				"CS.ID_SUCURSAL, \n"+	
+				"CS.ID_REGIONAL, \n"+ 
+				"CS.NOM_SUCURSAL \n"+
+		    "FROM  SIM_CAT_SUCURSAL CS \n"+
+			" WHERE CS.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			" AND CS.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+			" AND CS.ID_REGIONAL = '" + (String)parametros.getDefCampo("ID_REGIONAL") + "' \n";
+		
 		ejecutaSql();
 		return getConsultaLista();
 	}
