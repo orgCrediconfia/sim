@@ -222,7 +222,7 @@
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="32"  isSplitAllowed="true" >
+			<band height="44"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
@@ -264,9 +264,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="190"
+						x="197"
 						y="15"
-						width="129"
+						width="122"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -504,7 +504,7 @@ vs cuota]]></text>
 				<line direction="TopDown">
 					<reportElement
 						x="0"
-						y="29"
+						y="43"
 						width="1584"
 						height="0"
 						key="line-1"/>
