@@ -12,6 +12,8 @@ import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.portal.catalogos.OperacionBaja; 
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
+
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.sql.SQLException;
 
@@ -86,21 +88,29 @@ public class SimPersonaRolesDAO extends Conexion2 implements OperacionAlta, Oper
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
+
+		LinkedList listaTipoPersona = (LinkedList)registro.getDefCampo("ListaTipoPersona");
 		
-		sSql = "INSERT INTO SIM_TIPO_PERSONA ( "+
-				"CVE_GPO_EMPRESA, \n" +
-				"CVE_EMPRESA, \n" +
-				"ID_PERSONA, \n" +
-				"CVE_TIPO_PERSONA) \n" +
-			" VALUES (" +
-				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "') \n" ;
-				
-		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		if (listaTipoPersona != null){
+			Iterator lista = listaTipoPersona.iterator();
+			while (lista.hasNext()){
+				Registro registroTipoPersona = (Registro)lista.next();
+				sSql = "INSERT INTO SIM_TIPO_PERSONA ( "+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_PERSONA, \n" +
+						"CVE_TIPO_PERSONA) \n" +
+					" VALUES (" +
+						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" +
+						"'" + (String)registroTipoPersona.getDefCampo("CVE_TIPO_PERSONA") + "') \n" ;
+						
+				//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			}
 		}
 		
 		return resultadoCatalogo;
@@ -114,15 +124,25 @@ public class SimPersonaRolesDAO extends Conexion2 implements OperacionAlta, Oper
 	 */
 	public ResultadoCatalogo baja(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-		sSql =  " DELETE FROM SIM_TIPO_PERSONA " +
-			" WHERE ID_PERSONA		='" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
-			" AND CVE_TIPO_PERSONA		='" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "' \n"+
-			" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-			
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		
+		LinkedList listaTipoPersona = (LinkedList)registro.getDefCampo("ListaTipoPersona");
+		
+		if (listaTipoPersona != null){
+			Iterator lista = listaTipoPersona.iterator();
+			while (lista.hasNext()){
+				Registro registroTipoPersona = (Registro)lista.next();
+		
+				sSql =  " DELETE FROM SIM_TIPO_PERSONA " +
+					" WHERE ID_PERSONA		='" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
+					" AND CVE_TIPO_PERSONA		='" + (String)registroTipoPersona.getDefCampo("CVE_TIPO_PERSONA") + "' \n"+
+					" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+					
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			}
 		}
 		return resultadoCatalogo;
 	}

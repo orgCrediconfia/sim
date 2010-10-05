@@ -3,7 +3,7 @@
 
 <Portal:Pagina funcion="SimReportesAmortizacionInd">
 
-	<Portal:PaginaNombre titulo="Reporte de tabla de amortizaciÃ³n individual" subtitulo="Consulta del reporte"/>
+	<Portal:PaginaNombre titulo="Reporte de tabla de amortización individual" subtitulo="Consulta del reporte"/>
 	
 	<Portal:Forma tipo='url' funcion='SimReportesAmortizacionInd' url="ProcesaReporte?Funcion=SimReportesAmortizacionInd&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>

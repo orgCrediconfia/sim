@@ -59,29 +59,21 @@ public class SimRegionalSucursalAsignadaDAO extends Conexion2 implements Operaci
 	public Registro getRegistro(Registro parametros) throws SQLException{
 		
 		sSql =  "SELECT \n"+
-		"US.CVE_GPO_EMPRESA, \n"+
-		"US.CVE_EMPRESA, \n"+
-		"US.CVE_USUARIO, \n"+	
-		"US.ID_SUCURSAL, \n"+ 
-		"CS.NOM_SUCURSAL \n"+
-    "FROM  SIM_USUARIO_ACCESO_SUCURSAL US, \n"+
-	"	   RS_GRAL_USUARIO GU, \n"+
-	"	   SIM_CAT_SUCURSAL CS \n"+
-	" WHERE US.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-	" AND US.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-	//" AND UR.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
-	" AND US.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-	
-	
-		" AND GU.CVE_GPO_EMPRESA = US.CVE_GPO_EMPRESA \n"+
-		" AND GU.CVE_EMPRESA = US.CVE_EMPRESA  \n"+
-		" AND GU.CVE_USUARIO =  US.CVE_USUARIO \n";
+				"US.CVE_GPO_EMPRESA, \n"+
+				"US.CVE_EMPRESA, \n"+
+				"US.CVE_USUARIO, \n"+	
+				"US.ID_SUCURSAL, \n"+ 
+				"CS.NOM_SUCURSAL \n"+
+		    "FROM  SIM_USUARIO_ACCESO_SUCURSAL US, \n"+
+			"	   RS_GRAL_USUARIO GU, \n"+
+			"	   SIM_CAT_SUCURSAL CS \n"+
+			" WHERE US.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			" AND US.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+			" AND US.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
+			" AND GU.CVE_GPO_EMPRESA = US.CVE_GPO_EMPRESA \n"+
+			" AND GU.CVE_EMPRESA = US.CVE_EMPRESA  \n"+
+			" AND GU.CVE_USUARIO =  US.CVE_USUARIO \n";
 		
-		/*" AND UR.CVE_GPO_EMPRESA = CR.CVE_GPO_EMPRESA \n"+
-		" AND UR.CVE_EMPRESA = CR.CVE_EMPRESA  \n"+
-		" AND UR.ID_REGIONAL =  CR.ID_REGIONAL \n";*/
-		
-				 
 		ejecutaSql();
 		return this.getConsultaRegistro();
 	}

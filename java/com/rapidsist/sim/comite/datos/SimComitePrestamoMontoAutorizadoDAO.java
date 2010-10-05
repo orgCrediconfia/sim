@@ -192,7 +192,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 					   " AND ID_PRESTAMO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
 					   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-				System.out.println("mediocre 1");
+				
 				//VERIFICA SI DIO DE ALTA EL REGISTRO
 				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 				ps1.execute();

@@ -299,16 +299,12 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					"CVE_GPO_EMPRESA, \n" +
 					"CVE_EMPRESA, \n" +
 					"ID_GRUPO, \n" +
-					"ID_INTEGRANTE, \n" +
-					"ID_PRESTAMO_GRUPO, \n" +
-					"FECHA_SOLICITUD) \n" +
+					"ID_INTEGRANTE) \n" +
 					" VALUES (" +
 					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 					"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_CLIENTE") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "', \n" +
-					"SYSDATE) \n" ;
+					"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
 			
 			PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 			ps2.execute();
@@ -2173,8 +2169,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						"FROM SIM_GRUPO_FUNDADOR \n" +
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-						"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-						"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "') A, \n" +
+						"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "') A, \n" +
 						"(SELECT  \n" +
 						"PORC_INT_FUNDADORES  \n" +
 						"FROM SIM_PARAMETRO_GLOBAL  \n" +
@@ -2208,15 +2203,14 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 							"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-							"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" +
-							"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
+							"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
+							
 					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 					ps1.execute();
 					ResultSet rs1 = ps1.getResultSet();
 					
 					if (rs1.next()){
 						fIntegrante++;
-						System.out.println("Cuenta cuantos integrantes fundadores hay"+sSql);
 					}
 				}
 				

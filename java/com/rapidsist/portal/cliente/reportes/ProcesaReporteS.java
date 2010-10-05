@@ -171,9 +171,11 @@ public class ProcesaReporteS extends HttpServlet{
 							jasperPrint = JasperFillManager.fillReport(contextoServlet.getRealPath((String)parametros.get("NomReporte")), parametros, conexionBd);
 							JRXlsExporter exporter = new JRXlsExporter();
 							//ASIGNA PARAMETROS DE EXPORTACION PARA LA HOJA DE CALCULO
+							
 							exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 							exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, reporte);
 							exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+							exporter.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
 							exporter.exportReport();
 						}
 						else if (request.getParameter("TipoReporte").equals("Txt")){

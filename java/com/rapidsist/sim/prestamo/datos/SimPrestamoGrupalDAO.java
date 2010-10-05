@@ -231,77 +231,137 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 			String sNumCiclo = "";
 			String sNumNegociosPrincipales = "";
 			int iNumNegociosPrincipales = 0;
+			boolean bMinFundadores = false;
+			boolean bErrorGrupoFundador = false;
 			
+			//Verificamos si existen los fundadores del grupo
+			sSql = "SELECT \n" + 
+				   "ID_GRUPO, \n" + 
+				   "ID_INTEGRANTE \n" +
+				   "FROM \n" +
+				   "SIM_GRUPO_FUNDADOR \n" +
+				   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+				   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" ;
 			
-			//Preguntamos por el parámetro % mínimo de fundadores del grupo.
-			sSql = " SELECT B * (SELECT \n" + 
-				   	"PORC_INT_FUNDADORES \n" + 
-				   	"FROM SIM_PARAMETRO_GLOBAL \n" + 
-					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-					") MIN_INT_FUNDADORES \n" + 
-					"FROM ( \n" + 
-					"SELECT A / 100 B \n" + 
-					"FROM( \n" + 
-					"SELECT COUNT(*) A \n" + 
-					"FROM ( \n" + 
-					"SELECT \n" +  
-					"ID_CLIENTE \n" +  
-					"FROM SIM_PRESTAMO \n" + 
-				    "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-					"AND FECHA_ENTREGA = (SELECT \n" + 
-					"MIN(FECHA_ENTREGA) \n" + 
-					"FROM SIM_PRESTAMO \n" + 
-				    "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-					"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-					"AND ID_CLIENTE IS NOT NULL) \n" +
-					"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-					"))) \n" ;
 			ejecutaSql();
-			
 			if (rs.next()){
-				sMinIntFundadores = rs.getString("MIN_INT_FUNDADORES");
-				fMinIntFundadores = (Float.parseFloat(sMinIntFundadores));
-			
-			}
-			
-			//Obtenemos los integrantes que actualmente integran el grupo
-			sSql = " SELECT \n" + 
-				  " ID_INTEGRANTE \n" +
-				  "	FROM SIM_GRUPO_INTEGRANTE  \n" +
-				  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-				  "	AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-				  " AND FECHA_BAJA_LOGICA IS NULL \n";
-			ejecutaSql();
-			while (rs.next()){
-				registro.addDefCampo("ID_INTEGRANTE",rs.getString("ID_INTEGRANTE")== null ? "": rs.getString("ID_INTEGRANTE"));
-				
-				sSql = "SELECT \n"+
-						"ID_PRESTAMO, \n"+
-						"ID_CLIENTE, \n"+
-						"FECHA_ENTREGA \n"+
-						"FROM SIM_PRESTAMO \n"+
-						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				//Preguntamos por el parámetro % mínimo de fundadores del grupo.
+				sSql = "SELECT B * (SELECT \n" +  
+					   	"PORC_INT_FUNDADORES \n" + 
+					   	"FROM SIM_PARAMETRO_GLOBAL \n" +  
+						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" + 
 					    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-						"AND FECHA_ENTREGA = (SELECT \n" +
-						"MIN(FECHA_ENTREGA) \n" +
-						"FROM SIM_PRESTAMO \n" +
-						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-						"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "') \n" +
-						"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-						"AND ID_CLIENTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
+						") MIN_INT_FUNDADORES \n" +  
+						"FROM ( \n" +  
+						"SELECT A / 100 B \n" +  
+						"FROM( \n" +  
+						"SELECT COUNT(*) A \n" +  
+						"FROM ( \n" +  
+					 "SELECT \n" +  
+					   "ID_GRUPO, \n" +  
+					   "ID_INTEGRANTE \n" + 
+					   "FROM \n" + 
+					   "SIM_GRUPO_FUNDADOR \n" + 
+					   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" + 
+					   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+					   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+					   "))) \n" ;
+			
+				ejecutaSql();
+				if (rs.next()){
+					sMinIntFundadores = rs.getString("MIN_INT_FUNDADORES");
+					fMinIntFundadores = (Float.parseFloat(sMinIntFundadores));
 				
-				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-				ps1.execute();
-				ResultSet rs1 = ps1.getResultSet();
-				if (rs1.next()){
-					fIntegrante++;
+				}
+				
+				//Obtenemos los integrantes que actualmente integran el grupo
+				sSql = " SELECT \n" + 
+					  " ID_INTEGRANTE \n" +
+					  "	FROM SIM_GRUPO_INTEGRANTE  \n" +
+					  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+					  "	AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+					  " AND FECHA_BAJA_LOGICA IS NULL \n";
+			
+				ejecutaSql();
+				while (rs.next()){
+			
+					registro.addDefCampo("ID_INTEGRANTE",rs.getString("ID_INTEGRANTE")== null ? "": rs.getString("ID_INTEGRANTE"));
+					
+					sSql = "SELECT \n"+
+							"ID_GRUPO, \n" + 
+							"ID_INTEGRANTE \n" +
+							"FROM SIM_GRUPO_FUNDADOR \n"+
+							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+						    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+							"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+							"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
+					
+					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+					ps1.execute();
+					ResultSet rs1 = ps1.getResultSet();
+					if (rs1.next()){
+						fIntegrante++;
+					}
+				}
+				
+				if (fIntegrante < fMinIntFundadores){
+					bMinFundadores = false;
+				}else {
+					bMinFundadores = true;
+				}
+				
+			}else {
+			
+				sSql = "SELECT \n" + 
+				   "ID_GRUPO \n" + 
+				   "FROM \n" + 
+				   "SIM_PRESTAMO_EXCEPCION_CICLO \n" +
+				   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+				   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" ;
+				ejecutaSql();
+				if (rs.next()){
+			
+					//Error esto no es posible, están no se dieron los integrantes fundadores en la migración.
+					bErrorGrupoFundador = true;
+				}else {
+			
+					sSql = " SELECT \n" + 
+					  " ID_INTEGRANTE \n" +
+					  "	FROM SIM_GRUPO_INTEGRANTE  \n" +
+					  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+					  "	AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+					  " AND FECHA_BAJA_LOGICA IS NULL \n";
+				ejecutaSql();
+				while (rs.next()){
+			
+					registro.addDefCampo("ID_INTEGRANTE",rs.getString("ID_INTEGRANTE")== null ? "": rs.getString("ID_INTEGRANTE"));
+					
+					sSql =  "INSERT INTO SIM_GRUPO_FUNDADORES ( \n"+
+								"CVE_GPO_EMPRESA, \n" +
+								"CVE_EMPRESA, \n" +
+								"ID_GRUPO, \n" +
+								"ID_INTEGRANTE) \n" +
+						        "VALUES ( \n"+
+							"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+							"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "') \n" ;
+					
+					
+					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+					ps1.execute();
+					ResultSet rs1 = ps1.getResultSet();
+				}
+				bMinFundadores = true;
 				}
 			}
+		
+			
+			
 			
 			sSql ="SELECT COUNT(*) NUM_INTEGRANTES FROM ( \n" + 
 				  " SELECT \n" + 
@@ -344,10 +404,16 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 			}
 			
 			if (iNumNegociosPrincipales == iIntegrante){
+			
 			//	*************************
-				if (fIntegrante < fMinIntFundadores){
-					resultadoCatalogo.mensaje.setClave("NO_MINIMO_FUNDADORES");
-				}else {
+				if (!bMinFundadores){
+			
+					if (bErrorGrupoFundador){
+						resultadoCatalogo.mensaje.setClave("NO_EXISTE_GPO_FUNDADOR");
+					}else {
+						resultadoCatalogo.mensaje.setClave("NO_MINIMO_FUNDADORES");
+					}
+				}else if (bMinFundadores) {
 				
 					//Preguntamos por el parámetro Crédito Simultáneos.
 					
@@ -1817,7 +1883,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 							
 						}
 					}
-				}
+				}//El porcentaje de fundadores del grupo es el permitido.
 			}else {
 				resultadoCatalogo.mensaje.setClave("INTEGRANTES_NO_NEGOCIO");
 			}
