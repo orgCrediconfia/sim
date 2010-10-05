@@ -41,7 +41,7 @@ public class SimReporteCapitalVencidoREP implements ReporteControlIN {
 		//String sCveGpoEmpresa = request.getParameter("CveGpoEmpresa");
 		//String sCveEmpresa = request.getParameter("CveEmpresa");
 		String sClave = request.getParameter("CvePrestamoGpo");
-		
+							
 		String sSql = 	"SELECT \n"+
 							"FECHA_REPORTE,\n"+
 							"ID_REGIONAL,\n"+
@@ -54,14 +54,29 @@ public class SimReporteCapitalVencidoREP implements ReporteControlIN {
 							"NUM_INTEGRANTES,\n"+
 							"CATEGORIA,\n"+
 							"NOM_GRUPO,\n"+
+							"MONTO_PRESTADO,\n"+
 							"DIAS_ANTIGUEDAD,\n"+
-							"FECHA_PROX_PAGO,\n"+
-							"FECHA_ULTIMO_MOV,\n"+
-							"FECHA_FIN_CICLO,\n"+
-							"COORDINADOR_GRUPO,\n"+
-							"TELEFONO_COORDINADOR\n"+
-							"FROM V_DATOS_REPORTES\n"+
-							"WHERE CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamoGpo") + "'\n";
+							"F_ULT_PAGO_REALIZADO,\n"+
+							"SALDO_LIQUIDADO_CUOTA,\n"+
+							"CAPITAL_VENCIDO,\n"+
+							"INTERESES_VENCIDOS,\n"+
+							"SEGURO_VENCIDO,\n"+
+							"RECARGOS_VENCIDOS,\n"+
+							"TOTAL_SALDO_VENCIDO,\n"+
+							"INSOLUTO,\n"+
+							"INTERESES,\n"+
+							"SEGURO,\n"+
+							"TOTAL_SALDO_LIQUIDAR\n"+
+							"FROM\n"+
+							"V_DATOS_REPORTE_ANTIGUEDAD\n";
+		
+		//if (request.getParameter("CvePrestamoGpo") != null && !request.getParameter("CvePrestamoGpo").equals("") && !request.getParameter("CvePrestamoGpo").equals("null") ){
+		//	sSql = sSql + " WHERE CVE_PRESTAMO = '" + request.getParameter("CvePrestamoGpo")+"'  \n";
+		//}
+		
+		if (!request.getParameter("CvePrestamoGpo").equals("")) {
+			sSql = sSql + " AND UPPER(CVE_PRESTAMO) LIKE '%" + ((String) request.getParameter("CvePrestamoGpo")).toUpperCase()  + "%' \n";
+		}
 							
 							 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
