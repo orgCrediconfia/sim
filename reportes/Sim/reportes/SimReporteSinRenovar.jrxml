@@ -26,7 +26,33 @@
 	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[$P!{Sql}]]></queryString>
+	<queryString><![CDATA[SELECT
+FECHA_REPORTE,
+ID_REGIONAL,
+NOM_REGIONAL,
+ID_SUCURSAL,
+NOM_SUCURSAL,
+CVE_ASESOR,
+NOM_ASESOR,
+CVE_PRESTAMO,
+NUM_INTEGRANTES,
+CATEGORIA,
+NOM_GRUPO,
+MONTO_PRESTADO,
+DIAS_ANTIGUEDAD,
+F_ULT_PAGO_REALIZADO,
+SALDO_LIQUIDADO_CUOTA,
+CAPITAL_VENCIDO,
+INTERESES_VENCIDOS,
+SEGURO_VENCIDO,
+RECARGOS_VENCIDOS,
+TOTAL_SALDO_VENCIDO,
+INSOLUTO,
+INTERESES,
+SEGURO,
+TOTAL_SALDO_LIQUIDAR
+FROM
+V_REPORTE_CREDITOS_SIN_RENOVAR]]></queryString>
 
 	<field name="FECHA_REPORTE" class="java.sql.Timestamp"/>
 	<field name="ID_REGIONAL" class="java.math.BigDecimal"/>
@@ -39,12 +65,19 @@
 	<field name="NUM_INTEGRANTES" class="java.math.BigDecimal"/>
 	<field name="CATEGORIA" class="java.lang.String"/>
 	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="MONTO_PRESTADO" class="java.math.BigDecimal"/>
 	<field name="DIAS_ANTIGUEDAD" class="java.math.BigDecimal"/>
-	<field name="FECHA_PROX_PAGO" class="java.sql.Timestamp"/>
-	<field name="FECHA_ULTIMO_MOV" class="java.sql.Timestamp"/>
-	<field name="FECHA_FIN_CICLO" class="java.sql.Timestamp"/>
-	<field name="COORDINADOR_GRUPO" class="java.math.BigDecimal"/>
-	<field name="TELEFONO_COORDINADOR" class="java.lang.String"/>
+	<field name="F_ULT_PAGO_REALIZADO" class="java.sql.Timestamp"/>
+	<field name="SALDO_LIQUIDADO_CUOTA" class="java.math.BigDecimal"/>
+	<field name="CAPITAL_VENCIDO" class="java.math.BigDecimal"/>
+	<field name="INTERESES_VENCIDOS" class="java.math.BigDecimal"/>
+	<field name="SEGURO_VENCIDO" class="java.math.BigDecimal"/>
+	<field name="RECARGOS_VENCIDOS" class="java.math.BigDecimal"/>
+	<field name="TOTAL_SALDO_VENCIDO" class="java.math.BigDecimal"/>
+	<field name="INSOLUTO" class="java.math.BigDecimal"/>
+	<field name="INTERESES" class="java.math.BigDecimal"/>
+	<field name="SEGURO" class="java.math.BigDecimal"/>
+	<field name="TOTAL_SALDO_LIQUIDAR" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -56,12 +89,12 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="1565"
+						width="1534"
 						height="15"
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Reporte de créditos terminados sin renovar]]></text>
 				</staticText>
@@ -71,434 +104,597 @@
 			<band height="30"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="351"
+						x="320"
 						y="0"
 						width="74"
 						height="15"
 						key="staticText-23"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Regional]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1439"
+						x="1408"
 						y="0"
 						width="126"
 						height="15"
 						key="staticText-24"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Fecha]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1439"
+						x="320"
+						y="15"
+						width="74"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_REGIONAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1408"
 						y="15"
 						width="126"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement>
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_REPORTE}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="351"
-						y="15"
-						width="74"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_REGIONAL}]]></textFieldExpression>
-				</textField>
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="30"  isSplitAllowed="true" >
+			<band height="44"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="0"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-2"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Llave
-]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="74"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-3"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[#]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="148"
-						y="0"
-						width="74"
-						height="30"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Cate
-goria]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="222"
-						y="15"
-						width="129"
-						height="15"
-						key="staticText-5"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Nombre]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="351"
-						y="0"
-						width="74"
-						height="30"
-						key="staticText-6"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Monto
-Prestado]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="425"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-7"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Total]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="499"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-8"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Intereses]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="573"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-9"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Seguros]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="647"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-10"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Recargos]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="721"
+						x="690"
 						y="15"
 						width="74"
 						height="15"
 						key="staticText-11"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Capital]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="425"
-						y="0"
-						width="370"
-						height="15"
-						key="staticText-12"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Vencido]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="795"
-						y="0"
-						width="74"
-						height="30"
-						key="staticText-13"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Antigüedad
-DIAS]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="869"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-14"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Insoluto]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="943"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-15"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Interes]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1017"
-						y="15"
-						width="74"
-						height="15"
-						key="staticText-16"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Seguros]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="869"
-						y="0"
-						width="222"
-						height="15"
-						key="staticText-17"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Saldos para liquidar el crédito]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1091"
-						y="0"
-						width="74"
-						height="30"
-						key="staticText-18"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<text><![CDATA[Total 
-más recargos]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1165"
+						x="1134"
 						y="0"
 						width="74"
 						height="30"
 						key="staticText-19"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Fecha
 Ult Mov]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1239"
+						x="1208"
 						y="0"
 						width="74"
 						height="30"
 						key="staticText-20"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Saldo liq
 vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1313"
+						x="1282"
 						y="15"
 						width="126"
 						height="15"
 						key="staticText-21"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Oficial]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1439"
+						x="1408"
 						y="15"
 						width="126"
 						height="15"
 						key="staticText-22"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="1"
+						width="74"
+						height="30"
+						key="staticText-25"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Clave del préstamo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="75"
+						y="1"
+						width="61"
+						height="30"
+						key="staticText-26"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[# de integrantes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="136"
+						y="1"
+						width="55"
+						height="30"
+						key="staticText-27"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Categoría]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="198"
+						y="16"
+						width="122"
+						height="15"
+						key="staticText-28"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="320"
+						y="1"
+						width="74"
+						height="30"
+						key="staticText-29"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Monto
+Prestado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="394"
+						y="16"
+						width="74"
+						height="15"
+						key="staticText-30"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="468"
+						y="16"
+						width="74"
+						height="15"
+						key="staticText-31"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Intereses]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="542"
+						y="16"
+						width="74"
+						height="15"
+						key="staticText-32"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Seguros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="616"
+						y="16"
+						width="74"
+						height="15"
+						key="staticText-33"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Recargos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="394"
+						y="1"
+						width="370"
+						height="15"
+						key="staticText-34"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Vencido]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="43"
+						width="1540"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="764"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-35"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Antigüedad
+DIAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="838"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-36"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Insoluto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="912"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-37"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Interes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="986"
+						y="15"
+						width="74"
+						height="15"
+						key="staticText-38"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Seguros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="838"
+						y="0"
+						width="222"
+						height="15"
+						key="staticText-39"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Saldos para liquidar el crédito]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1060"
+						y="0"
+						width="74"
+						height="30"
+						key="staticText-40"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total 
+más recargos]]></text>
 				</staticText>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="15"  isSplitAllowed="true" >
+			<band height="18"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
 						y="0"
-						width="74"
-						height="15"
+						width="75"
+						height="18"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement>
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="74"
+						x="75"
 						y="0"
-						width="74"
-						height="15"
+						width="61"
+						height="18"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{NUM_INTEGRANTES}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="148"
+						x="136"
 						y="0"
-						width="74"
-						height="15"
+						width="55"
+						height="18"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CATEGORIA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="222"
+						x="191"
 						y="0"
 						width="129"
-						height="15"
+						height="18"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement>
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GRUPO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1165"
+						x="320"
 						y="0"
 						width="74"
-						height="15"
+						height="18"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_ULTIMO_MOV}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{MONTO_PRESTADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOTAL_SALDO_VENCIDO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="468"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{INTERESES_VENCIDOS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="542"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{SEGURO_VENCIDO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="616"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{RECARGOS_VENCIDOS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="690"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{CAPITAL_VENCIDO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="764"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{DIAS_ANTIGUEDAD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="838"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{INSOLUTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="912"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{INTERESES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="986"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{SEGURO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1060"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOTAL_SALDO_LIQUIDAR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1134"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{F_ULT_PAGO_REALIZADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1208"
+						y="0"
+						width="74"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{SALDO_LIQUIDADO_CUOTA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1439"
+						x="1282"
 						y="0"
 						width="126"
-						height="15"
+						height="18"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_SUCURSAL}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="1313"
-						y="0"
-						width="126"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement>
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_ASESOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1408"
+						y="0"
+						width="126"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_SUCURSAL}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
