@@ -8,7 +8,7 @@
 	<Portal:Forma tipo='url' funcion='SimReporteDeCobranza' url="ProcesaReporte?Funcion=SimReporteDeCobranza&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
 		
-	          <Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamoGpo' controllongitud='40' controllongitudmax='20' editarinicializado='true' obligatorio='true' />
+	          <Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamoGpo' controllongitud='40' controllongitudmax='20' editarinicializado='true' />
               
  
 		<Portal:FormaBotones>
@@ -19,31 +19,19 @@
 	</Portal:Forma>
 	
      <script>
-         function fReporteXls(){
+         function fReporteXls(){   		
       
-      		if (document.frmRegistro.CvePrestamoGpo.value == "" ){
-                  alert ("La clave del grupo es obligatoria para generar el reporte");
-                  
-      		}else{
-      		
-      
-              url = '/portal/ProcesaReporte?Funcion=SimReporteDeCobranza&TipoReporte=Xls&CvePrestamoGpo='+document.frmRegistro.CvePrestamoGpo.value;
+              url = '/portal/ProcesaReporte?Funcion=SimReporteDeCobranza&TipoReporte=Xls&CvePrestamoGpo=';
               MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
-           }
+           
         }
       
        function fReportePdf(){
   
-  		if (document.frmRegistro.CvePrestamoGpo.value == "" ){
-              alert ("La clave del grupo es obligatoria para generar el reporte");
-              
-  		}else{
-  		
-  
-          url = '/portal/ProcesaReporte?Funcion=SimReporteDeCobranza&TipoReporte=Pdf&CvePrestamoGpo='+document.frmRegistro.CvePrestamoGpo.value;
+          url = '/portal/ProcesaReporte?Funcion=SimReporteDeCobranza&TipoReporte=Pdf&CvePrestamoGpo=';
           MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+        
         }
-  }
      </script>
      
 </Portal:Pagina>     

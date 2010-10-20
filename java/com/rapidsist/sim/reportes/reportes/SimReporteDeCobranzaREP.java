@@ -42,7 +42,7 @@ public class SimReporteDeCobranzaREP implements ReporteControlIN {
 		//String sCveEmpresa = request.getParameter("CveEmpresa");
 		String sClave = request.getParameter("CvePrestamoGpo");
 		
-		String sSql = 	"SELECT \n"+
+		String sSql = 	"SELECT\n"+
 							"FECHA_REPORTE,\n"+
 							"ID_REGIONAL,\n"+
 							"NOM_REGIONAL,\n"+
@@ -54,14 +54,27 @@ public class SimReporteDeCobranzaREP implements ReporteControlIN {
 							"NUM_INTEGRANTES,\n"+
 							"CATEGORIA,\n"+
 							"NOM_GRUPO,\n"+
+							"MONTO_PRESTADO,\n"+
 							"DIAS_ANTIGUEDAD,\n"+
-							"FECHA_PROX_PAGO,\n"+
-							"FECHA_ULTIMO_MOV,\n"+
-							"FECHA_FIN_CICLO,\n"+
-							"COORDINADOR_GRUPO,\n"+
-							"TELEFONO_COORDINADOR\n"+
-							"FROM V_DATOS_REPORTES\n"+
-							"WHERE CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamoGpo") + "'\n";
+							"F_PROX_PAGO,\n"+
+							"SALDO_LIQUIDADO_CUOTA,\n"+
+							"ID_COORDINADOR_GRUPO,\n"+
+							"TELEFONO_COORDINADOR,\n"+
+							"CAPITAL_PROX_PAGO,\n"+
+							"INTERESES_PROX_PAGO,\n"+
+							"SEGURO_PROX_PAGO,\n"+
+							"RECARGOS_PROX_PAGO,\n"+
+							"TOTAL_PROX_PAGO,\n"+
+							"INSOLUTO,\n"+
+							"INTERESES,\n"+
+							"SEGURO,\n"+
+							"TOTAL_SALDO_LIQUIDAR\n"+
+							"FROM\n"+
+							"V_REPORTE_SEGUIMIENTO_COBRANZA\n";
+		
+		if (!request.getParameter("CvePrestamoGpo").equals("")) {
+			sSql = sSql + " AND UPPER(CVE_PRESTAMO) LIKE '%" + ((String) request.getParameter("CvePrestamoGpo")).toUpperCase()  + "%' \n";
+		}
 							
 							 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
