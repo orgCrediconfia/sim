@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimReporteAntiguedad"
+		 name="SimReporteVencimientos"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
@@ -41,7 +41,7 @@
 	<field name="CVE_CATEGORIA_ATRASO" class="java.lang.String"/>
 	<field name="NOMBRE" class="java.lang.String"/>
 	<field name="NUM_DIAS_ATRASO_ACTUAL" class="java.lang.Integer"/>
-	<field name="F_ULT_PAGO_REALIZADO" class="java.util.Date"/>
+	<field name="F_ULT_AMORTIZACION" class="java.util.Date"/>
 	<field name="VENCIDO_INTERES" class="java.lang.Float"/>
 	<field name="VENCIDO_CAPITAL" class="java.lang.Float"/>
 	<field name="VENCIDO_SEGURO" class="java.lang.Float"/>
@@ -82,17 +82,17 @@
 	<variable name="PrimerPorcentaje" class="java.lang.Float" resetType="Report" calculation="Nothing">
 		<variableExpression><![CDATA[new java.lang.Float(  ($V{SumVencidoCapital}.floatValue()) /($V{SumSaldoInsoluto}.floatValue()) * 100 ) ]]></variableExpression>
 	</variable>
-	<variable name="CarteraRiesgo30" class="java.lang.Float" resetType="Report" calculation="Sum">
-		<variableExpression><![CDATA[new java.lang.Float(  ($F{NUM_DIAS_ATRASO_ACTUAL}.floatValue()) > 30 ? ($F{SALDO_CAPITAL}.floatValue()) : 0.00)]]></variableExpression>
-	</variable>
-	<variable name="CarteraRiesgo90" class="java.lang.Float" resetType="Report" calculation="Sum">
-		<variableExpression><![CDATA[new java.lang.Float(  ($F{NUM_DIAS_ATRASO_ACTUAL}.floatValue()) > 90 ? ($F{SALDO_CAPITAL}.floatValue()) : 0.00)]]></variableExpression>
-	</variable>
 	<variable name="SegundoPorcentaje" class="java.lang.Float" resetType="Report" calculation="Nothing">
 		<variableExpression><![CDATA[new java.lang.Float(  ($V{CarteraRiesgo30}.floatValue()) /($V{SumSaldoInsoluto}.floatValue()) * 100 )]]></variableExpression>
 	</variable>
 	<variable name="TercerPorcentaje" class="java.lang.Float" resetType="Report" calculation="Nothing">
 		<variableExpression><![CDATA[new java.lang.Float(  ($V{CarteraRiesgo90}.floatValue()) /($V{SumSaldoInsoluto}.floatValue()) * 100)]]></variableExpression>
+	</variable>
+	<variable name="CarteraRiesgo30" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[new java.lang.Float(  ($F{NUM_DIAS_ATRASO_ACTUAL}.floatValue()) > 30 ? ($F{SALDO_CAPITAL}.floatValue()) : 0.00)]]></variableExpression>
+	</variable>
+	<variable name="CarteraRiesgo90" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[new java.lang.Float(  ($F{NUM_DIAS_ATRASO_ACTUAL}.floatValue()) > 90 ? ($F{SALDO_CAPITAL}.floatValue()) : 0.00)]]></variableExpression>
 	</variable>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -111,7 +111,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Reporte de saldos y antigüedad del capital vencido]]></text>
+				<text><![CDATA[Reporte de créditos por vencer]]></text>
 				</staticText>
 			</band>
 		</title>
@@ -242,7 +242,7 @@
 					<reportElement
 						x="0"
 						y="15"
-						width="113"
+						width="116"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
@@ -253,7 +253,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="113"
+						x="116"
 						y="0"
 						width="61"
 						height="30"
@@ -266,7 +266,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="174"
+						x="177"
 						y="0"
 						width="62"
 						height="30"
@@ -279,9 +279,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="236"
+						x="239"
 						y="15"
-						width="190"
+						width="175"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -292,7 +292,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="426"
+						x="414"
 						y="0"
 						width="74"
 						height="30"
@@ -306,7 +306,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="500"
+						x="488"
 						y="15"
 						width="74"
 						height="15"
@@ -319,7 +319,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="574"
+						x="562"
 						y="15"
 						width="74"
 						height="15"
@@ -332,7 +332,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="648"
+						x="636"
 						y="15"
 						width="74"
 						height="15"
@@ -345,7 +345,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="722"
+						x="710"
 						y="15"
 						width="74"
 						height="15"
@@ -358,7 +358,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="796"
+						x="784"
 						y="15"
 						width="74"
 						height="15"
@@ -371,7 +371,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="500"
+						x="488"
 						y="0"
 						width="370"
 						height="15"
@@ -384,7 +384,7 @@ Prestado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="870"
+						x="858"
 						y="0"
 						width="74"
 						height="30"
@@ -398,7 +398,7 @@ DIAS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="944"
+						x="932"
 						y="15"
 						width="74"
 						height="15"
@@ -411,7 +411,7 @@ DIAS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1018"
+						x="1006"
 						y="15"
 						width="74"
 						height="15"
@@ -424,7 +424,7 @@ DIAS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1092"
+						x="1080"
 						y="15"
 						width="74"
 						height="15"
@@ -437,7 +437,7 @@ DIAS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="944"
+						x="932"
 						y="0"
 						width="222"
 						height="15"
@@ -450,7 +450,7 @@ DIAS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1166"
+						x="1154"
 						y="0"
 						width="74"
 						height="30"
@@ -464,7 +464,7 @@ más recargos]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1240"
+						x="1228"
 						y="0"
 						width="74"
 						height="30"
@@ -474,11 +474,11 @@ más recargos]]></text>
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Fecha
-Ult Mov]]></text>
+Fin Ciclo]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1314"
+						x="1302"
 						y="0"
 						width="69"
 						height="30"
@@ -492,9 +492,9 @@ vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1383"
+						x="1371"
 						y="15"
-						width="183"
+						width="194"
 						height="15"
 						key="staticText-21"/>
 					<box></box>
@@ -505,9 +505,9 @@ vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1566"
+						x="1565"
 						y="15"
-						width="151"
+						width="152"
 						height="15"
 						key="staticText-22"/>
 					<box></box>
@@ -520,7 +520,7 @@ vs cuota]]></text>
 					<reportElement
 						x="0"
 						y="43"
-						width="1715"
+						width="1717"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -531,7 +531,7 @@ vs cuota]]></text>
 			<band height="15"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="113"
+						x="116"
 						y="0"
 						width="61"
 						height="15"
@@ -544,7 +544,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="174"
+						x="177"
 						y="0"
 						width="55"
 						height="15"
@@ -557,9 +557,9 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="229"
+						x="232"
 						y="0"
-						width="197"
+						width="182"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -572,7 +572,7 @@ vs cuota]]></text>
 					<reportElement
 						x="0"
 						y="0"
-						width="113"
+						width="116"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -583,7 +583,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1240"
+						x="1228"
 						y="0"
 						width="74"
 						height="15"
@@ -592,13 +592,13 @@ vs cuota]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{F_ULT_PAGO_REALIZADO}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{F_ULT_AMORTIZACION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1383"
+						x="1371"
 						y="0"
-						width="183"
+						width="194"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -609,9 +609,9 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1566"
+						x="1565"
 						y="0"
-						width="151"
+						width="152"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -622,7 +622,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="944"
+						x="932"
 						y="0"
 						width="74"
 						height="15"
@@ -635,7 +635,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1092"
+						x="1080"
 						y="0"
 						width="74"
 						height="15"
@@ -648,7 +648,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1018"
+						x="1006"
 						y="0"
 						width="74"
 						height="15"
@@ -661,7 +661,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="722"
+						x="710"
 						y="0"
 						width="74"
 						height="15"
@@ -674,7 +674,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="648"
+						x="636"
 						y="0"
 						width="74"
 						height="15"
@@ -687,7 +687,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="796"
+						x="784"
 						y="0"
 						width="74"
 						height="15"
@@ -700,7 +700,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="574"
+						x="562"
 						y="0"
 						width="74"
 						height="15"
@@ -713,7 +713,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="870"
+						x="858"
 						y="0"
 						width="74"
 						height="15"
@@ -726,7 +726,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="426"
+						x="414"
 						y="0"
 						width="74"
 						height="15"
@@ -739,7 +739,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="500"
+						x="488"
 						y="0"
 						width="74"
 						height="15"
@@ -752,7 +752,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1166"
+						x="1154"
 						y="0"
 						width="74"
 						height="15"
@@ -765,7 +765,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1314"
+						x="1302"
 						y="0"
 						width="58"
 						height="15"
@@ -790,7 +790,7 @@ vs cuota]]></text>
 			<band height="33"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="113"
+						x="116"
 						y="2"
 						width="61"
 						height="15"
@@ -803,7 +803,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="426"
+						x="414"
 						y="2"
 						width="74"
 						height="15"
@@ -816,7 +816,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="500"
+						x="488"
 						y="2"
 						width="74"
 						height="15"
@@ -829,7 +829,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="574"
+						x="562"
 						y="2"
 						width="74"
 						height="15"
@@ -842,7 +842,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="648"
+						x="636"
 						y="2"
 						width="74"
 						height="15"
@@ -855,7 +855,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="722"
+						x="710"
 						y="2"
 						width="74"
 						height="15"
@@ -868,7 +868,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="796"
+						x="784"
 						y="2"
 						width="74"
 						height="15"
@@ -881,7 +881,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="944"
+						x="932"
 						y="2"
 						width="74"
 						height="15"
@@ -896,14 +896,14 @@ vs cuota]]></text>
 					<reportElement
 						x="0"
 						y="1"
-						width="1715"
+						width="1717"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="796"
+						x="784"
 						y="17"
 						width="65"
 						height="15"
@@ -916,11 +916,24 @@ vs cuota]]></text>
 				</textField>
 				<staticText>
 					<reportElement
-						x="1018"
+						x="850"
+						y="17"
+						width="11"
+						height="15"
+						key="staticText-28"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1006"
 						y="2"
 						width="148"
 						height="15"
-						key="staticText-28"/>
+						key="staticText-29"/>
 					<box></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
@@ -929,11 +942,11 @@ vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1018"
+						x="1006"
 						y="17"
 						width="148"
 						height="15"
-						key="staticText-29"/>
+						key="staticText-30"/>
 					<box></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
@@ -942,7 +955,7 @@ vs cuota]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1166"
+						x="1154"
 						y="2"
 						width="74"
 						height="15"
@@ -955,7 +968,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1166"
+						x="1154"
 						y="17"
 						width="74"
 						height="15"
@@ -968,7 +981,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1240"
+						x="1228"
 						y="2"
 						width="65"
 						height="15"
@@ -981,7 +994,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1240"
+						x="1228"
 						y="17"
 						width="65"
 						height="15"
@@ -994,20 +1007,7 @@ vs cuota]]></text>
 				</textField>
 				<staticText>
 					<reportElement
-						x="862"
-						y="17"
-						width="11"
-						height="15"
-						key="staticText-30"/>
-					<box></box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[%]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="1305"
+						x="1293"
 						y="2"
 						width="11"
 						height="15"
@@ -1020,7 +1020,7 @@ vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1305"
+						x="1293"
 						y="17"
 						width="11"
 						height="15"

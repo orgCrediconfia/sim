@@ -54,12 +54,9 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 			"AND US.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 			"AND US.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 			"AND US.ID_SUCURSAL = P.ID_SUCURSAL \n"+
-			"AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
+			"AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
+			"AND ROWNUM <= 100 \n";
 				
-		if (!parametros.getDefCampo("CVE_TIPO_PERSONA").equals("")) {
-			sSql = sSql + "AND TP.CVE_TIPO_PERSONA = '" + (String) parametros.getDefCampo("CVE_TIPO_PERSONA") + "' \n";
-		}
-		
 		if (parametros.getDefCampo("ID_PERSONA") != null) {
 			sSql = sSql + "AND P.ID_PERSONA = '" + (String) parametros.getDefCampo("ID_PERSONA") + "' \n";
 		}

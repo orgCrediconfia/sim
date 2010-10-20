@@ -37,6 +37,7 @@ public class SimParametroGlobalDAO extends Conexion2 implements OperacionConsult
 			"	CVE_EMPRESA, \n"+
 			"	PORC_INT_FUNDADORES, \n"+
 			"	IMP_DEUDA_MINIMA, \n"+
+			"	IMP_VAR_PROPORCION, \n"+
 			"	CREDITOS_SIMULTANEOS \n"+
 			"FROM SIM_PARAMETRO_GLOBAL \n"+
 			"WHERE CVE_GPO_EMPRESA='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
@@ -60,12 +61,14 @@ public class SimParametroGlobalDAO extends Conexion2 implements OperacionConsult
 			"	CVE_EMPRESA, \n"+
 			"	PORC_INT_FUNDADORES, \n"+
 			"	IMP_DEUDA_MINIMA, \n"+
+			"	IMP_VAR_PROPORCION, \n"+
 			"	CREDITOS_SIMULTANEOS) \n"+
 		        "VALUES ( \n"+
 			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 			"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 			"'" + (String)registro.getDefCampo("PORC_INT_FUNDADORES") + "', \n" +
 			"'" + (String)registro.getDefCampo("IMP_DEUDA_MINIMA") + "', \n" +
+			"'" + (String)registro.getDefCampo("IMP_VAR_PROPORCION") + "', \n" +
 			"'" + (String)registro.getDefCampo("CREDITOS_SIMULTANEOS") + "') \n" ;
 			
 			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
@@ -87,7 +90,8 @@ public class SimParametroGlobalDAO extends Conexion2 implements OperacionConsult
 		sSql =  " UPDATE SIM_PARAMETRO_GLOBAL SET "+
 			" PORC_INT_FUNDADORES	 = '" + (String)registro.getDefCampo("PORC_INT_FUNDADORES")  + "', \n" +
 			" IMP_DEUDA_MINIMA	 	 = '" + (String)registro.getDefCampo("IMP_DEUDA_MINIMA")  + "', \n" +
-			" CREDITOS_SIMULTANEOS	 = '" + (String)registro.getDefCampo("CREDITOS_SIMULTANEOS")  + "' \n" +
+			" CREDITOS_SIMULTANEOS	 = '" + (String)registro.getDefCampo("CREDITOS_SIMULTANEOS")  + "', \n" +
+			" IMP_VAR_PROPORCION	 = '" + (String)registro.getDefCampo("IMP_VAR_PROPORCION")  + "' \n" +
 			" WHERE CVE_EMPRESA    	 = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 			" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
 			   

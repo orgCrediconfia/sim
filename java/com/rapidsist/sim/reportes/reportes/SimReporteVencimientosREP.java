@@ -18,9 +18,9 @@ import javax.servlet.http.HttpSession;
 import com.rapidsist.portal.configuracion.Usuario;
 
 /**
- * Realiza la consulta para obtener los datos que serï¿½n utilizados para generar el reporte de saldos y antiguedad de capital vencido.
+ * Realiza la consulta para obtener los datos que serï¿½n utilizados para generar el reporte de créditos por vencer.
  */
-public class SimReporteAntiguedadREP implements ReporteControlIN {
+public class SimReporteVencimientosREP implements ReporteControlIN {
 
 	/**
 	 * Obtiene la consulta en la base de datos y parï¿½metros que serï¿½n utilizados por el reporte.
@@ -81,7 +81,7 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		"SALDO_RECARGO, \n"+
 		"NVL(SALDO_INTERES,0) + NVL(SALDO_CAPITAL,0) + NVL(SALDO_SEGURO,0) + NVL(SALDO_RECARGO,0) SALDO_TOTAL, \n"+
 		"TRUNC((NVL(SALDO_INTERES,0) + NVL(SALDO_CAPITAL,0) + NVL(SALDO_SEGURO,0) + NVL(SALDO_RECARGO,0)) / CUOTA,2) SALDO_CUOTA \n"+
-		"FROM V_ANTIGUEDADES V, \n"+
+		"FROM V_VENCIMIENTOS V, \n"+
 		"PFIN_PARAMETRO P \n"+
 		"WHERE V.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 		"AND V.CVE_EMPRESA = P.CVE_EMPRESA \n";
@@ -105,8 +105,8 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		parametros.put("NomSucursal", sIdSucursal);
 		parametros.put("CveUsuario", sCveUsuario);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteAntiguedad.jasper");
-		parametros.put("NombreReporte", "Antiguedades");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteVencimientos.jasper");
+		parametros.put("NombreReporte", "Vencimientos");
 		                             
 		
 		return parametros;		

@@ -18,9 +18,9 @@ import javax.servlet.http.HttpSession;
 import com.rapidsist.portal.configuracion.Usuario;
 
 /**
- * Realiza la consulta para obtener los datos que ser�n utilizados para generar el reporte de saldos y antiguedad de capital vencido.
+ * Realiza la consulta para obtener los datos que ser�n utilizados para generar el reporte de seguimiento.
  */
-public class SimReporteAntiguedadREP implements ReporteControlIN {
+public class SimReporteSeguimientoREP implements ReporteControlIN {
 
 	/**
 	 * Obtiene la consulta en la base de datos y par�metros que ser�n utilizados por el reporte.
@@ -70,22 +70,25 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		"F_PROX_PAGO, \n"+ 
 		"F_ULT_PAGO_REALIZADO, \n"+
 		"F_ULT_AMORTIZACION, \n"+ 
-		"VENCIDO_INTERES, \n"+
-		"VENCIDO_CAPITAL, \n"+
-		"VENCIDO_SEGURO, \n"+
-		"VENCIDO_RECARGO, \n"+
-		"NVL(VENCIDO_INTERES,0) + NVL(VENCIDO_CAPITAL,0) + NVL(VENCIDO_SEGURO,0) + NVL(VENCIDO_RECARGO,0) VENCIDO_TOTAL, \n"+
+		"NOM_COORDINADOR_CLIENTE, \n"+
+		"TELEFONO, \n"+
+		"SALDO_PROX_PAGO_INTERES, \n"+
+		"SALDO_PROX_PAGO_CAPITAL, \n"+
+		"SALDO_PROX_PAGO_SEGURO, \n"+
+		"SALDO_PROX_PAGO_RECARGO, \n"+
+		"NVL(SALDO_PROX_PAGO_INTERES,0) + NVL(SALDO_PROX_PAGO_CAPITAL,0) + NVL(SALDO_PROX_PAGO_SEGURO,0) + NVL(SALDO_PROX_PAGO_RECARGO,0) SALDO_PROX_PAGO_TOTAL, \n"+
 		"SALDO_INTERES, \n"+
 		"SALDO_CAPITAL, \n"+
 		"SALDO_SEGURO, \n"+
 		"SALDO_RECARGO, \n"+
 		"NVL(SALDO_INTERES,0) + NVL(SALDO_CAPITAL,0) + NVL(SALDO_SEGURO,0) + NVL(SALDO_RECARGO,0) SALDO_TOTAL, \n"+
 		"TRUNC((NVL(SALDO_INTERES,0) + NVL(SALDO_CAPITAL,0) + NVL(SALDO_SEGURO,0) + NVL(SALDO_RECARGO,0)) / CUOTA,2) SALDO_CUOTA \n"+
-		"FROM V_ANTIGUEDADES V, \n"+
+		"FROM V_SEGUIMIENTO V, \n"+
 		"PFIN_PARAMETRO P \n"+
 		"WHERE V.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-		"AND V.CVE_EMPRESA = P.CVE_EMPRESA \n";
-	 
+		"AND V.CVE_EMPRESA = P.CVE_EMPRESA \n"+
+		"AND F_PROX_PAGO >= TO_DATE(F_MEDIO,'DD/MM/YY') \n"+
+		"AND F_PROX_PAGO <= TO_DATE('" + (String) request.getParameter("Fecha") + "','DD/MM/YY') \n";
 		
 		if (!sIdSucursal.equals("")){
 			sSql = sSql + "AND NOM_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
@@ -98,15 +101,15 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		if (!sCveUsuario.equals("")){
 			sSql = sSql + "AND NOM_COMPLETO_ASESOR = '" + (String)request.getParameter("CveUsuario") + "'\n";
 		}
-							
+		
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
 		parametros.put("NomRegional", sIdRegional);
 		parametros.put("NomSucursal", sIdSucursal);
 		parametros.put("CveUsuario", sCveUsuario);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteAntiguedad.jasper");
-		parametros.put("NombreReporte", "Antiguedades");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteSeguimiento.jasper");
+		parametros.put("NombreReporte", "Seguimiento");
 		                             
 		
 		return parametros;		

@@ -9,12 +9,13 @@
 		<Portal:FormaElemento etiqueta='RFC' control='Texto' controlnombre='Rfc' controllongitud='30' controllongitudmax='100' editarinicializado='true'/>
 	</Portal:Forma>
 	
-	<Portal:TablaLista tipo="alta" nombre="Consulta de personas" botontipo="url" url='/ProcesaCatalogo?Funcion=SimClientes&OperacionCatalogo=IN&Filtro=Alta'>
+	<Portal:TablaForma nombre="Consulta de personas" funcion="SimClientes" operacion="IN" parametros="Filtro=Alta">
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='25' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='350' valor='Nombre'/>	
 			<Portal:Columna tipovalor='texto' ancho='200' valor='Sucursal'/>	
-			<Portal:Columna tipovalor='texto' ancho='100%' valor='RFC'/>		
+			<Portal:Columna tipovalor='texto' ancho='100%' valor='RFC'/>	
+				
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
@@ -24,11 +25,26 @@
 				<Portal:Columna tipovalor='texto' ancho='350' valor='${registro.campos["NOM_COMPLETO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["NOM_SUCURSAL"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["RFC"]}'/>
+				
 			</Portal:TablaListaRenglon>
-		</c:forEach>		
-	</Portal:TablaLista>
+		</c:forEach>
+		<c:if test='${(requestScope.ListaBusqueda == null)}'>
+			<Portal:FormaBotones>
+				<Portal:Boton tipo='submit' etiqueta='Alta' />
+			</Portal:FormaBotones>
+		</c:if>		
+		<c:if test='${(requestScope.ListaBusqueda != null)}'>
+			<Portal:FormaBotones>
+				<Portal:Boton tipo='submit' etiqueta='Alta' />
+				<c:if test='${(param.Paginas != 0)}'>
+					<input type="button" name="Siguiente" value="Siguiente" onclick="javascript:MM_goToURL('parent','/portal/ProcesaCatalogo?Funcion=SimPersonaPaginacion&OperacionCatalogo=CT&Filtro=Todos&Paginas=<c:out value='${param.Paginas}'/>&Superior=<c:out value='${param.Superior}'/>&IdPersona=<c:out value='${param.IdPersona}'/>&NomCompleto=<c:out value='${param.NomCompleto}'/>&Rfc=<c:out value='${param.Rfc}'/>');" >
+				</c:if>
+			</Portal:FormaBotones>
+		</c:if>		
+	</Portal:TablaForma>
 	
 	<script>
+		
 		function RegresaDatos(IdPersona, NomCompleto){
 			var padre = window.opener;
 			
@@ -38,6 +54,7 @@
 			//CIERRA ESTA VENTANA Y REGRESA EL CONTROL A LA VENTANA PADRE
 			window.close();
 		}
+		
 	</script>
 		
 </Portal:Pagina>

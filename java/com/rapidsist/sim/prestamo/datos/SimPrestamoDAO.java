@@ -48,14 +48,13 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 				"P.ID_CLIENTE, \n"+
 				"P.ID_GRUPO, \n"+
 				"C.NOM_COMPLETO, \n"+
-				"G.NOM_GRUPO, \n"+
 				"P.ID_PRODUCTO, \n"+
 				"P.NUM_CICLO, \n"+
 				"P.ID_ETAPA_PRESTAMO, \n"+
 				"E.NOM_ESTATUS_PRESTAMO \n"+
-			"FROM SIM_PRESTAMO P, \n"+
+			"FROM " +
+				"(SELECT * FROM SIM_PRESTAMO ORDER BY ID_PRESTAMO) P, \n"+
 				"RS_GRAL_PERSONA C, \n"+
-				"SIM_GRUPO G, \n" +
 				"SIM_CAT_ETAPA_PRESTAMO E, \n" +
 				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
 			"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -64,9 +63,6 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 			"AND C.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n"+
 			"AND C.CVE_EMPRESA (+)= P.CVE_EMPRESA \n"+
 			"AND C.ID_PERSONA (+)= P.ID_CLIENTE \n"+
-			"AND G.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n"+
-			"AND G.CVE_EMPRESA (+)= P.CVE_EMPRESA \n"+ 
-			"AND G.ID_GRUPO (+)= P.ID_GRUPO \n"+
 			"AND E.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n"+
 			"AND E.CVE_EMPRESA (+)= P.CVE_EMPRESA \n"+ 
 			"AND E.ID_ETAPA_PRESTAMO (+)= P.ID_ETAPA_PRESTAMO \n"+
@@ -74,10 +70,11 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
             "AND US.CVE_EMPRESA = P.CVE_EMPRESA \n"+
             "AND US.ID_SUCURSAL = P.ID_SUCURSAL \n"+
             "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
-			"AND P.ID_GRUPO IS NULL \n";
+			"AND P.ID_GRUPO IS NULL \n"+
+			"AND ROWNUM <= 100 \n";
 			
-		if (parametros.getDefCampo("ID_PRESTAMO") != null) {
-			sSql = sSql + "AND P.ID_PRESTAMO = '" + (String) parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
+			sSql = sSql + "AND P.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 		}
 		if (parametros.getDefCampo("ID_PRODUCTO") != null) {
 			sSql = sSql + "AND P.ID_PRODUCTO = '" + (String) parametros.getDefCampo("ID_PRODUCTO") + "' \n";
@@ -91,9 +88,6 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 		if (parametros.getDefCampo("FECHA_ENTREGA") != null) {
 			sSql = sSql + "AND P.FECHA_ENTREGA <= TO_DATE('" + (String) parametros.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') \n";
 		}
-		if (parametros.getDefCampo("NOM_GRUPO") != null) {
-			sSql = sSql + "AND UPPER(G.NOM_GRUPO) LIKE '%" + ((String) parametros.getDefCampo("NOM_GRUPO")).toUpperCase() + "%' \n";
-		}
 		if (parametros.getDefCampo("NOM_COMPLETO") != null) {
 			sSql = sSql + " AND UPPER(C.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase() + "%' \n";
 		}
@@ -101,7 +95,7 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 			sSql = sSql + "AND P.ID_ETAPA_PRESTAMO = '" + (String) parametros.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n";
 		}
 		
-		sSql = sSql + "ORDER BY P.ID_PRESTAMO \n";
+		sSql = sSql + "ORDER BY P.CVE_PRESTAMO \n";
 		
 		ejecutaSql();
 		return getConsultaLista();

@@ -170,7 +170,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
 		resultadoCatalogo.Resultado = new Registro();
-		
+		System.out.println("desembolso 5");
 		String sIdTransaccion = "";
 		int iIdTransaccion = 0;
 		String sIdTransaccionGrupo = "";
@@ -198,7 +198,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			
 			fMontoCaja = Float.parseFloat(sMontoCaja.trim());
 		}
-		
+	
 		//Obtiene el monto autorizado junto con el cargo incial.
 		sSql =  "SELECT \n"+
 				"C.MONTO_AUTORIZADO + C.CARGO_INICIAL MONTO_PRESTADO \n"+
@@ -225,7 +225,6 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		if (rs.next()){
 			sIdTransaccionGrupo = rs.getString("ID_TRANSACCION_GRUPO");
 		}
-		
 		
 		sSql =  "SELECT \n" +
 				"G.CVE_GPO_EMPRESA, \n" +
@@ -299,7 +298,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 			ps2.execute();
 			ResultSet rs2 = ps2.getResultSet();
-				
+			
 			if (rs2.next()){
 				
 				sIdTransaccion = rs2.getString("ID_TRANSACCION");
@@ -351,7 +350,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 			ps3.execute();
 			ResultSet rs3 = ps3.getResultSet();
-			
+		
 			//Marca cada prestamo que conforma el crédito grupal como entregado.
 			sSql = "UPDATE SIM_PRESTAMO SET \n" +
 					"B_ENTREGADO = 'V' \n"+
@@ -374,7 +373,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			if (rs.next()){
 				registro.addDefCampo("ID_ETAPA_PRESTAMO",rs.getString("ID_ETAPA_PRESTAMO"));
 			}
-	
+		
 			//Avanza la etapa.
 			//Obtiene las actividades de la etapa que se completa.
 			sSql =  "SELECT \n"+
@@ -394,7 +393,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 					PreparedStatement ps9 = this.conn.prepareStatement(sSql);
 					ps9.execute();
 					ResultSet rs9 = ps9.getResultSet();
-		
+					
 			while (rs9.next()){
 				
 				registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs9.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs9.getString("ID_ACTIVIDAD_REQUISITO"));
@@ -436,7 +435,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 					PreparedStatement ps11 = this.conn.prepareStatement(sSql);
 					ps11.execute();
 					ResultSet rs11 = ps11.getResultSet();
-			
+				
 				}
 			}
 			
@@ -493,7 +492,6 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 				ps17.execute();
 				ResultSet rs17 = ps17.getResultSet();
 
-
 				sSql =  "SELECT \n"+
 						"CVE_GPO_EMPRESA, \n"+
 						"CVE_EMPRESA, \n"+
@@ -515,7 +513,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 				PreparedStatement ps18 = this.conn.prepareStatement(sSql);
 				ps18.execute();
 				ResultSet rs18 = ps18.getResultSet();
-		
+			
 				while (rs18.next()){
 					registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs18.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs18.getString("ID_ACTIVIDAD_REQUISITO"));
 					registro.addDefCampo("ETAPA_PRESTAMO",rs18.getString("ID_ETAPA_PRESTAMO")== null ? "": rs18.getString("ID_ETAPA_PRESTAMO"));
@@ -554,7 +552,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 								"'" + (String)registro.getDefCampo("ORDEN_ETAPA") + "', \n" +
 								"'" + (String)registro.getDefCampo("COMENTARIO") + "', \n" +
 								"'" + (String)registro.getDefCampo("ESTATUS") + "') \n" ;
-							
+					
 						PreparedStatement ps20 = this.conn.prepareStatement(sSql);
 						ps20.execute();
 						ResultSet rs20 = ps20.getResultSet();
@@ -596,7 +594,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 	ResultSet rs22 = ps22.getResultSet();
 
 	if(rs22.next()){
-
+		
 		//Pasa a la siguiente etapa.
 		registro.addDefCampo("ETAPA_PRESTAMO",rs22.getString("ID_ETAPA_PRESTAMO"));
 

@@ -14,7 +14,8 @@
 		</tr>
 		
 		
-		<Portal:FormaElemento etiqueta='Deuda m&iacute;nima' control='Texto' controlnombre='DeudaMinima' controlvalor='${requestScope.registro.campos["DEUDA_MINIMA"]}' controllongitud='5' controllongitudmax='5' editarinicializado='true' obligatorio='false' />
+		<Portal:FormaElemento etiqueta='Deuda m&iacute;nima' control='Texto' controlnombre='DeudaMinima' controlvalor='${requestScope.registro.campos["IMP_DEUDA_MINIMA"]}' controllongitud='5' controllongitudmax='5' editarinicializado='true' obligatorio='false' />
+		<Portal:FormaElemento etiqueta='Rango permitido' control='Texto' controlnombre='RangoPermitido' controlvalor='${requestScope.registro.campos["IMP_VAR_PROPORCION"]}' controllongitud='5' controllongitudmax='5' editarinicializado='true' obligatorio='true' />
 		<c:if test='${(requestScope.registro == null)}'>
 			<Portal:FormaElemento etiqueta='Cr&eacute;ditos Simult&aacute;neos' control='checkbox' controlnombre='CreditosSimultaneos' controlvalor='${requestScope.registro.campos["CREDITOS_SIMULTANEOS"]}' />
 		</c:if>

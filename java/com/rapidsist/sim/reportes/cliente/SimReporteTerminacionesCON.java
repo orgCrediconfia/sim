@@ -21,10 +21,10 @@ import java.util.Enumeration;
 
 /**
  * Esta clase se encarga de administrar los servicios de operaciï¿½n (alta, baja,
- * modificaciï¿½n y consulta) del reporte de saldos y antiguedad de capital vencido. Esta clase es llamada por
+ * modificaciï¿½n y consulta) del reporte de créditos renovados sin terminar. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
-public class SimReporteAntiguedadCON implements CatalogoControlConsultaIN {
+public class SimReporteTerminacionesCON implements CatalogoControlConsultaIN {
 
 	/**
 	 * Ejecuta los servicios de consulta del catï¿½logo.
@@ -53,7 +53,7 @@ public class SimReporteAntiguedadCON implements CatalogoControlConsultaIN {
 		
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteAntCon.jsp";	
+				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteTerCon.jsp";	
 			}
 		}
 		

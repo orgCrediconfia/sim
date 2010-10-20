@@ -55,8 +55,8 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 			registroControl.respuesta.addDefCampo("ListaVerificacionPrestamo", catalogoSL.getRegistros("SimCatalogoEstatusPrestamo", parametros));
 			
 			//VERIFICA SI SE ENVIO EL PARAMETRO NOMBRE
-			if (request.getParameter("IdPrestamo") != null && !request.getParameter("IdPrestamo").equals("")){
-				parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
+			if (request.getParameter("CvePrestamo") != null && !request.getParameter("CvePrestamo").equals("")){
+				parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 			}
 			if (request.getParameter("IdProducto") != null && !request.getParameter("IdProducto").equals("")){
 				parametros.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
@@ -70,9 +70,6 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 			if (request.getParameter("FechaFinEntrega") != null && !request.getParameter("FechaFinEntrega").equals("")){
 				parametros.addDefCampo("FECHA_FIN_ENTREGA", request.getParameter("FechaFinEntrega"));
 			}
-			if (request.getParameter("NomGrupo") != null && !request.getParameter("NomGrupo").equals("")){
-				parametros.addDefCampo("NOM_GRUPO", request.getParameter("NomGrupo"));
-			}
 			if (request.getParameter("NomCompleto") != null && !request.getParameter("NomCompleto").equals("")){
 				parametros.addDefCampo("NOM_COMPLETO", request.getParameter("NomCompleto"));
 			}			
@@ -81,9 +78,17 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 			}
 			
 			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimPrestamo", parametros));
+			
+			//CUENTA CUANTAS PAGINAS SERÁN
+			Registro paginas = new Registro ();
+			paginas = catalogoSL.getRegistro("SimPrestamoPaginacion", parametros);
+			String sPaginas = (String)paginas.getDefCampo("PAGINAS");
+			
+			System.out.println("sPaginas*******"+sPaginas);
+			
 			registroControl.respuesta.addDefCampo("ListaEstatus", catalogoSL.getRegistros("SimPrestamoEstatusGrupo", parametros));
 													
-			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCon.jsp";
+			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCon.jsp?Paginas="+sPaginas+"&Superior="+100+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&IdProducto="+request.getParameter("IdProducto")+"&NumCiclo="+request.getParameter("NumCiclo")+"&FechaInicioSolicitud="+request.getParameter("FechaInicioSolicitud")+"&FechaFinEntrega="+request.getParameter("FechaFinEntrega")+"&NomCompleto="+request.getParameter("NomCompleto")+"&IdEstatusPrestamo="+request.getParameter("IdEstatusPrestamo");
 		}
 		else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
 			

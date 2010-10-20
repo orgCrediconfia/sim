@@ -19,6 +19,7 @@
 			<th>Estado Civil</th>
 			<td>
 				<select name='EstadoCivil' size='1' onchange='fRegimenMarital();'>
+					<option value='null'></option>
 					<option value='Casado'   >Casado</option>
 					<option value='Divorciado'   >Divorciado</option>
 					<option value='Soltero'   >Soltero</option>

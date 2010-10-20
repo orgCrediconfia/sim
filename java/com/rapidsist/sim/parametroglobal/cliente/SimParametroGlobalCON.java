@@ -93,6 +93,7 @@ public class SimParametroGlobalCON implements CatalogoControlConsultaIN, Catalog
 		
 		registro.addDefCampo("PORC_INT_FUNDADORES", request.getParameter("PorcIntFundadores"));
 		registro.addDefCampo("IMP_DEUDA_MINIMA", request.getParameter("DeudaMinima"));
+		registro.addDefCampo("IMP_VAR_PROPORCION", request.getParameter("RangoPermitido"));
 		
 		if (request.getParameter("CreditosSimultaneos")!=null){
 			registro.addDefCampo("CREDITOS_SIMULTANEOS","V");

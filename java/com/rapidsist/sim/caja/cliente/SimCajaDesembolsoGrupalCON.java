@@ -156,20 +156,15 @@ public class SimCajaDesembolsoGrupalCON implements CatalogoControlConsultaIN, Ca
 		Usuario usuario = (Usuario) session.getAttribute("Usuario");
 		//AGREGA LA CLAVE DEL PORTAL Y DEL USUARIO DE LA SESION DEL USUARIO
 		registro.addDefCampo("CVE_USUARIO_CAJERO", usuario.sCveUsuario);
-		
 		sIdCajaSucursal = request.getParameter("IdCaja");
 		
 		sIdSucursal = sIdCajaSucursal.substring(0, sIdCajaSucursal.indexOf("-"));
 		sIdCaja = sIdCajaSucursal.substring(sIdCajaSucursal.indexOf("-")+1, sIdCajaSucursal.length());
-		
 		registro.addDefCampo("ID_CAJA", sIdCaja);
 		registro.addDefCampo("ID_SUCURSAL", sIdSucursal);
 		registro.addDefCampo("CVE_MOVIMIENTO_CAJA","DESGPO");
-		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaDesembolsoGrupal", registro, iTipoOperacion);
-		
 		sIdTransaccionGrupo = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_TRANSACCION_GRUPO");
-		
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaDesembolsoGrupal&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+request.getParameter("IdCaja")+"&IdTransaccionGrupo="+sIdTransaccionGrupo;
 			
 		return registroControl;

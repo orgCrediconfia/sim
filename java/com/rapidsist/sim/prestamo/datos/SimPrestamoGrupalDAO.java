@@ -44,17 +44,14 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 					"P.CVE_PRESTAMO_GRUPO, \n"+
 					//"P.FECHA_SOLICITUD, \n"+
 					//"P.FECHA_ENTREGA, \n"+
-					//"P.ID_CLIENTE, \n"+
 					"P.ID_GRUPO, \n"+
-					//"C.NOM_COMPLETO, \n"+
 					"G.NOM_GRUPO, \n"+
 					"P.ID_PRODUCTO, \n"+
 					"P.NUM_CICLO, \n"+
 					"P.ID_ETAPA_PRESTAMO, \n"+
 					"E.NOM_ESTATUS_PRESTAMO \n"+
-					
-				"FROM SIM_PRESTAMO_GRUPO P, \n"+
-				//	"RS_GRAL_PERSONA C, \n"+
+				"FROM \n"+
+					"(SELECT * FROM SIM_PRESTAMO_GRUPO ORDER BY ID_PRESTAMO_GRUPO) P, \n"+
 					"SIM_GRUPO G, \n" +
 					"SIM_CAT_ETAPA_PRESTAMO E, \n" +
 					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
@@ -71,16 +68,11 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
                 "AND US.CVE_EMPRESA = G.CVE_EMPRESA \n"+
                 "AND US.ID_SUCURSAL = G.ID_SUCURSAL \n"+
                 "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
+				"AND P.ID_GRUPO IS NOT NULL \n"+
+				"AND ROWNUM <= 100 \n";
 				
-				/*
-				"AND C.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n"+
-				"AND C.CVE_EMPRESA (+)= P.CVE_EMPRESA \n"+
-				"AND C.ID_PERSONA (+)= P.ID_CLIENTE \n"+
-				*/
-				"AND P.ID_GRUPO IS NOT NULL \n";
-				
-			if (parametros.getDefCampo("ID_PRESTAMO") != null) {
-				sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+			if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
+				sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 			}
 			if (parametros.getDefCampo("ID_PRODUCTO") != null) {
 				sSql = sSql + "AND P.ID_PRODUCTO = '" + (String) parametros.getDefCampo("ID_PRODUCTO") + "' \n";

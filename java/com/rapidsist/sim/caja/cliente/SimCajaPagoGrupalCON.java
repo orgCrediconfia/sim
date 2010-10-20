@@ -218,14 +218,16 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		if (sMontos != null) {
 			
 			if (dPago.doubleValue() > dRangoSuperior.doubleValue()){
-				
+				System.out.println("dPago"+dPago.doubleValue());
+				System.out.println("dRangoSuperior"+dRangoSuperior.doubleValue());
 				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
 				resultadoCatalogoControlado.mensaje.setClave("SUMA_IMPORTE_INCORRECTO");
 				resultadoCatalogoControlado.mensaje.setTipo("Aviso");
 				resultadoCatalogoControlado.mensaje.setDescripcion("La suma de todo los importes individuales debe ser igual a la ingresada anteriormente");
 				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
 			}else if (dPago.doubleValue() < dRangoInferior.doubleValue()){
-				
+				System.out.println("dPago"+dPago.doubleValue());
+				System.out.println("dRangoInferior"+dRangoInferior.doubleValue());
 				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
 				resultadoCatalogoControlado.mensaje.setClave("SUMA_IMPORTE_INCORRECTO");
 				resultadoCatalogoControlado.mensaje.setTipo("Aviso");

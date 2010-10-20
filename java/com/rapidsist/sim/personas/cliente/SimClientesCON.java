@@ -54,8 +54,6 @@ public class SimClientesCON implements CatalogoControlConsultaIN, CatalogoContro
 		if (iTipoOperacion == CON_CONSULTA_TABLA){
 			//VERIFICA SI SE ENVIO EL PARAMETRO NOMBRE
 			
-			parametros.addDefCampo("CVE_TIPO_PERSONA", request.getParameter("CveTipoPersona"));
-			
 			if (request.getParameter("IdPersona") != null && !request.getParameter("IdPersona").equals("")){
 				parametros.addDefCampo("ID_PERSONA", request.getParameter("IdPersona"));
 			}
@@ -67,7 +65,13 @@ public class SimClientesCON implements CatalogoControlConsultaIN, CatalogoContro
 				parametros.addDefCampo("RFC", request.getParameter("Rfc"));
 			}			
 			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimClientes", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/Personas/fSimCliCon.jsp?TipoPersona="+request.getParameter("Sentencia");
+			
+			//CUENTA CUANTAS PAGINAS SERÁN
+			Registro paginas = new Registro ();
+			paginas = catalogoSL.getRegistro("SimPersonaPaginacion", parametros);
+			String sPaginas = (String)paginas.getDefCampo("PAGINAS");
+			
+			registroControl.sPagina = "/Aplicaciones/Sim/Personas/fSimCliCon.jsp?TipoPersona="+request.getParameter("Sentencia")+"&Paginas="+sPaginas+"&Superior="+100+"&IdPersona="+request.getParameter("IdPersona")+"&NomCompleto="+request.getParameter("NomCompleto")+"&Rfc="+request.getParameter("Rfc");
 		}
 		else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
 			//OBTIENE SOLO EL REGISTRO SOLICITADO
