@@ -70,6 +70,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 				sSql = sSql + " AND UPPER(C.NOMBRE) LIKE '%" + ((String) parametros.getDefCampo("NOM_GRUPO")).toUpperCase() + "%' \n";
 			}
 			
+			System.out.println(sSql);
 		}else if (parametros.getDefCampo("CONSULTA").equals("SUMA")){
 			sSql =  "SELECT \n"+
 					"SUM(PD.MONTO_AUTORIZADO) TOTAL \n"+ 
@@ -170,7 +171,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
 		resultadoCatalogo.Resultado = new Registro();
-		System.out.println("desembolso 5");
+		
 		String sIdTransaccion = "";
 		int iIdTransaccion = 0;
 		String sIdTransaccionGrupo = "";

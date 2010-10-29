@@ -30,6 +30,7 @@
 	<field name="CVE_PRESTAMO" class="java.lang.String"/>
 	<field name="NUM_LINEA" class="java.lang.String"/>
 	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="IMP_SALDO_TOTAL" class="java.lang.Float"/>
 
 	<variable name="SumImportePrestado" class="java.lang.Float" resetType="Group" resetGroup="NumLinea" calculation="Sum">
 		<variableExpression><![CDATA[$F{MONTO_PRESTADO}]]></variableExpression>
@@ -252,6 +253,19 @@
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_PRESTADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="1"
+						width="88"
+						height="13"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{IMP_SALDO_TOTAL}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

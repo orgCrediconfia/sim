@@ -109,6 +109,7 @@ public class SimComitePrestamoCON implements CatalogoControlConsultaIN, Catalogo
 		String sIdPrestamo;
 		String sCvePrestamo;
 		String sClaves;
+		String sCeros;
 		Enumeration lista = request.getParameterNames();
 		//RECORRE LA LISTA DE PARAMETROS QUE VIENEN EN EL REQUEST
 		while (lista.hasMoreElements()){
@@ -121,15 +122,14 @@ public class SimComitePrestamoCON implements CatalogoControlConsultaIN, Catalogo
 				
 				sIdPrestamo = sClaves.substring(0, sClaves.indexOf("-"));
 				sCvePrestamo = sClaves.substring(sClaves.indexOf("-")+1, sClaves.length());
-				
-				int iCvePrestamo = sCvePrestamo.length();
-				
-				if (iCvePrestamo == 10){
-					registro.addDefCampo("PRESTAMO","GRUPAL");
-					registro.addDefCampo("ID_PRESTAMO_GRUPO", sIdPrestamo);
-				}else if (iCvePrestamo == 18){
+				sCeros = sCvePrestamo.substring(2,8);
+				System.out.println("sCeros:"+sCeros);
+				if (sCeros.equals("000000")){
 					registro.addDefCampo("PRESTAMO","INDIVIDUAL");
 					registro.addDefCampo("ID_PRESTAMO", sIdPrestamo);
+				}else{
+					registro.addDefCampo("PRESTAMO","GRUPAL");
+					registro.addDefCampo("ID_PRESTAMO_GRUPO", sIdPrestamo);
 				}
 				
 				registro.addDefCampo("ID_COMITE", request.getParameter("IdComite"));

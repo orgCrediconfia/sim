@@ -63,30 +63,15 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 			
 				//VERIFICA SI SE ENVIO EL PARAMETRO CLAVE DEL COMITE	
 				
-				int iCvePrestamo = request.getParameter("CvePrestamo").length();
 				parametros.addDefCampo("CONSULTAR","ESTADO_CUENTA");
-				if (iCvePrestamo == 10){
-					//Es un crédito grupal.
-					parametros.addDefCampo("ID_PRESTAMO", request.getParameter("CvePrestamo"));
-					Registro idprestamo = new Registro ();
-					idprestamo = catalogoSL.getRegistro("SimPrestamoGrupoObtieneIdentificador", parametros);
-					String sIdPrestamoGrupo = (String)idprestamo.getDefCampo("ID_PRESTAMO_GRUPO");
-					parametros.addDefCampo("ID_PRESTAMO_GRUPO",sIdPrestamoGrupo);
-					
-					registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
-					registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTAGrupo", parametros));
-					registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
-					registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoGrupal", parametros));
-					parametros.addDefCampo("CONSULTA","MOVIMIENTOS");
-					registroControl.respuesta.addDefCampo("ListaEstadoCuenta", catalogoSL.getRegistros("SimPrestamoEstadoCuentaGrupo", parametros));
-					parametros.addDefCampo("CONSULTA","SALDO_FECHA");
-					registroControl.respuesta.addDefCampo("SaldoFecha", catalogoSL.getRegistros("SimPrestamoEstadoCuentaGrupo", parametros));
-					parametros.addDefCampo("CONSULTA","RESUMEN");
-					registroControl.respuesta.addDefCampo("ListaEstadoCuentaResumenGrupo", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumenGrupo", parametros));
-					parametros.addDefCampo("CONSULTA","SALDO_TOTAL");
-					registroControl.respuesta.addDefCampo("SaldoTotal", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumenGrupo", parametros));
-					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreEstCueGpoReg.jsp";
-				}else if (iCvePrestamo == 18){
+				
+				String sPrestamo = request.getParameter("CvePrestamo");
+				String sCeros;
+				
+				sCeros = sPrestamo.substring(2,8);
+				System.out.println("sCeros:"+sCeros);
+				if (sCeros.equals("000000")){
+					//Es un crédito individual.
 					parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 					Registro idprestamo = new Registro ();
 					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
@@ -110,6 +95,27 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 					registroControl.respuesta.addDefCampo("SaldoTotal", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumen", parametros));
 					
 					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreEstCueReg.jsp";
+				}else {
+					//Es un crédito grupal.
+					parametros.addDefCampo("ID_PRESTAMO", request.getParameter("CvePrestamo"));
+					Registro idprestamo = new Registro ();
+					idprestamo = catalogoSL.getRegistro("SimPrestamoGrupoObtieneIdentificador", parametros);
+					String sIdPrestamoGrupo = (String)idprestamo.getDefCampo("ID_PRESTAMO_GRUPO");
+					parametros.addDefCampo("ID_PRESTAMO_GRUPO",sIdPrestamoGrupo);
+					
+					registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
+					registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTAGrupo", parametros));
+					registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
+					registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoGrupal", parametros));
+					parametros.addDefCampo("CONSULTA","MOVIMIENTOS");
+					registroControl.respuesta.addDefCampo("ListaEstadoCuenta", catalogoSL.getRegistros("SimPrestamoEstadoCuentaGrupo", parametros));
+					parametros.addDefCampo("CONSULTA","SALDO_FECHA");
+					registroControl.respuesta.addDefCampo("SaldoFecha", catalogoSL.getRegistros("SimPrestamoEstadoCuentaGrupo", parametros));
+					parametros.addDefCampo("CONSULTA","RESUMEN");
+					registroControl.respuesta.addDefCampo("ListaEstadoCuentaResumenGrupo", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumenGrupo", parametros));
+					parametros.addDefCampo("CONSULTA","SALDO_TOTAL");
+					registroControl.respuesta.addDefCampo("SaldoTotal", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumenGrupo", parametros));
+					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreEstCueGpoReg.jsp";
 				}
 				
 				parametros.addDefCampo("CVE_PRESTAMO",request.getParameter("CvePrestamo"));

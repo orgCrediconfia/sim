@@ -145,7 +145,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 				//OBTIENE CLAVE DEL PRÉSTAMO GRUPAL.
 				if (registro.getDefCampo("CICLO").equals("igual")){
 					sSql =  "SELECT REPLACE (CVE_PRESTAMO_GRUPO,' ','') CVE_PRESTAMO_GRUPO FROM ( \n"+
-							"SELECT TO_CHAR('" + (String)registro.getDefCampo("ID_PRODUCTO") + "','00')||TO_CHAR('" + (String)registro.getDefCampo("ID_GRUPO") + "','000000')||TO_CHAR('" + (String)registro.getDefCampo("NUM_CICLO") + "','00') AS CVE_PRESTAMO_GRUPO FROM DUAL \n"+
+							"SELECT TO_CHAR('" + (String)registro.getDefCampo("ID_PRODUCTO") + "','00')||TO_CHAR('" + (String)registro.getDefCampo("ID_GRUPO") + "','000000')||'00000000'||TO_CHAR('" + (String)registro.getDefCampo("NUM_CICLO") + "','00') AS CVE_PRESTAMO_GRUPO FROM DUAL \n"+
 							") \n";
 					ejecutaSql();
 					if (rs.next()){
@@ -153,7 +153,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					}
 				}else {
 					sSql =  "SELECT REPLACE (CVE_PRESTAMO_GRUPO,' ','') CVE_PRESTAMO_GRUPO FROM ( \n"+
-							"SELECT TO_CHAR('" + (String)registro.getDefCampo("ID_PRODUCTO") + "','00')||TO_CHAR('" + (String)registro.getDefCampo("ID_GRUPO") + "','000000')||TO_CHAR('" + (String)registro.getDefCampo("CICLO") + "','00') AS CVE_PRESTAMO_GRUPO FROM DUAL \n"+
+							"SELECT TO_CHAR('" + (String)registro.getDefCampo("ID_PRODUCTO") + "','00')||TO_CHAR('" + (String)registro.getDefCampo("ID_GRUPO") + "','000000')||'00000000'||TO_CHAR('" + (String)registro.getDefCampo("CICLO") + "','00') AS CVE_PRESTAMO_GRUPO FROM DUAL \n"+
 							") \n";
 					ejecutaSql();
 					if (rs.next()){

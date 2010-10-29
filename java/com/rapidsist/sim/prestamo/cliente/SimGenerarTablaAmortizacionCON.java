@@ -56,11 +56,25 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 		registro.addDefCampo("CVE_PRESTAMO",request.getParameter("CvePrestamo"));
 		
 		String sPrestamo = request.getParameter("CvePrestamo");
-		int iCvePrestamo = request.getParameter("CvePrestamo").length();
+		String sCeros;
 		
-		if (iCvePrestamo == 10){
+		sCeros = sPrestamo.substring(2,8);
+		System.out.println("sCeros:"+sCeros);
+		if (sCeros.equals("000000")){
+			//Es un crédito individual.
+			Registro idprestamo = new Registro ();
+			idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", registro);
+			String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
+			
+			registro.addDefCampo("ID_PRESTAMO",sIdPrestamo);
+			
+			//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS		
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGenerarTablaAmortizacion", registro, iTipoOperacion);
+			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimConsultaTablaAmortizacion&OperacionCatalogo=CT&Filtro=Todos&Consulta=Tabla&IdPrestamo="+sPrestamo;
+			
+		}else{
 			//Es un crédito grupal.
-		
+			
 			LinkedList lista = new LinkedList();
 			lista = catalogoSL.getRegistros("SimPrestamoObtieneIdentificador", registro);
 			
@@ -78,19 +92,8 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGenerarTablaAmortizacion", registro, iTipoOperacion);
 			}
 			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimConsultaTablaAmortizacion&OperacionCatalogo=CT&Filtro=Todos&Consulta=Tabla&IdPrestamo="+sPrestamo;
-		}else if (iCvePrestamo == 18){
-			//Es un crédito individual.
-			Registro idprestamo = new Registro ();
-			idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", registro);
-			String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
-			
-			registro.addDefCampo("ID_PRESTAMO",sIdPrestamo);
-			
-			//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS		
-			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGenerarTablaAmortizacion", registro, iTipoOperacion);
-			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimConsultaTablaAmortizacion&OperacionCatalogo=CT&Filtro=Todos&Consulta=Tabla&IdPrestamo="+sPrestamo;
-			
 		}
+		
 		return registroControl;
 	}
 }

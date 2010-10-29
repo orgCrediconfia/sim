@@ -141,7 +141,8 @@ public class ProcesaReporteS extends HttpServlet{
 							try{
 								System.out.println("Conexion a Mysql");
 								Class.forName("com.mysql.jdbc.Driver");
-								conexionBd = DriverManager.getConnection("jdbc:mysql://localhost:3307/sim", "root", "system");
+								conexionBd = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysim", "root","msalinas");
+								
 							}catch(Exception e){
 					            System.out.println("******************************************************");
 					            System.out.println("Error al abrir la conexion a la base de datos Mysql");

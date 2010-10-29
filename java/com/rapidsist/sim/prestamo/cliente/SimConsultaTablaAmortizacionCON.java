@@ -64,9 +64,33 @@ public class SimConsultaTablaAmortizacionCON implements CatalogoControlConsultaI
 				
 				parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
 				
-				int iCvePrestamo = request.getParameter("IdPrestamo").length();
+				String sPrestamo = request.getParameter("IdPrestamo");
+				String sCeros;
 				
-				if (iCvePrestamo == 10){
+				sCeros = sPrestamo.substring(2,8);
+				System.out.println("sCeros:"+sCeros);
+				if (sCeros.equals("000000")){
+					//Es un crédito individual.
+					parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("IdPrestamo"));
+					
+					//Es un crédito individual.
+					Registro idprestamo = new Registro ();
+					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
+					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
+					parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);
+					registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorio", parametros));
+					Registro accesorios = new Registro ();
+					accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorio", parametros);
+					String sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
+					//OBTIENE TODOS LOS REGISTROS DE LA CONSULTA
+					registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
+					registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTA", parametros));
+					registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
+					registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
+					parametros.addDefCampo("CONSULTA","TABLA");
+					registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacion", parametros));
+					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
+				}else {
 					//Es un crédito grupal.
 					
 					Registro idprestamo = new Registro ();
@@ -86,27 +110,6 @@ public class SimConsultaTablaAmortizacionCON implements CatalogoControlConsultaI
 					parametros.addDefCampo("CONSULTA","TABLA");
 					registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacionGrupo", parametros));
 					
-					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
-				}else if (iCvePrestamo == 18){
-					
-					parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("IdPrestamo"));
-					
-					//Es un crédito individual.
-					Registro idprestamo = new Registro ();
-					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
-					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
-					parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);
-					registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorio", parametros));
-					Registro accesorios = new Registro ();
-					accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorio", parametros);
-					String sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
-					//OBTIENE TODOS LOS REGISTROS DE LA CONSULTA
-					registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
-					registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTA", parametros));
-					registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
-					registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
-					parametros.addDefCampo("CONSULTA","TABLA");
-					registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacion", parametros));
 					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
 				}
 			}
