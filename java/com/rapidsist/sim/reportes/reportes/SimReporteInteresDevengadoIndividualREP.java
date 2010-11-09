@@ -37,30 +37,40 @@ public class SimReporteInteresDevengadoIndividualREP implements ReporteControlIN
 	 */
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
-
+		
 		String sSql = 	"SELECT DISTINCT \n"+
 		"T.CVE_GPO_EMPRESA, \n"+
 		"T.CVE_EMPRESA, \n"+
 		"T.ID_PRESTAMO, \n"+ 
 		"P.CVE_PRESTAMO, \n"+
 		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') FECHA_HISTORICO, \n"+
-		"T.IMP_INTERES_DEV_X_DIA \n"+
+		"T.IMP_INTERES_DEV_X_DIA, \n"+
+		"IFNULL(T.Imp_Interes_Dev_X_Dia,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Extra_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Iva_Interes_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Iva_Interes_Extra_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Mora_Pagado,0)+ \n"+
+		"IFNULL(T.IMP_IVA_INTERES_MORA_PAGADO,0) IMP_INTERES_PAGADO \n"+
 		"FROM SIM_TABLA_AMORTIZACION T, \n"+ 
 		"SIM_PRESTAMO P \n"+
 		"WHERE T.ID_PRESTAMO NOT IN (SELECT ID_PRESTAMO FROM SIM_PRESTAMO_GPO_DET) \n"+
 		"AND P.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+
 		"AND P.CVE_EMPRESA = T.CVE_EMPRESA \n"+ 
 		"AND P.ID_PRESTAMO = T.ID_PRESTAMO \n"+
-		"AND DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') BETWEEN '" + (String) request.getParameter("FechaInicio") + "' AND '" + (String) request.getParameter("FechaFin") + "' \n";
+		//"AND DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') BETWEEN '" + (String) request.getParameter("FechaInicio") + "' AND '" + (String) request.getParameter("FechaFin") + "' \n"+
+		"ORDER BY P.CVE_PRESTAMO \n";
 		
-		System.out.println(sSql);	
+		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
+	    
 		parametros.put("Sql", sSql);
-		
+	
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoIndividual.jasper");
-		parametros.put("NombreReporte", "Intereses devengados");
-		                             
+	
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengado.jasper");
+	
+		parametros.put("NombreReporte", "hola");
 		
 		return parametros;	
 	}

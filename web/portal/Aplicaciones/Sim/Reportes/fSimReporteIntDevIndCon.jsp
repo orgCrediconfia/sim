@@ -3,12 +3,11 @@
 
 <Portal:Pagina funcion="SimReporteInteresDevengadoIndividual">
 
-	<Portal:PaginaNombre titulo="Reporte de estado de cuenta individual" subtitulo="Consulta del reporte"/>
-	
+	<Portal:PaginaNombre titulo="Intereses Devengados" subtitulo="Consulta del reporte"/>
 	<Portal:Forma tipo='url' funcion='SimReporteInteresDevengadoIndividual' url="ProcesaReporte?Funcion=SimReporteInteresDevengadoIndividual&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
 	           <Portal:Calendario2 etiqueta='Fecha inicio' contenedor='frmRegistro' controlnombre='FechaInicio' esfechasis='false'/>  
-			   <Portal:Calendario2 etiqueta='Fecha fim' contenedor='frmRegistro' controlnombre='FechaFin' esfechasis='false'/>  
+			   <Portal:Calendario2 etiqueta='Fecha fin' contenedor='frmRegistro' controlnombre='FechaFin' esfechasis='false'/>  
 	
 		<Portal:FormaBotones>
                       <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">
@@ -19,9 +18,9 @@
      <script>
          function fReporteXls(){
       		if (document.frmRegistro.FechaInicio.value == "" || document.frmRegistro.FechaFin.value == ""){
-                  alert ("Ingrese las fecha de búsqueda");  
-      		}else{
-              url = '/portal/ProcesaReporte?Funcion=SimReporteInteresDevengadoIndividual&TipoReporte=Xls&Bd=MySql&FechaInicio='+document.frmRegistro.FechaInicio.value+'&FechaFin='+document.frmRegistro.FechaFin.value;
+              alert ("Ingrese las fecha de búsqueda");  
+	  		}else{
+	           url = '/portal/ProcesaReporte?Funcion=SimReporteInteresDevengadoIndividual&TipoReporte=Xls&Bd=MySql&FechaInicio='+document.frmRegistro.FechaInicio.value+'&FechaFin='+document.frmRegistro.FechaFin.value;
               MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
            }
         }
@@ -37,4 +36,5 @@
      </script>
      
 </Portal:Pagina>     
+
 

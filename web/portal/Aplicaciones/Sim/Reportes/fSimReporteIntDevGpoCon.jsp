@@ -3,12 +3,12 @@
 
 <Portal:Pagina funcion="SimReporteInteresDevengadoGrupo">
 
-	<Portal:PaginaNombre titulo="Reporte de estado de cuenta individual" subtitulo="Consulta del reporte"/>
+	<Portal:PaginaNombre titulo="Intereses Devengados" subtitulo="Consulta del reporte"/>
 	
 	<Portal:Forma tipo='url' funcion='SimReporteInteresDevengadoGrupo' url="ProcesaReporte?Funcion=SimReporteInteresDevengadoGrupo&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
 	           <Portal:Calendario2 etiqueta='Fecha inicio' contenedor='frmRegistro' controlnombre='FechaInicio' esfechasis='false'/>  
-			   <Portal:Calendario2 etiqueta='Fecha fim' contenedor='frmRegistro' controlnombre='FechaFin' esfechasis='false'/>  
+			   <Portal:Calendario2 etiqueta='Fecha fin' contenedor='frmRegistro' controlnombre='FechaFin' esfechasis='false'/>  
 	
 		<Portal:FormaBotones>
                       <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">

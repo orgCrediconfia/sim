@@ -42,10 +42,17 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		String sSql = 	"SELECT DISTINCT \n"+
 		"PG.CVE_GPO_EMPRESA, \n"+
 		"PG.CVE_EMPRESA, \n"+
-		"PG.ID_PRESTAMO_GRUPO, \n"+ 
+		"PG.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+ 
 		"G.CVE_PRESTAMO_GRUPO, \n"+
 		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') FECHA_HISTORICO, \n"+
-		"SUM(T.IMP_INTERES_DEV_X_DIA) INT_DEV \n"+
+		"SUM(T.IMP_INTERES_DEV_X_DIA) IMP_INTERES_DEV_X_DIA, \n"+
+		"SUM(IFNULL(T.Imp_Interes_Dev_X_Dia,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Extra_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Iva_Interes_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Iva_Interes_Extra_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Mora_Pagado,0)+ \n"+
+		"IFNULL(T.IMP_IVA_INTERES_MORA_PAGADO,0)) IMP_INTERES_PAGADO \n"+
 		"FROM SIM_PRESTAMO_GPO_DET PG, \n"+ 
 		"SIM_PRESTAMO P, \n"+
 		"SIM_PRESTAMO_GRUPO G, \n"+
@@ -59,7 +66,8 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		"AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
 		"AND G.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
 		"AND G.ID_PRESTAMO_GRUPO = PG.ID_PRESTAMO_GRUPO \n"+
-		"AND DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') BETWEEN '" + (String) request.getParameter("FechaInicio") + "' AND '" + (String) request.getParameter("FechaFin") + "' \n"+
+		//"AND DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') BETWEEN '" + (String) request.getParameter("FechaInicio") + "' AND '" + (String) request.getParameter("FechaFin") + "' \n"+
+		
 		
 		"GROUP BY \n"+
 		"PG.CVE_GPO_EMPRESA, \n"+
@@ -67,14 +75,15 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		"PG.ID_PRESTAMO_GRUPO, \n"+ 
 		"PG.ID_PRESTAMO, \n"+
 		"G.CVE_PRESTAMO_GRUPO, \n"+
-		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') \n";
+		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') \n"+
+		"ORDER BY P.CVE_PRESTAMO \n";
 	
 		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
 		
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoGrupo.jasper");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengado.jasper");
 		parametros.put("NombreReporte", "Intereses devengados");
 		                             
 		
