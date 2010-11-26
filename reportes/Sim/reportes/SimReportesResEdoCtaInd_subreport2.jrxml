@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportesResEdoCtaInd_subreport2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="535"
+		 pageHeight="802"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT 	 
+				ID_ORDEN, INITCAP('TOTAL DE '||C.DESC_LARGA) DESCRIPCION, 
+         TO_CHAR(SUM(DECODE(A.CVE_AFECTA,'I',ABS(A.IMP_NETO),0)),'999,999,999.99') AS IMPORTE,  
+         TO_CHAR(SUM(DECODE(A.CVE_AFECTA,'I',0,ABS(A.IMP_NETO))),'999,999,999.99') AS PAGADO, 
+         TO_CHAR((SUM(DECODE(A.CVE_AFECTA,'I',ABS(A.IMP_NETO),0)) - SUM(DECODE(A.CVE_AFECTA,'I',0,ABS(A.IMP_NETO)))),'999,999,999.99') AS SALDO  
+      
+      FROM (         
+          
+   SELECT  -10 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,   
+                  (T.IMP_CAPITAL_AMORT*-1) AS IMP_NETO, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo} 
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'CAPITA' 
+              AND T.IMP_CAPITAL_AMORT > 0 
+              
+          UNION ALL  
+      
+          SELECT  -9 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,   
+                  (T.IMP_INTERES*-1) AS IMP_NETO, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo} 
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'INTERE' 
+              AND T.IMP_INTERES > 0 
+      
+          UNION ALL  
+
+          SELECT  -8 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,  
+                  (T.IMP_IVA_INTERES*-1) AS IMP_NETO, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo}  
+   
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'IVAINT' 
+              AND T.IMP_IVA_INTERES > 0 
+
+          UNION ALL  
+      
+          SELECT  -7 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,  
+                  (T.IMP_INTERES_EXTRA*-1) AS IMP_DESGLOSE, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo} 
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'INTEXT' 
+              AND T.IMP_INTERES_EXTRA  > 0 
+
+          UNION ALL  
+
+          SELECT  -6 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,  
+                  (T.IMP_IVA_INTERES_EXTRA*-1) AS IMP_DESGLOSE, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo} 
+  
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'IVAINTEX' 
+              AND T.IMP_IVA_INTERES_EXTRA  > 0 
+
+          UNION ALL 
+      
+          SELECT  A.ID_ACCESORIO AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,  
+                  ROUND(A.IMP_ACCESORIO * -1,2) AS IMP_NETO, 
+                  DECODE(A.ID_ACCESORIO,6,'COMISVID',7,'COMISGM',8,'COMISDEU') AS CVE_CONCEPTO,  
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, SIM_TABLA_AMORT_ACCESORIO A, SIM_CAT_ACCESORIO C  
+          WHERE   T.CVE_GPO_EMPRESA       = 'SIM' 
+              AND T.CVE_EMPRESA           = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO           = $P{IdPrestamo} 
+              AND T.CVE_GPO_EMPRESA       = A.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA           = A.CVE_EMPRESA 
+              AND T.ID_PRESTAMO           = A.ID_PRESTAMO 
+              AND T.NUM_PAGO_AMORTIZACION = A.NUM_PAGO_AMORTIZACION  
+              AND A.CVE_GPO_EMPRESA       = C.CVE_GPO_EMPRESA 
+              AND A.CVE_EMPRESA           = C.CVE_EMPRESA 
+              AND A.ID_ACCESORIO          = C.ID_ACCESORIO 
+              AND ROUND(A.IMP_ACCESORIO,2)> 0 
+      
+          UNION ALL  
+      
+          SELECT  -5 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, P.ID_TIPO_RECARGO AS ID_ACCESORIO,  
+                  ROUND(NVL(P.MONTO_FIJO_PERIODO * -1,0),2) AS IMP_NETO, 'PAGOTARD' AS CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, SIM_PRESTAMO P  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo}  
+              AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO   
+                                          FROM    PFIN_PARAMETRO  
+                                          WHERE   CVE_GPO_EMPRESA = 'SIM'  
+                                              AND CVE_EMPRESA     = 'CREDICONFIA'  
+                                              AND CVE_MEDIO       = 'SYSTEM') 
+              AND T.B_PAGO_PUNTUAL    = 'F' 
+              AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA  
+              AND T.CVE_EMPRESA       = P.CVE_EMPRESA 
+              AND T.ID_PRESTAMO       = P.ID_PRESTAMO 
+              AND P.ID_TIPO_RECARGO  IN (4,5) 
+              AND ROUND(NVL(P.MONTO_FIJO_PERIODO,0),2) > 0  
+          
+         UNION ALL  
+      
+          SELECT  -4 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,  
+                  (T.IMP_INTERES_MORA*-1) AS IMP_DESGLOSE, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo}
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'INTMORA' 
+              AND T.IMP_INTERES_MORA  > 0 
+
+          UNION ALL  
+
+          SELECT  -3 AS ID_ORDEN, T.CVE_GPO_EMPRESA, T.CVE_EMPRESA, T.ID_PRESTAMO, C.ID_ACCESORIO,  
+                  (T.IMP_IVA_INTERES_MORA*-1) AS IMP_DESGLOSE, C.CVE_CONCEPTO, 
+                  'I' AS CVE_AFECTA 
+              
+          FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C  
+          WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
+              AND T.CVE_EMPRESA     = 'CREDICONFIA'  
+              AND T.ID_PRESTAMO     = $P{IdPrestamo}
+   
+              AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA 
+              AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+              AND C.CVE_CONCEPTO    = 'IVAINTMO' 
+              AND T.IMP_IVA_INTERES_MORA  > 0 
+
+      UNION ALL  
+
+      SELECT  DECODE(D.CVE_CONCEPTO,  'CAPITA',-10,  
+                                      'INTERE',-9, 
+                                      'IVAINT',-8, 
+                                      'INTEXT',-7, 
+                                      'IVAINTEX',-6, 
+                                      'INTMORA',-4, 
+                                      'IVAINTMO',-3, 
+                                      'PAGOTARD',-5, 
+                                      'COMISDEU',8, 
+                                      'COMISGM',7, 
+                                      'COMISVID',6) AS ID_ORDEN,   
+      
+              M.CVE_GPO_EMPRESA, M.CVE_EMPRESA, M.ID_PRESTAMO, C.ID_ACCESORIO,  
+              ROUND(IMP_CONCEPTO*DECODE(O.CVE_AFECTA_CREDITO,'I',-1,'D',1),2) AS IMP_NETO,  
+              C.CVE_CONCEPTO, O.CVE_AFECTA_CREDITO AS CVE_AFECTA 
+      FROM    PFIN_MOVIMIENTO M, PFIN_MOVIMIENTO_DET D, PFIN_CAT_OPERACION O, PFIN_CAT_CONCEPTO C  
+      WHERE   M.CVE_GPO_EMPRESA   = 'SIM' 
+          AND M.CVE_EMPRESA       = 'CREDICONFIA'  
+          AND M.ID_PRESTAMO       = $P{IdPrestamo} 
+          AND M.SIT_MOVIMIENTO    <> 'CA' 
+          AND M.CVE_GPO_EMPRESA   = D.CVE_GPO_EMPRESA  
+          AND M.CVE_EMPRESA       = D.CVE_EMPRESA 
+          AND M.ID_MOVIMIENTO     = D.ID_MOVIMIENTO 
+          AND M.CVE_GPO_EMPRESA   = O.CVE_GPO_EMPRESA 
+          AND M.CVE_EMPRESA       = O.CVE_EMPRESA 
+          AND M.CVE_OPERACION     = O.CVE_OPERACION 
+          AND D.CVE_GPO_EMPRESA   = C.CVE_GPO_EMPRESA 
+          AND D.CVE_EMPRESA       = C.CVE_EMPRESA 
+          AND D.CVE_CONCEPTO      = C.CVE_CONCEPTO  
+      ) 
+      
+          A, PFIN_CAT_CONCEPTO C  
+      WHERE   A.CVE_GPO_EMPRESA   = C.CVE_GPO_EMPRESA  
+          AND A.CVE_EMPRESA       = C.CVE_EMPRESA 
+          AND A.CVE_CONCEPTO      = C.CVE_CONCEPTO 
+      GROUP BY A.ID_ORDEN, INITCAP('TOTAL DE '||C.DESC_LARGA)  
+      ORDER BY ID_ORDEN]]></queryString>
+
+	<field name="ID_ORDEN" class="java.math.BigDecimal"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="IMPORTE" class="java.lang.String"/>
+	<field name="PAGADO" class="java.lang.String"/>
+	<field name="SALDO" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="32"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-1"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Resumen]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="17"
+						width="141"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="141"
+						y="17"
+						width="112"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Importe]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="253"
+						y="17"
+						width="105"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Pagado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="358"
+						y="17"
+						width="177"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Saldo]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="141"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="141"
+						y="0"
+						width="112"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMPORTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="0"
+						width="105"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAGADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="358"
+						y="0"
+						width="177"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SALDO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
