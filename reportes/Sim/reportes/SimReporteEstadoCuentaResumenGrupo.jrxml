@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteEstadoCuentaResumenGrupo"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="850"
+		 pageHeight="792"
+		 columnWidth="822"
+		 columnSpacing="28"
+		 leftMargin="14"
+		 rightMargin="14"
+		 topMargin="2"
+		 bottomMargin="2"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT  
+		 GD.CVE_GPO_EMPRESA, 
+		 Gd.Cve_Empresa, 
+		 Gd.Id_Prestamo_Grupo, 
+     '1',
+     'Total cargo',
+    Sum(T.Imp_Capital_Amort*-1) + Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) + -SUM(A.IMP_ACCESORIO) TOTAL,
+		Sum(T.Imp_Capital_Amort*-1) As Cargo_Capital,  
+    Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) As Cargo_Interes,  
+    -SUM(A.IMP_ACCESORIO) AS CARGO_ACCESORIO
+		FROM   
+		SIM_PRESTAMO_GPO_DET GD, 
+		Sim_Tabla_Amortizacion T, 
+		Pfin_Cat_Concepto C,
+     Pfin_Cat_Concepto CA,
+        Pfin_Cat_Concepto CB,
+        Pfin_Cat_Concepto Cc,
+        PFIN_CAT_CONCEPTO CD,
+        Sim_Tabla_Amort_Accesorio A, 
+		SIM_CAT_ACCESORIO CE
+		WHERE   GD.CVE_GPO_EMPRESA = 'SIM'  
+		   And Gd.Cve_Empresa     = 'CREDICONFIA'  
+		    AND GD.ID_PRESTAMO_GRUPO =  $P{IdPrestamo}
+		    AND T.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA 
+		    AND T.CVE_EMPRESA = GD.CVE_EMPRESA 
+		    AND T.ID_PRESTAMO = GD.ID_PRESTAMO 
+		    AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA  
+		    AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+		    And C.Cve_Concepto    = 'CAPITA' 
+         And T.Cve_Gpo_Empresa = Ca.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CA.Cve_Empresa 
+				    And CA.Cve_Concepto    = 'INTERE' 
+            And T.Cve_Gpo_Empresa = CB.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CB.Cve_Empresa 
+				    And CB.Cve_Concepto    = 'IVAINT' 
+            And T.Cve_Gpo_Empresa = CC.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CC.Cve_Empresa 
+				    And CC.Cve_Concepto    = 'INTEXT' 
+            And T.Cve_Gpo_Empresa = CD.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CD.Cve_Empresa 
+				    And CD.Cve_Concepto    = 'IVAINTEX'
+             AND T.CVE_GPO_EMPRESA       = A.CVE_GPO_EMPRESA  
+		  AND T.CVE_EMPRESA           = A.CVE_EMPRESA 
+		  AND T.ID_PRESTAMO           = A.ID_PRESTAMO 
+		  And T.Num_Pago_Amortizacion = A.Num_Pago_Amortizacion  
+		  AND A.CVE_GPO_EMPRESA       = CE.CVE_GPO_EMPRESA 
+		  And A.Cve_Empresa           = CE.Cve_Empresa 
+		  And A.Id_Accesorio          = Ce.Id_Accesorio 
+		    GROUP BY GD.CVE_GPO_EMPRESA, Gd.Cve_Empresa, Gd.Id_Prestamo_Grupo, '1', 'Total cargo'    
+      union
+       SELECT  
+		 GD.CVE_GPO_EMPRESA, 
+		 GD.CVE_EMPRESA, 
+		 Gd.Id_Prestamo_Grupo, 
+     '2',
+     'Total abono',
+    -Sum(T.Imp_Capital_Amort_Pagado*-1) + -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) + SUM(A.IMP_ACCESORIO_pagado) TOTAL,
+		-Sum(T.Imp_Capital_Amort_Pagado*-1) As Abono_Capital,  
+    -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) As ABONO_Interes,  
+    SUM(A.IMP_ACCESORIO_pagado) AS ABONO_ACCESORIO
+		FROM   
+		SIM_PRESTAMO_GPO_DET GD, 
+		Sim_Tabla_Amortizacion T, 
+		Pfin_Cat_Concepto C,
+     Pfin_Cat_Concepto CA,
+        Pfin_Cat_Concepto CB,
+        Pfin_Cat_Concepto Cc,
+        PFIN_CAT_CONCEPTO CD,
+        Sim_Tabla_Amort_Accesorio A, 
+		SIM_CAT_ACCESORIO CE
+		WHERE   GD.CVE_GPO_EMPRESA = 'SIM'  
+		   And Gd.Cve_Empresa     = 'CREDICONFIA'  
+		    AND GD.ID_PRESTAMO_GRUPO = $P{IdPrestamo}
+		    AND T.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA 
+		    AND T.CVE_EMPRESA = GD.CVE_EMPRESA 
+		    AND T.ID_PRESTAMO = GD.ID_PRESTAMO 
+		    AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA  
+		    AND T.CVE_EMPRESA     = C.CVE_EMPRESA 
+		    And C.Cve_Concepto    = 'CAPITA' 
+         And T.Cve_Gpo_Empresa = Ca.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CA.Cve_Empresa 
+				    And CA.Cve_Concepto    = 'INTERE' 
+            And T.Cve_Gpo_Empresa = CB.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CB.Cve_Empresa 
+				    And CB.Cve_Concepto    = 'IVAINT' 
+            And T.Cve_Gpo_Empresa = CC.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CC.Cve_Empresa 
+				    And CC.Cve_Concepto    = 'INTEXT' 
+            And T.Cve_Gpo_Empresa = CD.Cve_Gpo_Empresa  
+				    And T.Cve_Empresa     = CD.Cve_Empresa 
+				    And CD.Cve_Concepto    = 'IVAINTEX'
+             AND T.CVE_GPO_EMPRESA       = A.CVE_GPO_EMPRESA  
+		  AND T.CVE_EMPRESA           = A.CVE_EMPRESA 
+		  AND T.ID_PRESTAMO           = A.ID_PRESTAMO 
+		  And T.Num_Pago_Amortizacion = A.Num_Pago_Amortizacion  
+		  AND A.CVE_GPO_EMPRESA       = CE.CVE_GPO_EMPRESA 
+		  And A.Cve_Empresa           = CE.Cve_Empresa 
+		  And A.Id_Accesorio          = Ce.Id_Accesorio 
+		    Group By Gd.Cve_Gpo_Empresa, Gd.Cve_Empresa, Gd.Id_Prestamo_Grupo, '2', 'Total abono']]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="'1'" class="java.lang.String"/>
+	<field name="'TOTALCARGO'" class="java.lang.String"/>
+	<field name="TOTAL" class="java.lang.Float"/>
+	<field name="CARGO_CAPITAL" class="java.lang.Float"/>
+	<field name="CARGO_INTERES" class="java.lang.Float"/>
+	<field name="CARGO_ACCESORIO" class="java.lang.Float"/>
+
+	<variable name="SumTotal" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="SumCapital" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{CARGO_CAPITAL}]]></variableExpression>
+	</variable>
+	<variable name="SumInteres" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{CARGO_INTERES}]]></variableExpression>
+	</variable>
+	<variable name="SumAccesorio" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{CARGO_ACCESORIO}]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="15"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="11"
+						width="779"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="386"
+						y="-1"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{CARGO_CAPITAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="-1"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{CARGO_INTERES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="572"
+						y="-1"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{CARGO_ACCESORIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="144"
+						y="-1"
+						width="159"
+						height="15"
+						key="textField-2"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{'TOTALCARGO'}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="307"
+						y="-1"
+						width="77"
+						height="15"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="-16"
+						width="136"
+						height="15"
+						key="textField-6"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Resumen"]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="144"
+						y="0"
+						width="159"
+						height="15"
+						key="textField-5"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saldo"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="307"
+						y="0"
+						width="77"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="386"
+						y="0"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumCapital}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="0"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumInteres}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="572"
+						y="0"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumAccesorio}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>
