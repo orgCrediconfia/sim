@@ -8,7 +8,7 @@
 	<Portal:Forma tipo='url' funcion='SimEstadoCuentaResumenGrupo' url="ProcesaReporte?Funcion=SimEstadoCuentaResumenGrupo&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
 		
-	          <Portal:FormaElemento etiqueta='Clave del prestamo grupal' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='10' editarinicializado='true'/>
+	          <Portal:FormaElemento etiqueta='Clave del prestamo grupal' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='18' editarinicializado='true'/>
  
 		<Portal:FormaBotones>
                       <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">

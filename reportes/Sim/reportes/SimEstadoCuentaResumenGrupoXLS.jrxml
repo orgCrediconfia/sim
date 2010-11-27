@@ -41,6 +41,7 @@
 	<field name="PLAZO" class="java.math.BigDecimal"/>
 	<field name="VALOR_TASA" class="java.math.BigDecimal"/>
 	<field name="PERIODICIDAD_TASA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -313,8 +314,8 @@
 						width="740"
 						height="40"
 						key="subreport-1"/>
-					<subreportParameter  name="CvePrestamo">
-						<subreportParameterExpression><![CDATA[$F{CVE_PRESTAMO}]]></subreportParameterExpression>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
@@ -327,19 +328,6 @@
 		</columnHeader>
 		<detail>
 			<band height="40"  isSplitAllowed="true" >
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="1"
-						y="0"
-						width="740"
-						height="40"
-						key="subreport-2"/>
-					<subreportParameter  name="IdPrestamo">
-						<subreportParameterExpression><![CDATA[$F{CVE_PRESTAMO}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
-				</subreport>
 			</band>
 		</detail>
 		<columnFooter>

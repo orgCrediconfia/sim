@@ -45,6 +45,7 @@ public class SimEstadoCuentaResumenGrupoREP implements ReporteControlIN {
 		String sSql =	"SELECT \n"+
 							"CVE_GPO_EMPRESA,\n"+
 							"CVE_EMPRESA,\n"+
+							"ID_PRESTAMO,\n"+
 							"CVE_PRESTAMO,\n"+
 							"NOMBRE,\n"+
 							"NOM_SUCURSAL,\n"+
@@ -71,8 +72,8 @@ public class SimEstadoCuentaResumenGrupoREP implements ReporteControlIN {
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("Portales/Sam/img/Imagentsys1.gif"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimEstadoCuentaResumenGrupoXLS.jasper");
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimEstadoCuentaResumenGrupoXLS_subreport0.jasper");
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimEstadoCuentaResumenGrupoXLS_subreport1.jasper");
+		parametros.put("Subreporte1", "/Reportes/Sim/reportes/SimEstadoCuentaCrediconfiaGrupo1.jasper");
+		//parametros.put("Subreporte2", "/Reportes/Sim/reportes/SimEstadoCuentaResumenGrupoXLS_subreport1.jasper");
 		parametros.put("NombreReporte", "rep"+sCvePrestamo);
 		                             
 		

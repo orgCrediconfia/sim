@@ -28,7 +28,7 @@
 
 	<field name="IMP_INTERES_DEV_X_DIA" class="java.lang.Float"/>
 	<field name="CVE_PRESTAMO" class="java.lang.String"/>
-	<field name="FECHA_HISTORICO" class="java.lang.String"/>
+	<field name="FECHA_HISTORICO" class="java.util.Date"/>
 	<field name="IMP_INTERES_PAGADO" class="java.lang.Float"/>
 
 	<variable name="SumIntDeb" class="java.lang.Float" resetType="Group" resetGroup="CVE_PRESTAMO" calculation="Sum">
@@ -165,7 +165,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="22"
 						y="1"
@@ -176,7 +176,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_HISTORICO}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA_HISTORICO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

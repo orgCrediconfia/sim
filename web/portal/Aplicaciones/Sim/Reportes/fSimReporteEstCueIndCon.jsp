@@ -7,7 +7,7 @@
 	
 	<Portal:Forma tipo='url' funcion='SimReporteEstadoCuentaIndividual' url="ProcesaReporte?Funcion=SimReporteEstadoCuentaIndividual&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
-	          <Portal:FormaElemento etiqueta='Clave del grupo' control='Texto' controlnombre='CvePrestamo' controllongitud='40' controllongitudmax='20' editarinicializado='true' obligatorio='true' />
+	          <Portal:FormaElemento etiqueta='Clave del préstamo' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='18' editarinicializado='true' obligatorio='true' />
 		<Portal:FormaBotones>
                       <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">
                       <input type="button" name="Imprimir" value="Reporte en Pdf" onClick="javascript:fReportePdf();">

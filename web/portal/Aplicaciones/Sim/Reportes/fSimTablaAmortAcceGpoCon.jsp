@@ -8,7 +8,7 @@
 	<Portal:Forma tipo='url' funcion='SimTablaAmortAcceGpo' url="ProcesaReporte?Funcion=SimTablaAmortAcceGpo&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
 		
-	          <Portal:FormaElemento etiqueta='Clave del préstamo' control='Texto' controlnombre='CvePrestamoGrupo' controllongitud='20' controllongitudmax='10' editarinicializado='true'/>
+	          <Portal:FormaElemento etiqueta='Clave del préstamo' control='Texto' controlnombre='CvePrestamoGrupo' controllongitud='20' controllongitudmax='18' editarinicializado='true'/>
   
 		<Portal:FormaBotones>
                       <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">

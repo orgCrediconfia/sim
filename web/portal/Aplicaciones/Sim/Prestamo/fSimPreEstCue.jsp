@@ -5,7 +5,7 @@
 	
 	<Portal:Forma tipo='catalogo' funcion='SimPrestamoEstadoCuenta'>
 		<Portal:FormaSeparador nombre="Filtro de b&uacute;squeda"/>
-		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${param.CvePrestamo}' controllongitud='19' controllongitudmax='18'/>
+		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${param.CvePrestamo}' controllongitud='20' controllongitudmax='18'/>
 		<Portal:FormaElemento etiqueta='Cliente o grupo' control='Texto' controlnombre='Nombre' controlvalor='${param.Nombre}' controllongitud='30' controllongitudmax='100'/>
 		<Portal:FormaBotones>
 			<input type='button' name='Aceptar' value='B&uacute;squeda' onClick='fBuscarEstadoCuenta()'/>

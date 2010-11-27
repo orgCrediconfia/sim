@@ -43,7 +43,7 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		"PG.CVE_GPO_EMPRESA, \n"+
 		"PG.CVE_EMPRESA, \n"+
 		"PG.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+ 
-		"G.CVE_PRESTAMO_GRUPO, \n"+
+		"G.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n"+
 		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') FECHA_HISTORICO, \n"+
 		"SUM(T.IMP_INTERES_DEV_X_DIA) IMP_INTERES_DEV_X_DIA, \n"+
 		"SUM(IFNULL(T.Imp_Interes_Dev_X_Dia,0)+ \n"+

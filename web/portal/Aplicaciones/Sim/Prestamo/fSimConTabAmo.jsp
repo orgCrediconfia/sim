@@ -4,7 +4,7 @@
 	<Portal:PaginaNombre titulo="Tabla de Amortizaci&oacute;n" subtitulo="Consulta de datos"/>
 	
 	<Portal:Forma tipo='busqueda' funcion='SimConsultaTablaAmortizacion' operacion='CT' filtro='Todos' parametros='Consulta=Prestamos'>
-		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${param.CvePrestamo}' controllongitud='19' controllongitudmax='18'/>
+		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${param.CvePrestamo}' controllongitud='20' controllongitudmax='18'/>
 		<Portal:FormaElemento etiqueta='Cliente o grupo' control='Texto' controlnombre='Nombre' controlvalor='${param.NomCompleto}' controllongitud='30' controllongitudmax='100'/>
 	</Portal:Forma>
 	<Portal:TablaForma nombre="Consulta" funcion="SimConsultaTablaAmortizacion" operacion="AL">

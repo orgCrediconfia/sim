@@ -6,14 +6,14 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="992"
+		 pageWidth="850"
 		 pageHeight="792"
-		 columnWidth="964"
+		 columnWidth="822"
 		 columnSpacing="28"
 		 leftMargin="14"
 		 rightMargin="14"
-		 topMargin="14"
-		 bottomMargin="14"
+		 topMargin="2"
+		 bottomMargin="2"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -25,46 +25,57 @@
 
 	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ImpSaldoHoy" isForPrompting="false" class="java.lang.Float"/>
 	<queryString><![CDATA[Select 
-cve_gpo_Empresa,
-Cve_Empresa,
-Id_Prestamo,
-F_Operacion,
-F_Aplicacion,
-Desc_Movimiento,
+M.cve_gpo_Empresa,
+M.Cve_Empresa,
+P.F_MEDIO,
+M.Id_Prestamo,
+M.F_Operacion,
+M.F_Aplicacion,
+M.Desc_Movimiento,
 CASE
-      WHEN Imp_Pago = '0'
-      Then Imp_Concepto
-      WHEN imp_concepto = '0'
-     Then Imp_Pago
+      When M.Imp_Pago = '0'
+      Then M.Imp_Concepto
+      When M.Imp_Concepto = '0'
+     Then M.Imp_Pago
     End As Monto,
 Case
-      When Desc_Movimiento Like '%Capital%'
-        Then Imp_Concepto
+      When M.Desc_Movimiento Like '%Capital%'
+        Then M.Imp_Concepto
 End As Capital,
 
 Case
-      When Desc_Movimiento Like ('%Interés%')
-        Then Imp_Concepto
-      When Desc_Movimiento Like ('%Interes%')
-        Then Imp_Concepto
+      When M.Desc_Movimiento Like ('%Interés%')
+        Then M.Imp_Concepto
+      When M.Desc_Movimiento Like ('%Interes%')
+        Then M.Imp_Concepto
 end as interes,
 Case
-      When Desc_Movimiento Like ('%Seguro Deudor%')
-        Then Imp_Concepto  
+      When M.Desc_Movimiento Like ('%Seguro Deudor%')
+        Then M.Imp_Concepto  
 end as Seguro,
 Case
-      When Desc_Movimiento Like ('%Pago Tardío%')
-        Then Imp_Concepto
+      When M.Desc_Movimiento Like ('%Pago Tardío%')
+        Then M.Imp_Concepto
         
-end as Recargo
-From V_Mov_Edo_Cta_ind
-Where Id_Prestamo = $P{IdPrestamo}
-and Num_Pago_Amortizacion != 0
-order by f_operacion, f_aplicacion]]></queryString>
+End As Recargo
+From V_Mov_Edo_Cta_Ind M,
+Pfin_Parametro P
+Where M.Id_Prestamo = $P{IdPrestamo}
+AND M.F_OPERACION <= (SELECT  F_MEDIO  
+					                    FROM    PFIN_PARAMETRO  
+					                    Where   Cve_Gpo_Empresa = 'SIM' 
+					                    And Cve_Empresa     = 'CREDICONFIA'  
+					                    And Cve_Medio       = 'SYSTEM') 
+And M.Num_Pago_Amortizacion != 0
+And P.Cve_Gpo_Empresa = M.Cve_Gpo_Empresa
+And P.Cve_Empresa = M.Cve_Empresa
+ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP_CONCEPTO,2),0)]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="F_MEDIO" class="java.util.Date"/>
 	<field name="ID_PRESTAMO" class="java.lang.String"/>
 	<field name="F_OPERACION" class="java.util.Date"/>
 	<field name="F_APLICACION" class="java.util.Date"/>
@@ -75,6 +86,18 @@ order by f_operacion, f_aplicacion]]></queryString>
 	<field name="SEGURO" class="java.lang.Float"/>
 	<field name="RECARGO" class="java.lang.Float"/>
 
+	<variable name="SumCapital" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{CAPITAL}]]></variableExpression>
+	</variable>
+	<variable name="SumInteres" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{INTERES}]]></variableExpression>
+	</variable>
+	<variable name="SumAccesorio" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{SEGURO}]]></variableExpression>
+	</variable>
+	<variable name="SumRecargo" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{RECARGO}]]></variableExpression>
+	</variable>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -95,7 +118,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 			<band height="15"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="70"
+						x="3"
 						y="0"
 						width="70"
 						height="15"
@@ -108,7 +131,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="141"
+						x="74"
 						y="0"
 						width="70"
 						height="15"
@@ -121,9 +144,9 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="213"
+						x="146"
 						y="0"
-						width="159"
+						width="168"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -134,7 +157,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="373"
+						x="318"
 						y="0"
 						width="77"
 						height="15"
@@ -147,7 +170,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="451"
+						x="410"
 						y="0"
 						width="77"
 						height="15"
@@ -160,7 +183,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="530"
+						x="502"
 						y="0"
 						width="77"
 						height="15"
@@ -173,7 +196,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="609"
+						x="590"
 						y="0"
 						width="77"
 						height="15"
@@ -186,7 +209,7 @@ order by f_operacion, f_aplicacion]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="688"
+						x="680"
 						y="0"
 						width="77"
 						height="15"
@@ -208,7 +231,107 @@ order by f_operacion, f_aplicacion]]></queryString>
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="17"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="410"
+						y="2"
+						width="77"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumCapital}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="502"
+						y="2"
+						width="77"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumInteres}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="590"
+						y="2"
+						width="77"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumAccesorio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="680"
+						y="2"
+						width="77"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumRecargo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="318"
+						y="2"
+						width="77"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$P{ImpSaldoHoy}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="145"
+						y="2"
+						width="168"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Saldo a la fecha]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="1"
+						width="779"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3"
+						y="2"
+						width="70"
+						height="15"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{F_MEDIO}]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>

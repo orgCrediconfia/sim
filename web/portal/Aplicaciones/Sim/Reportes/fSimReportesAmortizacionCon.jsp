@@ -8,7 +8,7 @@
 	<Portal:Forma tipo='url' funcion='SimReportesAmortizacion' url="ProcesaReporte?Funcion=SimReportesAmortizacion&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
 		
-	          <Portal:FormaElemento etiqueta='Clave del grupo' control='Texto' controlnombre='CvePrestamoGrupo' controllongitud='40' controllongitudmax='20' editarinicializado='true' obligatorio='true' />
+	          <Portal:FormaElemento etiqueta='Clave del préstamo' control='Texto' controlnombre='CvePrestamoGrupo' controllongitud='20' controllongitudmax='18' editarinicializado='true' obligatorio='true' />
               
  
 		<Portal:FormaBotones>

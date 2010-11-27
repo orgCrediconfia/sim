@@ -65,7 +65,7 @@ public class SimReporteResEdoCtaIndREP implements ReporteControlIN {
 
 		 sSql = sSql +
 	
-		 "ORDER BY  V.ID_PRESTAMO\n";
+		 "ORDER BY  ID_PRESTAMO\n";
 		
 		 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
