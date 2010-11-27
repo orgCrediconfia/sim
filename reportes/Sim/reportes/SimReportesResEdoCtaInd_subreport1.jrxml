@@ -2,13 +2,13 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimEstadoCuentaResumenGrupoXLS_subreport0"
+		 name="SimReportesResEdoCtaInd_subreport1"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="800"
+		 pageWidth="535"
 		 pageHeight="802"
-		 columnWidth="800"
+		 columnWidth="535"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -23,7 +23,7 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="CvePrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 
 					CVE_GPO_EMPRESA, 
 					CVE_EMPRESA, 
@@ -32,32 +32,32 @@
 					NUM_PAGO_AMORTIZACION, 
 					F_OPERACION FECHA_OPERACION, 
 					DESC_MOVIMIENTO DESCRIPCION, 
-					TO_CHAR(SUM(NVL(ROUND(IMP_PAGO,2),0)),'999,999,999.99') IMPORTE, 
-		         	TO_CHAR(SUM(NVL(ROUND(IMP_CONCEPTO,2),0)),'999,999,999.99') IMP_DESGLOSE, 
-		         	SUM(NVL(ROUND(IMP_CONCEPTO,2),0)) 
-		    		FROM V_SIM_PRESTAMO_GPO_MOV_EDO_CTA 
+					TO_CHAR(NVL(ROUND(IMP_PAGO,2),0),'999,999,999.99') IMPORTE, 
+					TO_CHAR(NVL(ROUND(IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE, 
+					NVL(ROUND(IMP_CONCEPTO,2),0) 
+		         	
+		    		FROM V_SIM_PRESTAMO_MOV_EDO_CTA 
 		   			WHERE CVE_GPO_EMPRESA = 'SIM' AND 
 		         	CVE_EMPRESA     = 'CREDICONFIA'  AND 
-		         	ID_PRESTAMO     = $P{CvePrestamo} 
+		         	ID_PRESTAMO     = $P{IdPrestamo}
 		            AND F_OPERACION <= (SELECT  F_MEDIO  
 					                    FROM    PFIN_PARAMETRO  
 					                    WHERE   CVE_GPO_EMPRESA = 'SIM' 
 					                    AND CVE_EMPRESA     = 'CREDICONFIA'  
 					                    AND CVE_MEDIO       = 'SYSTEM') 
 					AND NUM_PAGO_AMORTIZACION != 0 
-					GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, ID_PRESTAMO, F_APLICACION, NUM_PAGO_AMORTIZACION, F_OPERACION, DESC_MOVIMIENTO 
-					ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(IMP_CONCEPTO,2),0))]]></queryString>
+					ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, NVL(ROUND(IMP_CONCEPTO,2),0)]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
-	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="ID_PRESTAMO" class="java.lang.String"/>
 	<field name="F_APLICACION" class="java.sql.Timestamp"/>
 	<field name="NUM_PAGO_AMORTIZACION" class="java.math.BigDecimal"/>
 	<field name="FECHA_OPERACION" class="java.sql.Timestamp"/>
 	<field name="DESCRIPCION" class="java.lang.String"/>
 	<field name="IMPORTE" class="java.lang.String"/>
 	<field name="IMP_DESGLOSE" class="java.lang.String"/>
-	<field name="SUM(NVL(ROUND(IMP_CONCEPTO,2),0))" class="java.math.BigDecimal"/>
+	<field name="NVL(ROUND(IMP_CONCEPTO,2),0)" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -68,16 +68,12 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</pageHeader>
-		<columnHeader>
 			<band height="32"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="1"
+						x="0"
 						y="0"
-						width="795"
+						width="535"
 						height="17"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -88,141 +84,145 @@
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Estado de Cuenta]]></text>
+				<text><![CDATA[Estado de cuenta]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
+						x="0"
 						y="17"
-						width="159"
+						width="119"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Fecha Operación]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="160"
+						x="336"
 						y="17"
-						width="159"
+						width="78"
 						height="15"
 						key="staticText-3"/>
 					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Fecha de Aplicación]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="478"
-						y="17"
-						width="159"
-						height="15"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Importe]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="319"
+						x="119"
 						y="17"
-						width="159"
+						width="112"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fecha Aplicación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="231"
+						y="17"
+						width="105"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Descripción]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="637"
+						x="414"
 						y="17"
-						width="159"
+						width="121"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Desglose/Saldo Total]]></text>
+				<text><![CDATA[Desglose/Saldo Total ]]></text>
 				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</columnHeader>
 		<detail>
 			<band height="15"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="160"
+						x="119"
 						y="0"
-						width="159"
+						width="112"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{F_APLICACION}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1"
+						x="0"
 						y="0"
-						width="159"
+						width="119"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_OPERACION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="319"
+						x="231"
 						y="0"
-						width="159"
+						width="105"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="478"
+						x="336"
 						y="0"
-						width="159"
+						width="78"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMPORTE}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="637"
+						x="414"
 						y="0"
-						width="159"
+						width="121"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMP_DESGLOSE}]]></textFieldExpression>

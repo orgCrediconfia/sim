@@ -3,7 +3,7 @@
 
 <Portal:Pagina funcion="SimReporteResEdoCtaInd">
 
-	<Portal:PaginaNombre titulo="Reporte del estado de cuenta" subtitulo="Consulta del reporte"/>
+	<Portal:PaginaNombre titulo="Reporte del estado de cuenta individual resumido" subtitulo="Consulta del reporte"/>
 	
 	<Portal:Forma tipo='url' funcion='SimReporteResEdoCtaInd' url="ProcesaReporte?Funcion=SimReporteResEdoCtaInd&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>
@@ -30,19 +30,7 @@
            }
         }
       
-       function fReportePdf(){
-  
-  		if (document.frmRegistro.CvePrestamo.value == "" ){
-              alert ("El id del prestamo es obligatorio para generar el reporte");
-              
-  		}else{
-  		
-  
-          url = '/portal/ProcesaReporte?Funcion=SimReporteResEdoCtaInd&TipoReporte=Pdf&CvePrestamo='+document.frmRegistro.CvePrestamo.value;
-          MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
-        }
-  }
-     </script>
+ </script>
      
 </Portal:Pagina>     
 

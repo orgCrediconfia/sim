@@ -20,7 +20,7 @@ import com.rapidsist.portal.configuracion.Usuario;
 /**
  * Realiza la consulta para obtener los datos que ser�n utilizados para generar el reporte de cat�logo de aplicaciones.
  */
-public class SimReporteResEdoCtaIndREP implements ReporteControlIN {
+public class SimReportesResEdoCtaIndREP implements ReporteControlIN {
 
 	/**
 	 * Obtiene la consulta en la base de datos y par�metros que ser�n utilizados por el reporte.
@@ -38,43 +38,45 @@ public class SimReporteResEdoCtaIndREP implements ReporteControlIN {
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
 
+		String sCveGpoEmpresa = request.getParameter("CveGpoEmpresa");
+		String sCveEmpresa = request.getParameter("CveEmpresa");
 		String sClave = request.getParameter("CvePrestamo");
 		
 		System.out.println("sClave:"+sClave);
 		
 		String sSql = "SELECT\n"+
-		"CVE_GPO_EMPRESA,\n"+
-		"CVE_EMPRESA,\n"+
-		"CVE_PRESTAMO,\n"+
-		"NOMBRE,\n"+
-		"NOM_SUCURSAL,\n"+
-		"FECHA_ENTREGA,\n"+
-		"FECHA_REAL,\n"+
-		"PERIODICIDAD_PRODUCTO,\n"+
-		"PLAZO,\n"+
-		"VALOR_TASA,\n"+
-		"PERIODICIDAD_TASA\n"+
-		"FROM V_CREDITO\n"+
-		"WHERE CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-		"AND CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
-		"AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "' \n";
-		
-		if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								
-			sSql = sSql + "AND CVE_PRESTAMO = '" + sClave + "' \n";
-		}
-
-		 sSql = sSql +
+						"CVE_GPO_EMPRESA,\n"+
+						"CVE_EMPRESA,\n"+
+						"CVE_PRESTAMO,\n"+
+						"ID_PRESTAMO,\n"+
+						"NOMBRE,\n"+
+						"NOM_SUCURSAL,\n"+
+						"FECHA_ENTREGA,\n"+
+						"FECHA_REAL,\n"+
+						"PERIODICIDAD_PRODUCTO,\n"+
+						"PLAZO,\n"+
+						"VALOR_TASA,\n"+
+						"PERIODICIDAD_TASA\n"+
+						"FROM V_CREDITO\n"+
+						"WHERE CVE_GPO_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
+						"AND CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"+
+						"AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "'\n";
 	
-		 "ORDER BY  ID_PRESTAMO\n";
+		//if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								
+		//	sSql = sSql + "AND CVE_PRESTAMO = '" + sClave + "' \n";
+		//}
+
+		 sSql = sSql ;
 		
 		 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
 	    String sTipoReporte = request.getParameter("TipoReporte");
 	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
-		parametros.put("PathLogotipo", contextoServlet.getRealPath("Portales/Sam/img/Imagentsys1.gif"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteResEdoCtaInd.jasper");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReportesResEdoCtaInd.jasper");
+		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReportesResEdoCtaInd_subreport1.jasper"));
+		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReportesResEdoCtaInd_subreport2.jasper"));
 		parametros.put("NombreReporte", "rep"+sClave);                             
 		
 		return parametros;		

@@ -24,7 +24,7 @@ import java.util.Enumeration;
  * modificaci�n y consulta) del reporte de l�neas de fondeo. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
-public class SimReporteResEdoCtaIndCON implements CatalogoControlConsultaIN {
+public class SimReportesResEdoCtaIndCON implements CatalogoControlConsultaIN {
 
 	/**
 	 * Ejecuta los servicios de consulta del cat�logo.
@@ -61,13 +61,13 @@ public class SimReporteResEdoCtaIndCON implements CatalogoControlConsultaIN {
 				parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 			}
 			
-			registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteResEdoCtaIndCon.jsp";
+			registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReportesResEdoCtaIndCon.jsp";
 		}
 		
 		
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteResEdoCtaIndCon.jsp";	
+				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReportesResEdoCtaIndCon.jsp";	
 			}
 		}
 		
