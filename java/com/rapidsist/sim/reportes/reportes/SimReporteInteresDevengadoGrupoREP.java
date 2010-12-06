@@ -40,11 +40,11 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 
 		
 		String sSql = 	"SELECT DISTINCT \n"+
-		"PG.CVE_GPO_EMPRESA, \n"+
-		"PG.CVE_EMPRESA, \n"+
-		"PG.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+ 
+		"G.CVE_GPO_EMPRESA, \n"+
+		"G.CVE_EMPRESA, \n"+
+		"G.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+ 
 		"G.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n"+
-		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') FECHA_HISTORICO, \n"+
+		"T.FECHA_HISTORICO, \n"+
 		"SUM(T.IMP_INTERES_DEV_X_DIA) IMP_INTERES_DEV_X_DIA, \n"+
 		"SUM(IFNULL(T.Imp_Interes_Dev_X_Dia,0)+ \n"+
 		"IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
@@ -53,30 +53,24 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		"IFNULL(T.Imp_Iva_Interes_Extra_Pagado,0)+ \n"+
 		"IFNULL(T.Imp_Interes_Mora_Pagado,0)+ \n"+
 		"IFNULL(T.IMP_IVA_INTERES_MORA_PAGADO,0)) IMP_INTERES_PAGADO \n"+
-		"FROM SIM_PRESTAMO_GPO_DET PG, \n"+ 
+		"FROM \n"+ 
 		"SIM_PRESTAMO P, \n"+
 		"SIM_PRESTAMO_GRUPO G, \n"+
 		"SIM_TABLA_AMORTIZACION T \n"+
-		"WHERE P.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
-		"AND P.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-		"AND P.ID_PRESTAMO = PG.ID_PRESTAMO \n"+
+		"WHERE P.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+
+		"AND P.CVE_EMPRESA = G.CVE_EMPRESA \n"+
+		"AND P.ID_PRESTAMO_GRUPO = G.ID_PRESTAMO_GRUPO \n"+
 		"AND T.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 		"AND T.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 		"AND T.ID_PRESTAMO = P.ID_PRESTAMO \n"+
-		"AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
-		"AND G.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-		"AND G.ID_PRESTAMO_GRUPO = PG.ID_PRESTAMO_GRUPO \n"+
-		//"AND DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') BETWEEN '" + (String) request.getParameter("FechaInicio") + "' AND '" + (String) request.getParameter("FechaFin") + "' \n"+
-		
-		
+		"AND T.FECHA_HISTORICO BETWEEN STR_TO_DATE('" + (String) request.getParameter("FechaInicio") + "', '%d/%m/%Y') AND STR_TO_DATE('" + (String) request.getParameter("FechaFin") + "', '%d/%m/%Y') \n"+
 		"GROUP BY \n"+
-		"PG.CVE_GPO_EMPRESA, \n"+
-		"PG.CVE_EMPRESA, \n"+
-		"PG.ID_PRESTAMO_GRUPO, \n"+ 
-		"PG.ID_PRESTAMO, \n"+
+		"G.CVE_GPO_EMPRESA, \n"+
+		"G.CVE_EMPRESA, \n"+
+		"G.ID_PRESTAMO_GRUPO, \n"+ 
 		"G.CVE_PRESTAMO_GRUPO, \n"+
-		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') \n"+
-		"ORDER BY P.CVE_PRESTAMO \n";
+		"T.FECHA_HISTORICO \n"+
+		"ORDER BY P.CVE_PRESTAMO, T.FECHA_HISTORICO \n";
 	
 		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");

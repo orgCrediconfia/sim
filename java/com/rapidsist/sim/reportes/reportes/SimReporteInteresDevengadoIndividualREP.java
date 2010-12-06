@@ -43,7 +43,7 @@ public class SimReporteInteresDevengadoIndividualREP implements ReporteControlIN
 		"T.CVE_EMPRESA, \n"+
 		"T.ID_PRESTAMO, \n"+ 
 		"P.CVE_PRESTAMO, \n"+
-		"DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') FECHA_HISTORICO, \n"+
+		"T.FECHA_HISTORICO, \n"+
 		"T.IMP_INTERES_DEV_X_DIA, \n"+
 		"IFNULL(T.Imp_Interes_Dev_X_Dia,0)+ \n"+
 		"IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
@@ -54,12 +54,13 @@ public class SimReporteInteresDevengadoIndividualREP implements ReporteControlIN
 		"IFNULL(T.IMP_IVA_INTERES_MORA_PAGADO,0) IMP_INTERES_PAGADO \n"+
 		"FROM SIM_TABLA_AMORTIZACION T, \n"+ 
 		"SIM_PRESTAMO P \n"+
-		"WHERE T.ID_PRESTAMO NOT IN (SELECT ID_PRESTAMO FROM SIM_PRESTAMO_GPO_DET) \n"+
+		"WHERE P.ID_PRESTAMO_GRUPO IS NULL \n"+
 		"AND P.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+
 		"AND P.CVE_EMPRESA = T.CVE_EMPRESA \n"+ 
 		"AND P.ID_PRESTAMO = T.ID_PRESTAMO \n"+
-		//"AND DATE_FORMAT(T.FECHA_HISTORICO, '%d/%m/%Y') BETWEEN '" + (String) request.getParameter("FechaInicio") + "' AND '" + (String) request.getParameter("FechaFin") + "' \n"+
-		"ORDER BY P.CVE_PRESTAMO \n";
+		"AND T.FECHA_HISTORICO BETWEEN STR_TO_DATE('" + (String) request.getParameter("FechaInicio") + "', '%d/%m/%Y') AND STR_TO_DATE('" + (String) request.getParameter("FechaFin") + "', '%d/%m/%Y') \n"+
+		"ORDER BY P.CVE_PRESTAMO, T.FECHA_HISTORICO \n";
+		
 		
 		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
