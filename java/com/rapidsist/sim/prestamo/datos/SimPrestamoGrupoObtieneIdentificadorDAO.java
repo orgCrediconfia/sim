@@ -46,7 +46,7 @@ public class SimPrestamoGrupoObtieneIdentificadorDAO extends Conexion2 implement
 				"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n"+ 
 				"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n"+ 
 				"AND E.B_CANCELADO != 'V' \n";
-				
+		
 		ejecutaSql();
 		
 		return this.getConsultaRegistro();

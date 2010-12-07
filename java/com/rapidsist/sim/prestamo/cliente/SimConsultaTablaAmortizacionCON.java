@@ -66,14 +66,17 @@ public class SimConsultaTablaAmortizacionCON implements CatalogoControlConsultaI
 				
 				String sPrestamo = request.getParameter("IdPrestamo");
 				String sCeros;
+				String sGrupalIndividual;
 				
 				sCeros = sPrestamo.substring(2,8);
+				sGrupalIndividual = sPrestamo.substring(8,16);
+				
 				System.out.println("sCeros:"+sCeros);
+				System.out.println("sGrupalIndividual:"+sGrupalIndividual);
 				if (sCeros.equals("000000")){
 					//Es un crédito individual.
 					parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("IdPrestamo"));
 					
-					//Es un crédito individual.
 					Registro idprestamo = new Registro ();
 					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
 					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
@@ -91,26 +94,50 @@ public class SimConsultaTablaAmortizacionCON implements CatalogoControlConsultaI
 					registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacion", parametros));
 					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
 				}else {
-					//Es un crédito grupal.
-					
-					Registro idprestamo = new Registro ();
-					idprestamo = catalogoSL.getRegistro("SimPrestamoGrupoObtieneIdentificador", parametros);
-					String sIdPrestamoGrupo = (String)idprestamo.getDefCampo("ID_PRESTAMO_GRUPO");
-					parametros.addDefCampo("ID_PRESTAMO_GRUPO",sIdPrestamoGrupo);
-					
-					registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorioGrupo", parametros));
-					Registro accesorios = new Registro ();
-					accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorioGrupo", parametros);
-					String sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
-					
-					registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
-					registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTAGrupo", parametros));
-					registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
-					registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoGrupal", parametros));
-					parametros.addDefCampo("CONSULTA","TABLA");
-					registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacionGrupo", parametros));
-					
-					registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
+					if (sGrupalIndividual.equals("00000000")){
+						//Es un crédito grupal.
+						
+						Registro idprestamo = new Registro ();
+						idprestamo = catalogoSL.getRegistro("SimPrestamoGrupoObtieneIdentificador", parametros);
+						String sIdPrestamoGrupo = (String)idprestamo.getDefCampo("ID_PRESTAMO_GRUPO");
+						parametros.addDefCampo("ID_PRESTAMO_GRUPO",sIdPrestamoGrupo);
+						
+						registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorioGrupo", parametros));
+						Registro accesorios = new Registro ();
+						accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorioGrupo", parametros);
+						String sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
+						
+						registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
+						registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTAGrupo", parametros));
+						registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
+						registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoGrupal", parametros));
+						parametros.addDefCampo("CONSULTA","TABLA");
+						registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacionGrupo", parametros));
+						
+						registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
+					}else {
+						//Es un crédito grupal-individual.
+						
+						parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("IdPrestamo"));
+						
+						Registro idprestamo = new Registro ();
+						idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
+						String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
+						parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);
+						registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorio", parametros));
+						Registro accesorios = new Registro ();
+						accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorio", parametros);
+						String sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
+						//OBTIENE TODOS LOS REGISTROS DE LA CONSULTA
+						registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
+						registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTA", parametros));
+						registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
+						registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
+						parametros.addDefCampo("CONSULTA","TABLA");
+						registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimConsultaTablaAmortizacion", parametros));
+						registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimTabAmoCon.jsp?Accesorio="+sAccesorios;
+						
+					}
 				}
 			}
 		}

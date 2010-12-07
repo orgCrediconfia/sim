@@ -60,169 +60,93 @@ public class SimConsultaTablaAmortizacionDAO extends Conexion2 implements Operac
 					
 				}else if (!parametros.getDefCampo("NOMBRE").equals("")) {
 					sSql = "SELECT \n"+
-					"P.ID_PRESTAMO, \n"+
-					"P.CVE_PRESTAMO, \n"+
-					"N.NOM_COMPLETO NOMBRE, \n"+
-					"P.ID_PRODUCTO, \n"+
-					"O.NOM_PRODUCTO, \n"+  
-					"C.NUM_CICLO \n"+
-					"FROM \n"+
-					"SIM_PRESTAMO P, \n"+
-					"SIM_PRODUCTO O, \n"+
-					"SIM_PRODUCTO_CICLO C, \n"+
-					"RS_GRAL_PERSONA N, \n"+
-					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
-					"WHERE \n"+
-					"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND O.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND O.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND O.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-					"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND C.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-					"AND C.NUM_CICLO = P.NUM_CICLO \n"+
-					"AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND N.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND N.ID_PERSONA = P.ID_CLIENTE \n"+
-					"AND US.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-			        "AND US.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-			        "AND US.ID_SUCURSAL = P.ID_SUCURSAL \n"+
-			        "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
-
-					if (!parametros.getDefCampo("CVE_PRESTAMO").equals("")) {
-						sSql = sSql + " AND P.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
-					}
-					
+					   "C.CVE_PRESTAMO, \n"+
+					   "C.ID_PRODUCTO, \n"+
+					   "C.NOM_PRODUCTO, \n"+
+					   "C.NOMBRE, \n"+
+					   "C.NUM_CICLO \n"+
+					   "FROM V_CREDITO C, \n"+
+					   "SIM_CAT_ETAPA_PRESTAMO E, \n"+
+					   "SIM_USUARIO_ACCESO_SUCURSAL US \n"+
+					   "WHERE  C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				       "AND    C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					   "AND E.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+					   "AND E.CVE_EMPRESA = C.CVE_EMPRESA \n"+
+					   "AND E.ID_ETAPA_PRESTAMO = C.ID_ETAPA_PRESTAMO \n"+
+					   "AND E.B_CANCELADO = 'F' \n"+
+					   "AND US.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+			           "AND US.CVE_EMPRESA = C.CVE_EMPRESA \n"+
+			           "AND US.ID_SUCURSAL = C.ID_SUCURSAL \n"+
+			           "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
+					  
 					if (!parametros.getDefCampo("NOMBRE").equals("")) {
-						sSql = sSql + " AND UPPER(N.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase()  + "%' \n";
+						sSql = sSql + " AND UPPER(C.NOMBRE) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase()  + "%' \n";
 					}
 					
-					sSql = sSql + "UNION \n"+
-					"SELECT \n"+
-					"P.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+
-					"P.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n"+
-					"N.NOM_GRUPO NOMBRE, \n"+
-					"P.ID_PRODUCTO, \n"+
-					"O.NOM_PRODUCTO, \n"+
-					"C.NUM_CICLO \n"+
-					"FROM \n"+
-					"SIM_PRESTAMO_GRUPO P, \n"+
-					"SIM_PRODUCTO O, \n"+
-					"SIM_PRODUCTO_CICLO C, \n"+
-					"SIM_GRUPO N, \n"+
-					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
-					"WHERE \n"+
-					"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
-					"AND O.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND O.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND O.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-					"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND C.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-					"AND C.NUM_CICLO = P.NUM_CICLO \n"+
-					"AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND N.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND N.ID_GRUPO = P.ID_GRUPO \n"+
-					"AND US.CVE_GPO_EMPRESA = N.CVE_GPO_EMPRESA \n"+
-			        "AND US.CVE_EMPRESA = N.CVE_EMPRESA \n"+
-			        "AND US.ID_SUCURSAL = N.ID_SUCURSAL \n"+
-			        "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
-	 
-					if (!parametros.getDefCampo("CVE_PRESTAMO").equals("")) {
-						sSql = sSql + " AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
-					}
-					
-					if (!parametros.getDefCampo("NOMBRE").equals("")) {
-						sSql = sSql + " AND UPPER(N.NOM_GRUPO) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase()  + "%' \n";
-					}
-					
-					sSql = sSql + "ORDER BY ID_PRESTAMO \n";
+					sSql = sSql + "ORDER BY CVE_PRESTAMO \n";
 				}
 			}else  {
+				if (!parametros.getDefCampo("NOMBRE").equals("")) {
+				
+					sSql = "SELECT \n"+
+					   "C.CVE_PRESTAMO, \n"+
+					   "C.ID_PRODUCTO, \n"+
+					   "C.NOM_PRODUCTO, \n"+
+					   "C.NOMBRE, \n"+
+					   "C.NUM_CICLO \n"+
+					   "FROM V_CREDITO C, \n"+
+					   "SIM_CAT_ETAPA_PRESTAMO E, \n"+
+					   "SIM_USUARIO_ACCESO_SUCURSAL US \n"+
+					   "WHERE  C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				       "AND    C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					   "AND E.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+					   "AND E.CVE_EMPRESA = C.CVE_EMPRESA \n"+
+					   "AND E.ID_ETAPA_PRESTAMO = C.ID_ETAPA_PRESTAMO \n"+
+					   "AND E.B_CANCELADO = 'F' \n"+
+					   "AND US.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+			           "AND US.CVE_EMPRESA = C.CVE_EMPRESA \n"+
+			           "AND US.ID_SUCURSAL = C.ID_SUCURSAL \n"+
+			           "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
+				
+				if (!parametros.getDefCampo("CVE_PRESTAMO").equals("")) {
+					sSql = sSql + " AND C.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+				}
+				
+				if (!parametros.getDefCampo("NOMBRE").equals("")) {
+					sSql = sSql + " AND UPPER(C.NOMBRE) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase()  + "%' \n";
+				}
+				
+				sSql = sSql + "ORDER BY CVE_PRESTAMO \n";
+			}else if(parametros.getDefCampo("NOMBRE").equals("")) {
+				
 				sSql = "SELECT \n"+
-				"P.ID_PRESTAMO, \n"+
-				"P.CVE_PRESTAMO, \n"+
-				"N.NOM_COMPLETO NOMBRE, \n"+
-				"P.ID_PRODUCTO, \n"+
-				"O.NOM_PRODUCTO, \n"+  
-				"C.NUM_CICLO \n"+
-				"FROM \n"+
-				"SIM_PRESTAMO P, \n"+
-				"SIM_PRODUCTO O, \n"+
-				"SIM_PRODUCTO_CICLO C, \n"+
-				"RS_GRAL_PERSONA N, \n"+
-				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
-				"WHERE \n"+
-				"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND O.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND O.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND O.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-				"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND C.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-				"AND C.NUM_CICLO = P.NUM_CICLO \n"+
-				"AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND N.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND N.ID_PERSONA = P.ID_CLIENTE \n"+
-				"AND US.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-		        "AND US.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-		        "AND US.ID_SUCURSAL = P.ID_SUCURSAL \n"+
-		        "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
-
-				if (!parametros.getDefCampo("CVE_PRESTAMO").equals("")) {
-					sSql = sSql + " AND P.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
-				}
-				
-				if (!parametros.getDefCampo("NOMBRE").equals("")) {
-					sSql = sSql + " AND UPPER(N.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase()  + "%' \n";
-				}
-				
-				sSql = sSql + "UNION \n"+
-				"SELECT \n"+
-				"P.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+
-				"P.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n"+
-				"N.NOM_GRUPO NOMBRE, \n"+
-				"P.ID_PRODUCTO, \n"+
-				"O.NOM_PRODUCTO, \n"+
-				"C.NUM_CICLO \n"+
-				"FROM \n"+
-				"SIM_PRESTAMO_GRUPO P, \n"+
-				"SIM_PRODUCTO O, \n"+
-				"SIM_PRODUCTO_CICLO C, \n"+
-				"SIM_GRUPO N, \n"+
-				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
-				"WHERE \n"+
-				"P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
-				"AND O.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND O.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND O.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-				"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND C.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-				"AND C.NUM_CICLO = P.NUM_CICLO \n"+
-				"AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND N.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND N.ID_GRUPO = P.ID_GRUPO \n"+
-				"AND US.CVE_GPO_EMPRESA = N.CVE_GPO_EMPRESA \n"+
-		        "AND US.CVE_EMPRESA = N.CVE_EMPRESA \n"+
-		        "AND US.ID_SUCURSAL = N.ID_SUCURSAL \n"+
-		        "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
- 
-				if (!parametros.getDefCampo("CVE_PRESTAMO").equals("")) {
-					sSql = sSql + " AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
-				}
-				
-				if (!parametros.getDefCampo("NOMBRE").equals("")) {
-					sSql = sSql + " AND UPPER(N.NOM_GRUPO) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase()  + "%' \n";
-				}
-				
-				sSql = sSql + "ORDER BY ID_PRESTAMO \n";
-			}
+				   "C.CVE_PRESTAMO, \n"+
+				   "C.ID_PRODUCTO, \n"+
+				   "C.NOM_PRODUCTO, \n"+
+				   "C.NOMBRE, \n"+
+				   "C.NUM_CICLO \n"+
+				   "FROM V_CREDITO C, \n"+
+				   "SIM_CAT_ETAPA_PRESTAMO E, \n"+
+				   "SIM_USUARIO_ACCESO_SUCURSAL US \n"+
+				   "WHERE  C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+			       "AND    C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				   "AND E.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+				   "AND E.CVE_EMPRESA = C.CVE_EMPRESA \n"+
+				   "AND E.ID_ETAPA_PRESTAMO = C.ID_ETAPA_PRESTAMO \n"+
+				   "AND E.B_CANCELADO = 'F' \n"+
+				   "AND US.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+		           "AND US.CVE_EMPRESA = C.CVE_EMPRESA \n"+
+		           "AND US.ID_SUCURSAL = C.ID_SUCURSAL \n"+
+		           "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
 			
+				if (!parametros.getDefCampo("CVE_PRESTAMO").equals("")) {
+					sSql = sSql + " AND C.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+				}
+			
+				sSql = sSql + "ORDER BY CVE_PRESTAMO \n";
+					
+				}
+			}
 		}
 		if (parametros.getDefCampo("CONSULTA").equals("TABLA")) {
 			int iAccesorio = 0;

@@ -47,9 +47,9 @@ public class SimPrestamoReporteLineaFondeoREP implements ReporteControlIN {
 						"(SELECT CVE_GPO_EMPRESA, \n"+
 						"	     CVE_EMPRESA, \n"+
 						"	     ID_PRESTAMO, \n"+
-						"	     SUM(IMP_SALDO_HOY) IMP_SALDO_TOTAL \n"+
+						"	     SUM(IMP_DEBE_TOTAL) - SUM(IMP_DEBE_HOY) IMP_SALDO_TOTAL \n"+
 						"From V_Sim_Prestamo_Gpo_Res_Edo_Cta \n"+
-						"WHERE DESC_MOVIMIENTO IN ('Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra','Capital', 'Pago Capital','Seguro Deudor','Pago Seguro Deudor','Pago Tardío','Pago Pago Tardío') \n"+
+						"WHERE DESC_MOVIMIENTO IN ('Capital') \n"+
 						"GROUP BY CVE_GPO_EMPRESA, \n"+
 						"CVE_EMPRESA, \n"+
 						"ID_PRESTAMO \n"+
@@ -84,9 +84,9 @@ public class SimPrestamoReporteLineaFondeoREP implements ReporteControlIN {
 						"(SELECT CVE_GPO_EMPRESA, \n"+
 						"	     CVE_EMPRESA, \n"+
 						"	     ID_PRESTAMO, \n"+
-						"	     SUM(IMP_SALDO_HOY) IMP_SALDO_TOTAL \n"+
+						"	     SUM(IMP_DEBE_TOTAL) - SUM(IMP_DEBE_HOY) IMP_SALDO_TOTAL \n"+
 						"From V_SIM_PRESTAMO_RES_EDO_CTA \n"+
-						"WHERE DESC_MOVIMIENTO IN ('Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra','Capital', 'Pago Capital','Seguro Deudor','Pago Seguro Deudor','Pago Tardío','Pago Pago Tardío') \n"+
+						"WHERE DESC_MOVIMIENTO IN ('Capital') \n"+
 						"GROUP BY CVE_GPO_EMPRESA, \n"+
 						"CVE_EMPRESA, \n"+
 						"ID_PRESTAMO \n"+

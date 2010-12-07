@@ -57,9 +57,13 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 		
 		String sPrestamo = request.getParameter("CvePrestamo");
 		String sCeros;
+		String sGrupalIndividual;
 		
 		sCeros = sPrestamo.substring(2,8);
+		sGrupalIndividual = sPrestamo.substring(8,16);
+		
 		System.out.println("sCeros:"+sCeros);
+		System.out.println("sGrupalIndividual:"+sGrupalIndividual);
 		if (sCeros.equals("000000")){
 			//Es un crédito individual.
 			Registro idprestamo = new Registro ();
@@ -73,6 +77,7 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimConsultaTablaAmortizacion&OperacionCatalogo=CT&Filtro=Todos&Consulta=Tabla&IdPrestamo="+sPrestamo;
 			
 		}else{
+			if (sGrupalIndividual.equals("00000000")){
 			//Es un crédito grupal.
 			
 			LinkedList lista = new LinkedList();
@@ -92,8 +97,20 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGenerarTablaAmortizacion", registro, iTipoOperacion);
 			}
 			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimConsultaTablaAmortizacion&OperacionCatalogo=CT&Filtro=Todos&Consulta=Tabla&IdPrestamo="+sPrestamo;
+			}else {
+				//Es un crédito grupal-individual.
+				Registro idprestamo = new Registro ();
+				idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", registro);
+				String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
+				
+				registro.addDefCampo("ID_PRESTAMO",sIdPrestamo);
+				
+				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS		
+				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGenerarTablaAmortizacion", registro, iTipoOperacion);
+				registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimConsultaTablaAmortizacion&OperacionCatalogo=CT&Filtro=Todos&Consulta=Tabla&IdPrestamo="+sPrestamo;
+				
+			}
 		}
-		
 		return registroControl;
 	}
 }
