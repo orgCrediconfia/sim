@@ -16,27 +16,35 @@
 	<Portal:TablaLista tipo="Corte de Caja" nombre="Consulta">
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Fecha'/>
-			<Portal:Columna tipovalor='texto' ancho='400' valor='Movimiento'/>
+			<Portal:Columna tipovalor='texto' ancho='250' valor='Movimiento'/>
+			<Portal:Columna tipovalor='texto' ancho='50' valor='Clave'/>
+			<Portal:Columna tipovalor='texto' ancho='250' valor='Nombre'/>
 			<Portal:Columna tipovalor='moneda' ancho='100%' valor='Monto'/>
 		</Portal:TablaListaTitulos>
 		<Portal:TablaListaRenglon>
 			<c:if test='${(requestScope.ListaMovimiento != null)}'>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='Saldo inicial'/>
-				<Portal:Columna tipovalor='texto' ancho='400' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='250' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='50' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='250' valor=''/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registroFechaInicial.campos["SALDO_INICIAL"]}'/>
 			</c:if>
 		</Portal:TablaListaRenglon>
 		<c:forEach var="registro" items="${requestScope.ListaMovimiento}">		
 			<Portal:TablaListaRenglon>			
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["FECHA"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='400' valor='${registro.campos["NOM_MOVIMIENTO_CAJA"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_MOVIMIENTO_CAJA"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='50' valor='${registro.campos["CLAVE"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOMBRE"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["MONTO"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:TablaListaRenglon>
 			<c:if test='${(requestScope.ListaMovimiento != null)}'>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='Saldo final'/>
-				<Portal:Columna tipovalor='texto' ancho='400' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='250' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='50' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='250' valor=''/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registroFechaFinal.campos["SALDO_FINAL"]}'/>
 			</c:if>
 		</Portal:TablaListaRenglon>

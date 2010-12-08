@@ -38,10 +38,14 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 				"C.CVE_EMPRESA, \n"+
 				"C.CVE_MOVIMIENTO_CAJA, \n"+
 				"M.NOM_MOVIMIENTO_CAJA, \n"+
+				"NVL(C.ID_GRUPO, C.ID_CLIENTE) CLAVE, \n"+
+				"NVL(G.NOM_GRUPO, P.NOM_COMPLETO) NOMBRE, \n"+
 				"C.FECHA_TRANSACCION FECHA, \n"+
 				"TO_CHAR(C.MONTO,'999,999,999.99') MONTO \n"+
 				"FROM SIM_CAJA_TRANSACCION C, \n"+
-				"SIM_CAT_MOVIMIENTO_CAJA M \n"+
+				"SIM_CAT_MOVIMIENTO_CAJA M, \n"+
+				"SIM_GRUPO G, \n"+
+				"RS_GRAL_PERSONA P \n"+
 				"WHERE C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND C.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
@@ -49,10 +53,17 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 				"AND M.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 				"AND M.CVE_EMPRESA = C.CVE_EMPRESA \n"+
 				"AND M.CVE_MOVIMIENTO_CAJA = C.CVE_MOVIMIENTO_CAJA \n"+
+				"And G.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
+				"AND G.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
+				"AND G.ID_GRUPO (+)= C.ID_GRUPO \n"+
+				"AND P.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
+				"AND P.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
+				"AND P.ID_PERSONA (+)= C.ID_CLIENTE \n"+
 				"AND C.FECHA_TRANSACCION >= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n"+
 				"AND TO_DATE('" + (String)parametros.getDefCampo("FECHA_FINAL") + "','DD/MM/YYYY')+1 > C.FECHA_TRANSACCION \n"+
 				"ORDER BY FECHA \n";
 		
+		System.out.println("movientos"+sSql);
 		ejecutaSql();
 		return getConsultaLista();
 	}
