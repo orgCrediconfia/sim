@@ -64,7 +64,7 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		"MONTO_AUTORIZADO, \n"+ 
 		"CARGO_INICIAL, \n"+ 
 		"NVL(MONTO_AUTORIZADO,0) + NVL(CARGO_INICIAL,0) MONTO_PRESTADO, \n"+ 
-		"NUM_DIAS_ATRASO_ACTUAL, \n"+ 
+		"NUM_DIAS_ANTIGUEDAD NUM_DIAS_ATRASO_ACTUAL, \n"+ 
 		"NUM_DIAS_ATRASO_MAX, \n"+
 		"CVE_CATEGORIA_ATRASO, \n"+
 		"F_PROX_PAGO, \n"+ 
