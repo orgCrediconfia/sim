@@ -154,7 +154,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{NomRegional}  == "" ? "Todas las regionales" : $P{NomRegional}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{NomRegional}  == "null" ? "Todas las regionales" : $P{NomRegional}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -206,7 +206,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{CveUsuario}  == "" ? "Todos los asesores" : $P{CveUsuario}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{CveUsuario}  == "null" ? "Todos los asesores" : $P{CveUsuario}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement

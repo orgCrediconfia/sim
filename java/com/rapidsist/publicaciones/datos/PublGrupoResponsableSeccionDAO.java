@@ -131,6 +131,8 @@ public class PublGrupoResponsableSeccionDAO extends Conexion2 implements Operaci
 					"'" + (String) registro.getDefCampo("CVE_PORTAL") + "'," +
 					"'" + (String) registro.getDefCampo("CVE_GPO_RESP") + "'," +
 					"'" + sCveUsuario + "')" ;
+				
+				System.out.println("error fatal"+sSql);
 				//VERIFICA SI NO SE ACTUALIZO EL REGISTRO
 				if (ejecutaUpdate() == 0) {
 					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");

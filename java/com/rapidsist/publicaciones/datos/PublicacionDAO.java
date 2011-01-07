@@ -239,7 +239,6 @@ public class PublicacionDAO	extends Conexion2 {
 					   "                                    ) \n" +
 					   "CONNECT BY CVE_SECCION_PADRE = CVE_SECCION \n" +
 					   "ORDER BY CVE_GPO_EMPRESA, CVE_PORTAL, CVE_SECCION, NUM_ORDEN \n" ;
-					   System.out.println("ya lo cambie a ver que tal"+sSql);
 				}
 				else {
 					if (bSoloRutaSeccion) {
@@ -285,6 +284,7 @@ public class PublicacionDAO	extends Conexion2 {
 						"	AND SEC.CVE_SECCION_PADRE " + sCveOpcionPadre + " \n" +
 						"	AND PS.CVE_PERFIL_PUB = '" + sPerfilUsuarioPublicacion + "' \n" +
 						"	ORDER BY SEC.NUM_ORDEN \n" ;
+							
 						}
 						
 					}

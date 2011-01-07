@@ -44,7 +44,7 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 				"C.ID_PRODUCTO, \n"+
 				"C.NOM_PRODUCTO, \n"+
 				"C.NUM_CICLO, \n"+
-				"TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_PRESTADO \n"+
+				"TO_CHAR(C.MONTO_AUTORIZADO,'999,999,999.99') MONTO_PRESTADO \n"+
 				"FROM V_CREDITO C, \n"+
 				"SIM_CAT_ETAPA_PRESTAMO E, \n"+
 				"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
@@ -145,7 +145,7 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 		}
 		
 		sSql =  "SELECT \n"+
-				"C.MONTO_AUTORIZADO + C.CARGO_INICIAL MONTO_PRESTADO \n"+
+				"C.MONTO_AUTORIZADO MONTO_PRESTADO \n"+
 				"FROM V_CREDITO C \n"+
 				"WHERE C.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND C.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+

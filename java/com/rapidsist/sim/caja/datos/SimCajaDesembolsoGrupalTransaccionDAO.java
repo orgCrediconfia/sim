@@ -41,7 +41,7 @@ public class SimCajaDesembolsoGrupalTransaccionDAO extends Conexion2 implements 
 				"G.NOM_GRUPO, \n"+
 				"T.NUM_CICLO, \n"+
 				"P.NOM_PRODUCTO, \n"+
-				"TO_CHAR(A.MONTO_AUTORIZADO + B.CARGO_INICIAL,'999,999,999.99') MONTO_PRESTADO, \n"+
+				"TO_CHAR(A.MONTO_AUTORIZADO,'999,999,999.99') MONTO_PRESTADO, \n"+
 				"T.ID_SUCURSAL, \n"+
 				"T.ID_CAJA \n"+
 				"FROM SIM_CAJA_TRANSACCION T, \n"+

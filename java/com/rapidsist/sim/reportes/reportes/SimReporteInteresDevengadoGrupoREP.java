@@ -46,10 +46,9 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		"G.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n"+
 		"T.FECHA_HISTORICO, \n"+
 		"SUM(T.IMP_INTERES_DEV_X_DIA) IMP_INTERES_DEV_X_DIA, \n"+
-		"SUM(IFNULL(T.Imp_Interes_Dev_X_Dia,0)+ \n"+
-		"IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
-		"IFNULL(T.Imp_Interes_Extra_Pagado,0)+ \n"+
+		"SUM(IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
 		"IFNULL(T.Imp_Iva_Interes_Pagado,0)+ \n"+
+		"IFNULL(T.Imp_Interes_Extra_Pagado,0)+ \n"+
 		"IFNULL(T.Imp_Iva_Interes_Extra_Pagado,0)+ \n"+
 		"IFNULL(T.Imp_Interes_Mora_Pagado,0)+ \n"+
 		"IFNULL(T.IMP_IVA_INTERES_MORA_PAGADO,0)) IMP_INTERES_PAGADO \n"+

@@ -50,7 +50,8 @@ public class SimPrestamoAccesorioOrdenClienteDAO extends Conexion2 implements Op
 			" AND PA.ID_PRESTAMO ='" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
 			" AND A.CVE_GPO_EMPRESA = PA.CVE_GPO_EMPRESA \n" +
 			" AND A.CVE_EMPRESA = PA.CVE_EMPRESA \n"+
-			" AND A.ID_ACCESORIO = PA.ID_ACCESORIO \n";
+			" AND A.ID_ACCESORIO = PA.ID_ACCESORIO \n"+
+			" AND A.B_ACCESORIO = 'V' \n";
 		
 		sSql = sSql + " ORDER BY PA.ID_ACCESORIO \n";
 		
