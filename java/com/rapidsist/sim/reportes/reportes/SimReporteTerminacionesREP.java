@@ -87,17 +87,18 @@ public class SimReporteTerminacionesREP implements ReporteControlIN {
 		"AND V.CVE_EMPRESA = P.CVE_EMPRESA \n";
 	 
 		
-		if (!sIdSucursal.equals("")){
-			sSql = sSql + "AND NOM_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
+		if (!sIdSucursal.equals("null")){
+			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
 		}
 	
-		if (!sIdRegional.equals("")){
-			sSql = sSql + "AND NOM_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
+		if (!sIdRegional.equals("null")){
+			sSql = sSql + "AND ID_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
 		}
 		
-		if (!sCveUsuario.equals("")){
-			sSql = sSql + "AND NOM_COMPLETO_ASESOR = '" + (String)request.getParameter("CveUsuario") + "'\n";
+		if (!sCveUsuario.equals("null")){
+			sSql = sSql + "AND ID_PERSONA = '" + (String)request.getParameter("CveUsuario") + "'\n";
 		}
+		System.out.println("terminaciones"+sSql);
 							
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);

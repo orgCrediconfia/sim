@@ -34,33 +34,36 @@ public class PublUsuarioDAO extends Conexion2 implements OperacionAlta, Operacio
 		boolean bNomPublicacion = false;
 		String sFiltro = (String) parametros.getDefCampo("Filtro");
 		sSql =  "SELECT   \n"+
-						" UP.CVE_GPO_EMPRESA,  \n"+ 
-						" UP.CVE_USUARIO, \n"+
-						" UP.CVE_PORTAL,  \n"+
-						" UP.ID_NIVEL_ACCESO,  \n"+
-						" NA.NOM_TIPO_ACCESO, \n"+
-						" NA.DESC_TIPO_ACCESO, \n"+
-						" UP.CVE_PERFIL_PUB,  \n"+
-						" PE.NOM_PERFIL, \n"+
-						" GU.CVE_USUARIO,  \n"+
-						" GU.ID_PERSONA,  \n"+
-						" GP.ID_PERSONA,  \n"+
-						" GP.NOM_COMPLETO  \n"+
-						" FROM  \n"+
-						" RS_CONF_USUARIO_PORTAL UP, RS_GRAL_USUARIO GU, RS_GRAL_PERSONA GP, RS_PUB_NIVEL_ACCESO NA, RS_PUB_PERFIL PE  \n"+
-						" WHERE   \n"+
-						" UP.CVE_GPO_EMPRESA = GU.CVE_GPO_EMPRESA  \n"+
-						" AND UP.CVE_GPO_EMPRESA = GP.CVE_GPO_EMPRESA  \n"+
-						" AND UP.CVE_GPO_EMPRESA = NA.CVE_GPO_EMPRESA  \n"+
-						" AND UP.CVE_GPO_EMPRESA = PE.CVE_GPO_EMPRESA (+)  \n"+
-						" AND UP.CVE_PORTAL = PE.CVE_PORTAL (+) \n"+
-						" AND UP.CVE_PORTAL = NA.CVE_PORTAL \n"+
-						" AND UP.CVE_USUARIO = GU.CVE_USUARIO  \n"+
-						" AND GU.ID_PERSONA = GP.ID_PERSONA  \n"+
-						" AND UP.ID_NIVEL_ACCESO = NA.ID_NIVEL_ACCESO \n"+
-						" AND UP.CVE_PERFIL_PUB = PE.CVE_PERFIL_PUB (+) \n"+
-						" AND  UP.CVE_PORTAL ='"+parametros.getDefCampo("CVE_PORTAL")+"'";
-						
+				 "UP.CVE_GPO_EMPRESA, \n"+
+				 "UP.CVE_USUARIO, \n"+ 
+				 "UP.CVE_PORTAL, \n"+
+				 "UP.ID_NIVEL_ACCESO, \n"+
+				 "NA.NOM_TIPO_ACCESO, \n"+
+				 "NA.DESC_TIPO_ACCESO, \n"+
+				 "UP.CVE_PERFIL_PUB, \n"+
+				 "PE.NOM_PERFIL, \n"+
+				 "GU.ID_PERSONA, \n"+ 
+				 "GP.NOM_COMPLETO \n"+
+				 "FROM \n"+
+				 "RS_CONF_USUARIO_PORTAL UP, \n"+
+				 "RS_GRAL_USUARIO GU, \n"+
+				 "RS_GRAL_PERSONA GP, \n"+
+				 "RS_PUB_NIVEL_ACCESO NA, \n"+ 
+				 "RS_PUB_PERFIL PE \n"+
+				 "WHERE UP.CVE_GPO_EMPRESA = 'SIM' \n"+
+				 "AND GU.CVE_GPO_EMPRESA = UP.CVE_GPO_EMPRESA \n"+
+				 "AND GU.CVE_USUARIO = UP.CVE_USUARIO \n"+
+				 "AND GP.CVE_GPO_EMPRESA = GU.CVE_GPO_EMPRESA \n"+
+				 "AND GP.CVE_EMPRESA = GU.CVE_EMPRESA \n"+ 
+				 "AND GP.ID_PERSONA = GU.ID_PERSONA \n"+
+				 "AND NA.CVE_GPO_EMPRESA (+)= UP.CVE_GPO_EMPRESA \n"+
+				 "AND NA.CVE_PORTAL (+)= UP.CVE_PORTAL \n"+
+				 "AND NA.ID_NIVEL_ACCESO (+)= UP.ID_NIVEL_ACCESO \n"+
+				 "AND PE.CVE_GPO_EMPRESA (+)= UP.CVE_GPO_EMPRESA \n"+
+				 "AND PE.CVE_PORTAL (+)= UP.CVE_PORTAL \n"+
+				 "AND PE.CVE_PERFIL_PUB (+)= UP.CVE_PERFIL_PUB \n"+ 
+				 "AND UP.CVE_PORTAL ='"+parametros.getDefCampo("CVE_PORTAL")+"'";
+					
 		if (parametros.getDefCampo("NOM_COMPLETO") != null) {
 			sSql = sSql + "AND GP.NOM_COMPLETO LIKE'%" + (String) parametros.getDefCampo("NOM_COMPLETO") +"%' \n";
 			bNomPublicacion = true;
@@ -75,6 +78,7 @@ public class PublUsuarioDAO extends Conexion2 implements OperacionAlta, Operacio
 			bNomPublicacion = true;
 		}
 		sSql = sSql  + " ORDER BY GP.NOM_COMPLETO ";
+		
 		ejecutaSql();
 		return this.getConsultaLista();
 	}
@@ -87,35 +91,38 @@ public class PublUsuarioDAO extends Conexion2 implements OperacionAlta, Operacio
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public Registro getRegistro(Registro parametros) throws SQLException{
-		sSql =  	" SELECT \n"+
-						" UP.CVE_GPO_EMPRESA, \n"+
-						" UP.CVE_USUARIO, \n"+
-						" UP.CVE_PORTAL, \n"+
-						" UP.ID_NIVEL_ACCESO, \n"+
-						" NA.NOM_TIPO_ACCESO, \n"+
-						" NA.DESC_TIPO_ACCESO, \n"+
-						" UP.CVE_PERFIL_PUB, \n"+
-						" PE.NOM_PERFIL, \n"+
-						" GU.CVE_USUARIO, \n"+
-						" GU.ID_PERSONA, \n"+
-						" GP.ID_PERSONA, \n"+
-						" GP.NOM_COMPLETO \n"+
-						" FROM \n"+
-						" RS_CONF_USUARIO_PORTAL UP, RS_GRAL_USUARIO GU, RS_GRAL_PERSONA GP, RS_PUB_NIVEL_ACCESO NA, RS_PUB_PERFIL PE \n"+
-						" WHERE \n"+
-						" UP.CVE_USUARIO ='" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
-						" AND UP.CVE_PORTAL='" + (String)parametros.getDefCampo("CVE_PORTAL") + "' \n"+
-						" AND UP.CVE_GPO_EMPRESA = GU.CVE_GPO_EMPRESA \n"+
-						" AND UP.CVE_GPO_EMPRESA = GP.CVE_GPO_EMPRESA \n"+
-						" AND UP.CVE_GPO_EMPRESA = NA.CVE_GPO_EMPRESA \n"+
-						" AND UP.CVE_GPO_EMPRESA = PE.CVE_GPO_EMPRESA (+) \n"+
-						" AND UP.CVE_PORTAL = PE.CVE_PORTAL (+) \n"+
-						" AND UP.CVE_PORTAL = NA.CVE_PORTAL \n"+
-						" AND UP.CVE_USUARIO = GU.CVE_USUARIO \n"+
-						" AND GU.ID_PERSONA = GP.ID_PERSONA \n"+
-						" AND UP.ID_NIVEL_ACCESO = NA.ID_NIVEL_ACCESO \n"+
-						" AND UP.CVE_PERFIL_PUB = PE.CVE_PERFIL_PUB(+)  \n";
-
+		sSql =  " SELECT \n"+
+				 "UP.CVE_GPO_EMPRESA, \n"+
+				 "UP.CVE_USUARIO, \n"+
+				 "UP.CVE_PORTAL, \n"+
+				 "UP.ID_NIVEL_ACCESO, \n"+
+				 "NA.NOM_TIPO_ACCESO, \n"+
+				 "NA.DESC_TIPO_ACCESO, \n"+
+				 "UP.CVE_PERFIL_PUB, \n"+
+				 "PE.NOM_PERFIL, \n"+
+				 "GU.ID_PERSONA, \n"+
+				 "GP.NOM_COMPLETO \n"+
+				 "FROM \n"+
+				 "RS_CONF_USUARIO_PORTAL UP, \n"+
+				 "RS_GRAL_USUARIO GU, \n"+
+				 "RS_GRAL_PERSONA GP, \n"+
+				 "RS_PUB_NIVEL_ACCESO NA, \n"+
+				 "RS_PUB_PERFIL PE \n"+
+				 "WHERE UP.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			     " AND UP.CVE_USUARIO ='" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
+				 " AND UP.CVE_PORTAL='" + (String)parametros.getDefCampo("CVE_PORTAL") + "' \n"+
+				 "AND GU.CVE_GPO_EMPRESA = UP.CVE_GPO_EMPRESA \n"+
+				 "AND GU.CVE_USUARIO = UP.CVE_USUARIO \n"+
+				 "AND GP.CVE_GPO_EMPRESA = GU.CVE_GPO_EMPRESA \n"+
+				 "AND GP.CVE_EMPRESA = GU.CVE_EMPRESA \n"+
+				 "AND GP.ID_PERSONA = GU.ID_PERSONA \n"+
+				 "AND NA.CVE_GPO_EMPRESA (+)= UP.CVE_GPO_EMPRESA \n"+
+				 "AND NA.CVE_PORTAL (+)= UP.CVE_PORTAL \n"+
+				 "AND NA.ID_NIVEL_ACCESO (+)= UP.ID_NIVEL_ACCESO \n"+
+				 "AND PE.CVE_GPO_EMPRESA (+)= UP.CVE_GPO_EMPRESA  \n"+
+				 "AND PE.CVE_PORTAL (+)= UP.CVE_PORTAL \n"+
+				 "AND PE.CVE_PERFIL_PUB (+)= UP.CVE_PERFIL_PUB \n";
+				
 		ejecutaSql();
 		
 		return this.getConsultaRegistro();

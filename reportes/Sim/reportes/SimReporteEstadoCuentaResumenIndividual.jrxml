@@ -27,10 +27,11 @@
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[Select 
    T.Cve_Gpo_Empresa, T.Cve_Empresa, T.Id_Prestamo, '1', 'Total cargo',
-   Sum(T.Imp_Capital_Amort*-1) + Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) + -SUM(A.IMP_ACCESORIO) TOTAL,
+Sum(T.Imp_Capital_Amort*-1) + Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) + -SUM(A.IMP_ACCESORIO) + SUM(IMP_PAGO_TARDIO*-1) + SUM(IMP_INTERES_MORA*-1) + SUM(IMP_IVA_INTERES_MORA*-1) TOTAL,
                   Sum(T.Imp_Capital_Amort*-1) As Cargo_Capital,
                   Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) As Cargo_Interes,
-                  -SUM(A.IMP_ACCESORIO) AS CARGO_ACCESORIO
+                  -SUM(A.IMP_ACCESORIO) AS CARGO_ACCESORIO,
+    SUM(IMP_PAGO_TARDIO*-1) + SUM(IMP_INTERES_MORA*-1) + SUM(IMP_IVA_INTERES_MORA*-1) AS CARGO_RECARGO
           FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C,
           Pfin_Cat_Concepto CA,
         Pfin_Cat_Concepto CB,
@@ -67,10 +68,11 @@
           UNION ALL  
    Select 
    T.Cve_Gpo_Empresa, T.Cve_Empresa, T.Id_Prestamo, '2', 'Total abono',
-   -Sum(T.Imp_Capital_Amort_Pagado*-1) + -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) + SUM(A.IMP_ACCESORIO_Pagado) TOTAL, 
+ -Sum(T.Imp_Capital_Amort_Pagado*-1) + -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) + SUM(A.IMP_ACCESORIO_pagado) + SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) TOTAL,
                   -Sum(T.Imp_Capital_Amort_Pagado*-1) As Abono_Capital,
                   -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) As ABONO_Interes,
-                  SUM(A.IMP_ACCESORIO_Pagado) AS ABONO_ACCESORIO
+                  SUM(A.IMP_ACCESORIO_Pagado) AS ABONO_ACCESORIO,
+	    SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) AS ABONO_RECARGO
           FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C,
           Pfin_Cat_Concepto CA,
         Pfin_Cat_Concepto CB,
@@ -107,13 +109,14 @@
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
-	<field name="ID_PRESTAMO" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
 	<field name="'1'" class="java.lang.String"/>
 	<field name="'TOTALCARGO'" class="java.lang.String"/>
 	<field name="TOTAL" class="java.lang.Float"/>
 	<field name="CARGO_CAPITAL" class="java.lang.Float"/>
 	<field name="CARGO_INTERES" class="java.lang.Float"/>
 	<field name="CARGO_ACCESORIO" class="java.lang.Float"/>
+	<field name="CARGO_RECARGO" class="java.lang.Float"/>
 
 	<variable name="SumTotal" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
@@ -126,6 +129,9 @@
 	</variable>
 	<variable name="SumAccesorio" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{CARGO_ACCESORIO}]]></variableExpression>
+	</variable>
+	<variable name="SumRecargo" class="java.lang.Float" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{CARGO_RECARGO}]]></variableExpression>
 	</variable>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -233,6 +239,19 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{TOTAL}]]></textFieldExpression>
 				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="674"
+						y="1"
+						width="77"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{CARGO_RECARGO}]]></textFieldExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>
@@ -310,6 +329,19 @@
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumAccesorio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="674"
+						y="0"
+						width="77"
+						height="15"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumRecargo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</summary>

@@ -46,7 +46,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 					"C.ID_PRODUCTO, \n"+
 					"C.NOM_PRODUCTO, \n"+
 					"C.NUM_CICLO, \n"+
-					"TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_PRESTADO \n"+
+					"TO_CHAR(C.MONTO_AUTORIZADO,'999,999,999.99') MONTO_PRESTADO \n"+
 					"FROM V_CREDITO C, \n"+
 					"SIM_CAT_ETAPA_PRESTAMO E, \n"+
 					"SIM_USUARIO_ACCESO_SUCURSAL US \n"+
@@ -180,7 +180,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		String sMonto = "";
 		float fMonto = 0;
 		
-		//Obtiene el monto del caja
+		//Obtiene el monto de la caja.
 		sSql =  "SELECT \n" +
 				"SUM(MONTO) MONTO_CAJA \n" +
 				"FROM \n" +
@@ -200,9 +200,9 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			fMontoCaja = Float.parseFloat(sMontoCaja.trim());
 		}
 	
-		//Obtiene el monto autorizado junto con el cargo incial.
+		//Obtiene el monto autorizado.
 		sSql =  "SELECT \n"+
-				"C.MONTO_AUTORIZADO + C.CARGO_INICIAL MONTO_PRESTADO \n"+
+				"C.MONTO_AUTORIZADO MONTO_PRESTADO \n"+
 				"FROM V_CREDITO C \n"+
 				"WHERE C.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND C.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
@@ -215,401 +215,401 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			fMonto = Float.parseFloat(sMonto.trim());
 		}
 		
-		//Verifica si existen fondos suficiente en la caja para hacer el desembolso.
+		//Verifica si existen fondos suficientes en la caja para hacer el desembolso.
 		if (fMontoCaja < fMonto){
 			resultadoCatalogo.mensaje.setClave("FONDO_INSUFICIENTE");
 		}else {
 		
-		sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION_GPO.nextval AS ID_TRANSACCION_GRUPO FROM DUAL";
-		
-		ejecutaSql();
-		if (rs.next()){
-			sIdTransaccionGrupo = rs.getString("ID_TRANSACCION_GRUPO");
-		}
-		
-		sSql =  "SELECT \n" +
-				"G.CVE_GPO_EMPRESA, \n" +
-				"G.CVE_EMPRESA, \n" +
-				"D.ID_PRESTAMO, \n" +
-				"G.ID_PRESTAMO_GRUPO, \n" +
-				"D.MONTO_AUTORIZADO, \n" +
-				"G.ID_PRODUCTO, \n" +
-				"G.NUM_CICLO, \n" +
-				"D.ID_INTEGRANTE, \n" +
-				"G.ID_GRUPO, \n" +
-				"A.CARGO_INICIAL, \n" +
-				"A.CARGO_INICIAL + D.MONTO_AUTORIZADO MONTO_PRESTADO \n" +
-				"FROM \n" +
-				"SIM_PRESTAMO_GRUPO G, \n" +
-				"SIM_PRESTAMO_GPO_DET D, \n" +
-				"(SELECT \n" + 
-				"P.CVE_GPO_EMPRESA, \n" +
-				"P.CVE_EMPRESA, \n" +
-				"P.ID_PRESTAMO, \n" +
-				"P.ID_PRESTAMO_GRUPO, \n" +
-				"SUM(C.CARGO_INICIAL) CARGO_INICIAL \n" +
-				"FROM SIM_PRESTAMO_GPO_DET P, \n" + 
-				"SIM_PRESTAMO_CARGO_COMISION C \n" +
-				"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND P.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-				"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
-				"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n" + 
-				"AND C.ID_PRESTAMO = P.ID_PRESTAMO \n" +
-				"AND C.ID_FORMA_APLICACION = 1 \n" + 
-				"GROUP BY \n" +
-				"P.CVE_GPO_EMPRESA, \n" +
-				"P.CVE_EMPRESA, \n" +
-				"P.ID_PRESTAMO, \n" +
-				"P.ID_PRESTAMO_GRUPO)A \n" +
-				"WHERE G.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND G.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND G.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-				"AND D.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n" +
-				"AND D.CVE_EMPRESA = G.CVE_EMPRESA \n" +
-				"AND D.ID_PRESTAMO_GRUPO = G.ID_PRESTAMO_GRUPO \n" +
-				"AND A.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
-				"AND A.CVE_EMPRESA = D.CVE_EMPRESA \n" +
-				"AND A.ID_PRESTAMO_GRUPO = D.ID_PRESTAMO_GRUPO \n" +
-				"AND A.ID_PRESTAMO = D.ID_PRESTAMO \n" ;
-		
-		PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-		ps1.execute();
-		ResultSet rs1 = ps1.getResultSet();
-		while (rs1.next()){
+			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION_GPO.nextval AS ID_TRANSACCION_GRUPO FROM DUAL";
 			
-			registro.addDefCampo("ID_PRESTAMO",rs1.getString("ID_PRESTAMO")== null ? "": rs1.getString("ID_PRESTAMO"));
-			registro.addDefCampo("ID_PRESTAMO_GRUPO",rs1.getString("ID_PRESTAMO_GRUPO")== null ? "": rs1.getString("ID_PRESTAMO_GRUPO"));
-			registro.addDefCampo("MONTO_PRESTADO",rs1.getString("MONTO_PRESTADO")== null ? "": rs1.getString("MONTO_PRESTADO"));
-			registro.addDefCampo("ID_PRODUCTO",rs1.getString("ID_PRODUCTO")== null ? "": rs1.getString("ID_PRODUCTO"));
-			registro.addDefCampo("NUM_CICLO",rs1.getString("NUM_CICLO")== null ? "": rs1.getString("NUM_CICLO"));
-			registro.addDefCampo("ID_INTEGRANTE",rs1.getString("ID_INTEGRANTE")== null ? "": rs1.getString("ID_INTEGRANTE"));
-			registro.addDefCampo("ID_GRUPO",rs1.getString("ID_GRUPO")== null ? "": rs1.getString("ID_GRUPO"));
-			
-			//OBTENEMOS EL SEQUENCE
-			sSql =  "SELECT \n" +
-					"CVE_GPO_EMPRESA, \n" +
-					"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
-					"FROM \n" +
-					"SIM_CAJA_TRANSACCION \n" +
-					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND CVE_MOVIMIENTO_CAJA = '" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "' \n"+
-					"GROUP BY CVE_GPO_EMPRESA \n";
-			PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-			ps2.execute();
-			ResultSet rs2 = ps2.getResultSet();
-			
-			if (rs2.next()){
-				
-				sIdTransaccion = rs2.getString("ID_TRANSACCION");
-				iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-				iIdTransaccion ++;
-				sIdTransaccion= String.valueOf(iIdTransaccion);
-			}else {
-				
-				sIdTransaccion = "1";
-			}
-			
-			//Inserta el movimiento del desembolso grupal por cada préstamo individual.
-			sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
-					"CVE_GPO_EMPRESA, \n" +
-					"CVE_EMPRESA, \n" +
-					"ID_TRANSACCION, \n" +
-					"ID_TRANSACCION_GRUPO, \n" +
-					"CVE_MOVIMIENTO_CAJA, \n" +
-					"ID_PRESTAMO, \n" +
-					"ID_PRESTAMO_GRUPO, \n" +
-					"ID_PRODUCTO, \n" +
-					"NUM_CICLO, \n" +
-					"ID_CLIENTE, \n" +
-					"ID_GRUPO, \n" +
-					"ID_SUCURSAL, \n" +
-					"ID_CAJA, \n" +
-					"MONTO, \n" +
-					"FECHA_TRANSACCION, \n" +
-					"CVE_USUARIO_CAJERO) \n" +
-			        "VALUES ( \n"+
-					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-					sIdTransaccion + ", \n "+
-					sIdTransaccionGrupo + ", \n "+
-					"'DESGPO', \n" +
-					"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
-					"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
-					"-'" + (String)registro.getDefCampo("MONTO_PRESTADO") + "', \n" +
-					"SYSDATE, \n" +
-					"'" + (String)registro.getDefCampo("CVE_USUARIO_CAJERO") + "') \n" ;
-			
-			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
-			PreparedStatement ps3 = this.conn.prepareStatement(sSql);
-			ps3.execute();
-			ResultSet rs3 = ps3.getResultSet();
-		
-			//Marca cada prestamo que conforma el crédito grupal como entregado.
-			sSql = "UPDATE SIM_PRESTAMO SET \n" +
-					"B_ENTREGADO = 'V' \n"+
-					"WHERE  CVE_GPO_EMPRESA ='" + (String) registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					" AND CVE_EMPRESA ='" + (String) registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					" AND ID_PRESTAMO ='" + (String) registro.getDefCampo("ID_PRESTAMO") + "' \n";
-			
-			PreparedStatement ps4 = this.conn.prepareStatement(sSql);
-			ps4.execute();
-			ResultSet rs4 = ps4.getResultSet();
-			
-			//Obtiene el identificador de la etapa que representa el desembolso.
-			sSql =  "SELECT \n"+
-					"ID_ETAPA_PRESTAMO \n"+
-					"FROM SIM_CAT_ETAPA_PRESTAMO \n"+
-					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND B_DESEMBOLSO = 'V' \n";
 			ejecutaSql();
 			if (rs.next()){
-				registro.addDefCampo("ID_ETAPA_PRESTAMO",rs.getString("ID_ETAPA_PRESTAMO"));
+				sIdTransaccionGrupo = rs.getString("ID_TRANSACCION_GRUPO");
 			}
-		
-			//Avanza la etapa.
-			//Obtiene las actividades de la etapa que se completa.
-			sSql =  "SELECT \n"+
-					"CVE_GPO_EMPRESA, \n" +
-					"CVE_EMPRESA, \n" +
-					"ID_ETAPA_PRESTAMO, \n"+
-					"ID_ACTIVIDAD_REQUISITO, \n" +
-					"FECHA_REGISTRO, \n" +
-					"ORDEN_ETAPA \n" +
-					"FROM \n" +
-					"SIM_PRESTAMO_ETAPA \n" +
-					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n" +
-					"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
 			
-					PreparedStatement ps9 = this.conn.prepareStatement(sSql);
-					ps9.execute();
-					ResultSet rs9 = ps9.getResultSet();
-					
-			while (rs9.next()){
+			sSql =  "SELECT \n" +
+					"G.CVE_GPO_EMPRESA, \n" +
+					"G.CVE_EMPRESA, \n" +
+					"D.ID_PRESTAMO, \n" +
+					"G.ID_PRESTAMO_GRUPO, \n" +
+					"D.MONTO_AUTORIZADO, \n" +
+					"G.ID_PRODUCTO, \n" +
+					"G.NUM_CICLO, \n" +
+					"D.ID_INTEGRANTE, \n" +
+					"G.ID_GRUPO, \n" +
+					"A.CARGO_INICIAL, \n" +
+					"D.MONTO_AUTORIZADO MONTO_PRESTADO \n" +
+					"FROM \n" +
+					"SIM_PRESTAMO_GRUPO G, \n" +
+					"SIM_PRESTAMO_GPO_DET D, \n" +
+					"(SELECT \n" + 
+					"P.CVE_GPO_EMPRESA, \n" +
+					"P.CVE_EMPRESA, \n" +
+					"P.ID_PRESTAMO, \n" +
+					"P.ID_PRESTAMO_GRUPO, \n" +
+					"SUM(C.CARGO_INICIAL) CARGO_INICIAL \n" +
+					"FROM SIM_PRESTAMO_GPO_DET P, \n" + 
+					"SIM_PRESTAMO_CARGO_COMISION C \n" +
+					"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND P.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+					"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
+					"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n" + 
+					"AND C.ID_PRESTAMO = P.ID_PRESTAMO \n" +
+					"AND C.ID_FORMA_APLICACION = 1 \n" + 
+					"GROUP BY \n" +
+					"P.CVE_GPO_EMPRESA, \n" +
+					"P.CVE_EMPRESA, \n" +
+					"P.ID_PRESTAMO, \n" +
+					"P.ID_PRESTAMO_GRUPO)A \n" +
+					"WHERE G.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND G.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND G.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+					"AND D.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n" +
+					"AND D.CVE_EMPRESA = G.CVE_EMPRESA \n" +
+					"AND D.ID_PRESTAMO_GRUPO = G.ID_PRESTAMO_GRUPO \n" +
+					"AND A.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
+					"AND A.CVE_EMPRESA = D.CVE_EMPRESA \n" +
+					"AND A.ID_PRESTAMO_GRUPO = D.ID_PRESTAMO_GRUPO \n" +
+					"AND A.ID_PRESTAMO = D.ID_PRESTAMO \n" ;
+			
+			PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+			ps1.execute();
+			ResultSet rs1 = ps1.getResultSet();
+			while (rs1.next()){
 				
-				registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs9.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs9.getString("ID_ACTIVIDAD_REQUISITO"));
-				registro.addDefCampo("ORDEN_ETAPA",rs9.getString("ORDEN_ETAPA")== null ? "": rs9.getString("ORDEN_ETAPA"));
-				registro.addDefCampo("FECHA_REGISTRO",rs9.getString("FECHA_REGISTRO")== null ? "": rs9.getString("FECHA_REGISTRO"));
-				//Guarda el historial de la etapa y las actividades
-				sSql = "SELECT SQ01_SIM_PRESTAMO_ACT_REQ_HIST.nextval AS ID_HISTORICO FROM DUAL";
-				PreparedStatement ps10 = this.conn.prepareStatement(sSql);
-				ps10.execute();
-				ResultSet rs10 = ps10.getResultSet();
-				if (rs10.next()){
-					registro.addDefCampo("ID_HISTORICO",rs10.getString("ID_HISTORICO"));
+				registro.addDefCampo("ID_PRESTAMO",rs1.getString("ID_PRESTAMO")== null ? "": rs1.getString("ID_PRESTAMO"));
+				registro.addDefCampo("ID_PRESTAMO_GRUPO",rs1.getString("ID_PRESTAMO_GRUPO")== null ? "": rs1.getString("ID_PRESTAMO_GRUPO"));
+				registro.addDefCampo("MONTO_PRESTADO",rs1.getString("MONTO_PRESTADO")== null ? "": rs1.getString("MONTO_PRESTADO"));
+				registro.addDefCampo("ID_PRODUCTO",rs1.getString("ID_PRODUCTO")== null ? "": rs1.getString("ID_PRODUCTO"));
+				registro.addDefCampo("NUM_CICLO",rs1.getString("NUM_CICLO")== null ? "": rs1.getString("NUM_CICLO"));
+				registro.addDefCampo("ID_INTEGRANTE",rs1.getString("ID_INTEGRANTE")== null ? "": rs1.getString("ID_INTEGRANTE"));
+				registro.addDefCampo("ID_GRUPO",rs1.getString("ID_GRUPO")== null ? "": rs1.getString("ID_GRUPO"));
+				
+				//OBTENEMOS EL SEQUENCE
+				sSql =  "SELECT \n" +
+						"CVE_GPO_EMPRESA, \n" +
+						"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+						"FROM \n" +
+						"SIM_CAJA_TRANSACCION \n" +
+						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						"AND CVE_MOVIMIENTO_CAJA = '" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "' \n"+
+						"GROUP BY CVE_GPO_EMPRESA \n";
+				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+				ps2.execute();
+				ResultSet rs2 = ps2.getResultSet();
+				
+				if (rs2.next()){
 					
-					sSql = "INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO ( \n"+
+					sIdTransaccion = rs2.getString("ID_TRANSACCION");
+					iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
+					iIdTransaccion ++;
+					sIdTransaccion= String.valueOf(iIdTransaccion);
+				}else {
+					
+					sIdTransaccion = "1";
+				}
+				
+				//Inserta el movimiento del desembolso grupal por cada préstamo individual.
+				sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
-						"ID_HISTORICO, \n" +
+						"ID_TRANSACCION, \n" +
+						"ID_TRANSACCION_GRUPO, \n" +
+						"CVE_MOVIMIENTO_CAJA, \n" +
 						"ID_PRESTAMO, \n" +
-						"ID_ACTIVIDAD_REQUISITO, \n" +
-						"ID_ETAPA_PRESTAMO, \n"+
-						"FECHA_REALIZADA, \n"+
-						"FECHA_REGISTRO, \n"+
-						"ESTATUS, \n"+
-						"CVE_USUARIO, \n"+
-						"ORDEN_ETAPA) \n"+
-						" VALUES (" +
+						"ID_PRESTAMO_GRUPO, \n" +
+						"ID_PRODUCTO, \n" +
+						"NUM_CICLO, \n" +
+						"ID_CLIENTE, \n" +
+						"ID_GRUPO, \n" +
+						"ID_SUCURSAL, \n" +
+						"ID_CAJA, \n" +
+						"MONTO, \n" +
+						"FECHA_TRANSACCION, \n" +
+						"CVE_USUARIO_CAJERO) \n" +
+				        "VALUES ( \n"+
 						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-						"'" + (String)registro.getDefCampo("ID_HISTORICO") + "', \n" +
+						sIdTransaccion + ", \n "+
+						sIdTransaccionGrupo + ", \n "+
+						"'DESGPO', \n" +
 						"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-						"'" + (String)registro.getDefCampo("ID_ACTIVIDAD_REQUISITO") + "', \n" +
-						"'" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "', \n" +
-						"SYSDATE, \n"+
-						"TO_TIMESTAMP('" + (String)registro.getDefCampo("FECHA_REGISTRO") + "','yyyy-MM-dd HH24:MI:SSXFF'), \n" +
-						"'Completada', \n"+
-						"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-						"'" + (String)registro.getDefCampo("ORDEN_ETAPA") + "') \n" ;
-					
-					PreparedStatement ps11 = this.conn.prepareStatement(sSql);
-					ps11.execute();
-					ResultSet rs11 = ps11.getResultSet();
+						"'" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
+						"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
+						"-'" + (String)registro.getDefCampo("MONTO_PRESTADO") + "', \n" +
+						"SYSDATE, \n" +
+						"'" + (String)registro.getDefCampo("CVE_USUARIO_CAJERO") + "') \n" ;
 				
+				//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+				PreparedStatement ps3 = this.conn.prepareStatement(sSql);
+				ps3.execute();
+				ResultSet rs3 = ps3.getResultSet();
+			
+				//Marca cada prestamo que conforma el crédito grupal como entregado.
+				sSql = "UPDATE SIM_PRESTAMO SET \n" +
+						"B_ENTREGADO = 'V' \n"+
+						"WHERE  CVE_GPO_EMPRESA ='" + (String) registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+						" AND CVE_EMPRESA ='" + (String) registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						" AND ID_PRESTAMO ='" + (String) registro.getDefCampo("ID_PRESTAMO") + "' \n";
+				
+				PreparedStatement ps4 = this.conn.prepareStatement(sSql);
+				ps4.execute();
+				ResultSet rs4 = ps4.getResultSet();
+				
+				//Obtiene el identificador de la etapa que representa el desembolso.
+				sSql =  "SELECT \n"+
+						"ID_ETAPA_PRESTAMO \n"+
+						"FROM SIM_CAT_ETAPA_PRESTAMO \n"+
+						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						"AND B_DESEMBOLSO = 'V' \n";
+				ejecutaSql();
+				if (rs.next()){
+					registro.addDefCampo("ID_ETAPA_PRESTAMO",rs.getString("ID_ETAPA_PRESTAMO"));
 				}
-			}
 			
-			sSql =  " SELECT DISTINCT ID_ETAPA_PRESTAMO, \n"+
-					" ORDEN_ETAPA \n"+
-					"	  FROM SIM_PRESTAMO_ETAPA \n"+
-					"	  WHERE ORDEN_ETAPA = (SELECT DISTINCT \n"+
-					"	  ORDEN_ETAPA + 1 \n"+
-					" 	  FROM SIM_PRESTAMO_ETAPA \n"+
-					"	  WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					"	  AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"	  AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-					"	  AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "') \n"+
-					"	  AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
-			
-			
-			PreparedStatement ps14 = this.conn.prepareStatement(sSql);
-			ps14.execute();
-			ResultSet rs14 = ps14.getResultSet();
-			if(rs14.next()){
-				registro.addDefCampo("ETAPA_PRESTAMO",rs14.getString("ID_ETAPA_PRESTAMO"));
-				sSql =  " UPDATE SIM_PRESTAMO_GPO_DET SET \n"+
-						"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "', \n"+
-						" COMENTARIO 		='' \n"+
+				//Avanza la etapa.
+				//Obtiene las actividades de la etapa que se completa.
+				sSql =  "SELECT \n"+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_ETAPA_PRESTAMO, \n"+
+						"ID_ACTIVIDAD_REQUISITO, \n" +
+						"FECHA_REGISTRO, \n" +
+						"ORDEN_ETAPA \n" +
+						"FROM \n" +
+						"SIM_PRESTAMO_ETAPA \n" +
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-						"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-						"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
-			
-				PreparedStatement ps15 = this.conn.prepareStatement(sSql);
-				ps15.execute();
-				ResultSet rs15 = ps15.getResultSet();
-			
-				sSql =  " UPDATE SIM_PRESTAMO SET \n"+
-						"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n"+
-						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						"AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n" +
 						"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
 				
-				PreparedStatement ps16 = this.conn.prepareStatement(sSql);
-				ps16.execute();
-				ResultSet rs16 = ps16.getResultSet();
-
-				sSql =  " UPDATE SIM_PRESTAMO_ETAPA SET "+
-						" FECHA_REGISTRO 		=SYSDATE, \n" +
-						" ESTATUS 	 		='Registrada', \n" +
-						" COMENTARIO 	 		='' \n" +
-						" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-						" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-						" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-						" AND ID_ETAPA_PRESTAMO	='" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n";
-		
-				PreparedStatement ps17 = this.conn.prepareStatement(sSql);
-				ps17.execute();
-				ResultSet rs17 = ps17.getResultSet();
-
-				sSql =  "SELECT \n"+
-						"CVE_GPO_EMPRESA, \n"+
-						"CVE_EMPRESA, \n"+
-						"ID_PRESTAMO, \n"+
-						"ID_ACTIVIDAD_REQUISITO, \n"+
-						"ID_ETAPA_PRESTAMO, \n"+
-						"FECHA_REGISTRO, \n"+
-						"FECHA_REALIZADA, \n"+
-						"COMENTARIO, \n"+
-						"ORDEN_ETAPA, \n"+
-						"ESTATUS \n" +
-						"FROM \n"+
-						"SIM_PRESTAMO_ETAPA \n"+
-						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-						"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-						"AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n";
-			
-				PreparedStatement ps18 = this.conn.prepareStatement(sSql);
-				ps18.execute();
-				ResultSet rs18 = ps18.getResultSet();
-			
-				while (rs18.next()){
-					registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs18.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs18.getString("ID_ACTIVIDAD_REQUISITO"));
-					registro.addDefCampo("ETAPA_PRESTAMO",rs18.getString("ID_ETAPA_PRESTAMO")== null ? "": rs18.getString("ID_ETAPA_PRESTAMO"));
-					registro.addDefCampo("ORDEN_ETAPA",rs18.getString("ORDEN_ETAPA")== null ? "": rs18.getString("ORDEN_ETAPA"));
-					registro.addDefCampo("FECHA_REGISTRO",rs18.getString("FECHA_REGISTRO")== null ? "": rs18.getString("FECHA_REGISTRO"));
-					registro.addDefCampo("COMENTARIO",rs18.getString("COMENTARIO")== null ? "": rs18.getString("COMENTARIO"));
-					registro.addDefCampo("ESTATUS",rs18.getString("ESTATUS")== null ? "": rs18.getString("ESTATUS"));
+						PreparedStatement ps9 = this.conn.prepareStatement(sSql);
+						ps9.execute();
+						ResultSet rs9 = ps9.getResultSet();
 						
-					sSql = "SELECT SQ01_SIM_PRESTAMO_ACT_REQ_HIST.nextval AS ID_HISTORICO FROM DUAL";
-						
-					PreparedStatement ps19 = this.conn.prepareStatement(sSql);
-					ps19.execute();
-					ResultSet rs19 = ps19.getResultSet();	
-					if (rs19.next()){
-						registro.addDefCampo("ID_HISTORICO",rs19.getString("ID_HISTORICO"));
-						//Actualiza la bitácora.
-						sSql = "INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO ( \n"+
-								"CVE_GPO_EMPRESA, \n" +
-								"CVE_EMPRESA, \n" +
-								"ID_HISTORICO, \n" +
-								"ID_PRESTAMO, \n" +
-								"ID_ACTIVIDAD_REQUISITO, \n" +
-								"ID_ETAPA_PRESTAMO, \n"+
-								"FECHA_REGISTRO, \n"+
-								"ORDEN_ETAPA, \n"+
-								"COMENTARIO, \n"+
-								"ESTATUS) \n" +
-								" VALUES (" +
-								"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-								"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-								"'" + (String)registro.getDefCampo("ID_HISTORICO") + "', \n" +
-								"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-								"'" + (String)registro.getDefCampo("ID_ACTIVIDAD_REQUISITO") + "', \n" +
-								"'" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "', \n" +
-								"TO_TIMESTAMP('" + (String)registro.getDefCampo("FECHA_REGISTRO") + "','yyyy-MM-dd HH24:MI:SSXFF'), \n" +
-								"'" + (String)registro.getDefCampo("ORDEN_ETAPA") + "', \n" +
-								"'" + (String)registro.getDefCampo("COMENTARIO") + "', \n" +
-								"'" + (String)registro.getDefCampo("ESTATUS") + "') \n" ;
+				while (rs9.next()){
 					
-						PreparedStatement ps20 = this.conn.prepareStatement(sSql);
-						ps20.execute();
-						ResultSet rs20 = ps20.getResultSet();
+					registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs9.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs9.getString("ID_ACTIVIDAD_REQUISITO"));
+					registro.addDefCampo("ORDEN_ETAPA",rs9.getString("ORDEN_ETAPA")== null ? "": rs9.getString("ORDEN_ETAPA"));
+					registro.addDefCampo("FECHA_REGISTRO",rs9.getString("FECHA_REGISTRO")== null ? "": rs9.getString("FECHA_REGISTRO"));
+					//Guarda el historial de la etapa y las actividades
+					sSql = "SELECT SQ01_SIM_PRESTAMO_ACT_REQ_HIST.nextval AS ID_HISTORICO FROM DUAL";
+					PreparedStatement ps10 = this.conn.prepareStatement(sSql);
+					ps10.execute();
+					ResultSet rs10 = ps10.getResultSet();
+					if (rs10.next()){
+						registro.addDefCampo("ID_HISTORICO",rs10.getString("ID_HISTORICO"));
+						
+						sSql = "INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO ( \n"+
+							"CVE_GPO_EMPRESA, \n" +
+							"CVE_EMPRESA, \n" +
+							"ID_HISTORICO, \n" +
+							"ID_PRESTAMO, \n" +
+							"ID_ACTIVIDAD_REQUISITO, \n" +
+							"ID_ETAPA_PRESTAMO, \n"+
+							"FECHA_REALIZADA, \n"+
+							"FECHA_REGISTRO, \n"+
+							"ESTATUS, \n"+
+							"CVE_USUARIO, \n"+
+							"ORDEN_ETAPA) \n"+
+							" VALUES (" +
+							"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+							"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_HISTORICO") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_ACTIVIDAD_REQUISITO") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "', \n" +
+							"SYSDATE, \n"+
+							"TO_TIMESTAMP('" + (String)registro.getDefCampo("FECHA_REGISTRO") + "','yyyy-MM-dd HH24:MI:SSXFF'), \n" +
+							"'Completada', \n"+
+							"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+							"'" + (String)registro.getDefCampo("ORDEN_ETAPA") + "') \n" ;
+						
+						PreparedStatement ps11 = this.conn.prepareStatement(sSql);
+						ps11.execute();
+						ResultSet rs11 = ps11.getResultSet();
+					
 					}
 				}
-
+				
+				sSql =  " SELECT DISTINCT ID_ETAPA_PRESTAMO, \n"+
+						" ORDEN_ETAPA \n"+
+						"	  FROM SIM_PRESTAMO_ETAPA \n"+
+						"	  WHERE ORDEN_ETAPA = (SELECT DISTINCT \n"+
+						"	  ORDEN_ETAPA + 1 \n"+
+						" 	  FROM SIM_PRESTAMO_ETAPA \n"+
+						"	  WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+						"	  AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						"	  AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+						"	  AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "') \n"+
+						"	  AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
+				
+				
+				PreparedStatement ps14 = this.conn.prepareStatement(sSql);
+				ps14.execute();
+				ResultSet rs14 = ps14.getResultSet();
+				if(rs14.next()){
+					registro.addDefCampo("ETAPA_PRESTAMO",rs14.getString("ID_ETAPA_PRESTAMO"));
+					sSql =  " UPDATE SIM_PRESTAMO_GPO_DET SET \n"+
+							"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "', \n"+
+							" COMENTARIO 		='' \n"+
+							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+							"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
+				
+					PreparedStatement ps15 = this.conn.prepareStatement(sSql);
+					ps15.execute();
+					ResultSet rs15 = ps15.getResultSet();
+				
+					sSql =  " UPDATE SIM_PRESTAMO SET \n"+
+							"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n"+
+							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
+					
+					PreparedStatement ps16 = this.conn.prepareStatement(sSql);
+					ps16.execute();
+					ResultSet rs16 = ps16.getResultSet();
+	
+					sSql =  " UPDATE SIM_PRESTAMO_ETAPA SET "+
+							" FECHA_REGISTRO 		=SYSDATE, \n" +
+							" ESTATUS 	 		='Registrada', \n" +
+							" COMENTARIO 	 		='' \n" +
+							" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+							" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							" AND ID_ETAPA_PRESTAMO	='" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n";
+			
+					PreparedStatement ps17 = this.conn.prepareStatement(sSql);
+					ps17.execute();
+					ResultSet rs17 = ps17.getResultSet();
+	
+					sSql =  "SELECT \n"+
+							"CVE_GPO_EMPRESA, \n"+
+							"CVE_EMPRESA, \n"+
+							"ID_PRESTAMO, \n"+
+							"ID_ACTIVIDAD_REQUISITO, \n"+
+							"ID_ETAPA_PRESTAMO, \n"+
+							"FECHA_REGISTRO, \n"+
+							"FECHA_REALIZADA, \n"+
+							"COMENTARIO, \n"+
+							"ORDEN_ETAPA, \n"+
+							"ESTATUS \n" +
+							"FROM \n"+
+							"SIM_PRESTAMO_ETAPA \n"+
+							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+							"AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "' \n";
+				
+					PreparedStatement ps18 = this.conn.prepareStatement(sSql);
+					ps18.execute();
+					ResultSet rs18 = ps18.getResultSet();
+				
+					while (rs18.next()){
+						registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs18.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs18.getString("ID_ACTIVIDAD_REQUISITO"));
+						registro.addDefCampo("ETAPA_PRESTAMO",rs18.getString("ID_ETAPA_PRESTAMO")== null ? "": rs18.getString("ID_ETAPA_PRESTAMO"));
+						registro.addDefCampo("ORDEN_ETAPA",rs18.getString("ORDEN_ETAPA")== null ? "": rs18.getString("ORDEN_ETAPA"));
+						registro.addDefCampo("FECHA_REGISTRO",rs18.getString("FECHA_REGISTRO")== null ? "": rs18.getString("FECHA_REGISTRO"));
+						registro.addDefCampo("COMENTARIO",rs18.getString("COMENTARIO")== null ? "": rs18.getString("COMENTARIO"));
+						registro.addDefCampo("ESTATUS",rs18.getString("ESTATUS")== null ? "": rs18.getString("ESTATUS"));
+							
+						sSql = "SELECT SQ01_SIM_PRESTAMO_ACT_REQ_HIST.nextval AS ID_HISTORICO FROM DUAL";
+							
+						PreparedStatement ps19 = this.conn.prepareStatement(sSql);
+						ps19.execute();
+						ResultSet rs19 = ps19.getResultSet();	
+						if (rs19.next()){
+							registro.addDefCampo("ID_HISTORICO",rs19.getString("ID_HISTORICO"));
+							//Actualiza la bitácora.
+							sSql = "INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO ( \n"+
+									"CVE_GPO_EMPRESA, \n" +
+									"CVE_EMPRESA, \n" +
+									"ID_HISTORICO, \n" +
+									"ID_PRESTAMO, \n" +
+									"ID_ACTIVIDAD_REQUISITO, \n" +
+									"ID_ETAPA_PRESTAMO, \n"+
+									"FECHA_REGISTRO, \n"+
+									"ORDEN_ETAPA, \n"+
+									"COMENTARIO, \n"+
+									"ESTATUS) \n" +
+									" VALUES (" +
+									"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+									"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+									"'" + (String)registro.getDefCampo("ID_HISTORICO") + "', \n" +
+									"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+									"'" + (String)registro.getDefCampo("ID_ACTIVIDAD_REQUISITO") + "', \n" +
+									"'" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "', \n" +
+									"TO_TIMESTAMP('" + (String)registro.getDefCampo("FECHA_REGISTRO") + "','yyyy-MM-dd HH24:MI:SSXFF'), \n" +
+									"'" + (String)registro.getDefCampo("ORDEN_ETAPA") + "', \n" +
+									"'" + (String)registro.getDefCampo("COMENTARIO") + "', \n" +
+									"'" + (String)registro.getDefCampo("ESTATUS") + "') \n" ;
+						
+							PreparedStatement ps20 = this.conn.prepareStatement(sSql);
+							ps20.execute();
+							ResultSet rs20 = ps20.getResultSet();
+						}
+					}
+	
+				}
+			
+				///
+				
+				
 			}
-		
-			///
 			
+			sSql =  " SELECT DISTINCT D.ID_ETAPA_PRESTAMO \n" +
+			"		  FROM SIM_PRESTAMO_GPO_DET D, \n" +
+			"		  SIM_PRESTAMO_ETAPA E \n" +
+			"		  WHERE D.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+			"		  AND D.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+			"		  AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +    
+			"		  AND E.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
+			"		 AND E.CVE_EMPRESA = D.CVE_EMPRESA \n" + 
+			"		 AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
+			"		 AND E.ID_ETAPA_PRESTAMO = D.ID_ETAPA_PRESTAMO \n" +
+			"		 AND E.ORDEN_ETAPA = ( \n" +
+			"		 SELECT MIN(ORDEN_ETAPA) FROM \n" +
+			"		 (SELECT D.ID_ETAPA_PRESTAMO, E.ORDEN_ETAPA \n" +
+			"		 FROM SIM_PRESTAMO_GPO_DET D, \n" + 
+			"		 SIM_PRESTAMO_ETAPA E \n" +
+			"		 WHERE D.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+			"		 AND D.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+			"		 AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +    
+			"		 AND E.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
+			"		 AND E.CVE_EMPRESA = D.CVE_EMPRESA \n" + 
+			"		 AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
+			"		 AND E.ID_ETAPA_PRESTAMO = D.ID_ETAPA_PRESTAMO)) \n";
 			
+		PreparedStatement ps22 = this.conn.prepareStatement(sSql);
+		ps22.execute();
+		ResultSet rs22 = ps22.getResultSet();
+	
+		if(rs22.next()){
+			
+			//Pasa a la siguiente etapa.
+			registro.addDefCampo("ETAPA_PRESTAMO",rs22.getString("ID_ETAPA_PRESTAMO"));
+	
+			sSql =  " UPDATE SIM_PRESTAMO_GRUPO SET \n"+
+				"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "', \n"+
+				"B_ENTREGADO = 'V' \n"+
+				"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
+			
+			PreparedStatement ps23 = this.conn.prepareStatement(sSql);
+			ps23.execute();
+			ResultSet rs23 = ps23.getResultSet();
 		}
-		
-		sSql =  " SELECT DISTINCT D.ID_ETAPA_PRESTAMO \n" +
-		"		  FROM SIM_PRESTAMO_GPO_DET D, \n" +
-		"		  SIM_PRESTAMO_ETAPA E \n" +
-		"		  WHERE D.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-		"		  AND D.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-		"		  AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +    
-		"		  AND E.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
-		"		 AND E.CVE_EMPRESA = D.CVE_EMPRESA \n" + 
-		"		 AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
-		"		 AND E.ID_ETAPA_PRESTAMO = D.ID_ETAPA_PRESTAMO \n" +
-		"		 AND E.ORDEN_ETAPA = ( \n" +
-		"		 SELECT MIN(ORDEN_ETAPA) FROM \n" +
-		"		 (SELECT D.ID_ETAPA_PRESTAMO, E.ORDEN_ETAPA \n" +
-		"		 FROM SIM_PRESTAMO_GPO_DET D, \n" + 
-		"		 SIM_PRESTAMO_ETAPA E \n" +
-		"		 WHERE D.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-		"		 AND D.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-		"		 AND D.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +    
-		"		 AND E.CVE_GPO_EMPRESA = D.CVE_GPO_EMPRESA \n" +
-		"		 AND E.CVE_EMPRESA = D.CVE_EMPRESA \n" + 
-		"		 AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
-		"		 AND E.ID_ETAPA_PRESTAMO = D.ID_ETAPA_PRESTAMO)) \n";
-		
-	PreparedStatement ps22 = this.conn.prepareStatement(sSql);
-	ps22.execute();
-	ResultSet rs22 = ps22.getResultSet();
-
-	if(rs22.next()){
-		
-		//Pasa a la siguiente etapa.
-		registro.addDefCampo("ETAPA_PRESTAMO",rs22.getString("ID_ETAPA_PRESTAMO"));
-
-		sSql =  " UPDATE SIM_PRESTAMO_GRUPO SET \n"+
-			"ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ETAPA_PRESTAMO") + "', \n"+
-			"B_ENTREGADO = 'V' \n"+
-			"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
-		
-		PreparedStatement ps23 = this.conn.prepareStatement(sSql);
-		ps23.execute();
-		ResultSet rs23 = ps23.getResultSet();
-	}
 		resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION_GRUPO", sIdTransaccionGrupo);
 		
 	}

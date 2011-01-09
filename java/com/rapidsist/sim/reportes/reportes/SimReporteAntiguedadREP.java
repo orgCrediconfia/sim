@@ -66,6 +66,7 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		"NVL(MONTO_AUTORIZADO,0) + NVL(CARGO_INICIAL,0) MONTO_PRESTADO, \n"+ 
 		"NUM_DIAS_ANTIGUEDAD NUM_DIAS_ATRASO_ACTUAL, \n"+ 
 		"NUM_DIAS_ATRASO_MAX, \n"+
+		"NUM_DIAS_ANTIGUEDAD, \n"+
 		"CVE_CATEGORIA_ATRASO, \n"+
 		"F_PROX_PAGO, \n"+ 
 		"F_ULT_PAGO_REALIZADO, \n"+
@@ -87,23 +88,23 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		"AND V.CVE_EMPRESA = P.CVE_EMPRESA \n";
 	 
 		
-		if (!sIdSucursal.equals("")){
-			sSql = sSql + "AND NOM_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
+		if (!sIdSucursal.equals("null")){
+			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
 		}
 	
-		if (!sIdRegional.equals("")){
-			sSql = sSql + "AND NOM_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
+		if (!sIdRegional.equals("null")){
+			sSql = sSql + "AND ID_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
 		}
 		
-		if (!sCveUsuario.equals("")){
-			sSql = sSql + "AND NOM_COMPLETO_ASESOR = '" + (String)request.getParameter("CveUsuario") + "'\n";
+		if (!sCveUsuario.equals("null")){
+			sSql = sSql + "AND ID_PERSONA = '" + (String)request.getParameter("CveUsuario") + "'\n";
 		}
 							
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
 		parametros.put("NomRegional", sIdRegional);
-		parametros.put("NomSucursal", sIdSucursal);
-		parametros.put("CveUsuario", sCveUsuario);
+		parametros.put("NomSucursal", (String)request.getParameter("IdSucursal"));
+		parametros.put("CveUsuario", (String)request.getParameter("CveUsuario"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteAntiguedad.jasper");
 		parametros.put("NombreReporte", "Antiguedades");
