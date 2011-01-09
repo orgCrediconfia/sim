@@ -49,14 +49,14 @@ public class SimReportesAmortizacionIndREP implements ReporteControlIN {
 					        "CVE_PRESTAMO, \n"+
 					        "NUM_PAGO_AMORTIZACION,\n"+ 
 					        "FECHA_AMORTIZACION, \n"+
-					        "IMP_SALDO_INICIAL, \n"+
+					        "TO_NUMBER (IMP_SALDO_INICIAL, '999G999D0000') IMP_SALDO_INICIAL, \n"+
 					        "TASA_INTERES, \n"+
 					        "INTERES, \n"+
 					        "IMP_CAPITAL_AMORT,\n"+ 
 					        "IMP_PAGO, \n"+
 					        "IMP_ACCESORIO,\n"+ 
 					        "PAGO_TOTAL, \n"+
-					        "IMP_SALDO_FINAL \n"+
+					        "TO_NUMBER (IMP_SALDO_FINAL, '999G999D0000') IMP_SALDO_FINAL \n"+
 					        "FROM  \n"+
 					        "V_TABLA_AMORT_INDIVIDUAL\n"+
 					        "WHERE CVE_GPO_EMPRESA ='" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+

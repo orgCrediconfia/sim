@@ -42,23 +42,23 @@ public class SimReportesAmortizacionREP implements ReporteControlIN {
 		
 		System.out.println("sClave:"+sClave);
 		
-		String sSql = 	"SELECT \n"+ 
-		                    "CVE_GPO_EMPRESA,\n"+ 
-		                    "CVE_EMPRESA,\n"+ 
-		                    "ID_PRESTAMO_GRUPO,\n"+ 
-		                    "CVE_PRESTAMO_GRUPO,\n"+ 
-		                    "NUM_PAGO_AMORTIZACION,\n"+ 
-		                    "FECHA_AMORTIZACION,\n"+ 
-		                    "IMP_SALDO_INICIAL,\n"+ 
-		                    "TASA_INTERES,\n"+ 
-		                    "INTERES,\n"+ 
-		                    "IMP_CAPITAL_AMORT,\n"+ 
-		                    "IMP_PAGO,\n"+ 
-		                    "IMP_ACCESORIO,\n"+ 
-		                    "PAGO_TOTAL,\n"+ 
-		                    "IMP_SALDO_FINAL\n"+ 
-		                    "FROM \n"+ 
-		                    "V_TABLA_AMORTIZACION_GRUPAL\n";
+		String sSql = 		"SELECT  \n"+
+							  "CVE_GPO_EMPRESA,\n"+
+							  "CVE_EMPRESA,\n"+
+							  "ID_PRESTAMO_GRUPO,\n"+
+							  "CVE_PRESTAMO_GRUPO,\n"+
+							  "NUM_PAGO_AMORTIZACION,\n"+
+							  "FECHA_AMORTIZACION,\n"+
+							  "TO_NUMBER (IMP_SALDO_INICIAL, '999G999D0000') IMP_SALDO_INICIAL,\n"+
+							  "TASA_INTERES,\n"+
+							  "INTERES,\n"+
+							  "IMP_CAPITAL_AMORT,\n"+
+							  "IMP_PAGO,\n"+
+							  "IMP_ACCESORIO,\n"+
+							  "PAGO_TOTAL,\n"+
+							  "TO_NUMBER (IMP_SALDO_FINAL, '999G999D0000') IMP_SALDO_FINAL\n"+
+							"FROM \n"+
+							  "V_TABLA_AMORTIZACION_GRUPAL\n";
 		                   
 		
 		                    if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								

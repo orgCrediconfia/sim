@@ -5,10 +5,10 @@
 		 name="SimReportesAmortizacion_subreport2"
 		 columnCount="1"
 		 printOrder="Vertical"
-		 orientation="Portrait"
-		 pageWidth="689"
+		 orientation="Landscape"
+		 pageWidth="1400"
 		 pageHeight="900"
-		 columnWidth="689"
+		 columnWidth="1400"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -80,12 +80,12 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="80"  isSplitAllowed="true" >
+			<band height="54"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
 						y="2"
-						width="689"
+						width="1400"
 						height="20"
 						key="staticText-1"/>
 					<box></box>
@@ -98,7 +98,7 @@
 					<reportElement
 						x="0"
 						y="39"
-						width="136"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -111,7 +111,7 @@
 					<reportElement
 						x="0"
 						y="24"
-						width="136"
+						width="140"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
@@ -122,9 +122,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="136"
+						x="140"
 						y="24"
-						width="219"
+						width="140"
 						height="15"
 						key="staticText-3"/>
 					<box></box>
@@ -135,10 +135,10 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="136"
+						x="140"
 						y="39"
-						width="219"
-						height="41"
+						width="140"
+						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -148,9 +148,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="356"
+						x="280"
 						y="39"
-						width="84"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -161,9 +161,9 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="356"
+						x="280"
 						y="24"
-						width="85"
+						width="140"
 						height="15"
 						key="staticText-4"/>
 					<box></box>
@@ -174,9 +174,9 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="440"
+						x="420"
 						y="39"
-						width="112"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -187,9 +187,9 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="441"
+						x="421"
 						y="24"
-						width="111"
+						width="140"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -201,9 +201,9 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="552"
+						x="561"
 						y="39"
-						width="137"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -214,9 +214,9 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="552"
+						x="561"
 						y="24"
-						width="137"
+						width="140"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
@@ -230,7 +230,7 @@
 					<reportElement
 						x="0"
 						y="1"
-						width="689"
+						width="1400"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -239,7 +239,7 @@
 					<reportElement
 						x="0"
 						y="23"
-						width="689"
+						width="1400"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>

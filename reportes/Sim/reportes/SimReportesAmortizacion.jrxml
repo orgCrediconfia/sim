@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="1290"
+		 pageWidth="1460"
 		 pageHeight="842"
-		 columnWidth="1230"
+		 columnWidth="1400"
 		 columnSpacing="0"
 		 leftMargin="30"
 		 rightMargin="30"
@@ -36,14 +36,14 @@
 	<field name="CVE_PRESTAMO_GRUPO" class="java.lang.String"/>
 	<field name="NUM_PAGO_AMORTIZACION" class="java.math.BigDecimal"/>
 	<field name="FECHA_AMORTIZACION" class="java.sql.Timestamp"/>
-	<field name="IMP_SALDO_INICIAL" class="java.lang.String"/>
+	<field name="IMP_SALDO_INICIAL" class="java.math.BigDecimal"/>
 	<field name="TASA_INTERES" class="java.math.BigDecimal"/>
-	<field name="INTERES" class="java.lang.String"/>
-	<field name="IMP_CAPITAL_AMORT" class="java.lang.String"/>
-	<field name="IMP_PAGO" class="java.lang.String"/>
-	<field name="IMP_ACCESORIO" class="java.lang.String"/>
-	<field name="PAGO_TOTAL" class="java.lang.String"/>
-	<field name="IMP_SALDO_FINAL" class="java.lang.String"/>
+	<field name="INTERES" class="java.math.BigDecimal"/>
+	<field name="IMP_CAPITAL_AMORT" class="java.math.BigDecimal"/>
+	<field name="IMP_PAGO" class="java.math.BigDecimal"/>
+	<field name="IMP_ACCESORIO" class="java.math.BigDecimal"/>
+	<field name="PAGO_TOTAL" class="java.math.BigDecimal"/>
+	<field name="IMP_SALDO_FINAL" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -55,7 +55,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="740"
+						width="1400"
 						height="40"
 						key="subreport-1"/>
 					<subreportParameter  name="IdPrestamoGrupo">
@@ -72,7 +72,7 @@
 					<reportElement
 						x="0"
 						y="1"
-						width="740"
+						width="1400"
 						height="41"
 						key="subreport-2"/>
 					<subreportParameter  name="IdPrestamoGrupoAcc">
@@ -87,9 +87,9 @@
 			<band height="34"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="80"
+						x="140"
 						y="19"
-						width="160"
+						width="140"
 						height="15"
 						key="staticText-1"/>
 					<box></box>
@@ -102,7 +102,7 @@
 					<reportElement
 						x="0"
 						y="19"
-						width="80"
+						width="140"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
@@ -113,9 +113,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="240"
+						x="280"
 						y="19"
-						width="137"
+						width="140"
 						height="15"
 						key="staticText-3"/>
 					<box></box>
@@ -126,9 +126,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="377"
+						x="420"
 						y="19"
-						width="122"
+						width="140"
 						height="15"
 						key="staticText-4"/>
 					<box></box>
@@ -139,9 +139,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="499"
+						x="560"
 						y="19"
-						width="100"
+						width="140"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -152,9 +152,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="599"
+						x="700"
 						y="19"
-						width="120"
+						width="140"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
@@ -165,9 +165,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="719"
+						x="840"
 						y="19"
-						width="141"
+						width="140"
 						height="15"
 						key="staticText-7"/>
 					<box></box>
@@ -178,9 +178,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="860"
+						x="980"
 						y="19"
-						width="120"
+						width="140"
 						height="15"
 						key="staticText-8"/>
 					<box></box>
@@ -191,9 +191,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="980"
+						x="1120"
 						y="19"
-						width="120"
+						width="140"
 						height="15"
 						key="staticText-9"/>
 					<box></box>
@@ -204,9 +204,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1100"
+						x="1260"
 						y="19"
-						width="130"
+						width="140"
 						height="15"
 						key="staticText-10"/>
 					<box></box>
@@ -232,7 +232,7 @@
 					<reportElement
 						x="0"
 						y="2"
-						width="1230"
+						width="1400"
 						height="15"
 						key="staticText-12"/>
 					<box></box>
@@ -245,7 +245,7 @@
 					<reportElement
 						x="0"
 						y="1"
-						width="1230"
+						width="1400"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -254,7 +254,7 @@
 					<reportElement
 						x="0"
 						y="18"
-						width="1230"
+						width="1400"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -267,7 +267,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="80"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -278,120 +278,120 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="80"
+						x="140"
 						y="0"
-						width="160"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA_AMORTIZACION}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="240"
-						y="0"
-						width="137"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMP_SALDO_INICIAL}]]></textFieldExpression>
-				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="377"
+						x="420"
 						y="0"
-						width="122"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TASA_INTERES}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="499"
+						x="560"
 						y="0"
-						width="100"
+						width="140"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{INTERES}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="700"
+						y="0"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{INTERES}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_CAPITAL_AMORT}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="599"
+						x="840"
 						y="0"
-						width="120"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMP_CAPITAL_AMORT}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_PAGO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="719"
-						y="0"
-						width="141"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMP_PAGO}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="860"
-						y="0"
-						width="120"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMP_ACCESORIO}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="980"
 						y="0"
-						width="120"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAGO_TOTAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_ACCESORIO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1100"
+						x="1120"
 						y="0"
-						width="130"
+						width="140"
 						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMP_SALDO_FINAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PAGO_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1260"
+						y="0"
+						width="140"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_FINAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.0000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="280"
+						y="0"
+						width="140"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_INICIAL}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
