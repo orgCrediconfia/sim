@@ -103,7 +103,8 @@ public class SimComiteIntegranteDAO extends Conexion2 implements OperacionConsul
 				" AND U.CVE_USUARIO = C.CVE_INTEGRANTE \n"+
 				" AND P.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n"+
 				" AND P.CVE_EMPRESA = U.CVE_EMPRESA \n"+
-				" AND P.ID_PERSONA = U.ID_PERSONA \n";
+				" AND P.ID_PERSONA = U.ID_PERSONA \n"+
+				" ORDER BY P.NOM_COMPLETO \n";
 				
 		}
 		

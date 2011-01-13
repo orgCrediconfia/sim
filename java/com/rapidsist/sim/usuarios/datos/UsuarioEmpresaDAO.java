@@ -58,9 +58,9 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			" AND P.CVE_GPO_EMPRESA (+)= U.CVE_GPO_EMPRESA \n" +
 			" AND P.CVE_EMPRESA (+)= U.CVE_EMPRESA \n" +
 			" AND P.ID_PERSONA (+)= U.ID_PERSONA \n" +
-			" AND C.CVE_GPO_EMPRESA = U.CVE_GPO_EMPRESA \n" +
-			" AND C.CVE_EMPRESA = U.CVE_EMPRESA \n" +
-			" AND C.CVE_PUESTO = U.CVE_PUESTO \n" +
+			" AND C.CVE_GPO_EMPRESA (+)= U.CVE_GPO_EMPRESA \n" +
+			" AND C.CVE_EMPRESA (+)= U.CVE_EMPRESA \n" +
+			" AND C.CVE_PUESTO (+)= U.CVE_PUESTO \n" +
 			" AND P.FECHA_BAJA_LOGICA IS NULL \n" ;
 			
 		if (parametros.getDefCampo("CLAVE_USUARIO") != null) {

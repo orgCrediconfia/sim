@@ -137,7 +137,8 @@ public class SimComitePrestamoDAO extends Conexion2 implements OperacionConsulta
 					"AND G.ID_PRESTAMO_GRUPO = CP.ID_PRESTAMO_GRUPO \n"+
 					"AND GPO.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+
 					"AND GPO.CVE_EMPRESA = G.CVE_EMPRESA \n"+
-					"AND GPO.ID_GRUPO = G.ID_GRUPO \n";
+					"AND GPO.ID_GRUPO = G.ID_GRUPO \n"+
+					"ORDER BY GPO.NOM_GRUPO \n";
 			
 		}else if (parametros.getDefCampo("CONSULTA").equals("ASIGNADOS_INDIVIDUAL")) {
 			sSql =  "SELECT DISTINCT \n"+
