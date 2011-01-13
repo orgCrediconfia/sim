@@ -38,8 +38,8 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 				"C.CVE_EMPRESA, \n"+
 				"C.CVE_MOVIMIENTO_CAJA, \n"+
 				"M.NOM_MOVIMIENTO_CAJA, \n"+
-				"NVL(C.ID_GRUPO, C.ID_CLIENTE) CLAVE, \n"+
-				"NVL(G.NOM_GRUPO, P.NOM_COMPLETO) NOMBRE, \n"+
+				"DECODE(C.ID_GRUPO,NULL,' ',C.ID_GRUPO||' - '||G.NOM_GRUPO) GRUPO, \n"+
+				"DECODE(C.ID_CLIENTE,NULL,' ',C.ID_CLIENTE||' - '||P.NOM_COMPLETO) CLIENTE, \n"+
 				"C.FECHA_TRANSACCION FECHA, \n"+
 				"TO_CHAR(C.MONTO,'999,999,999.99') MONTO \n"+
 				"FROM SIM_CAJA_TRANSACCION C, \n"+

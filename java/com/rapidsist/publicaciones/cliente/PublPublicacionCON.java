@@ -120,7 +120,7 @@ public class PublPublicacionCON implements CatalogoControlConsultaIN, CatalogoCo
 			registroPublicacion = catalogoSL.getRegistro("PublicacionesPublicacionUsuario", parametros);
 			if (registroPublicacion == null){
 				// NO PUEDE VER LA PUBLICACIÓN
-				registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=Su perfil no tiene acceso a la sección de la publicación";
+				registroControl.sPagina = "/Portales/Sim/CrediConfia/SistemaErrorPagina.jsp?Mensaje=Su perfil no tiene acceso a la sección de la publicación";
 			}
 			else {
 				parametros.addDefCampo("ID_PRIORIDAD",request.getParameter("IdPrioridad"));
@@ -176,7 +176,7 @@ public class PublPublicacionCON implements CatalogoControlConsultaIN, CatalogoCo
 				registroUsuario = catalogoSL.getRegistro("PublicacionesUsuario", parametros);
 				if (registroUsuario == null){
 					// EL USUARIO NO ES USUARIO DE PUBLICACION
-					registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=El usuario no esta dado de alta como usuario de publicaciones y no tiene asignado un perfil de publicación";
+					registroControl.sPagina = "/Portales/Sim/CrediConfia/SistemaErrorPagina.jsp?Mensaje=El usuario no esta dado de alta como usuario de publicaciones y no tiene asignado un perfil de publicación";
 				}
 				else {
 					// EL USUARIO ES USUARIO DE PUBLICACIÓN
@@ -186,7 +186,7 @@ public class PublPublicacionCON implements CatalogoControlConsultaIN, CatalogoCo
 			
 					if (sCvePerfilPub == null){
 						//EL USUARIO DE PUBLICACIÓN NO TIENE UN PERFIL DE PUBLICACIÓN
-						registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=El usuario no tiene asignado un perfil de publicación";
+						registroControl.sPagina = "/Portales/Sim/CrediConfia/SistemaErrorPagina.jsp?Mensaje=El usuario no tiene asignado un perfil de publicación";
 					}
 					else {
 						//EL USUARIO DE PUBLICACIÓN TIENE UN PERFIL DE PUBLICACIÓN
@@ -266,6 +266,8 @@ public class PublPublicacionCON implements CatalogoControlConsultaIN, CatalogoCo
 			String value = mySmartUpload.getRequest().getParameter(name);
 			//ASIGNA EL VALOR AL REGISTRO QUE SE VA A DAR DE ALTA EN LA
 			//BASE DE DATOS
+			System.out.println("name"+name);
+			System.out.println("value"+value);
 			if (name.equals("IdPublicacion")) {
 				registro.addDefCampo("ID_PUBLICACION", value);
 			}
@@ -286,12 +288,11 @@ public class PublPublicacionCON implements CatalogoControlConsultaIN, CatalogoCo
 				registro.addDefCampo("ID_PRIORIDAD", value);
 			}
 			if (name.equals("FIniVigencia")) {
-				dFecha = Fecha2.toDate(value);
-				registro.addDefCampo("F_INI_VIGENCIA", Fecha2.formatoBDStatic(dFecha));
+				registro.addDefCampo("F_INI_VIGENCIA", value);
+				
 			}
 			if (name.equals("FFinVigencia")) {
-				dFecha = Fecha2.toDate(value);
-				registro.addDefCampo("F_FIN_VIGENCIA", Fecha2.formatoBDStatic(dFecha));
+				registro.addDefCampo("F_FIN_VIGENCIA", value);
 			}
 			if (name.equals("IdNivelAcceso")) {
 				registro.addDefCampo("ID_NIVEL_ACCESO", value);
@@ -412,7 +413,9 @@ public class PublPublicacionCON implements CatalogoControlConsultaIN, CatalogoCo
 						sRutaCompletaOrigen = registroControl.resultadoCatalogo.mensaje.getDescripcion();
 						String sRaiz = getRoot(System.getProperty("user.dir"));
 						String sRuta = sRaiz + sRutaCompletaOrigen;
-						iResultadoSave = mySmartUpload.save(sRuta);		
+						iResultadoSave = mySmartUpload.save(sRuta);	
+						System.out.println("NO"+sRuta);
+						System.out.println("Dios sabe"+iResultadoSave);
 					}
 					
 					else {

@@ -90,18 +90,18 @@ public class SimReporteSeguimientoREP implements ReporteControlIN {
 		"AND F_PROX_PAGO >= TO_DATE(F_MEDIO,'DD/MM/YY') \n"+
 		"AND F_PROX_PAGO <= TO_DATE('" + (String) request.getParameter("Fecha") + "','DD/MM/YY') \n";
 		
-		if (!sIdSucursal.equals("")){
-			sSql = sSql + "AND NOM_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
+		if (!sIdSucursal.equals("null")){
+			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
 		}
 	
-		if (!sIdRegional.equals("")){
-			sSql = sSql + "AND NOM_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
+		if (!sIdRegional.equals("null")){
+			sSql = sSql + "AND ID_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
 		}
 		
-		if (!sCveUsuario.equals("")){
-			sSql = sSql + "AND NOM_COMPLETO_ASESOR = '" + (String)request.getParameter("CveUsuario") + "'\n";
+		if (!sCveUsuario.equals("null")){
+			sSql = sSql + "AND ID_PERSONA = '" + (String)request.getParameter("CveUsuario") + "'\n";
 		}
-		
+		System.out.println("seguimiento"+sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
 		parametros.put("NomRegional", sIdRegional);

@@ -252,9 +252,9 @@ public class PublPublicacionDAO extends Conexion2 implements OperacionAlta, Oper
 					"'" + (String)registro.getDefCampo("DESC_PUBLICACION")  + "', \n" +
 					"'" + (String)registro.getDefCampo("URL_PUBLICACION")  + "', \n" +
 					"'" + (String)registro.getDefCampo("URL_IMAGEN")  + "', \n" +
-					"'" + (String)registro.getDefCampo("B_AUTORIZADO")  + "', \n" +
-					"" +(String)registro.getDefCampo("F_INI_VIGENCIA")+",\n"+
-					"" +(String)registro.getDefCampo("F_FIN_VIGENCIA")+",\n"+
+					"'F', \n" +
+					"TO_DATE('" + (String)registro.getDefCampo("F_INI_VIGENCIA") + "','DD/MM/YYYY'), \n" +
+					"TO_DATE('" + (String)registro.getDefCampo("F_FIN_VIGENCIA") + "','DD/MM/YYYY'), \n" +
 					"'0', \n" +
 					"'" + (String)registro.getDefCampo("CVE_USUARIO")  + "', \n" +
 					"'', \n"+

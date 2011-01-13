@@ -86,7 +86,8 @@ public class SimReporteEstadoCuentaIndividualREP implements ReporteControlIN {
 		"    WHEN -(AE.IMP_SALDO_HOY) > 0 \n"+
 		"    THEN 0 \n"+
 		"    ELSE -(AE.IMP_SALDO_HOY) \n"+
-		"  END As SALDO_VENCIDO \n"+
+		"  END As SALDO_VENCIDO, \n"+
+		"AF.PAGOS \n"+
 		  "From V_CREDITO C, \n"+
 		  "PFIN_PARAMETRO P, \n"+
 		  " (SELECT CVE_GPO_EMPRESA, \n"+
@@ -132,7 +133,15 @@ public class SimReporteEstadoCuentaIndividualREP implements ReporteControlIN {
 		  "  WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
 		  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n"+
 		  "  Order By Id_Prestamo \n"+ 
-		  "  ) AE \n"+
+		  "  ) AE, \n"+
+		  "(SELECT CVE_GPO_EMPRESA, \n"+ 
+		  "	       CVE_EMPRESA, \n"+ 
+		  "	       ID_PRESTAMO, \n"+ 
+		  "	       COUNT(FECHA_AMORTIZACION) PAGOS \n"+ 
+		  "	FROM V_TABLA_AMORT_INDIVIDUAL \n"+ 
+		  "	WHERE FECHA_AMORTIZACION <= (SELECT F_MEDIO FROM PFIN_PARAMETRO WHERE CVE_GPO_EMPRESA = 'SIM' AND CVE_EMPRESA = 'CREDICONFIA') \n"+ 
+		  "	GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, ID_PRESTAMO \n"+ 
+		  "	ORDER BY ID_PRESTAMO) AF \n"+ 
 		  "Where  Aplica_A != 'GRUPO' \n"+
 		  "AND P.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 		  "AND P.CVE_EMPRESA = P.CVE_EMPRESA \n"+
@@ -150,14 +159,17 @@ public class SimReporteEstadoCuentaIndividualREP implements ReporteControlIN {
 		  "And Ad.Id_Prestamo (+)       = C.Id_Prestamo \n"+
 		  "AND AE.CVE_GPO_EMPRESA (+)   = C.CVE_GPO_EMPRESA \n"+
 		  "And AE.Cve_Empresa (+)       = C.Cve_Empresa \n"+ 
-		  "And AE.Id_Prestamo (+)       = C.Id_Prestamo \n";
+		  "And AE.Id_Prestamo (+)       = C.Id_Prestamo \n"+
+		  "AND AF.CVE_GPO_EMPRESA (+)   = C.CVE_GPO_EMPRESA \n"+
+		  "And AF.Cve_Empresa (+)       = C.Cve_Empresa \n"+
+		  "And AF.Id_Prestamo (+)       = C.Id_Prestamo \n";
 	 
 		
 		if (!sCvePrestamo.equals("")){
 			sSql = sSql + "AND C.Cve_Prestamo = '" + (String)request.getParameter("CvePrestamo") + "'\n";
 		}
 	
-		
+		System.out.println("Estado de cuenta individual"+sSql);
 							
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);

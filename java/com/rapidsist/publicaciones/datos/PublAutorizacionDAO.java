@@ -72,6 +72,7 @@ public class PublAutorizacionDAO extends Conexion2 implements OperacionAlta, Ope
 			bNomPublicacion = true;
 		}
 		sSql = sSql  + " ORDER BY PUB_PUB.ID_PUBLICACION ";
+		System.out.println("no entendi publicaciones aprobadas"+sSql);
 		ejecutaSql();
 		while (rs.next()){
 			Registro registro= new Registro();

@@ -55,6 +55,7 @@
 	<field name="F_MEDIO" class="java.lang.String"/>
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
 	<field name="TASA_ANUAL" class="java.lang.Float"/>
+	<field name="PAGOS" class="java.lang.String"/>
 
 	<variable name="SumImportePrestado" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{MONTO_PRESTADO}]]></variableExpression>
@@ -409,7 +410,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_PRESTADO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="653"
 						y="21"
@@ -422,7 +423,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_METODO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="431"
 						y="21"
@@ -435,7 +436,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PRODUCTO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="36"
 						y="51"
@@ -448,7 +449,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{VALOR_TASA}+ " %"]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="87"
 						y="51"
@@ -461,7 +462,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_TASA}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="568"
 						y="66"
@@ -474,7 +475,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_SUCURSAL}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="508"
 						y="36"
@@ -487,7 +488,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PLAZO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="36"
 						y="36"
@@ -500,7 +501,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="137"
 						y="36"
@@ -513,7 +514,7 @@
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="648"
 						y="36"
@@ -526,7 +527,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIA_SEMANA_PAGO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="331"
 						y="36"
@@ -539,7 +540,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_PRODUCTO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="207"
 						y="51"
@@ -552,7 +553,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TASA_SUCURSAL} + " %"]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="72"
 						y="66"
@@ -565,7 +566,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{IMP_SALDO_HOY}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="295"
 						y="66"
@@ -578,7 +579,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{SALDO_VENCIDO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="605"
 						y="51"
@@ -591,7 +592,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{CUOTA_INTERES}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="488"
 						y="51"
@@ -604,7 +605,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{CUOTA_CAPITAL}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="724"
 						y="51"
@@ -743,7 +744,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Cuota: " + $F{CVE_NOMBRE} + " - " + $F{NUM_CICLO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="61"
 						y="86"
@@ -769,6 +770,32 @@
 					</textElement>
 				<text><![CDATA[Tasa anual:]]></text>
 				</staticText>
+				<staticText>
+					<reportElement
+						x="172"
+						y="86"
+						width="88"
+						height="15"
+						key="staticText-35"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Pagos Vencidos:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="261"
+						y="86"
+						width="123"
+						height="15"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAGOS} + " de " + $F{PLAZO}]]></textFieldExpression>
+				</textField>
 			</band>
 		</columnHeader>
 		<detail>

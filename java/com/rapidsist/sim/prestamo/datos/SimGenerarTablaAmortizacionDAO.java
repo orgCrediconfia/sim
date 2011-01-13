@@ -53,30 +53,6 @@ public class SimGenerarTablaAmortizacionDAO extends Conexion2 implements Operaci
 			System.out.println("sTxrespuesta"+sTxrespuesta);
 			registro.addDefCampo("RESPUESTA" ,sTxrespuesta);
 			resultadoCatalogo.Resultado = registro;
-			
-			sSql = "SELECT TO_CHAR(TO_DATE(F_MEDIO,'DD-MM-YYYY'),'DD-MON-YY') AS F_MEDIO \n"+
-	        "		FROM PFIN_PARAMETRO \n"+
-	        "		WHERE CVE_GPO_EMPRESA  = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-	        "		AND CVE_EMPRESA      = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
-			ejecutaSql();
-				
-			if (rs.next()){
-				sFMedio = rs.getString("F_MEDIO");
-			}
-
-			CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fActualizaInformacionCredito(?,?,?,?,?)); end;");
-			sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
-			sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
-			sto1.setString(3, (String)registro.getDefCampo("ID_PRESTAMO"));
-			sto1.setString(4, sFMedio);
-			sto1.registerOutParameter(5, java.sql.Types.VARCHAR);
-			
-			//EJECUTA EL PROCEDIMIENTO ALMACENADO
-			sto1.execute();
-			sTxrespuestaActualiza = sto1.getString(5);
-			sto1.close();
-			
-			System.out.println("sTxrespuestaActualiza"+sTxrespuestaActualiza);
 		
 		return resultadoCatalogo;
 	}
