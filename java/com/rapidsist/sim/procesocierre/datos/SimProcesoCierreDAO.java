@@ -100,20 +100,11 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		//COPIA INFORMACION HISTORICA A MYSQL
 		historicoMysql historicoMysql = new historicoMysql();
 		try{
-			conexionOracle.abreConexion("java:comp/env/jdbc/PortalDs");
-			historicoMysql.copyToMysql(conexionOracle.getConexion());
-		}catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		catch(Exception ex){
+			historicoMysql.copyToMysql(conn);
+		}catch(Exception ex){
 			System.out.println(ex.getMessage());
 			System.out.println("YA EXISTEN REGISTROS EN EL HISTORICO");
 		}
-		finally{
-				if (conexionOracle.isConectado()){
-					conexionOracle.cierraConexion();
-				}
-		}		
 		
 		return resultadoCatalogo;
 	}

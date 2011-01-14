@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  * Copyright (0c) 2003 Rapidisist S.A de C.V. Todos los derechos reservados
  */
@@ -15,7 +15,7 @@ import com.rapidsist.portal.configuracion.Usuario;
 import com.rapidsist.publicaciones.datos.PublicacionSL;
 import com.rapidsist.publicaciones.datos.PublicacionSLHome;
 import com.rapidsist.publicaciones.cliente.BorraPublicacion;
-//LIBRERÍAS QUE SE ENCARGAN DE TRABAJAR CON
+//LIBRERï¿½AS QUE SE ENCARGAN DE TRABAJAR CON
 //EL ARCHIVO PARA PODER ALMACENARLO
 import com.jspsmart.upload.File;
 import com.jspsmart.upload.Files;
@@ -33,33 +33,33 @@ import javax.rmi.PortableRemoteObject;
 import java.lang.Object;
 
 /**
- * Esta clase se encarga de administrar los servicios de operación (alta, baja,
- * modificación y consulta) del catálogo de publicaciones. Esta clase es llamada por
+ * Esta clase se encarga de administrar los servicios de operaciï¿½n (alta, baja,
+ * modificaciï¿½n y consulta) del catï¿½logo de publicaciones. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
 public class PublAudioCON implements CatalogoControlConsultaIN, CatalogoControlActualizaIN {
 
 	/**
-	 * Ejecuta los servicios de consulta del catálogo.
-	 * @param parametros Parámetros que se recogen de la sesion del usuario y se le envian a la clase CON.
-	 * Estos parámetros son: CVE_GPO_EMPRESA (Clave del grupo empresa), Filtro (el valor
-	 * del filtro que se debe aplicar solo si se ejecuto el componente de catálogos con
+	 * Ejecuta los servicios de consulta del catï¿½logo.
+	 * @param parametros Parï¿½metros que se recogen de la sesion del usuario y se le envian a la clase CON.
+	 * Estos parï¿½metros son: CVE_GPO_EMPRESA (Clave del grupo empresa), Filtro (el valor
+	 * del filtro que se debe aplicar solo si se ejecuto el componente de catï¿½logos con
 	 * OperacionCatalogo=CT)
-	 * @param request Objeto que provee de información al servlet sobre el request del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletRequest y lo envía como un parámetro a este método.
-	 * @param response Objeto que provee de información del servlet sobre el response del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletResponse y lo envía como un parámetro a este método.
-	 * @param config Objeto que provee de información del servlet sobre el ServletConfig del cliente. El
-	 * contenedor de servlets crea un objeto ServletConfig y lo envía como un parámetro a este método.
+	 * @param request Objeto que provee de informaciï¿½n al servlet sobre el request del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletRequest y lo envï¿½a como un parï¿½metro a este mï¿½todo.
+	 * @param response Objeto que provee de informaciï¿½n del servlet sobre el response del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletResponse y lo envï¿½a como un parï¿½metro a este mï¿½todo.
+	 * @param config Objeto que provee de informaciï¿½n del servlet sobre el ServletConfig del cliente. El
+	 * contenedor de servlets crea un objeto ServletConfig y lo envï¿½a como un parï¿½metro a este mï¿½todo.
 	 * @param catalogoSL Instancia del Ejb CatalogoSL que ejecuta en la base de datos las
 	 * operaciones especificadas en la clase CON
-	 * @param contexto Objeto que contiene información acerca del entorno del servidor de
+	 * @param contexto Objeto que contiene informaciï¿½n acerca del entorno del servidor de
 	 * aplicaciones.
-	 * @param iTipoOperacion Operación que debe ejecutar la clase CON. Las operaciones se encuentran
+	 * @param iTipoOperacion Operaciï¿½n que debe ejecutar la clase CON. Las operaciones se encuentran
 	 * especificadas en la clase {@link com.rapidsist.portal.cliente.CatalogoControl CatalogoControl}
-	 * @return Resultado de la consulta y la página a donde se redirecciona el control.
-	 * @throws RemoteException Si se generó un error en el Ejb CatalogoSL.
-	 * @throws java.lang.Exception Si se generó un error dentro de la clase CON.
+	 * @return Resultado de la consulta y la pï¿½gina a donde se redirecciona el control.
+	 * @throws RemoteException Si se generï¿½ un error en el Ejb CatalogoSL.
+	 * @throws java.lang.Exception Si se generï¿½ un error dentro de la clase CON.
 	 */
 	public RegistroControl consulta(Registro parametros, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
@@ -114,12 +114,12 @@ public class PublAudioCON implements CatalogoControlConsultaIN, CatalogoControlA
 			parametros.addDefCampo("Filtro", "Total");
 			parametros.addDefCampo("ID_PUBLICACION",request.getParameter("IdPublicacion"));
 
-			// VERIFICA SI LA SECCIÓN DE LA PUBLICACION ESTA DADA DE ALTA EN EL PERFIL DE USUARIO
+			// VERIFICA SI LA SECCIï¿½N DE LA PUBLICACION ESTA DADA DE ALTA EN EL PERFIL DE USUARIO
 			Registro registroPublicacion = null;
 			registroPublicacion = catalogoSL.getRegistro("PublicacionesPublicacionUsuario", parametros);
 			if (registroPublicacion == null){
-				// NO PUEDE VER LA PUBLICACIÓN
-				registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=Su perfil no tiene acceso a la sección de la publicación";
+				// NO PUEDE VER LA PUBLICACIï¿½N
+				registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=Su perfil no tiene acceso a la secciï¿½n de la publicaciï¿½n";
 			}
 			else {
 				registroControl.respuesta.addDefCampo("ListaSeccion", catalogoSL.getRegistros("PublicacionesSeccion", parametros));
@@ -138,7 +138,7 @@ public class PublAudioCON implements CatalogoControlConsultaIN, CatalogoControlA
 			if (request.getParameter("Filtro").equals("Alta")){
 				parametros.eliminaCampo("Filtro");
 				parametros.addDefCampo("Filtro", "Total");
-				String sTxComentarioDefault = usuario.sNomCompleto.trim() + ", " + Fecha2.nombreMes(Fecha2.getSysMes()) + " de " + String.valueOf(Fecha2.getSysAño());
+				String sTxComentarioDefault = usuario.sNomCompleto.trim() + ", " + Fecha2.nombreMes(Fecha2.getSysMes()) + " de " + String.valueOf(Fecha2.getSysAno());
 				//SE AUMENTA UN MES A LA FECHA DEL CALENDARIO
 				Date dFecha = new Date();
 				Calendar cal;
@@ -148,7 +148,7 @@ public class PublAudioCON implements CatalogoControlConsultaIN, CatalogoControlA
 
 				String sMesSiguiente = String.valueOf( cal.get(Calendar.MONTH)+1 );
 				//SI EL MES ES DE UN DIGITO SE ANTEPONE UN CERO POR EJEMPLO SI EL MES ES "1" SE
-				//LE AGREGA 0 Y ENTONCES EL MES QUEDARÍA "01"
+				//LE AGREGA 0 Y ENTONCES EL MES QUEDARï¿½A "01"
 				if (sMesSiguiente.length()<=1){
 					sMesSiguiente = "0"+sMesSiguiente;
 				}
@@ -167,27 +167,27 @@ public class PublAudioCON implements CatalogoControlConsultaIN, CatalogoControlA
 				registroControl.sPagina = "/Aplicaciones/Publicaciones/fPublAudioReg.jsp?OperacionCatalogo=AL";
 
 			}else{
-				// VERIFICA SI EL USUARIO ES UN USUARIO DE PUBLICACIÓN
+				// VERIFICA SI EL USUARIO ES UN USUARIO DE PUBLICACIï¿½N
 				parametros.eliminaCampo("Filtro");
 				parametros.addDefCampo("Filtro", "Total");
 				Registro registroUsuario = null;
 				registroUsuario = catalogoSL.getRegistro("PublicacionesUsuario", parametros);
 				if (registroUsuario == null){
 					// EL USUARIO NO ES USUARIO DE PUBLICACION
-					registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=El usuario no esta dado de alta como usuario de publicaciones y no tiene asignado un perfil de publicación";
+					registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=El usuario no esta dado de alta como usuario de publicaciones y no tiene asignado un perfil de publicaciï¿½n";
 				}
 				else {
-					// EL USUARIO ES USUARIO DE PUBLICACIÓN
-					// VERIFICA SI EL USUARIO DE PUBLICACIÓN TIENE UN PERFIL DE PUBLICACIÓN
+					// EL USUARIO ES USUARIO DE PUBLICACIï¿½N
+					// VERIFICA SI EL USUARIO DE PUBLICACIï¿½N TIENE UN PERFIL DE PUBLICACIï¿½N
 					String sCvePerfilPub = "";
 					sCvePerfilPub = (String) registroUsuario.getDefCampo("CVE_PERFIL_PUB");
 			
 					if (sCvePerfilPub == null){
-						//EL USUARIO DE PUBLICACIÓN NO TIENE UN PERFIL DE PUBLICACIÓN
-						registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=El usuario no tiene asignado un perfil de publicación";
+						//EL USUARIO DE PUBLICACIï¿½N NO TIENE UN PERFIL DE PUBLICACIï¿½N
+						registroControl.sPagina = "/Portales/Icmar/SistemaErrorPagina.jsp?Mensaje=El usuario no tiene asignado un perfil de publicaciï¿½n";
 					}
 					else {
-						//EL USUARIO DE PUBLICACIÓN TIENE UN PERFIL DE PUBLICACIÓN
+						//EL USUARIO DE PUBLICACIï¿½N TIENE UN PERFIL DE PUBLICACIï¿½N
 						registroControl.respuesta.addDefCampo("ListaSeccion",  catalogoSL.getRegistros("PublicacionesSeccion", parametros));
 						registroControl.respuesta.addDefCampo("ListaNivel", catalogoSL.getRegistros("PublicacionesNivelAcceso", parametros));
 						
@@ -201,28 +201,28 @@ public class PublAudioCON implements CatalogoControlConsultaIN, CatalogoControlA
 	}
 
 	/**
-	 * Valida los párametros entrada y ejecuta los servicios de alta, baja o cambio.
+	 * Valida los pï¿½rametros entrada y ejecuta los servicios de alta, baja o cambio.
 	 * @param registro Parametros que se recogen de la sesion del usuario y se le envian a la clase CON.
-	 * Estos parámetros son: CVE_GPO_EMPRESA (Clave del grupo empresa), CVE_USUARIO_BITACORA (clave
+	 * Estos parï¿½metros son: CVE_GPO_EMPRESA (Clave del grupo empresa), CVE_USUARIO_BITACORA (clave
 	 * del usuario que realiza la operacion), RegistroOriginal (registro leido originalmente y
-	 * se utiliza cuando se ejecuta la operación de modificacion y se verifica que no se hallan
+	 * se utiliza cuando se ejecuta la operaciï¿½n de modificacion y se verifica que no se hallan
 	 * realizado modificaciones al registro).
-	 * @param request Objeto que provee de información al servlet sobre el request del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletRequest y lo envía como un parámetro a este método.
-	 * @param response Objeto que provee de información del servlet sobre el response del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletResponse y lo envía como un parámetro a este método.
-	 * @param config Objeto que provee de información del servlet sobre el ServletConfig del cliente. El
-	 * contenedor de servlets crea un objeto ServletConfig y lo envía como un parámetro a este método.
+	 * @param request Objeto que provee de informaciï¿½n al servlet sobre el request del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletRequest y lo envï¿½a como un parï¿½metro a este mï¿½todo.
+	 * @param response Objeto que provee de informaciï¿½n del servlet sobre el response del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletResponse y lo envï¿½a como un parï¿½metro a este mï¿½todo.
+	 * @param config Objeto que provee de informaciï¿½n del servlet sobre el ServletConfig del cliente. El
+	 * contenedor de servlets crea un objeto ServletConfig y lo envï¿½a como un parï¿½metro a este mï¿½todo.
 	 * @param catalogoSL Instancia del Ejb CatalogoSL que ejecuta en la base de datos las
 	 * operaciones especificadas en la clase CON
-	 * @param contexto Objeto que contiene información acerca del entorno del servidor de
+	 * @param contexto Objeto que contiene informaciï¿½n acerca del entorno del servidor de
 	 * aplicaciones.
-	 * @param iTipoOperacion Operación que debe ejecutar la clase CON. Las operaciones se encuentran
+	 * @param iTipoOperacion Operaciï¿½n que debe ejecutar la clase CON. Las operaciones se encuentran
 	 * especificadas en la clase {@link com.rapidsist.portal.cliente.CatalogoControl CatalogoControl}
-	 * @return Respuesta del servicio de alta, baja o cambio y la página a donde
+	 * @return Respuesta del servicio de alta, baja o cambio y la pï¿½gina a donde
 	 * se redirecciona el control.
-	 * @throws RemoteException Si se generó un error en el Ejb CatalogoSL.
-	 * @throws java.lang.Exception Si se generó un error dentro de la clase CON.
+	 * @throws RemoteException Si se generï¿½ un error en el Ejb CatalogoSL.
+	 * @throws java.lang.Exception Si se generï¿½ un error dentro de la clase CON.
 	 */
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
