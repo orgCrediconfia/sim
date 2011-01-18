@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimCajaCorte"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="1559"
+		 pageHeight="610"
+		 columnWidth="1549"
+		 columnSpacing="0"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="5"
+		 bottomMargin="5"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdCaja" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="IdSucursal" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaInicial" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="PathLogotipo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaFinal" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte2" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte1" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="FECHA" class="java.util.Date"/>
+	<field name="CLIENTE" class="java.lang.String"/>
+	<field name="GRUPO" class="java.lang.String"/>
+	<field name="NOM_MOVIMIENTO_CAJA" class="java.lang.String"/>
+	<field name="MONTO" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="18"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="2"
+						width="1548"
+						height="16"
+						key="subreport-2"/>
+					<subreportParameter  name="IdCaja">
+						<subreportParameterExpression><![CDATA[$P{IdCaja}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="IdSucursal">
+						<subreportParameterExpression><![CDATA[$P{IdSucursal}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FechaInicial">
+						<subreportParameterExpression><![CDATA[$P{FechaInicial}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FechaFinal">
+						<subreportParameterExpression><![CDATA[$P{FechaFinal}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="0"
+						width="111"
+						height="15"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="116"
+						y="0"
+						width="406"
+						height="15"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_MOVIMIENTO_CAJA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="528"
+						y="0"
+						width="397"
+						height="15"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="928"
+						y="0"
+						width="463"
+						height="15"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CLIENTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1397"
+						y="0"
+						width="152"
+						height="15"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="18"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="1548"
+						height="16"
+						key="subreport-1"/>
+					<subreportParameter  name="IdCaja">
+						<subreportParameterExpression><![CDATA[$P{IdCaja}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="IdSucursal">
+						<subreportParameterExpression><![CDATA[$P{IdSucursal}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FechaInicial">
+						<subreportParameterExpression><![CDATA[$P{FechaInicial}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FechaFinal">
+						<subreportParameterExpression><![CDATA[$P{FechaFinal}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
+				</subreport>
+			</band>
+		</summary>
+</jasperReport>
