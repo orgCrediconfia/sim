@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="1400"
+		 pageWidth="1047"
 		 pageHeight="900"
-		 columnWidth="1400"
+		 columnWidth="1047"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -59,7 +59,7 @@
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
 	<field name="NOM_ACCESORIO" class="java.lang.String"/>
 	<field name="NOM_FORMA_APLICACION" class="java.lang.String"/>
-	<field name="VALOR" class="java.math.BigDecimal"/>
+	<field name="VALOR" class="java.lang.Float"/>
 	<field name="NOM_UNIDAD" class="java.lang.String"/>
 	<field name="NOM_PERIODICIDAD" class="java.lang.String"/>
 
@@ -72,46 +72,12 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</columnHeader>
-		<detail>
-			<band height="54"  isSplitAllowed="true" >
+			<band height="22"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
-						y="2"
-						width="1400"
-						height="20"
-						key="staticText-1"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Cargos y comisiones]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="39"
-						width="140"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_ACCESORIO}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="24"
-						width="140"
+						y="3"
+						width="161"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
@@ -122,9 +88,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="140"
-						y="24"
-						width="140"
+						x="161"
+						y="3"
+						width="277"
 						height="15"
 						key="staticText-3"/>
 					<box></box>
@@ -133,36 +99,10 @@
 					</textElement>
 				<text><![CDATA[Forma de aplicación]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="140"
-						y="39"
-						width="140"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_FORMA_APLICACION}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="280"
-						y="39"
-						width="140"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{VALOR}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
-						x="280"
-						y="24"
+						x="438"
+						y="3"
 						width="140"
 						height="15"
 						key="staticText-4"/>
@@ -172,23 +112,10 @@
 					</textElement>
 				<text><![CDATA[Valor]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="420"
-						y="39"
-						width="140"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_UNIDAD}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
-						x="421"
-						y="24"
+						x="579"
+						y="3"
 						width="140"
 						height="15"
 						key="staticText-5"/>
@@ -199,23 +126,10 @@
 				<text><![CDATA[Unidad
 ]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="561"
-						y="39"
-						width="140"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement>
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PERIODICIDAD}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
-						x="561"
-						y="24"
+						x="719"
+						y="3"
 						width="140"
 						height="15"
 						key="staticText-6"/>
@@ -229,21 +143,85 @@
 				<line direction="TopDown">
 					<reportElement
 						x="0"
-						y="1"
-						width="1400"
-						height="0"
-						key="line-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="23"
-						width="1400"
+						y="18"
+						width="982"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="17"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="161"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_ACCESORIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="1"
+						width="277"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_FORMA_APLICACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="438"
+						y="1"
+						width="140"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{VALOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="578"
+						y="1"
+						width="140"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_UNIDAD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="719"
+						y="1"
+						width="140"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PERIODICIDAD}]]></textFieldExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>
