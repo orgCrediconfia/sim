@@ -42,6 +42,7 @@ public class SimCajaPagoGrupalREP implements ReporteControlIN {
 						"G.NOM_GRUPO, \n"+
 						"T.NUM_CICLO, \n"+ 
 						"T.ID_PRESTAMO, \n"+
+						"'$'||''||TO_CHAR(" + request.getParameter("Importe")+",'999,999,999.00') IMPORTE, \n"+
 						"CANTIDADES_LETRAS(" + request.getParameter("Importe")+") PAGO_LETRAS, \n"+
 						"B.NOM_COMPLETO, \n"+
 						"NVL(P.FECHA_ENTREGA,P.FECHA_REAL) FECHA, \n"+
@@ -105,7 +106,6 @@ public class SimCajaPagoGrupalREP implements ReporteControlIN {
 		parametros.put("FechaReporte", Fecha2.formatoTiempo24(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/caja/SimCajaPagoGrupal.jasper");
 		parametros.put("Reimpresion", sReimpresion);
-		parametros.put("Importe", request.getParameter("Importe"));
 		return parametros;		
 	}
 }

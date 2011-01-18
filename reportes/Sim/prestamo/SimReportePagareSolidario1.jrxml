@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="612"
 		 pageHeight="792"
-		 columnWidth="552"
+		 columnWidth="602"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="5"
+		 bottomMargin="5"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -57,7 +57,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="0"
+						x="20"
 						y="3"
 						width="257"
 						height="14"
@@ -70,13 +70,13 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[SUSCRIPTORES]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="0"
+						x="20"
 						y="1"
 						width="510"
 						height="0"
@@ -86,7 +86,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="257"
+						x="277"
 						y="3"
 						width="253"
 						height="14"
@@ -99,13 +99,13 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[DIRECCION]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="1"
+						x="21"
 						y="17"
 						width="510"
 						height="0"
@@ -135,27 +135,27 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
+						x="20"
 						y="2"
 						width="257"
 						height="13"
 						key="textField-1"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="257"
+						x="277"
 						y="2"
 						width="253"
 						height="13"
 						key="textField-2"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION}]]></textFieldExpression>
 				</textField>

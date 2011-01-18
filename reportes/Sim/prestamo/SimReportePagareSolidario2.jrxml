@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="538"
 		 pageHeight="792"
-		 columnWidth="510"
+		 columnWidth="528"
 		 columnSpacing="28"
-		 leftMargin="14"
-		 rightMargin="14"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="5"
+		 bottomMargin="5"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -50,7 +50,7 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="0"
+						x="18"
 						y="3"
 						width="384"
 						height="14"
@@ -63,13 +63,13 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
-				<text><![CDATA[Nombre de los firmantes, avales solidarios sin restriccioes				]]></text>
+				<text><![CDATA[Nombre de los firmantes, avales solidarios sin restricciones				]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="0"
+						x="18"
 						y="1"
 						width="510"
 						height="0"
@@ -79,7 +79,7 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="383"
+						x="401"
 						y="3"
 						width="127"
 						height="14"
@@ -91,14 +91,14 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[Firma]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="1"
+						x="19"
 						y="18"
 						width="510"
 						height="0"
@@ -112,20 +112,29 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="16"  isSplitAllowed="true" >
+			<band height="28"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
+						x="18"
 						y="3"
 						width="384"
-						height="13"
+						height="24"
 						key="textField"/>
 					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
 				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="18"
+						y="27"
+						width="510"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</detail>
 		<columnFooter>

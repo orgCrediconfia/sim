@@ -27,7 +27,6 @@
 	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="Reimpresion" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="Importe" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="DOMICILIO" class="java.lang.String"/>
@@ -40,6 +39,7 @@
 	<field name="ID_SUCURSAL" class="java.lang.String"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
 	<field name="PAGO_LETRAS" class="java.lang.String"/>
+	<field name="IMPORTE" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -62,7 +62,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="77"
+						y="87"
 						width="40"
 						height="13"
 						key="staticText-1"/>
@@ -75,7 +75,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="93"
+						y="103"
 						width="34"
 						height="13"
 						key="staticText-2"/>
@@ -88,7 +88,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="109"
+						y="119"
 						width="46"
 						height="13"
 						key="staticText-3"/>
@@ -101,7 +101,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="125"
+						y="135"
 						width="58"
 						height="13"
 						key="staticText-4"/>
@@ -140,7 +140,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="231"
+						y="236"
 						width="28"
 						height="13"
 						key="staticText-10"/>
@@ -153,7 +153,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="182"
+						y="187"
 						width="47"
 						height="13"
 						key="staticText-11"/>
@@ -166,7 +166,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="214"
+						y="219"
 						width="126"
 						height="13"
 						key="staticText-12"/>
@@ -187,7 +187,7 @@
 					<textElement textAlignment="Left">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<text><![CDATA[- El pago realizad se aplica al crédito total del grupo.]]></text>
+				<text><![CDATA[El pago realizado se aplica al crédito total del grupo.]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -202,11 +202,11 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOMICILIO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="61"
-						width="13"
+						y="71"
+						width="117"
 						height="13"
 						key="textField-2"/>
 					<box></box>
@@ -215,62 +215,10 @@
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="MMMMM" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="24"
-						y="61"
-						width="24"
-						height="13"
-						key="textField-3"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="60"
-						y="61"
-						width="24"
-						height="13"
-						key="textField-4"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="12"
-						y="61"
-						width="12"
-						height="13"
-						key="staticText-14"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[de]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="48"
-						y="61"
-						width="12"
-						height="13"
-						key="staticText-15"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[de]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="40"
-						y="77"
+						y="87"
 						width="154"
 						height="13"
 						key="textField-5"/>
@@ -283,7 +231,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="35"
-						y="93"
+						y="103"
 						width="159"
 						height="13"
 						key="textField-6"/>
@@ -296,7 +244,7 @@
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="6"
-						y="195"
+						y="200"
 						width="187"
 						height="11"
 						key="textField-7"/>
@@ -309,7 +257,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="28"
-						y="231"
+						y="236"
 						width="161"
 						height="13"
 						key="textField-8"/>
@@ -335,7 +283,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="141"
+						y="151"
 						width="193"
 						height="13"
 						key="textField-10"/>
@@ -348,7 +296,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="157"
+						y="167"
 						width="193"
 						height="13"
 						key="textField-11"/>
@@ -399,10 +347,10 @@
 					</textElement>
 				<text><![CDATA[Re-impresión]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="47"
-						y="182"
+						y="187"
 						width="147"
 						height="13"
 						key="textField-14"/>
@@ -410,7 +358,7 @@
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Importe}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMPORTE}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
