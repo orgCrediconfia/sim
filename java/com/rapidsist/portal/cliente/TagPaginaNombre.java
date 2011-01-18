@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  * Copyright (c) 2003 Rapidisist S.A de C.V. Todos los derechos reservados
  */
@@ -17,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
  * Parametros:
  * <ul>
  *	<li>
- * titulo.- Título de la página
+ * titulo.- Tï¿½tulo de la pï¿½gina
  *  </li>
  *	<li>
- * subtitulo.- Subtítulo de la página
+ * subtitulo.- Subtï¿½tulo de la pï¿½gina
  *  </li>
  *	<li>
- * subtituloalta.- Subtítulo de la página si esta se llama con el parámetro
+ * subtituloalta.- Subtï¿½tulo de la pï¿½gina si esta se llama con el parï¿½metro
  * OperacionCatalogo=AL u OperacionCatalogo=IN
  *  </li>
  * </ul>
@@ -34,14 +34,14 @@ public class TagPaginaNombre extends TagSupport {
 	String sSubtituloalta= "";
 
 	/**
-	 * @param sTitulo Título de la página.
+	 * @param sTitulo Tï¿½tulo de la pï¿½gina.
 	 */
 	public void setTitulo(String sTitulo){
 		this.sTitulo = sTitulo;
 	}
 
 	/**
-	 * @param sSubtitulo Subtitulo de la página.
+	 * @param sSubtitulo Subtitulo de la pï¿½gina.
 	 */
 	public void setSubtitulo(String sSubtitulo){
 		this.sSubtitulo = sSubtitulo;
@@ -55,11 +55,11 @@ public class TagPaginaNombre extends TagSupport {
 	}
 
 	/**
-	 * Método estándar de la interfaz de TagLibs, que es disparado por el contenedor
-	 * de servlets al comenzar la ejecución del TagLib.
+	 * Mï¿½todo estï¿½ndar de la interfaz de TagLibs, que es disparado por el contenedor
+	 * de servlets al comenzar la ejecuciï¿½n del TagLib.
 	 * @return Mensaje al contenedor de servlets que indica como manejar el flujo
-	 * de ejecución del TagLib y el contenido que pueda existir dentro del tag.
-	 * @throws JspException Si hubo algún error durante la ejecución del TagLib.
+	 * de ejecuciï¿½n del TagLib y el contenido que pueda existir dentro del tag.
+	 * @throws JspException Si hubo algï¿½n error durante la ejecuciï¿½n del TagLib.
 	 */
 	public int doStartTag() throws JspException {
 		try{
@@ -76,7 +76,7 @@ public class TagPaginaNombre extends TagSupport {
 					}
 				}
 			}
-			getDiseño3(out);
+			getDiseno3(out);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -85,12 +85,12 @@ public class TagPaginaNombre extends TagSupport {
 	}
 
 	/**
-	 * Obtiene el Diseño1
+	 * Obtiene el Diseï¿½o1
 	 * @param out Objeto tipo JspWriter.
 	 * @param sRutaContexto Ruta de contecto.
-	 * @throws java.lang.Exception Si hubo algún error en la clase controladora.
+	 * @throws java.lang.Exception Si hubo algï¿½n error en la clase controladora.
 	 */
-	public void getDiseño1(JspWriter out, String sRutaContexto) throws Exception{
+	public void getDiseno1(JspWriter out, String sRutaContexto) throws Exception{
 		/*
 		out.println("<div align='right'> <span class='TituloPagina'>" + sTitulo + "</span></div>");
 		out.println("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
@@ -152,12 +152,12 @@ public class TagPaginaNombre extends TagSupport {
 	}
 	
 	/**
-	 * Obtiene el Diseño2.
+	 * Obtiene el Diseï¿½o2.
 	 * @param out Objeto tipo JspWriter.
-	 * @throws java.lang.Exception Si hubo algún error en la clase controladora.
+	 * @throws java.lang.Exception Si hubo algï¿½n error en la clase controladora.
 	 */
 
-	public void getDiseño2(JspWriter out) throws Exception{
+	public void getDiseno2(JspWriter out) throws Exception{
 		out.println("    <!--NOMBRE DE LA PAGINA -->");
 		out.println("    <table border=0 width='100%'>");
 		out.println("      <tr>");
@@ -183,11 +183,11 @@ public class TagPaginaNombre extends TagSupport {
 	}
 
 	/**
-	 * Otiene le Diseño3.
+	 * Otiene le Diseï¿½o3.
 	 * @param out Objeto tipo JspWriter.
-	 * @throws java.lang.Exception Si hubo algún error en la clase controladora.
+	 * @throws java.lang.Exception Si hubo algï¿½n error en la clase controladora.
 	 */
-	public void getDiseño3(JspWriter out) throws Exception{
+	public void getDiseno3(JspWriter out) throws Exception{
 		out.println("\t\t\t\t\t\t<!--NOMBRE DE LA PAGINA -->");
 		out.println("\t\t\t\t\t\t<h2>" + sTitulo + "<br/><em>" + sSubtitulo + "</em></h2>");
 		out.println();
