@@ -4,7 +4,7 @@
 	<Portal:PaginaNombre titulo="Préstamos Grupales" subtitulo="Consulta de datos"/>
 	
 	<Portal:Forma tipo='busqueda' funcion='SimPrestamoGrupal' operacion='CT' filtro='Todos'>
-		<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='10' editarinicializado='true'/>
+		<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='18' editarinicializado='true'/>
 		<Portal:FormaElemento etiqueta='Producto' control='Texto' controlnombre='IdProducto' controllongitud='30' controllongitudmax='30' editarinicializado='true'/>
 		<Portal:FormaElemento etiqueta='Ciclo' control='Texto' controlnombre='NumCiclo' controllongitud='3' controllongitudmax='2' editarinicializado='true'/>
 		<Portal:Calendario2 etiqueta='Fecha de solicitud' contenedor='frmRegistro' controlnombre='FechaSolicitud' controlvalor='${requestScope.registro.campos["FECHA_SOLICITUD"]}'  esfechasis='false'/>
