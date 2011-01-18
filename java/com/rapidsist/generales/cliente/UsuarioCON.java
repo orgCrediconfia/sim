@@ -78,8 +78,8 @@ public class UsuarioCON implements CatalogoControlConsultaIN, CatalogoControlAct
 				parametros.addDefCampo("NOM_COMPLETO", request.getParameter("NomCompleto"));
 			}
 			//VERIFICA SI SE ENVIO EL PARAMETRO USUARIO
-			if (request.getParameter("CveUsuarioBusqueda") != null && !request.getParameter("CveUsuarioBusqueda").equals("")){
-				parametros.addDefCampo("CVE_USUARIO_BUSQUEDA", request.getParameter("CveUsuarioBusqueda"));
+			if (request.getParameter("CveUsuario") != null && !request.getParameter("CveUsuario").equals("")){
+				parametros.addDefCampo("CVE_USUARIO_BUSQUEDA", request.getParameter("CveUsuario"));
 			}
 			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("GeneralesUsuario", parametros));
 
