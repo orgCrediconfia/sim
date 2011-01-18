@@ -38,7 +38,7 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 						"E.TX_DESC_EMPRESA, \n"+
 						"C.ID_SUCURSAL, \n"+
 						"C.DIRECCION_SUCURSAL, \n"+
-						"C.MONTO_AUTORIZADO, \n"+
+						"'$'||''||TO_CHAR(C.MONTO_AUTORIZADO,'999,999,999.00') MONTO_AUTORIZADO, \n"+
 						"CANTIDADES_LETRAS(C.MONTO_AUTORIZADO) MONTO_AUTORIZADO_LETRAS \n"+
 						"FROM V_CREDITO C, \n"+
 						"RS_CONF_EMPRESA E \n"+

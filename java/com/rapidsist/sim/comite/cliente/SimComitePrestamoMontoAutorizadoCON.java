@@ -121,63 +121,58 @@ public class SimComitePrestamoMontoAutorizadoCON implements CatalogoControlConsu
 		int iMonMinPer = 0;
 		int iMonMaxPer = 0;
 		
-		//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
+		//Obtiene los montos autorizados que ingresa el usuario,
+		//trayendo tambien los Id de los cliente, y sus IdPrestamoIndividual.
 		String[] sMontos = request.getParameterValues("MontoAutorizado");
 		String[] sIdCliente = request.getParameterValues("IdCliente");
 		String[] sIdPrestamoIndividual = request.getParameterValues("IdPrestamoIndividual");
+		
+		System.out.println("sMonto"+sMontos);
 		
 		registro.addDefCampo("DAO_MONTOS", sMontos);
 		registro.addDefCampo("DAO_CLIENTE", sIdCliente);
 		registro.addDefCampo("DAO_ID_PRESTAMO_IND", sIdPrestamoIndividual);
 		registro.addDefCampo("ID_PRESTAMO_IND_GPO", request.getParameter("IdPrestamo"));
-		System.out.println("IdPrestamogrupo"+request.getParameter("IdPrestamo"));
 		registro.addDefCampo("PRESTAMO", request.getParameter("Prestamo"));
-		
 		registro.addDefCampo("FECHA_ENTREGA", request.getParameter("FechaDesembolso"));
 		registro.addDefCampo("DIA_SEMANA_PAGO", request.getParameter("DiaSemanaPago"));
 		registro.addDefCampo("APLICA", request.getParameter("Prestamo"));
 		
 		sMontoMaximo = request.getParameter("MontoMaximo");
 		sMontoMinimo = request.getParameter("MontoMinimo");
-		
+
 		fMontoMaximo = (Float.parseFloat(sMontoMaximo));
 		fMontoMinimo = (Float.parseFloat(sMontoMinimo));
 		
-		//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
-		
-		if (sMontos != null) {
-			for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
-				iRegistros = sMontos.length;
-				if (sMontos[iNumParametro] != "") {
-					sMontoAutorizado = sMontos[iNumParametro];
-					fMonto = (Float.parseFloat(sMontoAutorizado));
-					if (fMonto >= fMontoMinimo){
-						iMonMinPer++;
-					}
-					if (fMonto <= fMontoMaximo){
-						iMonMaxPer++;
-					}
+		for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
+			iRegistros = sMontos.length;
+			if (sMontos[iNumParametro] != "") {
+				sMontoAutorizado = sMontos[iNumParametro];
+				fMonto = (Float.parseFloat(sMontoAutorizado));
+				if (fMonto >= fMontoMinimo){
+					iMonMinPer++;
+				}
+				if (fMonto <= fMontoMaximo){
+					iMonMaxPer++;
 				}
 			}
+		}
+		if (iRegistros != iMonMinPer){
+			com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
+			resultadoCatalogoControlado.mensaje.setClave("MONTO_MINIMO_INCORRECTO_GPO");
+			resultadoCatalogoControlado.mensaje.setTipo("Aviso");
+			resultadoCatalogoControlado.mensaje.setDescripcion("Al menos un monto es menor al monto mínimo permitido");
+			registroControl.resultadoCatalogo = resultadoCatalogoControlado;
+		}else if (iRegistros != iMonMaxPer){
+			com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
+			resultadoCatalogoControlado.mensaje.setClave("MONTO_MAXIMO_INCORRECTO_GPO");
+			resultadoCatalogoControlado.mensaje.setTipo("Aviso");
+			resultadoCatalogoControlado.mensaje.setDescripcion("Al menos un monto es mayor al monto máximo permitido");
+			registroControl.resultadoCatalogo = resultadoCatalogoControlado;
+		}else {
+			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimComitePrestamoMontoAutorizado", registro, 1);
 		}	
 		
-		if (sMontos != null) {
-			if (iRegistros != iMonMinPer){
-				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
-				resultadoCatalogoControlado.mensaje.setClave("MONTO_MINIMO_INCORRECTO_GPO");
-				resultadoCatalogoControlado.mensaje.setTipo("Aviso");
-				resultadoCatalogoControlado.mensaje.setDescripcion("Al menos un monto es menor al monto mínimo permitido");
-				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
-			}else if (iRegistros != iMonMaxPer){
-				com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
-				resultadoCatalogoControlado.mensaje.setClave("MONTO_MAXIMO_INCORRECTO_GPO");
-				resultadoCatalogoControlado.mensaje.setTipo("Aviso");
-				resultadoCatalogoControlado.mensaje.setDescripcion("Al menos un monto es mayor al monto máximo permitido");
-				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
-			}else {
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimComitePrestamoMontoAutorizado", registro, 1);//MODIFICACION	
-			}
-		}
 		
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimComite&OperacionCatalogo=CR&IdComite="+request.getParameter("IdComite");
 		

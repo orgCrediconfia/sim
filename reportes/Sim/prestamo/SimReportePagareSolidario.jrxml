@@ -37,7 +37,7 @@
 	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
 	<field name="VALOR_TASA" class="java.lang.String"/>
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
-	<field name="MONTO_AUTORIZADO" class="java.lang.Float"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 	<field name="FECHA_ENTREGA" class="java.lang.String"/>
 	<field name="FECHA_FIN" class="java.lang.String"/>
@@ -68,7 +68,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[PAGARÉ]]></text>
 				</staticText>
@@ -88,7 +88,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[Por este Pagaré los señor(es) firmantes,]]></text>
 				</staticText>
@@ -101,7 +101,7 @@
 						key="textField-1"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Pagaré No.   " + $F{ID_GRUPO} + "-" + $F{NUM_CICLO}]]></textFieldExpression>
 				</textField>
@@ -125,50 +125,30 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="274"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						mode="Opaque"
-						x="-1"
-						y="38"
-						width="552"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="element-143"/>
-					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-</box>
-					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
-					</textElement>
-				<text><![CDATA[a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable. ]]></text>
-				</staticText>
+			<band height="335"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="61"
+						y="76"
 						width="552"
-						height="35"
+						height="54"
 						key="textField-2"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Asimismo, nos obligamos incondicionalmente a pagar intereses ordinarios sobre el saldo global del crédito y los impuestos que genere de acuerdo a la legislación aplicable, pagaderos " + $F{NOM_PERIODICIDAD} + "(es), conjuntamente con el capital y computados por periodos " + $F{NOM_PERIODICIDAD} +  "(es) a la tasa de interés mensual fija de " + $F{VALOR_TASA} + "%."]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="97"
+						y="134"
 						width="552"
-						height="56"
+						height="80"
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["En caso de mora en el pago oportuno de cualquier cantidad adeudada conforme a este Pagare, se generarán intereses moratorios respecto de la o las amortizaciones vencidas que se calcularán multiplicando las mismas por la tasa que resulte de multiplicar por 1.5  veces la tasa de interés mensual fija referida en el párrafo anterior. El porcentaje correspondiente que resulte en caso de mora se calculará por periodos " + $F{NOM_PERIODICIDAD} + "(es), no obstante los días que hayan transcurrido sin haberse realizado el pago " + $F{NOM_PERIODICIDAD} + " respectivo y serán computados desde la fecha en que se debió efectuarse el pago y hasta el pago total del mismo."]]></textFieldExpression>
 				</textField>
@@ -176,9 +156,9 @@
 					<reportElement
 						mode="Opaque"
 						x="-1"
-						y="154"
+						y="218"
 						width="552"
-						height="51"
+						height="43"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="element-144"/>
@@ -188,7 +168,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[Expresamente convenimos, en que por la falta de pago puntual de cualquiera de las cantidades arriba estipuladas se dé por vencido, anticipadamente el saldo pendiente de pago y se procederá al cobro del mismo conjuntamente con los intereses convencionales, impuestos, comisiones, gastos y demás erogaciones existentes. 
 
@@ -198,13 +178,13 @@ Las partes declaran como sus domicilios:
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="208"
+						y="265"
 						width="552"
 						height="12"
 						key="textField-4"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["“DINSA” , " + $F{DIRECCION_SUCURSAL}]]></textFieldExpression>
 				</textField>
@@ -213,18 +193,18 @@ Las partes declaran como sus domicilios:
 						x="-1"
 						y="1"
 						width="552"
-						height="21"
+						height="70"
 						key="textField-5"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["(el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de " + $F{MONTO_AUTORIZADO} + " (" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.), " + "a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable."]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="3"
-						y="220"
+						y="280"
 						width="542"
 						height="50"
 						key="subreport-2"/>
@@ -234,32 +214,6 @@ Las partes declaran como sus domicilios:
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
 				</subreport>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="24"
-						y="22"
-						width="51"
-						height="13"
-						key="textField-6"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="75"
-						y="22"
-						width="476"
-						height="13"
-						key="textField-7"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.),"]]></textFieldExpression>
-				</textField>
 			</band>
 		</detail>
 		<columnFooter>
@@ -318,7 +272,7 @@ Las partes declaran como sus domicilios:
 						x="-1"
 						y="5"
 						width="552"
-						height="23"
+						height="38"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="element-145"/>
@@ -328,22 +282,22 @@ Las partes declaran como sus domicilios:
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[Los Suscriptores por medio del presente PAGARÉ, se obligan a pagar a DINSA, los gastos que impliquen el cobro de este PAGARÉ y los honorarios de los abogados que intervengan en el mismo cobro, en caso de que haya incumplimiento en el pago de este PAGARÉ.]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="32"
+						y="48"
 						width="552"
-						height="24"
+						height="26"
 						key="textField-8"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Los Suscriptores convienen extender el plazo de presentación de este PAGARÉ para efectos del Artículo 128 de la Ley General de Títulos y Operaciones de Crédito al día  "]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los Suscriptores convienen extender el plazo de presentación de este PAGARÉ para efectos del Artículo 128 de la Ley General de Títulos y Operaciones de Crédito al día  " + $F{FECHA_FIN}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -361,7 +315,7 @@ Las partes declaran como sus domicilios:
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 </box>
 					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
 				<text><![CDATA[Este PAGARE consta de dos páginas, mismas que ha sido debidamente suscrita por los Suscriptores.
 
@@ -375,44 +329,18 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 						x="-1"
 						y="158"
 						width="552"
-						height="14"
+						height="27"
 						key="textField-9"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Este Pagaré se firma en la Ciudad de   " +$F{DIRECCION_SUCURSAL} + " el"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="-1"
-						y="175"
-						width="112"
-						height="13"
-						key="textField-10"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_ENTREGA}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="60"
-						width="121"
-						height="13"
-						key="textField-11"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Este Pagaré se firma en la Ciudad de   " + $F{DIRECCION_SUCURSAL} + " el " + $F{FECHA_ENTREGA}]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="1"
-						y="191"
+						y="188"
 						width="542"
 						height="106"
 						key="subreport-3"/>

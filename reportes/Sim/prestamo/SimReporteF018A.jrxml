@@ -32,12 +32,16 @@
 
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
 	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
-	<field name="MONTO_FIJO_PERIODO" class="java.lang.Float"/>
-	<field name="MONTO_AUTORIZADO" class="java.lang.Float"/>
+	<field name="MONTO_FIJO_PERIODO" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 	<field name="MONTO_FIJO_PERIODO_LETRAS" class="java.lang.String"/>
 	<field name="FECHA_INICIO" class="java.lang.String"/>
 	<field name="ID_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="NOM_SUCURSAL" class="java.lang.String"/>
+	<field name="ID_GRUPO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.lang.String"/>
+	<field name="NOM_GRUPO" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -48,12 +52,12 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="139"  isSplitAllowed="true" >
+			<band height="116"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="0"
-						width="552"
+						y="15"
+						width="430"
 						height="13"
 						key="textField-1">
 							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
@@ -62,27 +66,14 @@
 					<textElement>
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL} + ", México, a "]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="12"
-						width="165"
-						height="13"
-						key="textField-2"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL} + ", México, a " + $F{FECHA_INICIO}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="0"
-						y="30"
+						y="31"
 						width="552"
-						height="48"
+						height="26"
 						key="staticText-6"/>
 					<box></box>
 					<textElement>
@@ -90,15 +81,13 @@
 					</textElement>
 				<text><![CDATA[DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R.
 CrediConfía.
-Canoa 521 oficina 502,
-Tizapan, San Angel,
-México, D.F. 01090.
+
 ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="0"
-						y="84"
+						y="61"
 						width="552"
 						height="13"
 						key="staticText-7"/>
@@ -108,71 +97,64 @@ México, D.F. 01090.
 					</textElement>
 				<text><![CDATA[LECTURA OBLIGATORIA DEL CLIENTE]]></text>
 				</staticText>
-				<staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="110"
-						width="153"
-						height="13"
-						key="staticText-8"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Le informamos que recibimos la cantidad de]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="123"
+						y="87"
 						width="552"
-						height="16"
-						key="staticText-9"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[del crédito documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma:]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="154"
-						y="110"
-						width="51"
-						height="13"
+						height="29"
 						key="textField-3"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Le informamos que recibimos la cantidad de " + $F{MONTO_AUTORIZADO} + " pesos M.N. " + "(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.)," + " del crédito " + $F{ID_GRUPO} + "-" +$F{NUM_CICLO}+ " documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma: "]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="255"
-						y="110"
-						width="296"
+						x="0"
+						y="0"
+						width="270"
 						height="13"
-						key="textField-4"/>
+						key="textField-6">
+							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
+						</reportElement>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.),"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sucursal: " + $F{NOM_SUCURSAL}]]></textFieldExpression>
 				</textField>
-				<staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="206"
-						y="110"
-						width="47"
+						x="282"
+						y="0"
+						width="270"
 						height="13"
-						key="staticText-10"/>
+						key="textField-7">
+							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
+						</reportElement>
 					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[pesos M.N.]]></text>
-				</staticText>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Nombre del grupo: " + $F{NOM_GRUPO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="430"
+						y="15"
+						width="122"
+						height="13"
+						key="textField-8">
+							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Id Crédito: " + $F{ID_GRUPO}]]></textFieldExpression>
+				</textField>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -180,13 +162,13 @@ México, D.F. 01090.
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="71"  isSplitAllowed="true" >
+			<band height="46"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="5"
 						y="0"
 						width="542"
-						height="69"
+						height="45"
 						key="subreport-1"
 						positionType="Float"/>
 					<subreportParameter  name="IdPrestamo">
@@ -263,7 +245,7 @@ México, D.F. 01090.
 			</band>
 		</lastPageFooter>
 		<summary>
-			<band height="304"  isSplitAllowed="true" >
+			<band height="231"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
@@ -280,53 +262,25 @@ México, D.F. 01090.
 				<staticText>
 					<reportElement
 						x="0"
-						y="25"
+						y="66"
 						width="552"
-						height="22"
-						key="staticText-12"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[1)	De registrarse atraso en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar por cada retraso en el pago de cualquier cuota una penalidad de ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="62"
-						width="206"
-						height="13"
-						key="staticText-13"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[que serán causados al momento de cada incumplimiento.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="83"
-						width="552"
-						height="98"
+						height="81"
 						key="staticText-14"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[2)	De registrarse atrasos con más de 45 días en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar gastos de gestión por $400.00 (cuatrocientos pesos 00/100 M.N.)  que serán causados al momento de dicho incumplimiento.
+				<text><![CDATA[2)	De registrarse atrasos con más de 45 días en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar gastos de gestión por grupo $ 400.00 (cuatrocientos pesos 00/100 M.N.)  que serán causados al momento de dicho incumplimiento.
 
-
-3)	Asimismo, en caso de registrarse atrasos con más de 120 días en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar gastos de recuperación por $1,000.00 (mil pesos 00/100 M.N.)  que serán causados al momento de dicho incumplimiento.
-
+3)	Asimismo, en caso de registrarse atrasos con más de 120 días en el pago puntual de las cantidades señaladas en el Pagaré, nos obligamos a pagar gastos de recuperación por grupo por $ 1,000.00 (mil pesos 00/100 M.N.)  que serán causados al momento de dicho incumplimiento.
 
 4)   Autorizamos a Desarrolladora e Impulsora de Negocios, S.A. de C.V. SOFOM E.N.R.  para que contrate con Seguros Argos, S.A. de C.V.  un seguro de cobertura de saldo deudor,  obligándonos a cubrir las primas por la contratación de este seguro. 
 ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="189"
+						x="0"
+						y="152"
 						width="206"
 						height="13"
 						key="staticText-15"/>
@@ -338,8 +292,8 @@ México, D.F. 01090.
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="206"
+						x="0"
+						y="169"
 						width="206"
 						height="13"
 						key="staticText-16"/>
@@ -352,9 +306,9 @@ México, D.F. 01090.
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="5"
-						y="223"
+						y="182"
 						width="542"
-						height="80"
+						height="47"
 						key="subreport-2"
 						positionType="Float"/>
 					<subreportParameter  name="IdPrestamo">
@@ -363,31 +317,18 @@ México, D.F. 01090.
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
 				</subreport>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="49"
-						y="47"
-						width="54"
-						height="13"
+						x="0"
+						y="32"
+						width="552"
+						height="33"
 						key="textField-5"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_FIJO_PERIODO}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="104"
-						y="47"
-						width="426"
-						height="13"
-						key="textField-6"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["(" + $F{MONTO_FIJO_PERIODO_LETRAS} + "00/100 M.N.)"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1)	De registrarse atraso en el pago puntual de las cantidades señaladas en el Pagaré, cada integrante del grupo nos obligamos a pagar por cada retraso en el pago de cualquier cuota una penalidad de " + $F{MONTO_FIJO_PERIODO} +  " (" + $F{MONTO_FIJO_PERIODO_LETRAS} + "00/100 M.N.)" + " que serán causados al momento de cada incumplimiento."]]></textFieldExpression>
 				</textField>
 			</band>
 		</summary>

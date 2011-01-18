@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="566"
 		 pageHeight="792"
-		 columnWidth="506"
+		 columnWidth="556"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="5"
+		 bottomMargin="5"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -25,7 +25,7 @@
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 
-M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO) MONTO_AUTORIZADO,
+'$'||''||TO_CHAR(M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO),'999,999,999.00') MONTO_AUTORIZADO,
 CANTIDADES_LETRAS(M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO)) MONTO_AUTORIZADO_LETRAS,
 P.NOM_COMPLETO
 FROM
@@ -42,7 +42,7 @@ AND C.ID_PRESTAMO (+)        = M.ID_PRESTAMO
 AND C.ID_FORMA_APLICACION (+)= 1
 AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 
-	<field name="MONTO_AUTORIZADO" class="java.lang.Float"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 	<field name="NOM_COMPLETO" class="java.lang.String"/>
 
@@ -58,7 +58,7 @@ AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 			<band height="3"  isSplitAllowed="true" >
 				<line direction="TopDown">
 					<reportElement
-						x="0"
+						x="16"
 						y="1"
 						width="506"
 						height="0"
@@ -76,7 +76,7 @@ AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 			<band height="19"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="5"
+						x="21"
 						y="4"
 						width="200"
 						height="13"
@@ -87,31 +87,18 @@ AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="206"
+						x="222"
 						y="4"
-						width="95"
+						width="300"
 						height="13"
 						key="textField-2"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO_AUTORIZADO}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="301"
-						y="4"
-						width="200"
-						height="13"
-						key="textField-3"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO} + " " + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N."]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
@@ -123,7 +110,7 @@ AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 			<band height="3"  isSplitAllowed="true" >
 				<line direction="TopDown">
 					<reportElement
-						x="0"
+						x="16"
 						y="2"
 						width="506"
 						height="0"

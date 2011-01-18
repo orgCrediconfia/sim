@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="566"
 		 pageHeight="792"
-		 columnWidth="506"
+		 columnWidth="556"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="5"
+		 rightMargin="5"
+		 topMargin="5"
+		 bottomMargin="5"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -46,11 +46,11 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 			</band>
 		</title>
 		<pageHeader>
-			<band height="17"  isSplitAllowed="true" >
+			<band height="15"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="0"
+						x="16"
 						y="0"
 						width="260"
 						height="13"
@@ -70,7 +70,7 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="260"
+						x="276"
 						y="0"
 						width="246"
 						height="13"
@@ -89,7 +89,7 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="0"
+						x="16"
 						y="12"
 						width="506"
 						height="2"
@@ -107,7 +107,7 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 			<band height="23"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
+						x="16"
 						y="0"
 						width="260"
 						height="23"
@@ -125,7 +125,7 @@ AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="260"
+						x="276"
 						y="0"
 						width="246"
 						height="23"

@@ -22,8 +22,10 @@
 		<Portal:FormaElemento etiqueta='Comentario' control='Texto' controlnombre='Comentario' controlvalor='${requestScope.registro.campos["COMENTARIO"]}' controllongitud='80' controllongitudmax='100' editarinicializado='true' obligatorio='false'/>
 		
 		<Portal:FormaBotones>
-			<Portal:FormaBotonAltaModificacion/>
-			<Portal:FormaBotonBaja/>
+			<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] != "V"}'>
+				<Portal:FormaBotonAltaModificacion/>
+			</c:if>
+				<Portal:FormaBotonBaja/>
 		</Portal:FormaBotones>
 		
 	</Portal:Forma>

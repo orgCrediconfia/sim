@@ -48,7 +48,6 @@ public class UsuarioAsesorSucursalDAO extends Conexion2 implements OperacionCons
 		"AND S.ID_SUCURSAL = P.ID_SUCURSAL \n" +
 		"AND P.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n" ;
 		
-			
 		ejecutaSql();
 		return getConsultaLista();
 	}
