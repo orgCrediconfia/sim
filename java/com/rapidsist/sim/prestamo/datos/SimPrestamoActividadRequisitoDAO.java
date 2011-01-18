@@ -96,9 +96,11 @@ public class SimPrestamoActividadRequisitoDAO extends Conexion2 implements Opera
 			" 	PAR.FECHA_REALIZADA, \n"+
 			" 	P.APLICA_A, \n"+
 			" 	PAR.ESTATUS, \n"+
-			" 	PAR.COMENTARIO \n"+
+			" 	PAR.COMENTARIO, \n"+
+			" 	E.B_AUTORIZAR_COMITE \n"+
 			" FROM SIM_PRESTAMO_ETAPA PAR, \n"+
-			" 	   SIM_PRESTAMO P \n"+
+			" 	   SIM_PRESTAMO P, \n"+
+			" 	   SIM_CAT_ETAPA_PRESTAMO E \n"+
 			" WHERE PAR.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			" AND PAR.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			" AND PAR.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
@@ -106,7 +108,10 @@ public class SimPrestamoActividadRequisitoDAO extends Conexion2 implements Opera
 			" AND PAR.ID_ETAPA_PRESTAMO = '" + (String)parametros.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n"+
 			" AND P.CVE_GPO_EMPRESA = PAR.CVE_GPO_EMPRESA \n" +
 			" AND P.CVE_EMPRESA = PAR.CVE_EMPRESA \n" +
-			" AND P.ID_PRESTAMO = PAR.ID_PRESTAMO \n" ;
+			" AND P.ID_PRESTAMO = PAR.ID_PRESTAMO \n" +
+			" AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
+			" AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
+			" AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" ;
 		
 		ejecutaSql();
 		return this.getConsultaRegistro();

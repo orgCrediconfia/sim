@@ -66,6 +66,7 @@ public class SimReporteVencimientosREP implements ReporteControlIN {
 		"NVL(MONTO_AUTORIZADO,0) + NVL(CARGO_INICIAL,0) MONTO_PRESTADO, \n"+ 
 		"NUM_DIAS_ATRASO_ACTUAL, \n"+ 
 		"NUM_DIAS_ATRASO_MAX, \n"+
+		"NUM_DIAS_ANTIGUEDAD, \n"+
 		"CVE_CATEGORIA_ATRASO, \n"+
 		"F_PROX_PAGO, \n"+ 
 		"F_ULT_PAGO_REALIZADO, \n"+

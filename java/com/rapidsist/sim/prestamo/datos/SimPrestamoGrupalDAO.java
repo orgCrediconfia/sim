@@ -132,7 +132,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 				"PG.TIPO_TASA, \n"+
 				"E.B_ENTREGADO, \n"+
 				"E.B_CANCELADO, \n"+
-				
+				"E.B_AUTORIZAR_COMITE, \n"+
 				"DECODE(PG.ID_PERIODICIDAD_TASA,NULL,(SELECT ID_PERIODICIDAD \n" +
 				"		FROM SIM_CAT_TASA_REFERENCIA \n" +
 				"		WHERE ID_TASA_REFERENCIA = (SELECT ID_TASA_REFERENCIA \n" +
