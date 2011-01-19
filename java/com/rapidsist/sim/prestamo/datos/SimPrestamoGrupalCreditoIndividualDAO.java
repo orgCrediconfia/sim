@@ -294,21 +294,35 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					}	
 				}
 		}else if (registro.getDefCampo("ALTA").equals("CREDITO_INDIVIDUAL")) {
+		System.out.println("credito individual pasa por aqui");
 		
-			sSql =  "INSERT INTO SIM_GRUPO_FUNDADOR ( "+
+			sSql =  "SELECT \n"+
 					"CVE_GPO_EMPRESA, \n" +
 					"CVE_EMPRESA, \n" +
 					"ID_GRUPO, \n" +
-					"ID_INTEGRANTE) \n" +
-					" VALUES (" +
-					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
-			
-			PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-			ps2.execute();
-			ResultSet rs2 = ps2.getResultSet();	
+					"ID_INTEGRANTE \n" +
+					"FROM SIM_GRUPO_FUNDADOR \n" +
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n"+
+					"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_CLIENTE") + "' \n";
+			ejecutaSql();
+			if (!rs.next()){
+				sSql =  "INSERT INTO SIM_GRUPO_FUNDADOR ( "+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_GRUPO, \n" +
+						"ID_INTEGRANTE) \n" +
+						" VALUES (" +
+						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
+				System.out.println("A"+sSql);
+				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+				ps2.execute();
+				ResultSet rs2 = ps2.getResultSet();
+			}
 			
 			sSql = "SELECT \n"+
 					"PC.CVE_GPO_EMPRESA, \n"+
@@ -342,7 +356,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					"AND P.CVE_GPO_EMPRESA = PC.CVE_GPO_EMPRESA \n"+
 					"AND P.CVE_EMPRESA = PC.CVE_EMPRESA \n"+
 					"AND P.ID_PRODUCTO = PC.ID_PRODUCTO \n";
-			
+			System.out.println("B");
 			PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 			ps3.execute();
 			ResultSet rs3 = ps3.getResultSet();	
