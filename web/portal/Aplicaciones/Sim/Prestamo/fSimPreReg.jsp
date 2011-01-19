@@ -104,26 +104,35 @@
 				</tr>
 				-->
 				</c:if>
-			<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
-				<Portal:FormaElemento etiqueta='Estatus del pr&eacute;stamo' control='selector' controlnombre='IdEstatusPrestamo' controlvalor='${requestScope.registro.campos["ID_ETAPA_PRESTAMO"]}' editarinicializado='false' obligatorio='false' campoclave="ID_ETAPA_PRESTAMO" campodescripcion="NOM_ESTATUS_PRESTAMO" datosselector='${requestScope.ListaEstatusPrestamo}'/>	
-				<input type="hidden" name="EstatusPrestamo" value='<c:out value='${requestScope.registro.campos["ID_ETAPA_PRESTAMO"]}'/>' />
-			</c:if>
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
+						<Portal:FormaElemento etiqueta='Estatus del pr&eacute;stamo' control='selector' controlnombre='IdEstatusPrestamo' controlvalor='${requestScope.registro.campos["ID_ETAPA_PRESTAMO"]}' editarinicializado='false' obligatorio='false' campoclave="ID_ETAPA_PRESTAMO" campodescripcion="NOM_ESTATUS_PRESTAMO" datosselector='${requestScope.ListaEstatusPrestamo}'/>	
+						<input type="hidden" name="EstatusPrestamo" value='<c:out value='${requestScope.registro.campos["ID_ETAPA_PRESTAMO"]}'/>' />
+					</c:if>
+				</c:if>
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] == "16")}'>
+					<Portal:FormaElemento etiqueta='Estatus del pr&eacute;stamo' control='Texto' controlnombre='IdEtapaPrestamo' controlvalor='${requestScope.registro.campos["NOM_ESTATUS_PRESTAMO"]}' controllongitud='6' controllongitudmax='6' editarinicializado='false' obligatorio='false'/>		
+				</c:if>
 		
 		</c:if>
 		
 		<Portal:FormaBotones>
-			<c:if test='${(requestScope.registro.campos["ID_PRESTAMO"] == null)}'>
-				<input type='button' name='Aceptar' value='Aceptar' onClick='fAsignaClienteGrupo()'/>
-			</c:if>
-			<c:if test='${(requestScope.registro.campos["ID_PRESTAMO"] != null)}'>
-				<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] == null)}'>
-					<input type='button' name='Aceptar' value='Aceptar' onClick='fAceptar()'/>
+			<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+				<c:if test='${(requestScope.registro.campos["ID_PRESTAMO"] == null)}'>
+					<input type='button' name='Aceptar' value='Aceptar' onClick='fAsignaClienteGrupo()'/>
+				</c:if>
+				<c:if test='${(requestScope.registro.campos["ID_PRESTAMO"] != null)}'>
+					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] == null)}'>
+						<input type='button' name='Aceptar' value='Aceptar' onClick='fAceptar()'/>
+					</c:if>
+					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
+						<input type='button' name='Aceptar' value='Aceptar' onClick='fModificar()'/>
+					</c:if>
 				</c:if>
 				<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
-					<input type='button' name='Aceptar' value='Aceptar' onClick='fModificar()'/>
+					<input type='button' name='Baja' value='Baja' onClick='fBaja()'/>
 				</c:if>
 			</c:if>
-			<Portal:FormaBotonBaja/>
 		</Portal:FormaBotones>
 		
 	</Portal:Forma>	
@@ -169,8 +178,10 @@
 				</Portal:TablaListaRenglon>
 			</c:forEach>
 			<Portal:FormaBotones>
-				<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
-					<Portal:Boton tipo='url' etiqueta='Regresar etapa' url='/ProcesaCatalogo?Funcion=SimPrestamoActividadEtapaReproceso&OperacionCatalogo=AL&IdPrestamo=${requestScope.registro.campos["ID_PRESTAMO"]}&IdEtapaPrestamo=${requestScope.registro.campos["ID_ETAPA_PRESTAMO"]}'/>
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+					<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
+						<Portal:Boton tipo='url' etiqueta='Regresar etapa' url='/ProcesaCatalogo?Funcion=SimPrestamoActividadEtapaReproceso&OperacionCatalogo=AL&IdPrestamo=${requestScope.registro.campos["ID_PRESTAMO"]}&IdEtapaPrestamo=${requestScope.registro.campos["ID_ETAPA_PRESTAMO"]}'/>
+					</c:if>
 				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
@@ -207,7 +218,9 @@
 				</Portal:TablaListaRenglon>
 			</c:forEach>
 			<Portal:FormaBotones>
-				<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+					<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
 		
@@ -232,7 +245,9 @@
 				</Portal:TablaListaRenglon>
 			</c:forEach>
 			<Portal:FormaBotones>
-				<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+					<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
 		
@@ -253,7 +268,9 @@
 				</Portal:TablaListaRenglon>
 			</c:forEach>
 			<Portal:FormaBotones>
-				<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+					<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
 		
@@ -294,8 +311,10 @@
 				</Portal:TablaListaRenglon>
 			</c:forEach>
 			<Portal:FormaBotones>
-				<Portal:Boton tipo='url' etiqueta='Alta' url='/ProcesaCatalogo?Funcion=SimPrestamoGarantia&OperacionCatalogo=CT&Filtro=Disponibles&IdPrestamo=${requestScope.registro.campos["ID_PRESTAMO"]}&IdPersona=${requestScope.registro.campos["ID_CLIENTE"]}'/>
-				<Portal:Boton tipo='submit' etiqueta='Baja' />
+				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+					<Portal:Boton tipo='url' etiqueta='Alta' url='/ProcesaCatalogo?Funcion=SimPrestamoGarantia&OperacionCatalogo=CT&Filtro=Disponibles&IdPrestamo=${requestScope.registro.campos["ID_PRESTAMO"]}&IdPersona=${requestScope.registro.campos["ID_CLIENTE"]}'/>
+					<Portal:Boton tipo='submit' etiqueta='Baja' />
+				</c:if>
 			</Portal:FormaBotones>				
 		</Portal:TablaForma>
 		
@@ -325,9 +344,11 @@
 					
 			</c:forEach>
 		</table>
-		<div class='SeccionBotones'>
-			<input type="submit" name="btnSubmit" value="Alta"/>			
-		</div>					
+		<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
+			<div class='SeccionBotones'>
+				<input type="submit" name="btnSubmit" value="Alta"/>			
+			</div>	
+		</c:if>			
 		</form>
 		<br/>	
 		
@@ -386,6 +407,11 @@
 			var CveTipoPersona = sCveTipoPersona;
 				MM_openBrWindow('/portal/Aplicaciones/Sim/Personas/fSimCliCon.jsp?TipoPersona='+CveTipoPersona+'&Ventana=Si','Acepta','status=yes,scrollbars=yes,resizable=yes,width=700,height=500');
 			
+		}
+		
+		function fBaja(){
+			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=BA&IdPrestamo="+document.frmRegistro.IdPrestamo.value;
+			document.frmRegistro.submit();	
 		}
 		
 		

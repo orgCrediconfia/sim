@@ -848,14 +848,15 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 		 */
 		public ResultadoCatalogo baja(Registro registro) throws SQLException{
 			ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
-			sSql =  " DELETE FROM SIM_PRESTAMO " +
-				" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-				" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
+			sSql =  " UPDATE SIM_PRESTAMO SET \n" +
+					" ID_ETAPA_PRESTAMO = '16' \n" +
+					" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+			//VERIFICA SI DIO DE ALTA EL REGISTRO
+			if (ejecutaUpdate() == 0){
+				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+			}
 	
 		return resultadoCatalogo;
 	}

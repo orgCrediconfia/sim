@@ -189,9 +189,12 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 		
 		if (iTipoOperacion == 1){
 			sIdPrestamo = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_PRESTAMO");
+			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+sIdPrestamo+"&Alta=Si";
+		}else if (iTipoOperacion == 2){
+			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+request.getParameter("IdPrestamo")+"&Alta=No";
 		}
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+sIdPrestamo+"&Alta=Si";
+		
 		return registroControl;
 	}
 }
