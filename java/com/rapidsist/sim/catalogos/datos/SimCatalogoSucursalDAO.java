@@ -267,10 +267,40 @@ public class SimCatalogoSucursalDAO extends Conexion2 implements OperacionConsul
 			}
 			resultadoCatalogo.Resultado.addDefCampo("ID_SUCURSAL", sIdSucursal);
 			
+			//Consulta los productos que tienen la bandera de todas las sucursales encendida.
+			sSql =  "SELECT  \n"+
+					"CVE_GPO_EMPRESA, \n" +
+					"CVE_EMPRESA, \n" +
+					"ID_PRODUCTO, \n" +
+					"B_SUCURSALES \n" +
+					"FROM SIM_PRODUCTO \n" +
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+					"AND B_SUCURSALES = 'V' \n" ;
+			PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+			ps1.execute();
+			ResultSet rs1 = ps1.getResultSet();
+			while (rs1.next()){
+				registro.addDefCampo("ID_PRODUCTO",rs1.getString("ID_PRODUCTO")== null ? "": rs1.getString("ID_PRODUCTO"));
+				//Agrega la sucursal a todos los productos que tienen la bandera de todas las sucursales encendida.
+				sSql =  "INSERT INTO SIM_PRODUCTO_SUCURSAL ( \n"+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_PRODUCTO, \n" +
+						"ID_SUCURSAL) \n" +
+			           	"VALUES ( \n"+
+						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
+						sIdSucursal + ") \n ";
+						
 			
+				//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}	
+			}
 		}
-		
-		
 		return resultadoCatalogo;
 		
 	}
