@@ -255,7 +255,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 				   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 				   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" ;
-			System.out.println("1.2"+sSql);
+			System.out.println("Verificamos si existen los fundadores del grupo");
 			ejecutaSql();
 			if (rs.next()){
 				//Preguntamos por el par�metro % m�nimo de fundadores del grupo.
@@ -279,14 +279,14 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 					   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 					   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 					   "))) \n" ;
-				System.out.println("1.3"+sSql);
+				System.out.println("Preguntamos por el par�metro % m�nimo de fundadores del grupo.");
 				ejecutaSql();
 				if (rs.next()){
 					sMinIntFundadores = rs.getString("MIN_INT_FUNDADORES");
 					fMinIntFundadores = (Float.parseFloat(sMinIntFundadores));
 				
 				}
-				System.out.println("1.4");
+				
 				//Obtenemos los integrantes que actualmente integran el grupo
 				sSql = " SELECT \n" + 
 					  " ID_INTEGRANTE \n" +
@@ -295,7 +295,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 					  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 					  "	AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 					  " AND FECHA_BAJA_LOGICA IS NULL \n";
-				System.out.println("1.5"+sSql);
+				
 				ejecutaSql();
 				while (rs.next()){
 			
@@ -309,7 +309,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 							"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 							"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
-					System.out.println("1.6"+sSql);
+					
 					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 					ps1.execute();
 					ResultSet rs1 = ps1.getResultSet();
@@ -317,7 +317,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						fIntegrante++;
 					}
 				}
-				System.out.println("1.7"+sSql);
+				
 				if (fIntegrante < fMinIntFundadores){
 					bMinFundadores = false;
 				}else {
@@ -325,7 +325,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 				}
 				
 			}else {
-				System.out.println("1.8");
+				
 				sSql = "SELECT \n" + 
 				   "ID_GRUPO \n" + 
 				   "FROM \n" + 
@@ -335,7 +335,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 				   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" ;
 				ejecutaSql();
 				if (rs.next()){
-					System.out.println("1.9"+sSql);
+				
 					//Error esto no es posible, est�n no se dieron los integrantes fundadores en la migraci�n.
 					bErrorGrupoFundador = true;
 				}else {
@@ -349,7 +349,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 					  " AND FECHA_BAJA_LOGICA IS NULL \n";
 				ejecutaSql();
 				while (rs.next()){
-					System.out.println("1.10"+sSql);
+					
 					registro.addDefCampo("ID_INTEGRANTE",rs.getString("ID_INTEGRANTE")== null ? "": rs.getString("ID_INTEGRANTE"));
 					
 					sSql =  "INSERT INTO SIM_GRUPO_FUNDADOR ( \n"+
@@ -362,23 +362,23 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 							"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 							"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
 							"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "') \n" ;
-					System.out.println("1.11"+sSql);
+					
 					
 					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-					System.out.println("1.12");
+					
 					ps1.execute();
-					System.out.println("1.13");
+					
 					ResultSet rs1 = ps1.getResultSet();
-					System.out.println("1.14");
+					
 				}
-				System.out.println("1.15");
+				
 				bMinFundadores = true;
-				System.out.println("1.16");
+				
 				}
-				System.out.println("1.17");
+				
 			}
 		
-			System.out.println("2");
+			
 			
 			
 			sSql ="SELECT COUNT(*) NUM_INTEGRANTES FROM ( \n" + 
@@ -447,7 +447,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						sDeudaMinima = rs.getString("IMP_DEUDA_MINIMA");
 						iDeudaMinima = (Integer.parseInt(sDeudaMinima));
 					}
-					System.out.println("3");
+					
 					if (sCreditosSimultaneos.equals("V")){
 					
 						//Cuenta los integrantes del grupo.
@@ -936,7 +936,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
 									"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" +
 									"AND E.B_ENTREGADO = 'V' \n" ;
-							System.out.println("Busca todos los creditos del cliente"+sSql);
+							System.out.println("Busca todos los creditos del cliente");
 							
 							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 							ps2.execute();
@@ -1666,21 +1666,27 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 												if (rs.next()){
 													
 													//Verificamos si ya se le asigno el producto.
-														sSql =  "SELECT \n"+
-															"ID_GRUPO, \n"+
-															"ID_PRODUCTO \n"+
-															"FROM SIM_PRESTAMO_GRUPO \n"+
-															"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-															"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-															"AND ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
-															"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n";
+													sSql =  "SELECT \n"+
+															"PG.ID_GRUPO, \n"+
+															"PG.ID_PRODUCTO \n"+
+															"FROM \n"+
+															"SIM_PRESTAMO_GRUPO PG, \n"+
+															"SIM_CAT_ETAPA_PRESTAMO E \n"+
+															"WHERE PG.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+															"AND PG.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+															"AND PG.ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
+															"AND PG.ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n"+
+															"AND E.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+ 
+															"AND E.CVE_EMPRESA = PG.CVE_EMPRESA \n"+ 
+															"AND E.ID_ETAPA_PRESTAMO = PG.ID_ETAPA_PRESTAMO \n"+ 
+															"AND E.B_CANCELADO != 'V' \n";
+													System.out.println("Verificamos si ya se le asigno el producto"+sSql);
+													ejecutaSql();
 														
-														ejecutaSql();
-														
-														if (rs.next()){
-															//Obtiene el pr�ximo ciclo que le corresponde.
-															sSql =  "SELECT \n" +
-															"ID_PRODUCTO, \n"+
+													if (rs.next()){
+														//Obtiene el pr�ximo ciclo que le corresponde.
+														sSql =  "SELECT \n" +
+													 		"ID_PRODUCTO, \n"+
 															"NUM_CICLO \n"+
 															"FROM SIM_PRODUCTO_CICLO \n"+
 															"WHERE \n"+
@@ -1700,7 +1706,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																	"AND E.CVE_EMPRESA = PG.CVE_EMPRESA \n"+ 
 																	"AND E.ID_ETAPA_PRESTAMO = PG.ID_ETAPA_PRESTAMO \n"+ 
 																	"AND E.B_CANCELADO != 'V') \n";
-																	
+															System.out.println("Obtiene el pr�ximo ciclo que le corresponde"+sSql);
 															ejecutaSql();
 															if (rs.next()){
 																sNumCiclo = rs.getString("NUM_CICLO");
@@ -1722,7 +1728,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																		"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 																		"AND ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
 																		") \n";
-																	
+																System.out.println("****Como no tiene otro ciclo definido se le asigna el ultimo"+sSql);
 																ejecutaSql();
 																if (rs.next()){
 																	registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
@@ -1749,7 +1755,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																	"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 																	"AND P.ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
 																	"AND P.ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n";
-																	
+															System.out.println("Busca si hay una excepci�n."+sSql);
 																ejecutaSql();
 																if (rs.next()){
 																	registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
@@ -1810,7 +1816,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																		"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 																		"AND P.ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
 																		"AND P.ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n";
-																		
+																		System.out.println("Como no tiene otro ciclo definido se le asigna el ultimo."+sSql);
 																				
 																		ejecutaSql();
 																		if (rs.next()){

@@ -294,21 +294,35 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					}	
 				}
 		}else if (registro.getDefCampo("ALTA").equals("CREDITO_INDIVIDUAL")) {
+		System.out.println("credito individual pasa por aqui");
 		
-			sSql =  "INSERT INTO SIM_GRUPO_FUNDADOR ( "+
+			sSql =  "SELECT \n"+
 					"CVE_GPO_EMPRESA, \n" +
 					"CVE_EMPRESA, \n" +
 					"ID_GRUPO, \n" +
-					"ID_INTEGRANTE) \n" +
-					" VALUES (" +
-					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
-			
-			PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-			ps2.execute();
-			ResultSet rs2 = ps2.getResultSet();	
+					"ID_INTEGRANTE \n" +
+					"FROM SIM_GRUPO_FUNDADOR \n" +
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n"+
+					"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_CLIENTE") + "' \n";
+			ejecutaSql();
+			if (!rs.next()){
+				sSql =  "INSERT INTO SIM_GRUPO_FUNDADOR ( "+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_GRUPO, \n" +
+						"ID_INTEGRANTE) \n" +
+						" VALUES (" +
+						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
+				System.out.println("A"+sSql);
+				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+				ps2.execute();
+				ResultSet rs2 = ps2.getResultSet();
+			}
 			
 			sSql = "SELECT \n"+
 					"PC.CVE_GPO_EMPRESA, \n"+
@@ -342,7 +356,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					"AND P.CVE_GPO_EMPRESA = PC.CVE_GPO_EMPRESA \n"+
 					"AND P.CVE_EMPRESA = PC.CVE_EMPRESA \n"+
 					"AND P.ID_PRODUCTO = PC.ID_PRODUCTO \n";
-			
+			System.out.println("B");
 			PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 			ps3.execute();
 			ResultSet rs3 = ps3.getResultSet();	
@@ -2161,6 +2175,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 				float fMinIntFundadores = 0;
 				float fIntegrante = 0;
 				String sNumCiclo = "";
+				float fDeudaMinima = 0;
 				
 				//Preguntamos por el parámetro % mínimo de fundadores del grupo.
 				sSql = "SELECT A.INT_FUNDADORES / 100 * B.PORC_INT_FUNDADORES MIN_INT_FUNDADORES \n" +
@@ -2233,8 +2248,9 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						sCreditosSimultaneos = rs.getString("CREDITOS_SIMULTANEOS");
 						sDeudaMinima = rs.getString("IMP_DEUDA_MINIMA");
 						iDeudaMinima = (Integer.parseInt(sDeudaMinima));
+						fDeudaMinima = (Float.parseFloat(sDeudaMinima));
 					}
-					
+					System.out.println("sCreditosSimultaneos "+sCreditosSimultaneos);
 					if (sCreditosSimultaneos.equals("V")){
 					
 						//Cuenta los integrantes del grupo.
@@ -3165,541 +3181,28 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						}
 						
 					}else{
-						
-						sSql =  "SELECT \n"+
-								"ID_INTEGRANTE \n"+
-								"FROM SIM_GRUPO_INTEGRANTE \n"+
-								"WHERE CVE_GPO_EMPRESA='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-								"AND CVE_EMPRESA='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-								"AND ID_GRUPO='" + (String)registro.getDefCampo("ID_GRUPO") + "' \n"+
-								"AND FECHA_BAJA_LOGICA IS NULL \n" ;
-						
-						PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-						ps1.execute();
-						ResultSet rs1 = ps1.getResultSet();
-						
-						while (rs1.next()){
-							
-							registro.addDefCampo("ID_PERSONA",rs1.getString("ID_INTEGRANTE")== null ? "": rs1.getString("ID_INTEGRANTE"));
-							
-							//Busca todos los creditos del cliente.
-							sSql =  "SELECT \n" +
-									"ID_PRESTAMO \n" +
-									"FROM SIM_PRESTAMO \n" +
-									"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-									"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-									"AND ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" ;
-							
-							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
-							ps2.execute();
-							ResultSet rs2 = ps2.getResultSet();
-							
-							while (rs2.next()){
-								registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO")== null ? "": rs2.getString("ID_PRESTAMO"));
-								
-								sSql = "    SELECT  ID_ORDEN_TIPO, ID_ORDEN, ID_PRESTAMO, FECHA_OPERACION, DESCRIPCION, NULL AS IMPORTE, SUM(IMP_DESGLOSE) IMP_DESGLOSE \n"+
-							    "    FROM    ( \n"+
-							        
-							    "    SELECT  9999999999999999 AS ID_ORDEN_TIPO, 1 AS ID_ORDEN, ID_PRESTAMO, (SELECT  F_MEDIO  \n"+
-							    "                          FROM    PFIN_PARAMETRO \n"+
-							    "                          WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                              AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                              AND CVE_MEDIO       = 'SYSTEM') AS FECHA_OPERACION, \n"+
-							    "            'SALDO A LA FECHA' AS DESCRIPCION, NULL AS IMPORTE, ROUND(SUM(IMP_NETO),2) AS IMP_DESGLOSE, CVE_CONCEPTO \n"+
-							    "    FROM (         \n"+
-							            
-							    "        SELECT  1 AS ID_ORDEN_TIPO, 7 AS ID_ORDEN, ID_PRESTAMO, FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(T.IMP_CAPITAL_AMORT * -1,2) AS IMP_NETO, INITCAP(C.DESC_LARGA) AS DESCRIPCION, C.CVE_CONCEPTO, 'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+
-							    "                                        FROM    PFIN_PARAMETRO  \n"+
-							    "                                        WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
-							    "            AND C.CVE_CONCEPTO    = 'CAPITA' \n"+
-							    "            AND ROUND(T.IMP_CAPITAL_AMORT,2) > 0 \n"+
-							                
-							    "        UNION ALL \n"+
-							        
-							    "        SELECT  1 AS ID_ORDEN_TIPO, 2 AS ID_ORDEN, ID_PRESTAMO, FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(T.IMP_INTERES*-1,2) AS IMP_NETO, INITCAP(C.DESC_LARGA) AS DESCRIPCION, \n"+
-							    "                C.CVE_CONCEPTO, 'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION <= (SELECT  F_MEDIO \n"+
-							    "                                        FROM    PFIN_PARAMETRO \n"+
-							    "                                        WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
-							    "            AND C.CVE_CONCEPTO    = 'INTERE' \n"+
-							    "            AND ROUND(T.IMP_INTERES,2) > 0 \n"+
-							        
-							    "        UNION ALL \n"+
-							
-							    "        SELECT  1 AS ID_ORDEN_TIPO, 2 AS ID_ORDEN, ID_PRESTAMO, FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(NVL(T.IMP_IVA_INTERES,0) * -1,2) AS IMP_NETO, INITCAP(C.DESC_LARGA) AS DESCRIPCION,  \n"+
-							    "                C.CVE_CONCEPTO, 'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION <= (SELECT  F_MEDIO \n"+
-							    "                                        FROM    PFIN_PARAMETRO \n"+
-							    "                                        WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
-							    "            AND C.CVE_CONCEPTO    = 'IVAINT' \n"+
-							    "            AND ROUND(NVL(T.IMP_IVA_INTERES,0),2) > 0 \n"+
-							
-							    "        UNION ALL \n"+
-							        
-							    "        SELECT  1 AS ID_ORDEN_TIPO, 3 AS ID_ORDEN, ID_PRESTAMO, FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(T.IMP_INTERES_EXTRA * -1,2) AS IMP_NETO, INITCAP(C.DESC_LARGA) AS DESCRIPCION, \n"+
-							    "                C.CVE_CONCEPTO, 'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+
-							    "                                        FROM    PFIN_PARAMETRO  \n"+
-							    "                                        WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
-							    "            AND C.CVE_CONCEPTO    = 'INTEXT' \n"+
-							    "            AND ROUND(T.IMP_INTERES_EXTRA,2) > 0 \n"+
-							
-							    "        UNION ALL \n"+
-							
-							            //Muestra el importe de IVA de interés extra a una fecha 
-							    "        SELECT  1 AS ID_ORDEN_TIPO, 5 AS ID_ORDEN, ID_PRESTAMO, FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(NVL(T.IMP_IVA_INTERES_EXTRA,0) * -1,2) AS IMP_DESGLOSE, INITCAP(C.DESC_LARGA) AS DESCRIPCION, \n"+
-							    "                C.CVE_CONCEPTO, 'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, PFIN_CAT_CONCEPTO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION <=(SELECT  F_MEDIO \n"+
-							    "                                        FROM    PFIN_PARAMETRO \n"+
-							    "                                        WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA     = C.CVE_EMPRESA \n"+
-							    "            AND C.CVE_CONCEPTO    = 'IVAINTEX' \n"+
-							    "            AND ROUND(NVL(T.IMP_IVA_INTERES_EXTRA,0),2) > 0 \n"+
-							
-							    "        UNION ALL \n"+
-							
-							            //Obtiene los recargos por pago tardío en caso de que apliquen para el préstamo
-							    "        SELECT  1 AS ID_ORDEN_TIPO, 6 AS ID_ORDEN, P.ID_PRESTAMO, T.FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(NVL(PC.MONTO_FIJO_PERIODO * -1,0),2) AS IMP_DESGLOSE, INITCAP(C.DESC_LARGA) AS DESCRIPCION, \n"+
-							    "                C.CVE_CONCEPTO, 'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, SIM_PRESTAMO P, SIM_PRODUCTO_CICLO PC, PFIN_CAT_CONCEPTO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION < (SELECT  F_MEDIO \n"+
-							    "                                        FROM    PFIN_PARAMETRO \n"+
-							    "                                        WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.B_PAGO_PUNTUAL    = 'F' \n"+
-							    "            AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-							    "            AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-							    "            AND P.CVE_GPO_EMPRESA   = PC.CVE_GPO_EMPRESA \n"+
-							    "            AND P.CVE_EMPRESA       = PC.CVE_EMPRESA \n"+
-							    "            AND P.ID_PRODUCTO       = PC.ID_PRODUCTO \n"+
-							    "            AND P.NUM_CICLO         = PC.NUM_CICLO \n"+
-							    "            AND T.CVE_GPO_EMPRESA   = C.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA       = C.CVE_EMPRESA \n"+
-							    "            AND 'PAGOTARD'          = C.CVE_CONCEPTO \n"+
-							    "            AND PC.ID_TIPO_RECARGO  IN (4,5) \n"+
-							    "            AND ROUND(NVL(PC.MONTO_FIJO_PERIODO,0),2) > 0 \n"+
-							        
-							    "        UNION ALL \n"+
-							        
-							    "        SELECT  1 AS ID_ORDEN_TIPO, A.ID_ACCESORIO AS ID_ORDEN, T.ID_PRESTAMO, T.FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "                ROUND(A.IMP_ACCESORIO * -1,2) AS IMP_NETO, INITCAP(C.NOM_ACCESORIO) AS DESCRIPCION, \n"+
-							    "                DECODE(A.ID_ACCESORIO,6,'COMISVID',7,'COMISGM',8,'COMISDEU') AS CVE_CONCEPTO, \n"+
-							    "                'I' CVE_AFECTA \n"+
-							    "        FROM    SIM_TABLA_AMORTIZACION T, SIM_TABLA_AMORT_ACCESORIO A, SIM_CAT_ACCESORIO C \n"+
-							    "        WHERE   T.CVE_GPO_EMPRESA       = 'SIM' \n"+
-							    "            AND T.CVE_EMPRESA           = 'CREDICONFIA' \n"+
-							    "            AND T.ID_PRESTAMO           = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "            AND T.FECHA_AMORTIZACION    <= (SELECT  F_MEDIO \n"+
-							    "                                            FROM    PFIN_PARAMETRO \n"+
-							    "                                            WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                                 AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                                 AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "            AND T.CVE_GPO_EMPRESA       = A.CVE_GPO_EMPRESA \n"+
-							    "            AND T.CVE_EMPRESA           = A.CVE_EMPRESA \n"+
-							    "            AND T.ID_PRESTAMO           = A.ID_PRESTAMO \n"+
-							    "            AND T.NUM_PAGO_AMORTIZACION = A.NUM_PAGO_AMORTIZACION \n"+
-							    "            AND A.CVE_GPO_EMPRESA       = C.CVE_GPO_EMPRESA \n"+
-							    "            AND A.CVE_EMPRESA           = C.CVE_EMPRESA \n"+
-							    "            AND A.ID_ACCESORIO          = C.ID_ACCESORIO \n"+
-							    "            AND ROUND(A.IMP_ACCESORIO,2)> 0 \n"+
-							
-							    "    UNION ALL \n"+
-							        
-							
-							
-							    "SELECT  ID_ORDEN_TIPO, ID_ORDEN, ID_PRESTAMO, FECHA_OPERACION, IMP_NETO, \n"+
-							    "        DESCRIPCION, CVE_CONCEPTO, CVE_AFECTA \n"+
-							    "FROM    (    \n"+
-							
-							    //Muestra el importe de Intereses Moratorios a la fecha 
-							    "SELECT  1 AS ID_ORDEN_TIPO, 7 AS ID_ORDEN, A.ID_PRESTAMO, A.FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "        ROUND(SUM(A.IMP_INT_MORATORIO) * -1,2) AS IMP_NETO, INITCAP(C.DESC_LARGA) AS DESCRIPCION, C.CVE_CONCEPTO, \n"+
-							    "        'I' AS CVE_AFECTA \n"+
-							    "FROM    (    \n"+
-							                
-							    "    SELECT  P.CVE_GPO_EMPRESA,P.CVE_EMPRESA,P.ID_PRESTAMO, F.F_LIQUIDACION, T.FECHA_AMORTIZACION, \n"+
-							    "            T.NUM_PAGO_AMORTIZACION, T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION AS IMP_CAPITAL, \n"+
-							                
-							    "            CASE WHEN F.F_LIQUIDACION = T.FECHA_AMORTIZACION AND T.NUM_PAGO_AMORTIZACION = 1 THEN \n"+
-							    "                0 \n"+
-							    "            ELSE \n"+
-							    "                CASE WHEN \n"+
-							    "                    CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                        T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    ELSE \n"+
-							    "                        T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    END > 0 THEN \n"+
-							                        
-							    "                    CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                        T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    ELSE \n"+
-							    "                        T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    END \n"+
-							    "                ELSE  \n"+
-							    "                    0 \n"+
-							    "                END \n"+
-							    "            END AS IMP_CAPITAL_DEBE, M.IMP_MOVTOS,  \n"+
-							                
-							    "            PKG_CREDITO.dametasamoratoriadiaria(P.CVE_GPO_EMPRESA,P.CVE_EMPRESA,P.ID_PRESTAMO) TASA_MORATORIA, \n"+
-							                
-							    "            CASE WHEN F.F_LIQUIDACION = T.FECHA_AMORTIZACION AND T.NUM_PAGO_AMORTIZACION = 1 THEN \n"+
-							    "                0 \n"+
-							    "            ELSE \n"+
-							    "                CASE WHEN \n"+
-							    "                    CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                        T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    ELSE \n"+
-							    "                        T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    END > 0 THEN \n"+
-							                        
-							    "                    CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                        T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    ELSE \n"+
-							    "                        T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    END \n"+
-							    "                ELSE  \n"+
-							    "                    0 \n"+
-							    "                END \n"+
-							    "            END * PKG_CREDITO.dametasamoratoriadiaria(P.CVE_GPO_EMPRESA,P.CVE_EMPRESA,P.ID_PRESTAMO) AS IMP_INT_MORATORIO, \n"+
-							    "            P.ID_PRODUCTO, P.NUM_CICLO \n"+
-							                
-							                
-							                
-							    "    FROM    PFIN_DIA_LIQUIDACION F, SIM_TABLA_AMORTIZACION T, SIM_PRESTAMO P, SIM_TABLA_AMORTIZACION T2, \n"+
-							        
-							    "            (   SELECT  F.CVE_GPO_EMPRESA, F.CVE_EMPRESA, F.F_LIQUIDACION, SUM( \n"+
-							    "                        NVL(D.IMP_CONCEPTO *  \n"+
-							    "                            DECODE(O.CVE_AFECTA_CREDITO,'I',-1,'D',1),0) \n"+
-							    "                        )  \n"+
-							    "                        IMP_MOVTOS \n"+
-							    "                FROM    PFIN_DIA_LIQUIDACION F, SIM_TABLA_AMORTIZACION T, PFIN_MOVIMIENTO M, \n"+
-							    "                        PFIN_MOVIMIENTO_DET D, PFIN_CAT_OPERACION O \n"+
-							    "                WHERE   F.CVE_GPO_EMPRESA   = 'SIM' \n"+
-							    "                    AND F.CVE_EMPRESA       = 'CREDICONFIA' \n"+
-							    "                    AND F.CVE_LIQUIDACION   = 'NATUR' \n"+
-							    "                    AND F.CVE_GPO_EMPRESA   = T.CVE_GPO_EMPRESA \n"+
-							    "                    AND F.CVE_EMPRESA       = T.CVE_EMPRESA \n"+
-							    "                    AND T.ID_PRESTAMO       = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "                    AND T.NUM_PAGO_AMORTIZACION   = 1 \n"+
-							    "                    AND F.F_INFORMACION     BETWEEN T.FECHA_AMORTIZACION -1 \n"+
-							    "                                            AND (SELECT  F_MEDIO \n"+
-							    "                                                 FROM    PFIN_PARAMETRO \n"+
-							    "                                                 WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                                     AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                                     AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "                    AND F.CVE_GPO_EMPRESA   = M.CVE_GPO_EMPRESA(+) \n"+
-							    "                    AND F.CVE_EMPRESA       = M.CVE_EMPRESA(+) \n"+
-							    "                    AND " + (String)registro.getDefCampo("ID_PRESTAMO") + "                 = M.ID_PRESTAMO(+) \n"+
-							    "                    AND F.F_INFORMACION     >= M.F_LIQUIDACION(+) \n"+
-							    "                    AND M.SIT_MOVIMIENTO(+) <> 'CA' \n"+
-							    "                    AND M.CVE_GPO_EMPRESA   = D.CVE_GPO_EMPRESA(+) \n"+
-							    "                    AND M.CVE_EMPRESA       = D.CVE_EMPRESA(+) \n"+
-							    "                    AND M.ID_MOVIMIENTO     = D.ID_MOVIMIENTO(+) \n"+
-							    "                    AND M.CVE_OPERACION     = D.CVE_OPERACION(+) \n"+
-							    "                    AND D.CVE_CONCEPTO(+)      = 'CAPITA' \n"+
-							    "                    AND M.CVE_GPO_EMPRESA   = O.CVE_GPO_EMPRESA(+) \n"+
-							    "                    AND M.CVE_EMPRESA       = O.CVE_EMPRESA(+) \n"+
-							    "                    AND M.CVE_OPERACION     = O.CVE_OPERACION(+) \n"+
-							    "                GROUP BY F.CVE_GPO_EMPRESA, F.CVE_EMPRESA, F.F_LIQUIDACION ) M \n"+
-							
-							    "    WHERE   F.CVE_GPO_EMPRESA   = 'SIM' \n"+
-							    "        AND F.CVE_EMPRESA       = 'CREDICONFIA' \n"+
-							    "        AND F.CVE_LIQUIDACION   = 'NATUR' \n"+
-							    "        AND F.CVE_GPO_EMPRESA   = T.CVE_GPO_EMPRESA \n"+
-							    "        AND F.CVE_EMPRESA       = T.CVE_EMPRESA \n"+
-							    "        AND T.ID_PRESTAMO       = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							            
-							    "        AND T.CVE_GPO_EMPRESA       = T2.CVE_GPO_EMPRESA(+) \n"+
-							    "        AND T.CVE_EMPRESA           = T2.CVE_EMPRESA(+) \n"+
-							    "        AND T.ID_PRESTAMO           = T2.ID_PRESTAMO(+) \n"+
-							    "        AND T.NUM_PAGO_AMORTIZACION - 1 = T2.NUM_PAGO_AMORTIZACION(+) \n"+
-							
-							    "        AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+
-							    "        AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-							    "        AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-							    "        AND (SELECT  MAX(P.NUM_PAGO_AMORTIZACION) \n"+
-							    //, P.FECHA_AMORTIZACION
-							    "             FROM    SIM_TABLA_AMORTIZACION P \n"+
-							    "             WHERE   P.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                 AND P.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                 AND P.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "                 AND P.FECHA_AMORTIZACION <= F.F_INFORMACION) = T.NUM_PAGO_AMORTIZACION \n"+
-							    "        AND F.F_INFORMACION     BETWEEN (SELECT MIN(FECHA_AMORTIZACION) \n"+
-							    "                                         FROM   SIM_TABLA_AMORTIZACION \n"+
-							    "                                         WHERE  CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "') \n"+
-							    "                                AND (SELECT  F_MEDIO  \n"+
-							    "                                     FROM    PFIN_PARAMETRO  \n"+
-							    "                                     WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                         AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                         AND CVE_MEDIO       = 'SYSTEM') \n"+
-							                                             
-							    "        AND F.CVE_GPO_EMPRESA   = M.CVE_GPO_EMPRESA \n"+
-							    "        AND F.CVE_EMPRESA       = M.CVE_EMPRESA \n"+
-							    "        AND F.F_INFORMACION     = M.F_LIQUIDACION + 1 \n"+
-							            
-							            
-							    "        )   A, SIM_PRODUCTO_CICLO PC, PFIN_CAT_CONCEPTO C \n"+
-							
-							        
-							    "    WHERE   A.CVE_GPO_EMPRESA   = PC.CVE_GPO_EMPRESA \n"+
-							    "        AND A.CVE_EMPRESA       = PC.CVE_EMPRESA \n"+
-							    "        AND A.ID_PRODUCTO       = PC.ID_PRODUCTO \n"+
-							    "        AND A.NUM_CICLO         = PC.NUM_CICLO \n"+
-							    "        AND A.CVE_GPO_EMPRESA   = C.CVE_GPO_EMPRESA \n"+
-							    "        AND A.CVE_EMPRESA       = C.CVE_EMPRESA \n"+
-							    "        AND C.CVE_CONCEPTO      = 'INTMORA' \n"+
-							    "    GROUP BY A.ID_PRESTAMO, A.FECHA_AMORTIZACION, INITCAP(C.DESC_LARGA), C.CVE_CONCEPTO \n"+
-							    "    HAVING ROUND(SUM(A.IMP_INT_MORATORIO),2) > 0 \n"+
-							    ") \n"+
-							
-							    "UNION ALL \n"+
-							
-							    "SELECT  ID_ORDEN_TIPO, ID_ORDEN, ID_PRESTAMO, FECHA_OPERACION, IMP_NETO, \n"+
-							    "        DESCRIPCION, CVE_CONCEPTO, CVE_AFECTA \n"+
-							    "FROM    (    \n"+
-							
-							    //Muestra el importe de IVA de Intereses Moratorios a la fecha 
-							    "SELECT  1 AS ID_ORDEN_TIPO, 8 AS ID_ORDEN, A.ID_PRESTAMO, A.FECHA_AMORTIZACION AS FECHA_OPERACION, \n"+
-							    "        ROUND(SUM(A.IMP_IVA_INT_MORATORIO) * -1,2) AS IMP_NETO, INITCAP(C.DESC_LARGA) AS DESCRIPCION, C.CVE_CONCEPTO, \n"+
-							    "        'I' AS CVE_AFECTA \n"+
-							    "FROM    (    \n"+
-							                
-							    "    SELECT  P.CVE_GPO_EMPRESA,P.CVE_EMPRESA,P.ID_PRESTAMO, F.F_LIQUIDACION, T.FECHA_AMORTIZACION, \n"+
-							    "            T.NUM_PAGO_AMORTIZACION, T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION AS IMP_CAPITAL, \n"+
-							                
-							    "            CASE WHEN F.F_LIQUIDACION = T.FECHA_AMORTIZACION AND T.NUM_PAGO_AMORTIZACION = 1 THEN \n"+
-							    "                0 \n"+
-							    "            ELSE \n"+
-							    "                CASE WHEN \n"+
-							    "                    CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                        T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    ELSE \n"+
-							    "                        T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    END > 0 THEN \n"+
-							                        
-							    "                     CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                         T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                     ELSE \n"+
-							    "                         T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                     END \n"+
-							    "                 ELSE  \n"+
-							    "                     0 \n"+
-							    "                 END \n"+
-							    "             END AS IMP_CAPITAL_DEBE, M.IMP_MOVTOS, \n"+
-							                
-							    "             PKG_CREDITO.dametasamoratoriadiaria(P.CVE_GPO_EMPRESA,P.CVE_EMPRESA,P.ID_PRESTAMO) TASA_MORATORIA, \n"+
-							                 
-							    "             CASE WHEN F.F_LIQUIDACION = T.FECHA_AMORTIZACION AND T.NUM_PAGO_AMORTIZACION = 1 THEN \n"+
-							    "                 0 \n"+
-							    "             ELSE \n"+
-							    "                 CASE WHEN  \n"+
-							    "                     CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                         T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                     ELSE \n"+
-							    "                         T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                     END > 0 THEN \n"+
-							    
-							    "                    CASE WHEN F.F_LIQUIDACION > T.FECHA_AMORTIZACION THEN \n"+
-							    "                        T.IMP_CAPITAL_AMORT * T.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    ELSE \n"+
-							    "                        T2.IMP_CAPITAL_AMORT * T2.NUM_PAGO_AMORTIZACION - M.IMP_MOVTOS \n"+
-							    "                    END \n"+
-							    "                ELSE  \n"+
-							    "                    0 \n"+
-							    "                END \n"+
-							    "            END * PKG_CREDITO.dametasamoratoriadiaria(P.CVE_GPO_EMPRESA,P.CVE_EMPRESA,P.ID_PRESTAMO) *  (TASA_IVA -1 ) AS IMP_IVA_INT_MORATORIO, \n"+
-							    "            P.ID_PRODUCTO, P.NUM_CICLO \n"+
-							                
-							    "    FROM    PFIN_DIA_LIQUIDACION F, SIM_TABLA_AMORTIZACION T, SIM_PRESTAMO P, SIM_CAT_SUCURSAL S, SIM_TABLA_AMORTIZACION T2, \n"+
-							        
-							    "            (   SELECT  F.CVE_GPO_EMPRESA, F.CVE_EMPRESA, F.F_LIQUIDACION, SUM( \n"+
-							    "                        NVL(D.IMP_CONCEPTO * \n"+
-							    "                            DECODE(O.CVE_AFECTA_CREDITO,'I',-1,'D',1),0) \n"+
-							    "                        ) \n"+
-							    "                        IMP_MOVTOS, MAX(NUM_PAGO_AMORTIZACION) MAX_NUM_PAGO \n"+
-							    "                FROM    PFIN_DIA_LIQUIDACION F, SIM_TABLA_AMORTIZACION T, PFIN_MOVIMIENTO M, \n"+
-							    "                        PFIN_MOVIMIENTO_DET D, PFIN_CAT_OPERACION O \n"+
-							    "                WHERE   F.CVE_GPO_EMPRESA   = 'SIM' \n"+
-							    "                    AND F.CVE_EMPRESA       = 'CREDICONFIA' \n"+
-							    "                    AND F.CVE_LIQUIDACION   = 'NATUR' \n"+
-							    "                    AND F.CVE_GPO_EMPRESA   = T.CVE_GPO_EMPRESA \n"+
-							    "                    AND F.CVE_EMPRESA       = T.CVE_EMPRESA \n"+
-							    "                    AND T.ID_PRESTAMO       = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "                    AND T.NUM_PAGO_AMORTIZACION   = 1 \n"+
-							    "                    AND F.F_INFORMACION     BETWEEN T.FECHA_AMORTIZACION -1 \n"+
-							    "                                            AND (SELECT  F_MEDIO  \n"+
-							    "                                                 FROM    PFIN_PARAMETRO \n"+
-							    "                                                 WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                                     AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                                     AND CVE_MEDIO       = 'SYSTEM') \n"+
-							    "                    AND F.CVE_GPO_EMPRESA   = M.CVE_GPO_EMPRESA(+) \n"+
-							    "                    AND F.CVE_EMPRESA       = M.CVE_EMPRESA(+) \n"+
-							    "                    AND " + (String)registro.getDefCampo("ID_PRESTAMO") + "    = M.ID_PRESTAMO(+) \n"+
-							    "                    AND F.F_INFORMACION     >= M.F_LIQUIDACION(+) \n"+
-							    "                    AND M.SIT_MOVIMIENTO(+) <> 'CA' \n"+
-							    "                    AND M.CVE_GPO_EMPRESA   = D.CVE_GPO_EMPRESA(+) \n"+
-							    "                    AND M.CVE_EMPRESA       = D.CVE_EMPRESA(+) \n"+
-							    "                    AND M.ID_MOVIMIENTO     = D.ID_MOVIMIENTO(+) \n"+
-							    "                    AND M.CVE_OPERACION     = D.CVE_OPERACION(+) \n"+
-							    "                    AND D.CVE_CONCEPTO(+)      = 'CAPITA' \n"+
-							    "                    AND M.CVE_GPO_EMPRESA   = O.CVE_GPO_EMPRESA(+) \n"+
-							    "                    AND M.CVE_EMPRESA       = O.CVE_EMPRESA(+) \n"+
-							    "                    AND M.CVE_OPERACION     = O.CVE_OPERACION(+) \n"+
-							    "                GROUP BY F.CVE_GPO_EMPRESA, F.CVE_EMPRESA, F.F_LIQUIDACION ) M \n"+
-							
-							    "    WHERE   F.CVE_GPO_EMPRESA   = 'SIM' \n"+
-							    "        AND F.CVE_EMPRESA       = 'CREDICONFIA' \n"+
-							    "        AND F.CVE_LIQUIDACION   = 'NATUR' \n"+
-							    "        AND F.CVE_GPO_EMPRESA   = T.CVE_GPO_EMPRESA \n"+
-							    "        AND F.CVE_EMPRESA       = T.CVE_EMPRESA \n"+
-							    "        AND T.ID_PRESTAMO       = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							            
-							    "        AND T.CVE_GPO_EMPRESA       = T2.CVE_GPO_EMPRESA(+) \n"+
-							    "        AND T.CVE_EMPRESA           = T2.CVE_EMPRESA(+) \n"+
-							    "        AND T.ID_PRESTAMO           = T2.ID_PRESTAMO(+) \n"+
-							    "        AND T.NUM_PAGO_AMORTIZACION - 1 = T2.NUM_PAGO_AMORTIZACION(+) \n"+
-							
-							    "        AND T.CVE_GPO_EMPRESA   = P.CVE_GPO_EMPRESA \n"+
-							    "        AND T.CVE_EMPRESA       = P.CVE_EMPRESA \n"+
-							    "        AND T.ID_PRESTAMO       = P.ID_PRESTAMO \n"+
-							    "        AND P.CVE_GPO_EMPRESA   = S.CVE_GPO_EMPRESA \n"+
-							    "        AND P.CVE_EMPRESA       = S.CVE_EMPRESA \n"+
-							    "        AND P.ID_SUCURSAL       = S.ID_SUCURSAL \n"+
-							    "        AND (SELECT  MAX(P.NUM_PAGO_AMORTIZACION) \n"+
-							    //, P.FECHA_AMORTIZACION
-							    "             FROM    SIM_TABLA_AMORTIZACION P \n"+
-							    "             WHERE   P.CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                 AND P.CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                 AND P.ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "                 AND P.FECHA_AMORTIZACION <= F.F_INFORMACION) = T.NUM_PAGO_AMORTIZACION \n"+
-							    "        AND F.F_INFORMACION     BETWEEN (SELECT MIN(FECHA_AMORTIZACION) \n"+
-							    "                                         FROM   SIM_TABLA_AMORTIZACION \n"+
-							    "                                         WHERE  CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                            AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                            AND ID_PRESTAMO     = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "') \n"+
-							    "                                AND (SELECT  F_MEDIO  \n"+
-							    "                                     FROM    PFIN_PARAMETRO \n"+
-							    "                                     WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
-							    "                                         AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
-							    "                                         AND CVE_MEDIO       = 'SYSTEM') \n"+
-							                                             
-							    "        AND F.CVE_GPO_EMPRESA   = M.CVE_GPO_EMPRESA \n"+
-							    "        AND F.CVE_EMPRESA       = M.CVE_EMPRESA \n"+
-							    "        AND F.F_INFORMACION     = M.F_LIQUIDACION +1)   A, SIM_PRODUCTO_CICLO PC, PFIN_CAT_CONCEPTO C \n"+
-							
-							        
-							    "    WHERE   A.CVE_GPO_EMPRESA   = PC.CVE_GPO_EMPRESA \n"+
-							    "        AND A.CVE_EMPRESA       = PC.CVE_EMPRESA \n"+
-							    "        AND A.ID_PRODUCTO       = PC.ID_PRODUCTO \n"+
-							    "        AND A.NUM_CICLO         = PC.NUM_CICLO \n"+
-							    "        AND A.CVE_GPO_EMPRESA   = C.CVE_GPO_EMPRESA \n"+
-							    "        AND A.CVE_EMPRESA       = C.CVE_EMPRESA \n"+
-							    "        AND C.CVE_CONCEPTO      = 'IVAINTMO' \n"+
-							    "    GROUP BY A.ID_PRESTAMO, A.FECHA_AMORTIZACION, INITCAP(C.DESC_LARGA), C.CVE_CONCEPTO \n"+
-							    "    HAVING ROUND(SUM(A.IMP_IVA_INT_MORATORIO),2) > 0 \n"+
-							    ") \n"+
-							
-							    "    UNION ALL \n"+
-							        
-							    "    SELECT  3 AS ID_ORDEN_TIPO, M.ID_MOVIMIENTO AS ID_ORDEN, M.ID_PRESTAMO, M.F_LIQUIDACION AS FECHA_OPERACION, \n"+
-							    "            ROUND(D.IMP_CONCEPTO * DECODE(O.CVE_AFECTA_CREDITO,'I',-1,'D',1),2) AS IMP_NETO,  \n"+
-							    "            INITCAP(C.DESC_LARGA) AS DESCRIPCION, C.CVE_CONCEPTO,  \n"+
-							    "            O.CVE_AFECTA_CREDITO AS CVE_AFECTA \n"+
-							    "    FROM    PFIN_MOVIMIENTO M, PFIN_MOVIMIENTO_DET D, PFIN_CAT_OPERACION O, PFIN_CAT_CONCEPTO C \n"+
-							    "    WHERE   M.CVE_GPO_EMPRESA   = 'SIM' \n"+
-							    "        AND M.CVE_EMPRESA       = 'CREDICONFIA' \n"+
-							    "        AND M.ID_PRESTAMO       = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-							    "        AND M.SIT_MOVIMIENTO    <> 'CA' \n"+
-							    "        AND M.CVE_GPO_EMPRESA   = D.CVE_GPO_EMPRESA \n"+
-							    "        AND M.CVE_EMPRESA       = D.CVE_EMPRESA \n"+
-							    "        AND M.ID_MOVIMIENTO     = D.ID_MOVIMIENTO \n"+
-							    "        AND M.CVE_OPERACION     = D.CVE_OPERACION \n"+
-							    "        AND M.CVE_GPO_EMPRESA   = O.CVE_GPO_EMPRESA \n"+
-							    "        AND M.CVE_EMPRESA       = O.CVE_EMPRESA \n"+
-							    "        AND M.CVE_OPERACION     = O.CVE_OPERACION \n"+
-							    "        AND D.CVE_GPO_EMPRESA   = C.CVE_GPO_EMPRESA \n"+
-							    "        AND D.CVE_EMPRESA       = C.CVE_EMPRESA \n"+
-							    "        AND D.CVE_CONCEPTO      = C.CVE_CONCEPTO  \n"+
-							    "        AND ROUND(D.IMP_CONCEPTO,2) > 0 \n"+
-							    "        )\n"+
-							    "        GROUP BY ID_PRESTAMO, CVE_CONCEPTO \n"+
-							    "    )GROUP BY ID_ORDEN_TIPO, ID_ORDEN, ID_PRESTAMO, FECHA_OPERACION, DESCRIPCION \n"+
-							         
-							    "    ORDER BY FECHA_OPERACION, ID_ORDEN_TIPO, ID_ORDEN \n";
-								
-								PreparedStatement ps3 = this.conn.prepareStatement(sSql);
-								ps3.execute();
-								ResultSet rs3 = ps3.getResultSet();
-								
-								if (rs3.next()){
-									sSaldo = rs3.getString("IMP_DESGLOSE");
-									fSaldo = (Float.parseFloat(sSaldo));
-								
-								}
-								
-								fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
-								
-								if (fSaldo >= iDeudaMinima){
-									iDeuda++;
-								}
-							}
+						//No se permite dar de alta créditos simultáneos.
+						System.out.println("No se permiten los credito simultaneos");
+						//Consulta el saldo actual del grupo.
+						sSql= "SELECT CVE_GPO_EMPRESA, \n" +
+							   "CVE_EMPRESA, \n" +
+							   "Id_Prestamo, \n" +
+							   "SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n" + 
+							   "From V_SIM_PRESTAMO_GPO_RES_EDO_CTA  \n" +
+							   "WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
+					           "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
+							   "GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n" ;
+						ejecutaSql();	
+						if (rs.next()){
+							sSaldo = rs.getString("IMP_SALDO_HOY");
+							fSaldo = (Float.parseFloat(sSaldo));
 						}
-						if (iDeuda != 0){
+						System.out.println("El saldo es"+fSaldo);
+						System.out.println("DM es"+fDeudaMinima);
+						if (fDeudaMinima < fSaldo){
 							resultadoCatalogo.mensaje.setClave("PRESTAMO_VIGENTE_GRUPO");
 						}else {
+							System.out.println("9");
 							//Cuenta los integrantes del grupo.
 							sSql =  "SELECT COUNT(*) NUM_INTEGRANTES \n" +
 								"FROM SIM_GRUPO_INTEGRANTE  \n"+
@@ -3714,7 +3217,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							if (rs4.next()){
 								sNumIntegrantes = rs4.getString("NUM_INTEGRANTES");
 							}
-							
+							System.out.println("10");
 							//Obtiene de los parámetros globales del grupo el mínimo de integrantes que debe tener un grupo.
 							sSql =  "SELECT \n"+
 								"	MIN(NUM_INTEGRANTE) MINIMO_INTEGRANTES \n"+
@@ -3722,7 +3225,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							PreparedStatement ps5 = this.conn.prepareStatement(sSql);
 							ps5.execute();
 							ResultSet rs5 = ps5.getResultSet();
-							
+							System.out.println("11");
 							if (rs5.next()){
 								sMinIntegrantes = rs5.getString("MINIMO_INTEGRANTES");
 							}
@@ -3737,7 +3240,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							if (rs6.next()){
 								sMaxIntegrantes = rs6.getString("MAXIMO_INTEGRANTES");
 							}
-							
+							System.out.println("12");
 							int iNumIntegrantes =Integer.parseInt(sNumIntegrantes.trim());
 							int iMinIntegrantes =Integer.parseInt(sMinIntegrantes.trim());
 							int iMaxIntegrantes =Integer.parseInt(sMaxIntegrantes.trim());
@@ -3755,7 +3258,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps7 = this.conn.prepareStatement(sSql);
 									ps7.execute();
 									ResultSet rs7 = ps7.getResultSet();
-									
+									System.out.println("13");
 									if (rs7.next()){
 										sMaximoRiego = rs7.getString("MAXIMO_RIESGO");
 									}
@@ -3770,7 +3273,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps8 = this.conn.prepareStatement(sSql);
 									ps8.execute();
 									ResultSet rs8 = ps8.getResultSet();
-									
+									System.out.println("14");
 									if (rs8.next()){
 										sMaximoAmbulante = rs8.getString("MAX_AMBULANTE");
 									}
@@ -3785,7 +3288,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps9 = this.conn.prepareStatement(sSql);
 									ps9.execute();
 									ResultSet rs9 = ps9.getResultSet();
-									
+									System.out.println("15");
 									if (rs9.next()){
 										sMaximoCatalogo = rs9.getString("MAX_CATALOGO");
 									}
@@ -3803,7 +3306,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps10 = this.conn.prepareStatement(sSql);
 									ps10.execute();
 									ResultSet rs10 = ps10.getResultSet();		
-										
+									System.out.println("16");
 									while (rs10.next()){
 										
 										sIdIntegrantes = rs10.getString("ID_INTEGRANTE");
@@ -3815,7 +3318,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											"AND B_PRINCIPAL = 'V' \n" +
 											"AND (ID_TIPO_NEGOCIO = '3' OR ID_TIPO_NEGOCIO = '4') \n" +
 											"AND ID_PERSONA = '" + sIdIntegrantes + "' \n";
-										
+										System.out.println("17");
 										PreparedStatement ps11 = this.conn.prepareStatement(sSql);
 										ps11.execute();
 										ResultSet rs11 = ps11.getResultSet();
@@ -3838,7 +3341,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 											"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" ;
 										ejecutaSql();			
-										
+										System.out.println("18");
 										
 										while (rs.next()){
 											
@@ -3862,7 +3365,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											rs12.close();
 											ps12.close();
 										}	
-											
+										System.out.println("19");
 										//Comprueba si el número de integrantes con negocios tipo ambulantes es el permitido.
 										if (iMaxAmbulanteProp <= iMaximoAmbulante){
 											
@@ -3916,7 +3419,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 										PreparedStatement ps15 = this.conn.prepareStatement(sSql);
 										ps15.execute();
 										ResultSet rs15 = ps15.getResultSet();
-										
+										System.out.println("20");
 										while (rs15.next()){
 											registro.addDefCampo("ID_INTEGRANTE",rs15.getString("ID_INTEGRANTE")== null ? "": rs15.getString("ID_INTEGRANTE"));
 											

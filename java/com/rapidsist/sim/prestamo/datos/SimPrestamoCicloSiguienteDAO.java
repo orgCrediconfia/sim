@@ -94,7 +94,7 @@ public class SimPrestamoCicloSiguienteDAO extends Conexion2 implements Operacion
 						") \n";
 			}
 		}
-		
+		System.out.println("prestamo ciclo siguiente"+sSql);
 		ejecutaSql();
 		return this.getConsultaRegistro();
 	}

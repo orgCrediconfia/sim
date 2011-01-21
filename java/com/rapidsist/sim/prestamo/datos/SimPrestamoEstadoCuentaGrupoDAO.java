@@ -113,7 +113,7 @@ public class SimPrestamoEstadoCuentaGrupoDAO extends Conexion2 implements Operac
 					"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
 					"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
 					"AND NUM_PAGO_AMORTIZACION != 0 \n"+
-					"AND DESC_MOVIMIENTO != ' ' \n"+
+					//"AND DESC_MOVIMIENTO != ' ' \n"+
 					"GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, ID_PRESTAMO, F_APLICACION, NUM_PAGO_AMORTIZACION, F_OPERACION, DESC_MOVIMIENTO \n"+
 					"ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(IMP_CONCEPTO,2),0)) \n";
 			
