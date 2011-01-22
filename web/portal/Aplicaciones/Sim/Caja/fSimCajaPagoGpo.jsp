@@ -22,7 +22,9 @@
 		
 		
 		<Portal:FormaBotones>
-			<Portal:Boton tipo='submit' etiqueta='Realizar el pago' />
+			<!--Portal:Boton tipo='submit' etiqueta='Realizar el pago' /-->
+			<input type="button" name="PagoGrupal" value="Realizar el pago" onclick='javascript:pagoGrupal();'>
+
 		</Portal:FormaBotones>				
 	</Portal:TablaForma>
 	
@@ -77,5 +79,13 @@
 		<Portal:FormaBotones>
 		</Portal:FormaBotones>		
 	</Portal:TablaLista>
+
+	<script>
+		function pagoGrupal(){
+			document.frmTablaForma.PagoGrupal.disabled = true; 
+			document.frmTablaForma.PagoGrupal.value = "Pago realizado"; 
+			document.frmTablaForma.submit();
+		}
+	</script>
 		
 </Portal:Pagina>

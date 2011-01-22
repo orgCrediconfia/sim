@@ -299,6 +299,16 @@ public class ProcesaReporteS extends HttpServlet{
 			System.out.println("Se genero un error en el servlet ProcesaReporteS, exception: " + e.getClass().getName() + ", mensaje:  " + e.getMessage());
 		}
 		finally{
+			//Verifica que se haya cerrado la conexion a mysql
+			try {
+				if (conexionBd.isClosed()){
+					conexionBd.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//Verifica que se cierre la conexion en la base de datos
 			if (conexion.isConectado()){
 				conexion.cierraConexion();
 			}
