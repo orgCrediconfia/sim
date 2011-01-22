@@ -97,7 +97,11 @@ public class SimPrestamoActividadRequisitoDAO extends Conexion2 implements Opera
 			" 	P.APLICA_A, \n"+
 			" 	PAR.ESTATUS, \n"+
 			" 	PAR.COMENTARIO, \n"+
-			" 	E.B_AUTORIZAR_COMITE \n"+
+			"E.B_ENTREGADO, \n"+
+			"E.B_CANCELADO, \n"+
+			"E.B_AUTORIZAR_COMITE, \n"+
+			"E.B_LINEA_FONDEO, \n"+
+			"E.B_DESEMBOLSO \n"+
 			" FROM SIM_PRESTAMO_ETAPA PAR, \n"+
 			" 	   SIM_PRESTAMO P, \n"+
 			" 	   SIM_CAT_ETAPA_PRESTAMO E \n"+

@@ -173,11 +173,33 @@
 			<c:if test='${requestScope.registro.campos["B_CANCELADO"] == "F"}'>
 				<c:if test='${requestScope.registro.campos["B_ENTREGADO"] == "F"}'>
 					<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] == "F"}'>
-						<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
-						<Portal:Boton tipo='submit' nombre='ReconformaPrestamo' etiqueta='Reconforma Préstamo' />
-						<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
-						<Portal:Boton tipo='submit' nombre='AvanzarEtapaGrupal' etiqueta='Avanzar etapa grupal' />
-						<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+						<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] == "F"}'>
+							<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] == "F"}'>
+								<c:if test='${requestScope.registro.campos["ID_ETAPA_PRESTAMO"] == "1"}'>
+									<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
+									<Portal:Boton tipo='submit' nombre='ReconformaPrestamo' etiqueta='Reconforma Préstamo' />
+									<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
+									<Portal:Boton tipo='submit' nombre='AvanzarEtapaGrupal' etiqueta='Avanzar etapa grupal' />
+									<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+								</c:if>
+							</c:if>
+						</c:if>
+					</c:if>
+				</c:if>
+			</c:if>
+			<c:if test='${requestScope.registro.campos["B_CANCELADO"] == "F"}'>
+				<c:if test='${requestScope.registro.campos["B_ENTREGADO"] == "F"}'>
+					<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] == "F"}'>
+						<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] == "F"}'>
+							<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] == "F"}'>
+								<c:if test='${requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "1"}'>
+									<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
+									<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
+									<Portal:Boton tipo='submit' nombre='AvanzarEtapaGrupal' etiqueta='Avanzar etapa grupal' />
+									<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+								</c:if>
+							</c:if>
+						</c:if>
 					</c:if>
 				</c:if>
 			</c:if>
@@ -190,14 +212,42 @@
 			<c:if test='${requestScope.registro.campos["B_CANCELADO"] == "F"}'>
 				<c:if test='${requestScope.registro.campos["B_ENTREGADO"] == "F"}'>
 					<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] == "V"}'>
-						<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
-						<Portal:Boton tipo='submit' nombre='ReconformaPrestamo' etiqueta='Reconforma Préstamo' />
-						<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
-						<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+						<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] == "F"}'>
+							<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] == "F"}'>
+								<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
+								<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
+								<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+							</c:if>
+						</c:if>
 					</c:if>
 				</c:if>
 			</c:if>
-		
+			<c:if test='${requestScope.registro.campos["B_CANCELADO"] == "F"}'>
+				<c:if test='${requestScope.registro.campos["B_ENTREGADO"] == "F"}'>
+					<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] == "F"}'>
+						<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] == "V"}'>
+							<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] == "F"}'>
+								<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
+								<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
+								<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+							</c:if>
+						</c:if>
+					</c:if>
+				</c:if>
+			</c:if>
+			<c:if test='${requestScope.registro.campos["B_CANCELADO"] == "F"}'>
+				<c:if test='${requestScope.registro.campos["B_ENTREGADO"] == "F"}'>
+					<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] == "F"}'>
+						<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] == "F"}'>
+							<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] == "V"}'>
+								<Portal:Boton tipo='submit' nombre='Aceptar' etiqueta='Aceptar' />
+								<Portal:Boton tipo='submit' nombre='RegresarEtapa' etiqueta='Regresar etapa grupal' />
+								<Portal:Boton tipo='submit' nombre='CancelarPrestamo' etiqueta='Cancelar Préstamo' />
+							</c:if>
+						</c:if>
+					</c:if>
+				</c:if>
+			</c:if>
 			
 		</Portal:FormaBotones>
 	</Portal:TablaForma>

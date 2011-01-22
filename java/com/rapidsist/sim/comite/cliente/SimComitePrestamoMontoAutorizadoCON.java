@@ -127,8 +127,6 @@ public class SimComitePrestamoMontoAutorizadoCON implements CatalogoControlConsu
 		String[] sIdCliente = request.getParameterValues("IdCliente");
 		String[] sIdPrestamoIndividual = request.getParameterValues("IdPrestamoIndividual");
 		
-		System.out.println("sMonto"+sMontos);
-		
 		registro.addDefCampo("DAO_MONTOS", sMontos);
 		registro.addDefCampo("DAO_CLIENTE", sIdCliente);
 		registro.addDefCampo("DAO_ID_PRESTAMO_IND", sIdPrestamoIndividual);

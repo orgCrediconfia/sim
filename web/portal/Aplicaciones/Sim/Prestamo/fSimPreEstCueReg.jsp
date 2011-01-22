@@ -23,7 +23,7 @@
 	<Portal:TablaLista tipo="consulta" nombre="Estado de Cuenta">
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='120' valor='Fecha Operaci&oacute;n'/>
-			<Portal:Columna tipovalor='texto' ancho='150' valor='Fecha de Aplicación'/>
+			<Portal:Columna tipovalor='texto' ancho='150' valor='Fecha de Movimiento'/>
 			<Portal:Columna tipovalor='texto' ancho='200' valor='Descripci&oacute;n'/>
 			<Portal:Columna tipovalor='moneda' ancho='150' valor='Importe'/>
 			<Portal:Columna tipovalor='moneda' ancho='100%' valor='Desglose/Saldo Total'/>		

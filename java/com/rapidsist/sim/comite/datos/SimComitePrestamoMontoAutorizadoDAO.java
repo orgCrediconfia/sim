@@ -173,9 +173,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 		
 		if (sMontos != null) {
 			for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
-				System.out.println("iNumParametro"+iNumParametro);
-				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
-				//OBTIENE LA CLAVE DE LA APLICACION
+				
 				sMontoAutorizado = sMontos[iNumParametro];
 				sCliente = sIdCliente[iNumParametro];
 				sPrestamoIndividual = sIdPrestamoIndividual[iNumParametro];

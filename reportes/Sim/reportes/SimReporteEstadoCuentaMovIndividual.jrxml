@@ -33,6 +33,7 @@ P.F_MEDIO,
 M.Id_Prestamo,
 M.F_Operacion,
 M.F_Aplicacion,
+VI.FECHA_AMORTIZACION,
 M.Desc_Movimiento,
 CASE
       When M.Imp_Pago = '0'
@@ -61,7 +62,8 @@ Case
         
 End As Recargo
 From V_Mov_Edo_Cta_Ind M,
-Pfin_Parametro P
+Pfin_Parametro P,
+V_TABLA_AMORT_INDIVIDUAL VI
 Where M.Id_Prestamo = $P{IdPrestamo}
 AND M.F_OPERACION <= (SELECT  F_MEDIO  
 					                    FROM    PFIN_PARAMETRO  
@@ -71,6 +73,10 @@ AND M.F_OPERACION <= (SELECT  F_MEDIO
 And M.Num_Pago_Amortizacion != 0
 And P.Cve_Gpo_Empresa = M.Cve_Gpo_Empresa
 And P.Cve_Empresa = M.Cve_Empresa
+AND VI.CVE_GPO_EMPRESA = M.CVE_GPO_EMPRESA
+AND VI.CVE_EMPRESA = M.CVE_EMPRESA
+AND VI.ID_PRESTAMO = M.ID_PRESTAMO
+AND VI.NUM_PAGO_AMORTIZACION = M.NUM_PAGO_AMORTIZACION
 ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP_CONCEPTO,2),0)]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
@@ -85,6 +91,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP
 	<field name="INTERES" class="java.lang.Float"/>
 	<field name="SEGURO" class="java.lang.Float"/>
 	<field name="RECARGO" class="java.lang.Float"/>
+	<field name="FECHA_AMORTIZACION" class="java.util.Date"/>
 
 	<variable name="SumCapital" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{CAPITAL}]]></variableExpression>
@@ -140,7 +147,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP
 					<textElement>
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{F_APLICACION}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA_AMORTIZACION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
