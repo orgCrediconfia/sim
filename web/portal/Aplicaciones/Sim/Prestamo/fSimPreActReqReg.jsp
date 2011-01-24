@@ -23,7 +23,11 @@
 		
 		<Portal:FormaBotones>
 			<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] != "V"}'>
-				<Portal:FormaBotonAltaModificacion/>
+				<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] != "V"}'>
+					<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] != "V"}'>
+						<Portal:FormaBotonAltaModificacion/>
+					</c:if>
+				</c:if>
 			</c:if>
 				<Portal:FormaBotonBaja/>
 		</Portal:FormaBotones>

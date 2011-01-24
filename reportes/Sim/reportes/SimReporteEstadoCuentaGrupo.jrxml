@@ -694,7 +694,7 @@
 					<textElement>
 						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Fecha valor]]></text>
+				<text><![CDATA[Fecha movto]]></text>
 				</staticText>
 				<staticText>
 					<reportElement

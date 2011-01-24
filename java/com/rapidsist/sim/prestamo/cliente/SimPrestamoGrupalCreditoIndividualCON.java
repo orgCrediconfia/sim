@@ -279,63 +279,32 @@ public class SimPrestamoGrupalCreditoIndividualCON implements CatalogoControlCon
 				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCreditoIndividual", registro, iTipoOperacion);//MODIFICACION	
 				
 			}else if (request.getParameter("AvanzarEtapaGrupal") != null){
+				
 				registro.addDefCampo("ID_PRESTAMO_GRUPO",request.getParameter("IdPrestamoGrupo"));
 				sIdPrestamoGrupo = request.getParameter("IdPrestamoGrupo");
-				LinkedList listaMontos = null;
 				
-				String sCliente = new String();
-				
-				String sPrestamo = new String();
-				String sEtapa = new String();
-				Enumeration lista = request.getParameterNames();
-		
-				//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
-				String[] sMontos = request.getParameterValues("MontoSolicitado");
 				String[] sIdCliente = request.getParameterValues("IdCliente");
-				String[] sComentarioEtapa = request.getParameterValues("Comentario");
 				String[] sIdPrestamo = request.getParameterValues("IdPrestamo");
 				String[] sIdEtapa = request.getParameterValues("IdEtapaPrestamo");
-				//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
-				if (sMontos != null) {
-					
-					for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
-						//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
-						if (listaMontos == null) {
-							listaMontos = new LinkedList();
-						}
-						//OBTIENE LA CLAVE DE LA APLICACION
-						
-						sCliente = sIdCliente[iNumParametro];
-						
-						sPrestamo = sIdPrestamo[iNumParametro];
-						sEtapa = sIdEtapa[iNumParametro];
-						
-						registro.addDefCampo("ID_CLIENTE",sCliente);
-						
-						registro.addDefCampo("ID_PRESTAMO",sPrestamo);
-						registro.addDefCampo("ID_ETAPA_PRESTAMO",sEtapa);
-						
-						//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-						registro.addDefCampo("MOVIMIENTO","AVANZAR_ETAPA_GRUPAL");
-						registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCreditoIndividual", registro, iTipoOperacion);//MODIFICACION	
-					}
-				}
 				
-				registro.addDefCampo("MOVIMIENTO","ACTUALIZA_A_ETAPA_POSTERIOR");
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCreditoIndividual", registro, iTipoOperacion);//MODIFICACION	
+				registro.addDefCampo("DAO_ID_CLIENTE", sIdCliente);
+				registro.addDefCampo("DAO_ID_PRESTAMO", sIdPrestamo);
+				registro.addDefCampo("DAO_ID_ETAPA", sIdEtapa);
+				
+				registro.addDefCampo("MOVIMIENTO","AVANZAR_ETAPA_GRUPAL");
+				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCreditoIndividual", registro, iTipoOperacion);//MODIFICACION
 				
 			}else if (request.getParameter("ReconformaPrestamo") != null){
 				registro.addDefCampo("ID_PRESTAMO_GRUPO",request.getParameter("IdPrestamoGrupo"));
 				registro.addDefCampo("ID_GRUPO",request.getParameter("IdGrupo"));
 				sIdPrestamoGrupo = request.getParameter("IdPrestamoGrupo");
 						
-				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
 				registro.addDefCampo("MOVIMIENTO","RECONFORMAR_PRESTAMO");
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCreditoIndividual", registro, iTipoOperacion);//MODIFICACION	
+				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupalCreditoIndividual", registro, iTipoOperacion);//MODIFICACION
+				
 			}else if (request.getParameter("CancelarPrestamo") != null){
 				registro.addDefCampo("ID_PRESTAMO_GRUPO",request.getParameter("IdPrestamoGrupo"));
 				registro.addDefCampo("ID_GRUPO",request.getParameter("IdGrupo"));
-				
 				sIdPrestamoGrupo = request.getParameter("IdPrestamoGrupo");
 						
 				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
