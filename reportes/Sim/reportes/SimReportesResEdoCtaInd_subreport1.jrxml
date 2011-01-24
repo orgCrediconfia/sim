@@ -25,28 +25,36 @@
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 
-					CVE_GPO_EMPRESA, 
-					CVE_EMPRESA, 
-					ID_PRESTAMO, 
-					F_APLICACION, 
-					NUM_PAGO_AMORTIZACION, 
-					F_OPERACION FECHA_OPERACION, 
-					DESC_MOVIMIENTO DESCRIPCION, 
-					TO_CHAR(NVL(ROUND(IMP_PAGO,2),0),'999,999,999.99') IMPORTE, 
-					TO_CHAR(NVL(ROUND(IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE, 
-					NVL(ROUND(IMP_CONCEPTO,2),0) 
+					RI.CVE_GPO_EMPRESA, 
+					RI.CVE_EMPRESA, 
+					RI.ID_PRESTAMO, 
+					RI.F_APLICACION, 
+					RI.NUM_PAGO_AMORTIZACION, 
+					RI.F_OPERACION FECHA_OPERACION, 
+					VI.FECHA_AMORTIZACION, 
+					RI.DESC_MOVIMIENTO DESCRIPCION, 
+					TO_CHAR(NVL(ROUND(RI.IMP_PAGO,2),0),'999,999,999.99') IMPORTE, 
+					TO_CHAR(NVL(ROUND(RI.IMP_CONCEPTO,2),0),'999,999,999.99') IMP_DESGLOSE, 
+					NVL(ROUND(RI.IMP_CONCEPTO,2),0) 
 		         	
-		    		FROM V_SIM_PRESTAMO_MOV_EDO_CTA 
-		   			WHERE CVE_GPO_EMPRESA = 'SIM' AND 
-		         	CVE_EMPRESA     = 'CREDICONFIA'  AND 
-		         	ID_PRESTAMO     = $P{IdPrestamo}
-		            AND F_OPERACION <= (SELECT  F_MEDIO  
-					                    FROM    PFIN_PARAMETRO  
+		    		FROM V_MOV_EDO_CTA_IND RI,
+		    			  V_TABLA_AMORT_INDIVIDUAL VI 
+		   			WHERE RI.CVE_GPO_EMPRESA = 'SIM' AND 
+		         	RI.CVE_EMPRESA     = 'CREDICONFIA'  AND 
+		         	RI.ID_PRESTAMO     = $P{IdPrestamo}
+		            AND RI.F_OPERACION <= (SELECT  F_MEDIO  
+					                    FROM    PFIN_PARAMETRO 
 					                    WHERE   CVE_GPO_EMPRESA = 'SIM' 
 					                    AND CVE_EMPRESA     = 'CREDICONFIA'  
 					                    AND CVE_MEDIO       = 'SYSTEM') 
-					AND NUM_PAGO_AMORTIZACION != 0 
-					ORDER BY F_APLICACION, FECHA_OPERACION, NUM_PAGO_AMORTIZACION, NVL(ROUND(IMP_CONCEPTO,2),0)]]></queryString>
+					AND RI.NUM_PAGO_AMORTIZACION != 0 
+					
+					AND VI.CVE_GPO_EMPRESA = RI.CVE_GPO_EMPRESA 
+					AND VI.CVE_EMPRESA = RI.CVE_EMPRESA
+					AND VI.ID_PRESTAMO = RI.ID_PRESTAMO 
+					AND VI.NUM_PAGO_AMORTIZACION = RI.NUM_PAGO_AMORTIZACION 
+					ORDER BY RI.F_OPERACION, VI.FECHA_AMORTIZACION, RI.NUM_PAGO_AMORTIZACION, NVL(ROUND(RI.IMP_CONCEPTO,2),0)
+			]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
@@ -57,7 +65,7 @@
 	<field name="DESCRIPCION" class="java.lang.String"/>
 	<field name="IMPORTE" class="java.lang.String"/>
 	<field name="IMP_DESGLOSE" class="java.lang.String"/>
-	<field name="NVL(ROUND(IMP_CONCEPTO,2),0)" class="java.math.BigDecimal"/>
+	<field name="FECHA_AMORTIZACION" class="java.util.Date"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -126,7 +134,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Fecha Aplicación]]></text>
+				<text><![CDATA[Fecha Movimiento]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -173,7 +181,7 @@
 					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{F_APLICACION}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA_AMORTIZACION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

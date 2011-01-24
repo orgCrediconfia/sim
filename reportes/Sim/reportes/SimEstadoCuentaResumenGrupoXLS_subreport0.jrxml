@@ -117,7 +117,7 @@
 					<textElement>
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Fecha de Aplicación]]></text>
+				<text><![CDATA[Fecha de Movimiento]]></text>
 				</staticText>
 				<staticText>
 					<reportElement

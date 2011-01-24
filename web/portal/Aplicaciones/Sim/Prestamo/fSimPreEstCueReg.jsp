@@ -31,7 +31,7 @@
 		<c:forEach var="registro" items="${requestScope.ListaEstadoCuenta}">		
 			<Portal:TablaListaRenglon>
 				<Portal:Columna tipovalor='texto' ancho='120' valor='${registro.campos["FECHA_OPERACION"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["F_APLICACION"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["FECHA_AMORTIZACION"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["DESCRIPCION"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='150' valor='$ ${registro.campos["IMPORTE"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["IMP_DESGLOSE"]}'/>
