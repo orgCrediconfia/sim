@@ -9,7 +9,7 @@
 		<Portal:FormaElemento etiqueta='# Línea' control='Texto' controlnombre='NumLinea' controlvalor='${requestScope.registro.campos["NUM_LINEA"]}' controllongitud='75' controllongitudmax='100' editarinicializado='false' obligatorio='true' />
 		<input type="hidden" name="IdLinea" value='<c:out value='${requestScope.registro.campos["ID_LINEA"]}'/>' />
 		
-		<Portal:FormaElemento etiqueta='Monto' control='Texto' controlnombre='Monto' controlvalor='${requestScope.registro.campos["MONTO"]}' controllongitud='75' controllongitudmax='100' editarinicializado='false' obligatorio='true' />
+		<Portal:FormaElemento etiqueta='Monto' control='Texto' controlnombre='Monto' controlvalor='${requestScope.registro.campos["MONTO"]}' controllongitud='75' controllongitudmax='100' editarinicializado='false' obligatorio='true' validadato='numerico'/>
 		<c:if test='${(requestScope.registro != null)}'>
 			<Portal:FormaElemento etiqueta='Monto disponible' control='Texto' controlnombre='MontoDisponible' controlvalor='${requestScope.registro.campos["MONTO_DISPONIBLE"]}' controllongitud='75' controllongitudmax='100' editarinicializado='false' obligatorio='true' />
 		</c:if>
