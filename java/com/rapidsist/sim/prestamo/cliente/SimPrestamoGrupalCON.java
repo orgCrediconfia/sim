@@ -132,6 +132,8 @@ public class SimPrestamoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 				registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
 				registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
 				registroControl.respuesta.addDefCampo("registroEtapaGrupal", catalogoSL.getRegistro("SimPrestamoGrupalEtapaGrupal", parametros));
+				parametros.addDefCampo("ETAPA_DOCUMENTOS","GRUPO");
+				registroControl.respuesta.addDefCampo("registroEtapaDocumentos", catalogoSL.getRegistro("SimPrestamoDocumentacion", parametros));
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoGrupal", parametros));
 				registroControl.respuesta.addDefCampo("ListaCargoComision", catalogoSL.getRegistros("SimPrestamoGrupalCargoComision", parametros));
 				registroControl.respuesta.addDefCampo("ListaDocumentoImprimir", catalogoSL.getRegistros("SimPrestamoDocumentoImprimir", parametros));
