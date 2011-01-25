@@ -29,7 +29,7 @@
 					</c:if>
 				</c:if>
 			</c:if>
-				<Portal:FormaBotonBaja/>
+				<!--Portal:FormaBotonBaja/-->
 		</Portal:FormaBotones>
 		
 	</Portal:Forma>
