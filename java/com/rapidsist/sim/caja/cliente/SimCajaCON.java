@@ -52,20 +52,10 @@ public class SimCajaCON implements CatalogoControlConsultaIN, CatalogoControlAct
 	public RegistroControl consulta(Registro parametros, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		//VERIFICA SI BUSCA TODOS LOS REGISTROS
-		if (iTipoOperacion == CON_CONSULTA_TABLA){
-			
-			parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-			parametros.addDefCampo("CVE_OPERACION", request.getParameter("CveOperacion"));
-			parametros.addDefCampo("FECHA_MOVIMIENTO", request.getParameter("FechaMovimiento"));
-			registroControl.respuesta.addDefCampo("ListaConcepto", catalogoSL.getRegistros("SimPrestamoCatalogoOperacionConcepto", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo"+request.getParameter("IdPrestamo")+"&CveOperacion="+request.getParameter("CveOperacion")+"&FechaMovimiento="+request.getParameter("FechaMovimiento");
-		}
-		else if (iTipoOperacion == CON_INICIALIZACION){
+		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
 				registroControl.respuesta.addDefCampo("ListaCajas", catalogoSL.getRegistros("SimCaja", parametros));
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCaja.jsp";
-			}else if (request.getParameter("Filtro").equals("Alta")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExt.jsp";
 			}
 		}
 		return registroControl;

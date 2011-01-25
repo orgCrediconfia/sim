@@ -36,15 +36,21 @@ public class SimRegionalSucursalDAO extends Conexion2 implements OperacionConsul
 		//PREPARA LA CONSULTA QUE VA A HACER EN LA BD, PARA TRAER LOS REGISTROS QUE COINCIDAN CON LAS CONDICIONES
 		
 		sSql =  "SELECT \n"+
-				"CS.CVE_GPO_EMPRESA, \n"+
+				"CS.CVE_GPO_EMPRESA, \n"+ 
 				"CS.CVE_EMPRESA, \n"+
 				"CS.ID_SUCURSAL, \n"+	
 				"CS.ID_REGIONAL, \n"+ 
-				"CS.NOM_SUCURSAL \n"+
-		    "FROM  SIM_CAT_SUCURSAL CS \n"+
-			" WHERE CS.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			" AND CS.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CS.ID_REGIONAL = '" + (String)parametros.getDefCampo("ID_REGIONAL") + "' \n";
+				"CS.NOM_SUCURSAL, \n"+
+			    "C.ID_SUCURSAL||'-'||C.ID_CAJA ID_CAJA, \n"+ 
+				"CS.NOM_SUCURSAL ||' - '|| 'CAJA ' || C.ID_CAJA NOM_CAJA \n"+ 
+				"FROM  SIM_CAT_SUCURSAL CS, \n"+
+				"SIM_SUCURSAL_CAJA C \n"+
+			    "WHERE CS.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				"AND CS.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND CS.ID_REGIONAL = '" + (String)parametros.getDefCampo("ID_REGIONAL") + "' \n"+
+				"AND C.CVE_GPO_EMPRESA = CS.CVE_GPO_EMPRESA \n"+
+				"AND C.CVE_EMPRESA = CS.CVE_EMPRESA \n"+
+				"AND C.ID_SUCURSAL = CS.ID_SUCURSAL \n";
 		
 		ejecutaSql();
 		return getConsultaLista();
