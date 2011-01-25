@@ -4,10 +4,10 @@
 	<Portal:PaginaNombre titulo="Asignación de Líneas de fondeo" subtitulo="Consulta de datos"/>
 	
 	<Portal:Forma tipo='busqueda' funcion='SimPrestamoLineaFondeo' operacion='CT' filtro='Todos'>
-		<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='10' editarinicializado='true'/>
+		<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamo' controllongitud='20' controllongitudmax='18' editarinicializado='true'/>
 		<Portal:FormaElemento etiqueta='Nombre del grupo o cliente' control='Texto' controlnombre='Nombre' controllongitud='30' controllongitudmax='100' editarinicializado='true'/>
 		<Portal:Calendario2 etiqueta='Fecha de entrega' contenedor='frmRegistro' controlnombre='FechaDesembolso' controlvalor='${requestScope.registro.campos["FECHA_ENTREGA"]}'  esfechasis='false'/>
-		<Portal:FormaElemento etiqueta='# de Línea' control='selector' controlnombre='IdLinea' controlvalor='' editarinicializado='true' obligatorio='false' campoclave="NUM_LINEA" campodescripcion="NUM_LINEA" datosselector='${requestScope.ListaLinea}'/>
+		<!--Portal:FormaElemento etiqueta='# de Línea' control='selector' controlnombre='IdLinea' controlvalor='' editarinicializado='true' obligatorio='false' campoclave="NUM_LINEA" campodescripcion="NUM_LINEA" datosselector='${requestScope.ListaLinea}'/-->
 	</Portal:Forma>
 	<Portal:TablaForma nombre="Consulta" funcion="SimPrestamoLineaFondeo" operacion="AL">
 		<Portal:TablaListaTitulos> 
@@ -32,7 +32,7 @@
 				</c:if>
 				<Portal:Columna tipovalor='moneda' ancho='100' valor='$ ${registro.campos["IMPORTE_PRESTADO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["FECHA_ENTREGA"]}'/>
-				<Portal:FormaElemento etiqueta='' control='selector-horizontal' controlnombre='IdLinea' controlvalor='${registro.campos["NUM_LINEA"]}' editarinicializado='true' obligatorio='false' campoclave="NUM_LINEA" campodescripcion="NUM_LINEA" datosselector='${requestScope.ListaLinea}'/>
+				<Portal:FormaElemento etiqueta='' control='selector-horizontal' controlnombre='IdLinea' controlvalor='${registro.campos["NUM_LINEA"]}' editarinicializado='true' obligatorio='false' campoclave="NUM_LINEA" campodescripcion="FONDEADOR_LINEA" datosselector='${requestScope.ListaLinea}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:FormaBotones>

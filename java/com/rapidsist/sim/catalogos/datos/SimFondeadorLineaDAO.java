@@ -39,17 +39,23 @@ public class SimFondeadorLineaDAO extends Conexion2 implements OperacionConsulta
 		if (parametros.getDefCampo("CONSULTA").equals("COMBO")) {
 		
 		sSql = " SELECT \n"+
-				"	CVE_GPO_EMPRESA, \n"+
-				"	CVE_EMPRESA, \n"+
-				"	CVE_FONDEADOR, \n"+
-				"	NUM_LINEA, \n"+
-				"	MONTO, \n"+
-				"	TASA, \n"+
-				"	FECHA_INICIO, \n"+
-				"	FECHA_VIGENCIA \n"+
-				"FROM SIM_CAT_FONDEADOR_LINEA  \n"+
-				"WHERE CVE_GPO_EMPRESA='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				"AND CVE_EMPRESA='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n";
+				"	L.CVE_GPO_EMPRESA, \n"+
+				"	L.CVE_EMPRESA, \n"+
+				"	L.CVE_FONDEADOR, \n"+
+				"   F.NOM_FONDEADOR, \n"+
+				"	L.NUM_LINEA, \n"+
+				"   F.NOM_FONDEADOR||' - ' ||L.NUM_LINEA FONDEADOR_LINEA, \n"+
+				"	L.MONTO, \n"+
+				"	L.TASA, \n"+
+				"	L.FECHA_INICIO, \n"+ 
+				"	L.FECHA_VIGENCIA \n"+
+				"FROM SIM_CAT_FONDEADOR_LINEA L, \n"+
+				"SIM_CAT_FONDEADOR F \n"+
+				"WHERE L.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				"AND L.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND F.CVE_GPO_EMPRESA = L.CVE_GPO_EMPRESA \n"+
+				"AND F.CVE_EMPRESA = L.CVE_EMPRESA \n"+
+				"AND F.CVE_FONDEADOR = L.CVE_FONDEADOR \n";
 		}else {
 			
 			sSql = " SELECT \n"+

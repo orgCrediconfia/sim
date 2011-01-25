@@ -115,34 +115,15 @@ public class SimPrestamoLineaFondeoCON implements CatalogoControlConsultaIN, Cat
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		String sAplica = new String();
-		String sPrestamo = new String();
-		String sLinea = new String();
+		String[] sAplica = request.getParameterValues("AplicaA");
+		String[] sPrestamo = request.getParameterValues("IdPrestamo");
+		String[] sLinea = request.getParameterValues("IdLinea");
 		
-		//OBTIENE EL ARREGLO CON LAS APLICACIONES A PROCESAR
-		String[] sAplicaA = request.getParameterValues("AplicaA");
-		String[] sIdPrestamo = request.getParameterValues("IdPrestamo");
-		String[] sIdLinea = request.getParameterValues("IdLinea");
-		//VERIFICA SI ENCONTRO EL ARREGLO DE APLICACIONES
-		if (sIdPrestamo != null) {
-			
-			for (int iNumParametro = 0; iNumParametro < sIdPrestamo.length; iNumParametro++) {
-				//VERIFICA SI LA LISTA DE APLICACIONES ESTA INICIALIZADA
-				
-				//OBTIENE LA CLAVE DE LA APLICACION
-				sPrestamo = sIdPrestamo[iNumParametro];
-				sLinea = sIdLinea[iNumParametro];
-				sAplica = sAplicaA[iNumParametro];
-				
-				registro.addDefCampo("ID_PRESTAMO",sPrestamo);
-				registro.addDefCampo("NUM_LINEA",sLinea);
-				registro.addDefCampo("APLICA", sAplica);
-				
-				//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoLineaFondeo", registro, 1);//MODIFICACION
-				
-			}
-		}
+		registro.addDefCampo("DAO_APLICA_A",sAplica);
+		registro.addDefCampo("DAO_ID_PRESTAMO",sPrestamo);
+		registro.addDefCampo("DAO_ID_LINEA",sLinea);
+		
+		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoLineaFondeo", registro, 1);
 		
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamoLineaFondeo&OperacionCatalogo=CT&Filtro=Todos";
 	

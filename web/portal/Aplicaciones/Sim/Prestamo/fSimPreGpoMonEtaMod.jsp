@@ -116,14 +116,14 @@
 		</Portal:FormaBotones>		
 	</Portal:TablaForma>
 
-	<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] == "11")}'>
+	<c:if test='${(registroEtapaDocumentos.campos["ID_ETAPA_PRESTAMO"] != null)}'>
 	<Portal:TablaForma maestrodetallefuncion="SimPrestamoDocumentoImprimir" nombre="Documento a Imprimir" funcion="SimPrestamoGrupalCargoComision" operacion="AL" parametros="&IdPrestamoGrupo=${param.IdPrestamoGrupo}&IdGrupo=${param.IdGrupo}">
 		<Portal:TablaListaTitulos>
-			<Portal:Columna tipovalor='texto' ancho='800' valor='Lista de documentos a imprimir'/>
+			<Portal:Columna tipovalor='texto' ancho='1550' valor='Lista de documentos a imprimir'/>
 		</Portal:TablaListaTitulos>	
 		<c:forEach var="registro" items="${requestScope.ListaDocumentoImprimir}">
 			<Portal:TablaListaRenglon>
-				<td  width='100%' align='left'  nowrap  >
+				<td  width='1550' align='left'  nowrap  >
 						<a id="AsignarGrupo" href="javascript:fReporte('<c:out value='${registro.campos["CVE_FUNCION"]}'/>');"><c:out value='${registro.campos["NOM_DOCUMENTO"]}'/></a>	
 					</td>	
 			</Portal:TablaListaRenglon>

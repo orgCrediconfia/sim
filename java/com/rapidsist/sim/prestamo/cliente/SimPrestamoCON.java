@@ -97,6 +97,8 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 			//OBTIENE SOLO EL REGISTRO SOLICITADO
 			parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
 			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
+			parametros.addDefCampo("ETAPA_DOCUMENTOS","INDIVIDUAL");
+			registroControl.respuesta.addDefCampo("registroEtapaDocumentos", catalogoSL.getRegistro("SimPrestamoDocumentacion", parametros));
 			registroControl.respuesta.addDefCampo("ListaParticipante", catalogoSL.getRegistros("SimPrestamoParticipante", parametros));
 			registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimUsuarioSucursalAsignada", parametros));
 			registroControl.respuesta.addDefCampo("ListaComite", catalogoSL.getRegistros("SimComite", parametros));

@@ -171,7 +171,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"NVL(ROUND(RI.IMP_CONCEPTO,2),0) \n"+
 		         	
 		    		"FROM V_MOV_EDO_CTA_IND RI, \n"+
-		    		"FROM V_TABLA_AMORT_INDIVIDUAL VI \n"+
+		    		"	  V_TABLA_AMORT_INDIVIDUAL VI \n"+
 		   			"WHERE RI.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
 		         	"RI.CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
 		         	"RI.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
@@ -186,7 +186,7 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 					"AND VI.CVE_EMPRESA = RI.CVE_EMPRESA \n"+
 					"AND VI.ID_PRESTAMO = RI.ID_PRESTAMO \n"+
 					"AND VI.NUM_PAGO_AMORTIZACION = RI.NUM_PAGO_AMORTIZACION \n"+
-					"ORDER BY RI.F_APLICACION, RI.FECHA_OPERACION, RI.NUM_PAGO_AMORTIZACION, NVL(ROUND(RI.IMP_CONCEPTO,2),0) \n";
+					"ORDER BY RI.F_OPERACION, VI.FECHA_AMORTIZACION, RI.NUM_PAGO_AMORTIZACION, NVL(ROUND(RI.IMP_CONCEPTO,2),0) \n";
 			
 			}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_FECHA")){	
 				

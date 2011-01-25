@@ -275,7 +275,7 @@
 		</Portal:TablaForma>
 		
 		<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
-			<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] == "11")}'>
+			<c:if test='${(registroEtapaDocumentos.campos["ID_ETAPA_PRESTAMO"] != null)}'>
 				<Portal:TablaForma maestrodetallefuncion="SimPrestamoDocumentacion" nombre="Documentos" funcion="SimPrestamoDocumentacion" operacion="BA">
 					<Portal:TablaListaTitulos>
 						<Portal:Columna tipovalor='texto' ancho='80' valor='Clave'/>
