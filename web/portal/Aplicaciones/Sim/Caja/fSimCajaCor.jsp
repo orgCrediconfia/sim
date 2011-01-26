@@ -10,7 +10,7 @@
 		<input type="hidden" name="IdMovimiento" value='<c:out value='${param.IdMovimiento}'/>' />
 		<Portal:FormaBotones>
 			<input type="button" name="Aceptar"  value="Aceptar" onclick='javascript:fAceptar()'>
-			<input type="button" name="Aceptar"  value="Imprimir" onclick='javascript:fImprimir()'>
+			<!--input type="button" name="Aceptar"  value="Imprimir" onclick='javascript:fImprimir()'-->
 		</Portal:FormaBotones>
 	</Portal:Forma>	
 	
@@ -18,16 +18,22 @@
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='85' valor='Fecha'/>
 			<Portal:Columna tipovalor='texto' ancho='250' valor='Movimiento'/>
-			<Portal:Columna tipovalor='texto' ancho='200' valor='Grupo'/>
-			<Portal:Columna tipovalor='texto' ancho='300' valor='Cliente'/>
+			<Portal:Columna tipovalor='texto' ancho='20' valor='Clave del Grupo'/>
+			<Portal:Columna tipovalor='texto' ancho='100' valor='Nombre del Grupo'/>
+			<Portal:Columna tipovalor='texto' ancho='20' valor='Clave del Cliente'/>
+			<Portal:Columna tipovalor='texto' ancho='100' valor='Nombre del Cliente'/>
+			<Portal:Columna tipovalor='texto' ancho='10' valor='Ciclo'/>
 			<Portal:Columna tipovalor='moneda' ancho='100%' valor='Monto'/>
 		</Portal:TablaListaTitulos>
 		<Portal:TablaListaRenglon>
 			<c:if test='${(requestScope.ListaMovimiento != null)}'>
 				<Portal:Columna tipovalor='texto' ancho='85' valor='Saldo inicial'/>
 				<Portal:Columna tipovalor='texto' ancho='250' valor=''/>
-				<Portal:Columna tipovalor='texto' ancho='200' valor=''/>
-				<Portal:Columna tipovalor='texto' ancho='300' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='20' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='20' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='10' valor=''/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registroFechaInicial.campos["SALDO_INICIAL"]}'/>
 			</c:if>
 		</Portal:TablaListaRenglon>
@@ -35,8 +41,11 @@
 			<Portal:TablaListaRenglon>			
 				<Portal:Columna tipovalor='texto' ancho='85' valor='${registro.campos["FECHA"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_MOVIMIENTO_CAJA"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["GRUPO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='300' valor='${registro.campos["CLIENTE"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='20' valor='${registro.campos["ID_GRUPO"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_GRUPO"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='20' valor='${registro.campos["ID_CLIENTE"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_COMPLETO"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='10' valor='${registro.campos["NUM_CICLO"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["MONTO"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
@@ -44,8 +53,11 @@
 			<c:if test='${(requestScope.ListaMovimiento != null)}'>
 				<Portal:Columna tipovalor='texto' ancho='85' valor='Saldo final'/>
 				<Portal:Columna tipovalor='texto' ancho='250' valor=''/>
-				<Portal:Columna tipovalor='texto' ancho='200' valor=''/>
-				<Portal:Columna tipovalor='texto' ancho='300' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='20' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='20' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
+				<Portal:Columna tipovalor='texto' ancho='10' valor=''/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registroFechaFinal.campos["SALDO_FINAL"]}'/>
 			</c:if>
 		</Portal:TablaListaRenglon>
