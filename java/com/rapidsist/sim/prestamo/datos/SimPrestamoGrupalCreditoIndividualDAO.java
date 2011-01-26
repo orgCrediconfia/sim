@@ -2240,6 +2240,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						"FROM SIM_PARAMETRO_GLOBAL  \n" +
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 					    "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "')B \n" ;  	
+				
 				ejecutaSql();
 				if (rs.next()){
 					sMinIntFundadores = rs.getString("MIN_INT_FUNDADORES");
@@ -2254,6 +2255,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 					  "	AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 					  " AND FECHA_BAJA_LOGICA IS NULL \n";
+				
 				ejecutaSql();
 				while (rs.next()){
 					registro.addDefCampo("ID_INTEGRANTE",rs.getString("ID_INTEGRANTE")== null ? "": rs.getString("ID_INTEGRANTE"));
@@ -2265,7 +2267,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 							"AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 							"AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
-							
+					
 					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 					ps1.execute();
 					ResultSet rs1 = ps1.getResultSet();
@@ -2286,6 +2288,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						  "	FROM SIM_PARAMETRO_GLOBAL  \n" +
 						  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
+				
 					ejecutaSql();
 					if (rs.next()){
 						sCreditosSimultaneos = rs.getString("CREDITOS_SIMULTANEOS");
@@ -2295,6 +2298,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					}
 					
 					if (sCreditosSimultaneos.equals("V")){
+						
 						//Cuenta los integrantes del grupo.
 						sSql =  "SELECT COUNT(*) NUM_INTEGRANTES \n" +
 							"FROM SIM_GRUPO_INTEGRANTE  \n"+
@@ -3259,7 +3263,6 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							PreparedStatement ps5 = this.conn.prepareStatement(sSql);
 							ps5.execute();
 							ResultSet rs5 = ps5.getResultSet();
-							System.out.println("11");
 							if (rs5.next()){
 								sMinIntegrantes = rs5.getString("MINIMO_INTEGRANTES");
 							}
@@ -3307,13 +3310,13 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps8 = this.conn.prepareStatement(sSql);
 									ps8.execute();
 									ResultSet rs8 = ps8.getResultSet();
-								
+									
 									if (rs8.next()){
 										sMaximoAmbulante = rs8.getString("MAX_AMBULANTE");
 									}
 									
 									int iMaximoAmbulante =Integer.parseInt(sMaximoAmbulante.trim());
-									
+								
 									//Obtiene de los parámetros globales del grupo el máximo de integrantes que pueden tener negocios de venta por catálogo.
 									sSql =  "SELECT \n"+
 										"	MAX_CATALOGO \n"+
@@ -3322,7 +3325,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps9 = this.conn.prepareStatement(sSql);
 									ps9.execute();
 									ResultSet rs9 = ps9.getResultSet();
-								
+									
 									if (rs9.next()){
 										sMaximoCatalogo = rs9.getString("MAX_CATALOGO");
 									}
@@ -3340,7 +3343,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 									PreparedStatement ps10 = this.conn.prepareStatement(sSql);
 									ps10.execute();
 									ResultSet rs10 = ps10.getResultSet();		
-								
+									
 									while (rs10.next()){
 										
 										sIdIntegrantes = rs10.getString("ID_INTEGRANTE");
@@ -3352,7 +3355,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											"AND B_PRINCIPAL = 'V' \n" +
 											"AND (ID_TIPO_NEGOCIO = '3' OR ID_TIPO_NEGOCIO = '4') \n" +
 											"AND ID_PERSONA = '" + sIdIntegrantes + "' \n";
-									
+										
 										PreparedStatement ps11 = this.conn.prepareStatement(sSql);
 										ps11.execute();
 										ResultSet rs11 = ps11.getResultSet();
@@ -3391,7 +3394,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											PreparedStatement ps12 = this.conn.prepareStatement(sSql);
 											ps12.execute();
 											ResultSet rs12 = ps12.getResultSet();
-								
+											
 											if (rs12.next()){
 												iMaxAmbulanteProp ++;
 											}
@@ -3401,7 +3404,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 								
 										//Comprueba si el número de integrantes con negocios tipo ambulantes es el permitido.
 										if (iMaxAmbulanteProp <= iMaximoAmbulante){
-											
+										
 											//Obtiene los candidatos propuestos a formar el grupo.
 											sSql =  "SELECT ID_INTEGRANTE \n" +
 												"FROM SIM_GRUPO_INTEGRANTE  \n"+
@@ -3412,7 +3415,6 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											PreparedStatement ps13 = this.conn.prepareStatement(sSql);
 											ps13.execute();
 											ResultSet rs13 = ps13.getResultSet();		
-											
 											
 											while (rs13.next()){
 												
@@ -3425,7 +3427,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 													"AND B_PRINCIPAL = 'V' \n" +
 													"AND ID_TIPO_NEGOCIO = '4' \n" +
 													"AND ID_PERSONA = '" + sIdIntegrantes + "' \n";
-												
+											
 												PreparedStatement ps14 = this.conn.prepareStatement(sSql);
 												ps14.execute();
 												ResultSet rs14 = ps14.getResultSet();
@@ -3440,8 +3442,6 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											//Comprueba si el número de integrantes con negocios tipo venta por catálogo es el permitido.
 											if (iMaxCatalogoProp <= iMaximoCatalogo){
 												
-											
-
 												sSql =  "   SELECT \n" + 
 												"   ID_INTEGRANTE \n" +
 												"	FROM SIM_GRUPO_INTEGRANTE  \n" +
@@ -3478,7 +3478,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 														"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 														"'" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "', \n" +
 														"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "') \n" ;
-												
+											
 												PreparedStatement ps17 = this.conn.prepareStatement(sSql);
 												ps17.execute();
 												ResultSet rs17 = ps17.getResultSet();	
@@ -3611,7 +3611,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 														"SYSDATE, \n" +
 														"'F', \n" +
 														"'" + (String)registro.getDefCampo("APLICA_A") + "') \n" ;
-													
+												
 													//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
 													PreparedStatement ps19 = this.conn.prepareStatement(sSql);
 													ps19.execute();
@@ -3706,7 +3706,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 																"'" + (String)registro.getDefCampo("VALOR") + "', \n" +
 																"'" + (String)registro.getDefCampo("ID_UNIDAD") + "', \n" +
 																"'" + (String)registro.getDefCampo("ID_PERIODICIDAD") + "') \n" ;
-															
+														
 															PreparedStatement ps23 = this.conn.prepareStatement(sSql);
 															ps23.execute();
 															ResultSet rs23 = ps23.getResultSet();	
@@ -3727,7 +3727,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 																"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 																"AND ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
 																"AND NUM_CICLO = '" + (String)registro.getDefCampo("NUM_CICLO") + "' \n";
-														
+													
 														PreparedStatement ps26 = this.conn.prepareStatement(sSql);
 														ps26.execute();
 														ResultSet rs26 = ps26.getResultSet();
@@ -4023,7 +4023,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 													ps41.execute();
 													ResultSet rs41 = ps41.getResultSet();
 													if (rs41.next()){
-														registro.addDefCampo("ID_HISTORICO",rs.getString("ID_HISTORICO"));
+														registro.addDefCampo("ID_HISTORICO",rs41.getString("ID_HISTORICO"));
 														
 														sSql = "INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO ( \n"+
 															"CVE_GPO_EMPRESA, \n" +
