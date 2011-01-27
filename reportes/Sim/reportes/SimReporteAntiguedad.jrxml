@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="2260"
+		 pageWidth="2280"
 		 pageHeight="595"
-		 columnWidth="2220"
+		 columnWidth="2240"
 		 columnSpacing="0"
 		 leftMargin="20"
 		 rightMargin="20"
@@ -105,7 +105,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="2220"
+						width="2240"
 						height="23"
 						key="staticText-1"/>
 					<box></box>
@@ -133,7 +133,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1970"
+						x="1990"
 						y="0"
 						width="250"
 						height="15"
@@ -224,7 +224,7 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1970"
+						x="1990"
 						y="15"
 						width="250"
 						height="15"
@@ -465,21 +465,21 @@ más Recargos]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1505"
+						x="1525"
 						y="0"
 						width="80"
 						height="30"
 						key="staticText-19"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[    Fecha
-    Ult Mov]]></text>
+				<text><![CDATA[Fecha
+Ult Mov]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1585"
+						x="1605"
 						y="0"
 						width="80"
 						height="30"
@@ -493,7 +493,7 @@ vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1690"
+						x="1710"
 						y="0"
 						width="280"
 						height="27"
@@ -506,7 +506,7 @@ vs cuota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1970"
+						x="1990"
 						y="0"
 						width="250"
 						height="27"
@@ -521,7 +521,7 @@ vs cuota]]></text>
 					<reportElement
 						x="0"
 						y="43"
-						width="2220"
+						width="2240"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -584,20 +584,20 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1505"
+						x="1525"
 						y="0"
 						width="80"
 						height="15"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[$F{F_ULT_PAGO_REALIZADO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1690"
+						x="1710"
 						y="0"
 						width="280"
 						height="15"
@@ -610,7 +610,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1970"
+						x="1990"
 						y="0"
 						width="250"
 						height="15"
@@ -766,7 +766,7 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1585"
+						x="1605"
 						y="0"
 						width="80"
 						height="15"
@@ -897,7 +897,7 @@ vs cuota]]></text>
 					<reportElement
 						x="0"
 						y="1"
-						width="2220"
+						width="2240"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -969,26 +969,26 @@ vs cuota]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1504"
+						x="1524"
 						y="2"
 						width="80"
 						height="15"
 						key="textField-19"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SegundoPorcentaje}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1504"
+						x="1524"
 						y="17"
 						width="80"
 						height="15"
 						key="textField-20"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{TercerPorcentaje}]]></textFieldExpression>
