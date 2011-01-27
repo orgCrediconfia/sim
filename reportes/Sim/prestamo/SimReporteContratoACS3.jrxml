@@ -6,14 +6,14 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="566"
-		 pageHeight="792"
-		 columnWidth="506"
+		 pageWidth="570"
+		 pageHeight="800"
+		 columnWidth="550"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="2"
-		 bottomMargin="2"
+		 leftMargin="10"
+		 rightMargin="10"
+		 topMargin="10"
+		 bottomMargin="10"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -45,61 +45,60 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="719"  isSplitAllowed="true" >
+			<band height="730"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
 						y="0"
-						width="233"
-						height="719"
-						key="staticText-3"/>
+						width="257"
+						height="730"
+						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[OTORGANTE de toda clase de perturbaciones de hecho o de derecho, que en alguna forma menoscabe o altere la propiedad de DINSA sobre el(los) BIEN(ES), que le será(n) transmitido(s) conforme a lo establecido en la presente cláusula.
+				<text><![CDATA[derivar conforme a este contrato. El (los) OBLIGADO(S) SOLIDARIO(S) se obliga(n) a cumplir con todos y cada uno de los términos aquí contenidos y en el Anexo A, así como a suscribir el Pagaré en su carácter de aval(es).
+
+DÉCIMA. SEGUROS. El DEUDOR en este acto autoriza a DINSA para que ésta contrate a su nombre y cargo, y sin estar obligada a ello esta última, con alguna compañía de seguros aceptable para DINSA, misma que se señalará en el Anexo A, en la fecha de disposición del Crédito, un seguro que cubra la obligación de pago asumida bajo el presente Contrato por el DEUDOR frente a DINSA, en caso de fallecimiento del DEUDOR, designando como Beneficiario de la póliza de seguro en primer lugar y grado, irrevocable y preferente a DINSA, durante la vigencia establecida en el Anexo A. Asimismo el DEUDOR autoriza en este acto a DINSA a contratar a su nombre y cargo, y sin estar obligada a ello, cualesquier otros seguros que DINSA requiera y/o el DEUDOR haya solicitado a DINSA.
+
+El DEUDOR podrá consultar las condiciones aplicables al o los seguros contratados por DINSA, en la sucursal de esta última en donde haya contratado el Crédito o en la página web de la Aseguradora referida en el Anexo A. 
+
+DÉCIMA PRIMERA. CAUSAS DE VENCIMIENTO ANTICIPADO. DINSA podrá dar por vencido anticipadamente el plazo establecido para el pago de la totalidad del Crédito y hacer pagadero el saldo de la suerte principal del mismo, junto con sus intereses acumulados e insolutos y las demás cantidades que deban pagarse de acuerdo con los términos de este contrato de inmediato, en cualquiera de los casos previstos por la ley y en los siguientes casos: (i) si el DEUDOR deja de cumplir oportunamente con uno o más Pagos Parciales o cualquier pago previsto en este contrato y el Anexo A; (ii) si el DEUDOR incurre en concurso o quiebra; y/o (iii) a falta de entrega de el(los) BIEN(ES) por el OTORGANTE, en la fecha, lugar y condiciones que al efecto le indique DINSA. Sin perjuicio de lo anterior, el Crédito se extinguirá en los casos previstos por el Artículo 301 de la Ley General De Títulos y Operaciones de Crédito, el cual se encuentra transcrito en el Anexo B del presente Contrato, formando parte integrante del mismo.
+
+El DEUDOR podrá solicitar, en todo momento, por escrito dirigido al domicilio de DINSA, la terminación anticipada del presente contrato y Anexo A, obligándose a cubrir, en su caso y bajo los términos pactados en el presente contrato, el pago anticipado de todas las cantidades que le adeude a DINSA a la fecha de la resolución, incluyendo todos los accesorios financieros generados a la fecha de terminación o vencimiento solicitado, así como la entrega total de los Bien(es) por parte del OTORGANTE. 
+
+Por su parte, el DEUDOR podrá solicitar a DINSA, dentro de un plazo que no podrá exceder de 10 (diez) días hábiles, posteriores a la celebración del Anexo A, cancelar el presente Contrato y/o el Anexo A, sin responsabilidad alguna para el mismo, siempre y cuando el DEUDOR no hubiese dispuesto del Crédito otorgado al amparo del presente Contrato y su Anexo A.
+
+Una vez concluido el plazo a que se refiere el párrafo anterior, las partes convienen en que en el supuesto de que el DEUDOR solicite la cancelación de este Contrato y/o su Anexo A, las partes se sujetarán a lo siguiente: (i) el DEUDOR presentará un escrito en la UNIDAD ESPECIALIZADA, mediante el que solicite la cancelación del Contrato y/o su Anexo A; (ii) DINSA deberá proporcionar al DEUDOR una clave de cancelación; y (iii) Previo a la cancelación del Contrato y/o su Anexo A, DINSA deberá confirmar vía telefónica o por cualquier otro medio pactado conforme al presente Contrato los datos del DEUDOR.
+
+En caso de que el DEUDOR llegase a cancelar el presente Contrato y/o su Anexo A, deberá pagar a DINSA todos los adeudos que se hubiesen generado a su cargo, a la fecha de cancelación del Contrato y/o su Anexo A. 
+
+En el supuesto de que el DEUDOR decidiera cancelar el presente          ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="301"
+						y="0"
+						width="249"
+						height="730"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Contrato y/o su Anexo A, conforme a lo establecido anteriormente, pagará a DINSA la Pena Convencional establecida en el presente Contrato y su Anexo A.
+
+DÉCIMA SEGUNDA. DACIÓN EN PAGO. El OTORGANTE con la firma del presente Contrato, se obliga expresamente en este acto, a otorgar de manera plena, total y en forma irrevocable en Dación en Pago a DINSA, la propiedad de el(los) BIEN(ES) como pago hasta donde el valor de el(los) mismo(s) alcance a cubrir del adeudo existente y que se genere a cargo del DEUDOR, bajo el presente contrato, su Anexo A y Pagaré suscrito a su amparo, así como cualquier documento suscrito y que se suscriba al amparo de los mismos, en la fecha en que la dación en pago surta plenamente sus efectos legales (en lo sucesivo el “Adeudo”), por lo que DINSA acepta la dación en pago antes mencionada, sujeto al cumplimiento de la condición suspensiva consistente en que el DEUDOR incumpla con cualquiera de sus obligaciones asumidas al amparo del presente Contrato, en cualquiera de las fechas al efecto señaladas en dicho documento, su Anexo A y Pagaré suscrito a su amparo, así como cualquier documento suscrito y que se suscriba al amparo de los mismos.
+
+La transmisión de el(los) BIEN(ES) por el OTORGANTE, se realiza y/o realizará sin limitación alguna de dominio a DINSA, quien lo(s) recibirá en el estado en que se encuentre(n), libre(s) de todo gravamen o limitación legal alguna, absteniéndose el OTORGANTE de toda clase de perturbaciones de hecho o de derecho, que en alguna forma menoscabe o altere la propiedad de DINSA sobre el(los) BIEN(ES), que le será(n) transmitido(s) conforme a lo establecido en la presente cláusula.
 
 El OTORGANTE, se obliga con DINSA, al saneamiento para el caso de evicción en relación con el(los) BIEN(ES), que se le transmitirá(n) en Dación en Pago.
 
 Las Partes convienen en que para el caso de que el OTORGANTE no entregue el(los) BIEN(ES) conforme a lo establecido en el presente Contrato y con independencia de lo establecido en el párrafo anterior, durante todo el tiempo en que el DEUDOR continúe sin dar cumplimiento a su obligación de entrega de el(los) BIEN(ES) y hasta el momento en que dé cumplimiento a la misma se le considerará como Depositario de dicho(s) BIEN(ES) a título gratuito, con todas y cada una de las obligaciones que con tal motivo se deriven a su cargo.
 
-Las Partes acuerdan que la entrega de el(los) BIEN(ES) por parte del OTORGANTE, no libera a esta última, ni al DEUDOR, ni al OBLIGADO SOLIDARIO del cumplimiento de todas y cada una de las demás obligaciones asumidas bajo el presente Contrato, su Anexo A y Pagaré. 
+Las Partes acuerdan que la entrega de el(los) BIEN(ES) por parte del OTORGANTE, no libera a esta última, ni al DEUDOR, ni al OBLIGADO SOLIDARIO del cumplimiento de todas y cada una de las demás obligaciones asumidas bajo el presente Contrato, su Anexo A y Pagaré.
 
-La Partes acuerdan expresamente con DINSA, en que una vez recibidos físicamente el(los) BIEN(ES) por DINSA, el valor en que serán aceptados en dación en pago el(los) BIEN(ES), se determinara conforme al Avalúo que se practique a el(los) mismo(s), por la empresa que contrate y sea aceptable para DINSA, motivo por el cual ambas partes acuerdan que si como resultado del Avalúo que se practique, el valor de el(los) BIEN(ES) no es suficiente para cubrir el Adeudo a cargo del DEUDOR, esta última se obliga a pagar a DINSA, la cantidad de dinero, que reste y sea suficiente para liquidar totalmente el importe del Adeudo, mediante el depósito en efectivo que se realice en la caja de la sucursal de DINSA donde se aperturó el crédito, dentro de los 5 (cinco) días hábiles siguientes a la fecha en que dicho pago le sea requerido al DEUDOR por DINSA, mediante notificación realizada al DEUDOR. Queda entendido que si el DEUDOR no cubre a DINSA las cantidades restantes y suficientes para cubrir el importe total del Adeudo en los términos antes señalados, dichas cantidades a partir del día siguiente a que debieron ser pagadas y no lo fueron, y hasta su fecha efectiva de pago, generarán intereses moratorios a cargo del DEUDOR, a razón de la tasa moratoria establecida en el presente Contrato y su Anexo A, en cuyo caso y hasta en tanto el DEUDOR no cubra totalmente el importe del Adeudo, el presente Contrato, continuará en pleno vigor por lo que respecta al importe del Adeudo que no haya sido liquidado, así como cualquier otra obligación asumida bajo el presente Contrato, su Anexo A y Pagaré suscrito a su amparo y demás documentos suscritos y que se suscriban a su amparo.
-
-DÉCIMA TERCERA. CESIÓN. DINSA podrá, vender, ceder o conceder derechos sobre o de cualquier otra forma transmitir total o parcialmente sus derechos y/u obligaciones de conformidad con el presente contrato, el pagaré y cualquier otro documento relacionado con el presente contrato y/o Crédito, sin el consentimiento del DEUDOR.
-
-El DEUDOR, el OBLIGADO SOLIDARIO y el OTORGANTE, no podrán ceder, transferir, traspasar o de cualquier otra forma transmitir sus derechos y obligaciones conforme al presente Contrato, los Pagarés o cualquier otro documento relacionado con el presente Contrato y el Crédito sin la previa autorización por escrito de DINSA.
-
-DÉCIMA CUARTA. MODIFICACIONES. Las partes que suscriben el presente contrato convienen expresamente que en caso de que el DEUDOR quisiera realizar alguna modificación al presente contrato deberá presentar un escrito en la sucursal u oficina de DINSA donde se aperturó el crédito, el DEUDOR deberá especificar en dicho escrito los cambios que desee realizar al contrato, DINSA a su vez tendrá un plazo de 5 días naturales para contestar si acepta las modificaciones solicitadas por el DEUDOR, y en su caso si se requiere adecuarlas al Anexo A y pagaré respectivo.
-]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="270"
-						y="0"
-						width="236"
-						height="710"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[En caso de que DINSA solicite la modificación del contrato, al Anexo A y pagaré respectivo, este último tendrá un plazo de 40 días naturales de anticipación a la entrada en vigor, debiendo notificar al DEUDOR las modificaciones propuestas, mediante aviso incluido en el estado de cuenta correspondiente. El aviso deberá especificar de forma notoria la fecha en que las modificaciones surtirán efecto.
-
-En el evento de que el DEUDOR no esté de acuerdo con las modificaciones propuestas por DINSA, podrá solicitar la terminación del contrato hasta 60 días naturales después de la entrada en vigor de dichas modificaciones, sin responsabilidad ni comisión alguna a su cargo, debiendo cubrir en su caso los adeudos que ya se hubieren generado a la fecha en que solicite dar por terminada la operación o servicio de que se trate. Lo anterior con excepción de las modificaciones realizadas a los estados de cuenta, así como lo contemplado en la cláusula décima cuarta del presente contrato.
-
-Una vez transcurrido el plazo conforme a lo señalado en el párrafo anterior, sin que DINSA haya recibido comunicación alguna por parte del DEUDOR, se tendrán por aceptadas las modificaciones al contrato.
-
-DÉCIMA QUINTA. DOMICILIOS Y AVISOS. Para los efectos de este contrato, las partes señalan como sus domicilios los que se indican en las declaraciones de este contrato. Los avisos y notificaciones que deban hacerse las partes de conformidad con este contrato, se harán por escrito y entregarán o enviarán a cada una de las partes a su dirección o a cualquier otra dirección que designen mediante aviso escrito dado a su contraparte. 
-DÉCIMA SEXTA. GASTOS DE COBRANZA. Así mismo el DEUDOR pagará a DINSA, la cantidad que se indica en el Anexo A de este contrato, bajo el rubro de “Gastos de Cobranza”, por cada ocasión en que incurra en algún incumplimiento y durante cada día que dure su incumplimiento, hasta el pago, total, puntual y oportuno de cada una de las obligaciones de pago incumplidas, conforme a lo establecido en el presente contrato.Asimismo, todos los gastos de cobranza extrajudicial en los que incurra DINSA, que correspondan. En caso de que el DEUDOR no pague a DINSA los gastos a que se refieren los párrafos que anteceden, dentro de los 2 días siguientes a la fecha en que así se lo solicite, éstos causarán intereses a la tasa que por concepto de mora se establece en el presente contrato.
-DÉCIMA SÉPTIMA. ESTADOS DE CUENTA. Desde este momento, las partes acuerdan que, en caso de que el DEUDOR, requiera de su estado de cuenta, deberá acudir a la sucursal de DINSA en donde haya contratado el Crédito para que le sea entregado gratuitamente. El DEUDOR tendrá un plazo de 5 días para objetar dicho estado de cuenta, contados a partir de la fecha en que haya sido recibido por este.
-DINSA no estará obligada a emitir o a poner a disposición del DEUDOR, estados de cuenta cuando el pago del crédito deba efectuarse en una sola amortización.
-En caso de que el DEUDOR por algún motivo no reciba el estado de cuenta correspondiente, podrá solicitarlo en la Unidad Especializada de DINSA señalada en la cláusula Décima Novena del presente contrato.
-
-DÉCIMA OCTAVA. JURISDICCIÓN. Este Contrato se rige e interpreta conforme a las Leyes de los Estados Unidos Mexicanos, y todos los procedimientos legales que se deriven o se relacionen con este Contrato, deberán someterse ante los Tribunales Competentes de Atlacomulco de Fabela, Municipio de Atlacomulco , Estado de México, México, México. Las Partes del presente Contrato renuncian expresamente en este acto a cualquier otro Tribunal Competente que en razón de su domicilio presente o futuro o por cualquier otra razón pudiera corresponderles.
-
-DÉCIMA NOVENA. INFORMACIÓN PARA EL DEUDOR. El DEUDOR tendrá un plazo de 15 días hábiles, contados a partir de la fecha de corte establecida en cada uno de los Estados de Cuenta para la presentación de solicitudes, aclaraciones, inconformidades y quejas, relacionados con la operación o servicio contratado, misma que deberá ser presentada por escrito ]]></text>
+La Partes acuerdan expresamente con DINSA, en que una vez recibidos físicamente el(los) BIEN(ES) por DINSA, el valor en que serán aceptados en dación en pago el(los) BIEN(ES), se determinara conforme al Avalúo que se practique a el(los) mismo(s), por la empresa que contrate y sea aceptable para DINSA, motivo por el cual ambas partes acuerdan que si como resultado del Avalúo que se practique, el valor de el(los) BIEN(ES) no es suficiente para cubrir el Adeudo a cargo del DEUDOR, esta última se obliga a pagar a DINSA, la cantidad de dinero, que reste y sea suficiente para liquidar totalmente el importe del Adeudo, mediante el depósito en efectivo que se realice en la caja de la sucursal de DINSA donde se aperturó el crédito, dentro de los 5 (cinco) días hábiles siguientes a la fecha en que dicho pago le sea requerido al DEUDOR por DINSA, mediante notificación realizada al DEUDOR. Queda entendido que si el DEUDOR no cubre a DINSA las cantidades restantes y suficientes para cubrir el importe total del Adeudo en los términos antes señalados, dichas cantidades a partir del día siguiente a que debieron ser pagadas y no lo fueron, y hasta su fecha efectiva de pago, generarán Intereses Moratorios a cargo del DEUDOR, a razón de la tasa moratoria establecida en el presente Contrato y su Anexo A, en cuyo caso y hasta en tanto el DEUDOR no cubra totalmente el       ]]></text>
 				</staticText>
 			</band>
 		</detail>

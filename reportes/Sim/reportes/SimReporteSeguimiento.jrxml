@@ -595,7 +595,7 @@ vs cuota]]></text>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CVE_PRESTAMO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1396"
 						y="0"
@@ -725,7 +725,7 @@ vs cuota]]></text>
 					</textElement>
 				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{SALDO_PROX_PAGO_INTERES}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1026"
 						y="0"

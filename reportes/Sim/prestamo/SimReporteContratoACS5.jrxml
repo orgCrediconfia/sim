@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteContratoACS5"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="535"
+		 pageHeight="802"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<import value="it.businesslogic.ireport.IReportScriptlet" />
+
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT 
+						C.CVE_GPO_EMPRESA, 
+						C.CVE_EMPRESA, 
+						C.ID_PRESTAMO, 
+						TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD "de" MONTH "de" YYYY') FECHA_ENTREGA,  
+						C.DIRECCION_SUCURSAL,  
+						C.NOMBRE NOM_CLIENTE, 
+						PPA.NOM_COMPLETO NOM_AVAL, 
+						PPD.NOM_COMPLETO NOM_DEPOSITARIO,
+						PPG.NOM_COMPLETO NOM_GARANTE
+						FROM 
+						V_CREDITO C, 
+						SIM_PRESTAMO_PARTICIPANTE PA, 
+						RS_GRAL_PERSONA PPA,
+						SIM_PRESTAMO_PARTICIPANTE PD, 
+						RS_GRAL_PERSONA PPD,  
+						SIM_PRESTAMO_PARTICIPANTE PG,  
+						RS_GRAL_PERSONA PPG
+						WHERE C.CVE_GPO_EMPRESA = 'SIM'  
+						AND C.CVE_EMPRESA = 'CREDICONFIA' 
+						AND C.ID_PRESTAMO = $P{IdPrestamo} 
+						AND PA.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND PA.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND PA.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND PA.CVE_TIPO_PERSONA (+)= 'AVAL' 
+						AND PPA.CVE_GPO_EMPRESA (+)= PA.CVE_GPO_EMPRESA  
+						AND PPA.CVE_EMPRESA (+)= PA.CVE_EMPRESA 
+					  AND PPA.ID_PERSONA (+)= PA.ID_PERSONA 
+						AND PD.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND PD.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND PD.ID_PRESTAMO (+)= C.ID_PRESTAMO  
+						AND PD.CVE_TIPO_PERSONA (+)= 'DEPOSIT' 
+						AND PPD.CVE_GPO_EMPRESA (+)= PD.CVE_GPO_EMPRESA   
+						AND PPD.CVE_EMPRESA (+)= PD.CVE_EMPRESA 
+						AND PPD.ID_PERSONA (+)= PD.ID_PERSONA 
+						AND PG.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND PG.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND PG.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND PG.CVE_TIPO_PERSONA (+)= 'GARANTE' 
+						AND PPG.CVE_GPO_EMPRESA (+)= PG.CVE_GPO_EMPRESA  
+						AND PPG.CVE_EMPRESA (+)= PG.CVE_EMPRESA 
+						AND PPG.ID_PERSONA (+)= PG.ID_PERSONA]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="NOM_CLIENTE" class="java.lang.String"/>
+	<field name="NOM_AVAL" class="java.lang.String"/>
+	<field name="NOM_DEPOSITARIO" class="java.lang.String"/>
+	<field name="NOM_GARANTE" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="573"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="6"
+						y="16"
+						width="228"
+						height="162"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[presentar dicha inconformidad o queja ante la Unidad Especializada de DINSA dentro de un plazo de 90 días naturales contados a partir de la fecha de corte establecida en cada uno de los Estados de Cuenta, una vez recibida la inconformidad o queja, DINSA tendrá un plazo máximo de 45 días para entregar al DEUDOR la respuesta correspondiente, así como un informe detallado en el que se respondan todos los hechos contenidos en la INCONFORMIDAD O QUEJA respectiva. 
+
+La respuesta respectiva quedará a disposición del DEUDOR en el domicilio de la Unidad Especializada de DINSA ante la cual haya presentado la solicitud, consulta, aclaración, inconformidad o queja, por lo que el DEUDOR quedará obligada a acudir a dicho domicilio a partir del trigésimo día hábil siguiente contado a partir de que haya presentado el escrito correspondiente.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="278"
+						y="16"
+						width="236"
+						height="162"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[El domicilio de la UNIDAD ESPECIALIZADA se encuentra en: Calle Tlacoquemecatl No 41 Int. 4 A, Col. Del Valle, Del. Benito Juárez, C.P. 03100, México, D.F, con correo electrónico: unidadespecializada@crediconfia.com, los teléfonos de atención a usuarios serán: lada sin costo 01 800 2260 462 y 5481 6470, Página de Internet: www.crediconfia.com.
+
+CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Internet. www.condusef.gob.mx y correo electrónico opinion@condusef.gob.mx]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="6"
+						y="242"
+						width="233"
+						height="29"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[“DINSA” - DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE,ENTIDAD NO REGULADA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="279"
+						y="242"
+						width="235"
+						height="10"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA["DEUDOR"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="6"
+						y="319"
+						width="234"
+						height="11"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Representantes Legales]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="6"
+						y="319"
+						width="234"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="279"
+						y="319"
+						width="234"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="7"
+						y="344"
+						width="234"
+						height="10"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OTORGANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="279"
+						y="345"
+						width="235"
+						height="10"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="278"
+						y="414"
+						width="234"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="5"
+						y="439"
+						width="234"
+						height="10"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="188"
+						width="509"
+						height="54"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Leído que fue por las partes este contrato y enterados de su contenido y alcance jurídico fue firmado por las partes en " + $F{DIRECCION_SUCURSAL} + ", el día " + $F{FECHA_ENTREGA} + "."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="279"
+						y="320"
+						width="235"
+						height="13"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_CLIENTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="413"
+						width="235"
+						height="13"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GARANTE}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="6"
+						y="413"
+						width="234"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="499"
+						width="235"
+						height="13"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="6"
+						y="499"
+						width="234"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="279"
+						y="415"
+						width="235"
+						height="13"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_DEPOSITARIO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

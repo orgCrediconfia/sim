@@ -6,14 +6,14 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="611"
-		 pageHeight="792"
-		 columnWidth="601"
-		 columnSpacing="28"
-		 leftMargin="5"
-		 rightMargin="5"
-		 topMargin="2"
-		 bottomMargin="2"
+		 pageWidth="570"
+		 pageHeight="800"
+		 columnWidth="550"
+		 columnSpacing="18"
+		 leftMargin="10"
+		 rightMargin="10"
+		 topMargin="10"
+		 bottomMargin="10"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -153,134 +153,79 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="679"  isSplitAllowed="true" >
+			<band height="649"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="29"
-						y="76"
-						width="232"
-						height="279"
+						x="0"
+						y="84"
+						width="254"
+						height="333"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[A)	Declara DINSA, que:
+1)	Es una sociedad constituida y existente de conformidad con las leyes de los Estados Unidos Mexicanos, como lo acredita con la escritura pública número 20,232 de fecha 21 de julio de 2006, otorgada ante la fe del Licenciado Guillermo Oliver Bucio, notario público 246 de la ciudad de México, Distrito Federal.
+2)	Su representante firma este contrato manifestando contar con facultades suficientes, según consta, en la escritura pública número 79,921, de fecha 24 de septiembre 2009, otorgada ante la fe del Licenciado Luis Felipe Morales Viesca, notario público 22 de la ciudad de México, Distrito Federal.
+3)	Mediante Póliza número 1,683 de fecha 27 de octubre de 2008, otorgada ante la fe del Licenciado Raúl Valencia del Toro, Corredor Público Número 68 de Plaza en el Distrito Federal se hizo constar la transformación de la Sociedad a Sociedad Financiera de Objeto Múltiple, Entidad no Regulada, inscrita bajo el folio mercantil 355179, con fecha 3 de Febrero de 2009.
+4)De conformidad con el artículo 87-J de la Ley General de Organizaciones y Actividades Auxiliares del Crédito, señala expresamente que para su operación y constitución como Sociedad Financiera de Objeto Múltiple, Entidad No Regulada, no requiere de autorización de la Secretaría de Hacienda y Crédito Público, ni está sujeta a la supervisión y vigilancia de la Comisión Nacional Bancaria y de Valores.
+5)Su domicilio se encuentra ubicado en Calle Tlacoquemecatl No 41 Int. 4 A, Col. Del Valle, Del. Benito Juárez, C.P. 03100, México, D.F.
+6)Ha inscrito el presente contrato, en el Registro de Contratos de Adhesión, ante la Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros, conforme lo establecido en la Ley para la Transparencia y Ordenamiento de los Servicios Financieros, bajo el número indicado en la parte superior izquierda del presente instrumento.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="298"
+						y="84"
+						width="252"
+						height="39"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Es (Son) una persona(s) física(s), mayor(es) de edad, con capacidad legal para celebrar este contrato, teniendo su(s) domicilio en "+$F{DIRECCION_GARANTE}+"."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="298"
+						y="430"
+						width="252"
+						height="219"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[PRIMERA. CRÉDITO. DINSA apertura un Crédito Simple a favor del DEUDOR por la cantidad que se señala en el Anexo A de este contrato, bajo el rubro Monto del Crédito (en lo sucesivo el “Crédito”). Dentro del límite del Crédito no quedan comprendidos los intereses, comisiones, gastos y demás accesorios financieros que deba el DEUDOR a DINSA en términos de este contrato. 
+
+El DEUDOR destina el importe del Crédito para lo señalado en el Anexo A.
+
+La disposición del Crédito quedará consignada mediante la suscripción del presente contrato, el Anexo A y Pagaré suscritos al amparo del mismo.
+
+SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposición del Crédito por parte del DEUDOR, y su vigencia será la señalada en el Anexo A la cual será forzosa, concluyendoen la Fecha de Vencimiento señalada en el Anexo A, salvo por lo establecido en el párrafo siguiente y cláusula Décima Primera del presente contrato.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="298"
+						y="123"
+						width="252"
+						height="181"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[A)	Declara DINSA, que:
-1)	Es una sociedad constituida y existente de conformidad con las leyes de los Estados Unidos Mexicanos, como lo acredita con la escritura pública número 20,232 de fecha 21 de julio de 2006, otorgada ante la fe del Licenciado Guillermo Oliver Bucio, notario público 246 de la ciudad de México, Distrito Federal.
-2)	Su representante firma este contrato manifestando contar con facultades suficientes, según consta, en la escritura pública número 79,921, de fecha 24 de Septiembre 2009, otorgada ante la fe del Licenciado Luis Felipe Morales Viesca, notario público 70 de la ciudad de México, Distrito Federal.
-3)	Mediante Póliza número 1,683 de fecha 27 de octubre de 2008, otorgada ante la fe del Licenciado Raúl Valencia del Toro, Corredor Público Número 68 de Plaza en el Distrito Federal se hizo constar la transformación de la Sociedad a Sociedad Financiera de Objeto Múltiple, Entidad no Regulada, inscrita bajo el folio mercantil 355179, con fecha 3 de Febrero de 2009.
-4)	De conformidad con el artículo 87-J de la Ley General de Organizaciones y Actividades Auxiliares del Crédito, señala expresamente que para su operación y constitución como Sociedad Financiera de Objeto Múltiple, Entidad No Regulada, no requiere de autorización de la Secretaría de Hacienda y Crédito Público, ni está sujeta a la supervisión y vigilancia de la Comisión Nacional Bancaria y de Valores.
-5)	Ha inscrito el presente contrato, en el Registro de Contratos de Adhesión, ante la Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros, conforme lo establecido en la Ley para la Transparencia y Ordenamiento de los Servicios Financieros, bajo el número indicado en la parte superior izquierda del presente instrumento.
-]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="29"
-						y="373"
-						width="232"
-						height="49"
-						key="textField-2"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1)	Es una persona física, mayor de edad, con capacidad legal para celebrar este contrato y contraer los derechos y obligaciones que se deriven del mismo, teniendo su domicilio en " + $F{DIRECCION_CLIENTE} + " ."]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="29"
-						y="422"
-						width="232"
-						height="135"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[2)	Ha solicitado a DINSA un crédito con las condiciones que se establecen en el presente contrato.
-3)	La información de negocios y relación patrimonial entregada a DINSA debidamente firmada, es cierta y verídica reflejando su situación económica y financiera a la fecha de firma de este contrato.
-4)DINSA ha hecho de su conocimiento antes de la firma del presente contrato, el contenido del mismo y de todos los documentos que serán suscritos como anexos y pagaré, los cargos, comisiones y gastos que serán generados por la celebración del presente contrato, los descuentos y bonificaciones a que tenemos derecho, así como el Costo Anual Total (CAT) que “Para fines informativos y de comparación exclusivamente” se incluye en el presente contrato. 
-]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="29"
-						y="571"
-						width="232"
-						height="39"
-						key="textField-3"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1)	Es (Son) una persona(s) física(s), mayor(es) de edad, con capacidad legal para celebrar este contrato, teniendo su(s) domicilio en " + $F{DIRECCION_GARANTE} + "."]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="297"
-						y="77"
-						width="232"
-						height="98"
-						key="staticText-6"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[3)	Es(Son) legitimo(s) y único(s) propietario(s) de el(los) BIEN(ES), como lo acredita(n) con el original de la(s) factura(s) y/o nota(s) de compra y/o remisiones, que debidamente cedidas sujeto a condición suspensiva, hace entrega a DINSA, manifestando bajo protesta de decir verdad, que no existe ninguna limitación legal que le impida disponer de el(los) BIEN(ES) o algún derecho preferencial en favor de terceras personas, que impida transmitirlo(s) en dación en pago a DINSA, y que en la fecha en que adquirió el(los) mismo(s), se cercioró de que la persona que se los transmitió, contaba con las facultades suficientes para hacerlo.  ]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="297"
-						y="196"
-						width="232"
-						height="41"
-						key="textField-4"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1)	Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_AVAL}+ "."]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="297"
-						y="357"
-						width="232"
-						height="303"
-						key="staticText-7"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[PRIMERA. CRÉDITO. DINSA apertura un Crédito a favor del DEUDOR por la cantidad que se señala en el Anexo A de este contrato, bajo el rubro Monto del Crédito (en lo sucesivo el “Crédito”). Dentro del límite del Crédito no quedan comprendidos los intereses, comisiones, gastos y demás accesorios financieros que deba EL DEUDOR a DINSA en términos de este contrato. 
-
-SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposición del crédito por parte del DEUDOR, y su vigencia será la señalada en el Anexo A la cual será forzosa, concluyendo en la Fecha de Vencimiento señalada en el Anexo A.
-
-TERCERA. FORMA DE PAGO. El DEUDOR se obliga a pagar el importe del crédito otorgado, sus intereses ordinarios y demás accesorios, mediante el número de pagos parciales indicados en el Anexo A correspondiente, bajo el rubro Pagos Parciales, efectuándose los pagos precisamente en las fechas y por las cantidades que se especifiquen en la Tabla de Amortización que se contiene en el Anexo A de este contrato, de acuerdo a la periodicidad que se establezca en el Anexo A. En caso que la fecha establecida para los Pagos Parciales sea un día inhábil, el DEUDOR realizará sus pagos el día hábil inmediato posterior.
-
-Los Pagos Parciales se compondrán de (i) las cantidades que se establecen en la Tabla de Amortización del Anexo A, más (ii) los intereses ordinarios devengados calculados sobre los saldos globales del Crédito, los cuales serán cobrados por periodos vencidos más (iii) cualquier otro accesorio que sea exigible conforme a este contrato y su Anexo A correspondiente, así como cualquier otro pago derivado de dichos documentos y de aquellos pagos incluidos en los estados de cuenta que emita DINSA. 
-]]></text>
+				<text><![CDATA[2) Ha(n) convenido con DINSA en transmitirle de manera plena, total y de forma irrevocable en Dación en Pago el(los) BIEN(ES) de su propiedad, que se señala(n) en el Anexo A, hasta donde el valor de el(los) mismo(s) alcance a cubrir las obligaciones de pago asumidas por el DEUDOR al amparo del presente contrato, su Anexo A y el PAGARÉ suscrito a su amparo y todas aquellas que puedan resultar de dichos instrumentos.
+3)Es(Son) legitimo(s) y único(s) propietario(s) de el(los) BIEN(ES), como lo acredita(n) con el original de la(s) factura(s) y/o nota(s) de compra y/o remisiones, que debidamente cedidas sujeto a condición suspensiva, hace entrega a DINSA, manifestando bajo protesta de decir verdad, que no existe ninguna limitación legal que le impida disponer de el(los) BIEN(ES) o algún derecho preferencial en favor de terceras personas, que impida transmitirlo(s) en dación en pago a DINSA, y que en la fecha en que adquirió el(los) mismo(s), se cercioró de que la persona que se los transmitió, contaba con las facultades suficientes para hacerlo.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="29"
-						y="610"
-						width="232"
-						height="69"
-						key="staticText-8"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[2)	Ha(n) convenido con DINSA en transmitirle de manera plena, total y de forma irrevocable en Dación en Pago el(los) BIEN(ES) de su propiedad, que se señala(n) en el Anexo A, hasta donde el valor de el(los) mismo(s) alcance a cubrir las obligaciones de pago asumidas por el DEUDOR al amparo del presente contrato, su Anexo A y el PAGARÉ suscrito a su amparo y todas aquellas que puedan resultar de dichos instrumentos.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="61"
-						width="503"
+						x="1"
+						y="69"
+						width="549"
 						height="15"
-						key="staticText-9"/>
+						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Center">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
@@ -289,24 +234,24 @@ Los Pagos Parciales se compondrán de (i) las cantidades que se establecen en la
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="0"
+						x="1"
+						y="2"
 						width="549"
 						height="67"
-						key="textField-5"/>
+						key="textField-2"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["CONTRATO DE APERTURA CRÉDITO SIMPLE CON DACIÓN EN PAGO NUMERO (" + $F{ID_CLIENTE} + " - " + $F{NUM_CICLO} +"), QUE CELEBRAN DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM, ENR, EN SU CARÁCTER DE ACREDITANTE, A QUIEN SE LE DENOMINARÁ “DINSA”, REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, EL(LA) SEÑOR(A) " + $F{NOM_CLIENTE} + ", EN SU CARÁCTER DE ACREDITADO, A QUIEN SE LE DENOMINARÁ “EL DEUDOR”, EL(LA) SEÑOR(A) " + $F{NOM_GARANTE} +", EN SU CARÁCTER DE OTORGANTE, A QUIEN SE LE DENOMINARÁ EL “OTORGANTE”, EL(LA) SEÑOR(A) " + $F{NOM_AVAL} +", EN SU CARÁCTER DE OBLIGADO(S) SOLIDARIO(S) A QUIEN SE DENOMINA DE FORMA CONJUNTA EL “OBLIGADO SOLIDARIO”, AL TENOR DE LAS SIGUIENTES DECLARACIONES Y CLÁUSULAS:  "]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CONTRATO DE APERTURA CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO (" + $F{ID_CLIENTE} + " - " + $F{NUM_CICLO} +"), QUE CELEBRAN DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM, ENR, EN SU CARÁCTER DE ACREDITANTE, A QUIEN SE LE DENOMINARÁ “DINSA”, REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, EL(LA) SEÑOR(A) " + $F{NOM_CLIENTE} + ", EN SU CARÁCTER DE ACREDITADO, A QUIEN SE LE DENOMINARÁ “EL DEUDOR”, EL(LA) SEÑOR(A) " + $F{NOM_GARANTE} +", EN SU CARÁCTER DE OTORGANTE, A QUIEN SE LE DENOMINARÁ EL “OTORGANTE”, EL(LA) SEÑOR(A) " + $F{NOM_AVAL} +", EN SU CARÁCTER DE OBLIGADO(S) SOLIDARIO(S) A QUIEN SE DENOMINA DE FORMA CONJUNTA EL “OBLIGADO SOLIDARIO”, AL TENOR DE LAS SIGUIENTES DECLARACIONES Y CLÁUSULAS:  "]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="297"
-						y="184"
-						width="232"
+						y="304"
+						width="252"
 						height="13"
-						key="staticText-10"/>
+						key="staticText-5"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" size="8"/>
@@ -315,40 +260,24 @@ Los Pagos Parciales se compondrán de (i) las cantidades que se establecen en la
 				</staticText>
 				<staticText>
 					<reportElement
-						x="297"
-						y="337"
-						width="232"
+						x="298"
+						y="417"
+						width="252"
 						height="13"
-						key="staticText-11"/>
+						key="staticText-6"/>
 					<box></box>
 					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[C L Á U S U L A S]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="297"
-						y="237"
-						width="232"
-						height="100"
-						key="staticText-12"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[2)	Es su deseo constituirse en OBLIGADO SOLIDARIO del DEUDOR, en favor de DINSA respecto de todas las obligaciones de la primera, contraídas de conformidad con este contrato, su Anexo A y PAGARÉ, de los cuales conoce y conocerá plenamente todas y cada una de las obligaciones crediticias que contrae y contraerá el DEUDOR, en favor de DINSA.
-
-Conformes las partes en las declaraciones que anteceden, celebran este Contrato de Apertura de Crédito Simple con Dación en Pago en términos de las siguientes:
-]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="29"
-						y="557"
-						width="232"
+						x="0"
+						y="636"
+						width="254"
 						height="13"
-						key="staticText-13"/>
+						key="staticText-7"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" size="8"/>
@@ -357,16 +286,71 @@ Conformes las partes en las declaraciones que anteceden, celebran este Contrato 
 				</staticText>
 				<staticText>
 					<reportElement
-						x="29"
-						y="360"
-						width="232"
+						x="0"
+						y="417"
+						width="254"
 						height="13"
-						key="staticText-14"/>
+						key="staticText-8"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[B)	Declara EL DEUDOR, que:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="298"
+						y="317"
+						width="252"
+						height="27"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_AVAL}+ "."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="298"
+						y="344"
+						width="252"
+						height="73"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[2) Es su deseo constituirse en OBLIGADO SOLIDARIO del DEUDOR, en favor de DINSA respecto de todas las obligaciones de la primera, contraídas de conformidad con este contrato, su Anexo A y PAGARÉ, de los cuales conoce y conocerá plenamente todas y cada una de las obligaciones crediticias que contrae y contraerá el DEUDOR, en favor de DINSA]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="430"
+						width="252"
+						height="27"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_AVAL}+ "."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="457"
+						width="252"
+						height="179"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[2)	Ha solicitado a DINSA un crédito con las condiciones que se establecen en el presente contrato.
+3)	La información de negocios y relación patrimonial entregada a DINSA debidamente firmada, es cierta y verídica reflejando su situación económica y financiera a la fecha de firma de este contrato.
+4) 	DINSA ha hecho de su conocimiento antes de la firma del presente contrato, el contenido del mismo y de todos los documentos que serán suscritos como Anexo A y Pagaré, los cargos, comisiones y gastos que serán generados por la celebración del presente contrato, los descuentos y bonificaciones a que tenemos derecho, así como el Costo Anual Total de financiamiento expresado en términos porcentuales anuales que “para fines informativos y de comparación exclusivamente” incorpora la totalidad de los costos y gastos inherentes al presente crédito (CAT). 
+5)	Le ha sido entregado copia del presente Contrato, Anexo A y Anexo B, los cuales forman parte integrante del mismo.]]></text>
 				</staticText>
 			</band>
 		</detail>
