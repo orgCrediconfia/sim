@@ -17,7 +17,7 @@ import javax.naming.Context;
 import com.rapidsist.comun.bd.Registro;
 
 /**
- * Esta clase se encarga de administrar la operación consulta del Reporte Contrato ACS
+ * Esta clase se encarga de administrar la operaciï¿½n consulta del Reporte Contrato ACS
  * Esta clase es llamada por el servlet ProcesaReporteS.
  */
 
@@ -36,6 +36,7 @@ public class SimReporteContratoAcsREP implements ReporteControlIN {
 		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS2.jasper"));
 		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS3.jasper"));
 		parametros.put("Subreporte4", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS4.jasper"));
+		parametros.put("Subreporte5", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS5.jasper"));
 		return parametros;		
 	}
 }

@@ -7,13 +7,13 @@
 		 printOrder="Vertical"
 		 orientation="Portrait"
 		 pageWidth="612"
-		 pageHeight="792"
+		 pageHeight="810"
 		 columnWidth="552"
 		 columnSpacing="28"
 		 leftMargin="30"
 		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 topMargin="30"
+		 bottomMargin="30"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -29,6 +29,10 @@
 	<parameter name="Subreporte4" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="PathLogotipo" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Subreporte5" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT ID_PRESTAMO FROM SIM_PRESTAMO WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 
 	<field name="ID_PRESTAMO" class="java.lang.String"/>
@@ -113,7 +117,7 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="222"  isSplitAllowed="true" >
+			<band height="279"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="1"
@@ -189,6 +193,27 @@
 						width="552"
 						height="0"
 						key="element-90"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="237"
+						width="551"
+						height="42"
+						key="subreport-11"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte5}]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="228"
+						width="552"
+						height="0"
+						key="element-92"/>
 				</break>
 			</band>
 		</summary>

@@ -6,14 +6,14 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="566"
-		 pageHeight="792"
-		 columnWidth="556"
+		 pageWidth="600"
+		 pageHeight="800"
+		 columnWidth="580"
 		 columnSpacing="28"
-		 leftMargin="5"
-		 rightMargin="5"
-		 topMargin="2"
-		 bottomMargin="2"
+		 leftMargin="10"
+		 rightMargin="10"
+		 topMargin="10"
+		 bottomMargin="10"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -48,64 +48,62 @@
 			<band height="727"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="24"
+						x="0"
 						y="0"
-						width="233"
+						width="257"
 						height="727"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[Para efectos de este contrato, se entiende como día inhábil, los sábados, domingos y días en que las Instituciones de Crédito del país se encuentren obligadas a cerrar sus puertas al público.
+				<text><![CDATA[La obligación de pago asumida por el DEUDOR al amparo del presente Contrato, Anexo A y Pagaré suscritos a su amparo, continuará hasta la liquidación total de los adeudos generados y que se generen, a plena conformidad de DINSA. Asimismo, las partes convienen en que el plazo del presente Contrato y su Anexo A podrá ser prorrogado cuantas veces sea necesario, previo acuerdo por escrito de las partes.
+
+TERCERA. FORMA DE PAGO. El DEUDOR se obliga a pagar el importe del Crédito otorgado, sus Intereses Ordinarios y demás accesorios, mediante el número de pagos parciales indicados en el Anexo A correspondiente, bajo el rubro Pagos Parciales, efectuándose los pagos precisamente en las fechas y por las cantidades que se especifiquen en la Tabla de Amortización que se contiene en el Anexo A de este contrato, de acuerdo a la periodicidad que se establezca en el Anexo A, así como en la forma y lugar de pago establecidas en el Anexo A, bajo el rubro “Lugar y Forma de Pago”. En caso que la fecha establecida para los Pagos Parciales sea un día inhábil, el DEUDOR realizará sus pagos el día hábil inmediato posterior.
+
+Los Pagos Parciales se compondrán de (i) las cantidades que se establecen en la Tabla de Amortización del Anexo A, más (ii) los intereses ordinarios devengados calculados sobre los saldos globales del Crédito, los cuales serán cobrados por periodos vencidos más (iii) cualquier otro accesorio que sea exigible conforme a este contrato y su Anexo A correspondiente, así como cualquier otro pago derivado de dichos documentos y de aquellos pagos incluidos en los estados de cuenta que emita DINSA. 
+
+Para efectos de este contrato, se entiende como día inhábil, los sábados, domingos y días en que las Instituciones de Crédito del país se encuentren obligadas a cerrar sus puertas al público.
 DINSA se reserva el derecho de cambiar el lugar de pago para lo cual notificará por escrito, vía fax o cualquier medio electrónico al DEUDOR sobre dicho cambio.
 
-Los pagos efectuados por el DEUDOR serán aplicados en el orden siguiente: impuestos, comisiones, seguros, gastos, Intereses Moratorios, Intereses Ordinarios, Pagos Parciales vencidos y Pagos Parciales por vencerse.
+Los pagos efectuados por el DEUDOR podrán ser aplicados, a discreción de DINSA, en el orden siguiente: impuestos, comisiones, seguros, gastos, Intereses Moratorios, Intereses Ordinarios, Pagos Parciales vencidos y Pagos Parciales por vencerse.
 
 En caso de que el DEUDOR deba hacer retenciones sobre el pago del Crédito, por cualquier concepto, se obliga a pagar a DINSA, las cantidades adicionales que se requieran a efecto de que DINSA, reciba la cantidad íntegra que debiera recibir si no se hubiera realizado la retención.
 
-CUARTA. INTERESES. Los Intereses Ordinarios empezarán a devengarse a partir de la fecha de firma del presente contrato y hasta la fecha de su vencimiento, y serán calculados con la periodicidad señalada en el Anexo A. La tasa de interés aplicable para calcular los intereses ordinarios, será la tasa fija señalada en el Anexo A bajo el rubro Tasa de Interés Aplicable. Los Intereses Ordinarios se pagarán con la periodicidad señalada en el Anexo A y se calcularán sobre los saldos globales.
+Los Pagos Parciales del Crédito, serán pagados por el DEUDOR a DINSA en la moneda que se indica en el Anexo A de este contrato, bajo el rubro Moneda. En caso de que la moneda de pago se establezca en moneda extranjera, el DEUDOR podrá consultar su equivalencia, única y exclusivamente para fines informativos, en el Diario Oficial de la Federación, sin que dicha consulta genere a cargo de DINSA la obligación de recibir cualquiera de los Pagos Parciales que el DEUDOR deba realizar en moneda extranjera, de acuerdo a la equivalencia publicada por el Diario Oficial de la Federación, en la fecha en que deba realizarse el pago, de conformidad con lo establecido en la Tabla de Amortización.
 
-Los intereses se calcularán sobre la base de un año de 360 días, de meses de 30 días, quincenas de 15 días, catorcenas de 14 días o semanas de 7 días, multiplicando el resultado así obtenido por el número de días efectivamente concluidos y su resultado por el importe del saldo global del crédito.
+CUARTA. INTERESES. Los Intereses Ordinarios empezarán a devengarse a partir de la fecha de firma del presente contrato y hasta la fecha de su vencimiento, y serán calculados con la periodicidad señalada en el Anexo A. La tasa de interés aplicable para calcular los Intereses Ordinarios, será la tasa fija señalada en el Anexo A bajo el rubro Tasa de Interés Aplicable. Los Intereses Ordinarios se pagarán con la periodicidad señalada en el Anexo A y se calcularán sobre los saldos globales.
 
-Si el DEUDOR incurre en mora de cualquier obligación de pago establecida en este contrato y el Anexo A, el DEUDOR pagará a DINSA Intereses Moratorios, calculados a razón de multiplicar la Tasa de Interés Aplicable vigente al momento del incumplimiento por el número de veces que se establece en el Anexo A bajo el rubro Factor, desde la fecha en que se dé el incumplimiento hasta la fecha de su pago total.
-
-Los Intereses Moratorios serán calculados sobre la base de un año de 360 días y de meses de 30 días.
-
-QUINTA. PAGARÉ. En la fecha de disposición del Crédito, el DEUDOR se obliga a suscribir un pagaré a la orden de DINSA, por la totalidad del Crédito el cual contendrá las características del artículo 170 y demás aplicables de la LGTOC, y no constituirá novación, modificación, extinción o pago de las obligaciones que el DEUDOR asume ante DINSA.
-
-El DEUDOR faculta a DINSA para ceder, descontar, endosar y negociar el Pagaré y este contrato, aún antes de su vencimiento, sirviendo la presente como autorización expresa requerida por el artículo 299 de la LGTOC, en cuyo caso subsistirán las garantías concedidas y sin que ello implique responsabilidad alguna para DINSA.
-
-SEXTA. COMISIÓN. El DEUDOR paga a DINSA una Comisión de Apertura, equivalente al monto señalado en el Anexo A más el IVA, la cual será cubierta en la fecha señalada en el Anexo A respectivo.
-
-SÉPTIMA. PAGOS ANTICIPADOS. En caso de que el DEUDOR realice pago alguno de principal del Crédito, con anterioridad a la fecha en que el mismo deba ser pagado de conformidad con este contrato y la Tabla de Amortización establecida en el Anexo A, el DEUDOR deberá notificarlo con 5 días de anticipación a DINSA y estará obligado a pagar la comisión por pago anticipado establecido en el Anexo A del presente instrumento, bajo el rubro Comisión por Pago Anticipado.
-
-OCTAVA. PENA CONVENCIONAL. Las partes convienen que para el caso de vencimiento anticipado del contrato, derivada del incumplimiento de cualquiera de las obligaciones y/o cualesquiera de las causas de vencimiento anticipado señaladas en este contrato a cargo del DEUDOR y/o del OTORGANTE, el DEUDOR se obliga a pagar a DINSA como pena convencional a]]></text>
+En caso de ser aplicable, las fechas de corte se calcularán en la periodicidad pactada en el Anexo A.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="294"
+						x="286"
 						y="0"
-						width="236"
+						width="249"
 						height="727"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[título de daños y perjuicios que le ocasione, la cantidad que para tal efecto se señala en el Anexo A de este contrato, bajo el rubro Pena Convencional, además de cualesquiera otras cantidades que en su momento sean adeudadas a DINSA.
+				<text><![CDATA[Los Intereses Ordinarios se calcularán sobre la base de un año de 360 días, de meses de 30 días, quincenas de 15 días, catorcenas de 14 días o semanas de 7 días según corresponda, multiplicando el resultado así obtenido por el número de días efectivamente concluidos y su resultado por el importe del saldo global del Crédito.
 
-NOVENA. OBLIGADO SOLIDARIO. La(s) persona(s) que con tal carácter suscribe(n) este contrato, se constituye(n) en OBLIGADO(S) SOLIDARIO(S) del DEUDOR y comparece(n) a la firma de este contrato, suscribiendo el Pagaré que se emite, para constituirse en OBLIGADO(S) SOLIDARIO(S) del DEUDOR, frente a DINSA, en términos del Artículo 1989 y demás aplicables del Código Civil Federal, respondiendo absoluta e incondicionalmente del pago total y puntual, de las obligaciones de pago del DEUDOR que le derivan o le puedan derivar conforme a este contrato. Para estos efectos, se considera que las obligaciones derivadas de este contrato, son indivisibles, por lo que el (los) OBLIGADO(S) SOLIDARIO(S) responde(n) por todas las obligaciones de pago del DEUDOR que le derivan o le puedan derivar conforme a este contrato. El (los) OBLIGADO(S) SOLIDARIO(S) se obliga(n) a cumplir con todos y cada uno de los términos aquí contenidos y en el Anexo A, así como a suscribir el Pagaré en su carácter de aval(es).
+Si el DEUDOR incurre en mora de cualquier obligación de pago establecida en este contrato y el Anexo A, el DEUDOR pagará a DINSA Intereses Moratorios, calculados a razón de multiplicar la Tasa de Interés Aplicable vigente al momento del incumplimiento por el número de veces que se establece en el Anexo A bajo el rubro Factor, desde la fecha en que se dé el incumplimiento hasta la fecha de su pago total.
 
-DÉCIMA. SEGUROS. El DEUDOR en este acto autoriza a DINSA para que ésta contrate en su nombre, en alguna compañía de seguros aceptable para DINSA, en la fecha de disposición del Crédito un seguro que dé cobertura a DINSA a la obligación de pago en caso de fallecimiento del DEUDOR asumida bajo el presente Contrato por EL DEUDOR, así como aquellos otros seguros que el DEUDOR haya autorizado y solicitado a DINSA contratar en su nombre.
+Los Intereses Moratorios serán calculados sobre la base de un año de 360 días y de meses de 30 días.
 
-DÉCIMA PRIMERA. CAUSAS DE VENCIMIENTO ANTICIPADO. DINSA podrá dar por vencido anticipadamente el plazo establecido para el pago de la totalidad del Crédito y hacer pagadero el saldo de la suerte principal del mismo, junto con sus intereses acumulados e insolutos y las demás cantidades que deban pagarse de acuerdo con los términos de este contrato de inmediato, en cualquiera de los casos previstos por la ley y en los siguientes casos: (i) si el DEUDOR deja de cumplir oportunamente con uno o más Pagos Parciales o cualquier pago previsto en este contrato y el Anexo A; (ii) si el DEUDOR incurre en concurso o quiebra; y/o (iii) a falta de entrega de el(los) BIEN(ES) por el OTORGANTE, en la fecha, lugar y condiciones que al efecto le indique DINSA. Sin perjuicio de lo anterior, el Crédito se extinguirá en los casos previstos por el Artículo 301 de la LGTOC.
+QUINTA. PAGARÉ. En la fecha de disposición del Crédito, el DEUDOR se obliga a suscribir un pagaré a la orden de DINSA, por la totalidad del Crédito el cual contendrá las características del artículo 170, 299 y demás aplicables de la Ley General de Títulos y Operaciones de Crédito, los cuales se encuentran transcritos en el Anexo B del presente Contrato, formando parte integrante del mismo, y no constituirá novación, modificación, extinción o pago de las obligaciones que el DEUDOR asume ante DINSA.
 
-El DEUDOR podrá solicitar, en todo momento, por escrito dirigido al domicilio de DINSA, la terminación anticipada del presente contrato y Anexo A, obligándose a cubrir, en su caso y bajo los términos pactados en el presente contrato, el pago anticipado de todas las cantidades que le adeude a DINSA a la fecha de la resolución, incluyendo todos los accesorios financieros generados a la fecha de terminación o vencimiento solicitado, así como la entrega total de los Bien(es) por parte del OTORGANTE. 
+El DEUDOR faculta a DINSA para ceder, descontar, endosar y negociar el Pagaré y este contrato, aún antes de su vencimiento, sirviendo la presente como autorización expresa requerida por el artículo 299 de la Ley General de Títulos y Operaciones de Crédito, en cuyo caso subsistirán las garantías concedidas y sin que ello implique responsabilidad alguna para DINSA.
 
-DÉCIMA SEGUNDA. DACIÓN EN PAGO. El OTORGANTE con la firma del presente Contrato, se obliga expresamente en este acto, a otorgar de manera plena, total y en forma irrevocable en Dación en Pago a DINSA, la propiedad de el(los) BIEN(ES) como pago hasta donde el valor de el(los) mismo(s) alcance a cubrir del adeudo existente y que se genere a cargo del DEUDOR, bajo el presente contrato, su Anexo A y Pagaré suscrito a su amparo, así como cualquier documento suscrito y que se suscriba al amparo de los mismos, en la fecha en que la dación en pago surta plenamente sus efectos legales (en lo sucesivo el “Adeudo”), por lo que DINSA acepta la dación en pago antes mencionada, sujeto al cumplimiento de la condición suspensiva consistente en que el DEUDOR incumpla con cualquiera de sus obligaciones asumidas al amparo del presente Contrato, en cualquiera de las fechas al efecto señaladas en dicho documento, su Anexo A y Pagaré suscrito a su amparo, así como cualquier documento suscrito y que se suscriba al amparo de los mismos.
+SEXTA. COMISIÓN. El DEUDOR paga a DINSA una Comisión de Apertura, equivalente al monto señalado en el Anexo A más el Impuesto al Valor Agregado (IVA), la cual será cubierta en la fecha señalada en el Anexo A respectivo.
 
-La transmisión de el(los) BIEN(ES) por el OTORGANTE, se realiza y/o realizará sin limitación alguna de dominio a DINSA, quien lo(s) recibirá en el estado en que se encuentre(n), libre(s) de todo gravamen o limitación legal alguna, absteniéndose el ]]></text>
+SÉPTIMA. PAGOS ANTICIPADOS. En caso de que el DEUDOR realice pago alguno de principal del Crédito, con anterioridad a la fecha en que el mismo deba ser pagado de conformidad con este contrato y la Tabla de Amortización establecida en el Anexo A, el DEUDOR deberá notificarlo con 5 días de anticipación a DINSA y estará obligado a pagar la comisión por pago anticipado establecido en el Anexo A del presente instrumento, bajo el rubro Comisión por Pago Anticipado.
+
+OCTAVA. PENA CONVENCIONAL. Las partes convienen que para el caso de vencimiento anticipado del contrato, derivada del incumplimiento de cualquiera de las obligaciones y/o cualesquiera de las causas de vencimiento anticipado señaladas en este contrato a cargo del DEUDOR y/o del OTORGANTE, el DEUDOR se obliga a pagar a DINSA como pena convencional a título de daños y perjuicios que le ocasione, la cantidad que para tal efecto se señala en el Anexo A de este contrato, bajo el rubro Pena Convencional, además de cualesquiera otras cantidades que en su momento sean adeudadas a DINSA.
+
+NOVENA. OBLIGADO SOLIDARIO. La(s) persona(s) que con tal carácter suscribe(n) este contrato, se constituye(n) en OBLIGADO(S) SOLIDARIO(S) del DEUDOR y comparece(n) a la firma de este contrato, suscribiendo el Pagaré que se emite, para constituirse en OBLIGADO(S) SOLIDARIO(S) del DEUDOR, frente a DINSA, en términos del Artículo 1989 y demás aplicables del Código Civil Federal, los cuales se encuentran transcritos en el Anexo B del presente Contrato, formando parte integrante del mismo, respondiendo absoluta e incondicionalmente del pago total y puntual, de las obligaciones de pago del DEUDOR que le derivan o le puedan derivar conforme a este contrato. Para estos efectos, se considera que las obligaciones derivadas de este contrato, son indivisibles, por lo que el (los) OBLIGADO(S) SOLIDARIO(S) responde(n) por todas las obligaciones de pago del DEUDOR que le derivan o le puedan         ]]></text>
 				</staticText>
 			</band>
 		</detail>

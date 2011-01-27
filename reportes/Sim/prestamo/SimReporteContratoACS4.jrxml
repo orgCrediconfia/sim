@@ -7,13 +7,13 @@
 		 printOrder="Vertical"
 		 orientation="Portrait"
 		 pageWidth="566"
-		 pageHeight="792"
+		 pageHeight="800"
 		 columnWidth="506"
 		 columnSpacing="28"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="10"
+		 rightMargin="10"
+		 topMargin="10"
+		 bottomMargin="10"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -119,226 +119,60 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="233"
-						height="214"
+						width="253"
+						height="710"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[debidamente firmado por el DEUDOR, en la cual se indique el nombre del titular del crédito, el número de referencia del mismo, una breve narración de los hechos, así como lo que solicite de DINSA, dicho escrito deberá acompañar copia de su credencial de elector o identificación oficial, así como una copia de los documentos que se relacionen con la solicitud, consulta, aclaración, reclamación, inconformidad o queja correspondiente.
+				<text><![CDATA[importe del Adeudo, el presente Contrato, continuará en pleno vigor por lo que respecta al importe del Adeudo que no haya sido liquidado, así como cualquier otra obligación asumida bajo el presente Contrato, su Anexo A y Pagaré suscrito a su amparo y demás documentos suscritos y que se suscriban a su amparo.
 
-Las solicitudes, consultas, aclaraciones, reclamaciones, inconformidades y quejas, relacionados con el crédito objeto del presente contrato que formule el DEUDOR deberán ser presentados ante la Unidad Especializada de DINSA, en días y horas hábiles, en un horario de 9:00 a 2:00 p.m., en donde el DEUDOR dará seguimiento a los trámites referidos.
+DÉCIMA TERCERA. CESIÓN. DINSA podrá, vender, ceder o conceder derechos sobre o de cualquier otra forma transmitir total o parcialmente sus derechos y/u obligaciones de conformidad con el presente contrato, el Pagaré y cualquier otro documento relacionado con el presente contrato y/o Crédito, sin el consentimiento del DEUDOR.
 
-Tratándose de INCONFORMIDADES Y QUEJAS, el DEUDOR podrá presentar dicha inconformidad o queja ante la Unidad Especializada de DINSA dentro de un plazo de 90 días naturales contados a partir de la fecha de corte establecida en cada uno de los Estados de Cuenta, una vez recibida la inconformidad o queja, DINSA tendrá un plazo máximo de 45 días para entregar]]></text>
+El DEUDOR, el OBLIGADO SOLIDARIO y el OTORGANTE, no podrán ceder, transferir, traspasar o de cualquier otra forma transmitir sus derechos y obligaciones conforme al presente Contrato, los Pagarés o cualquier otro documento relacionado con el presente Contrato y el Crédito sin la previa autorización por escrito de DINSA.
+
+DÉCIMA CUARTA. MODIFICACIONES. Las partes que suscriben el presente contrato convienen expresamente que en caso de que el DEUDOR quisiera realizar alguna modificación al presente contrato deberá presentar un escrito en la sucursal u oficina de DINSA donde se aperturó el crédito, el DEUDOR deberá especificar en dicho escrito los cambios que desee realizar al contrato, DINSA a su vez tendrá un plazo de 5 días naturales para contestar si acepta las modificaciones solicitadas por el DEUDOR, y en su caso si se requiere adecuarlas al Anexo A y pagaré respectivo.
+
+En caso de que DINSA solicite la modificación del contrato, al Anexo A y Pagaré respectivo, este último tendrá un plazo de 30 días naturales de anticipación a la entrada en vigor, debiendo notificar al DEUDOR las modificaciones propuestas, mediante aviso incluido en el estado de cuenta correspondiente. El aviso deberá especificar de forma notoria la fecha en que las modificaciones surtirán efecto.
+
+En el evento de que el DEUDOR no esté de acuerdo con las modificaciones propuestas por DINSA, podrá solicitar la terminación del contrato hasta 30 días naturales después de la entrada en vigor de dichas modificaciones, sin responsabilidad ni comisión alguna a su cargo, debiendo cubrir en su caso los adeudos que ya se hubieren generado a la fecha en que solicite dar por terminada la operación o servicio de que se trate. Lo anterior con excepción de las modificaciones realizadas a los estados de cuenta, así como lo contemplado en la cláusula vigésima del presente contrato.
+
+Una vez transcurrido el plazo conforme a lo señalado en el párrafo anterior, sin que DINSA haya recibido comunicación alguna por parte del DEUDOR, se tendrán por aceptadas las modificaciones al contrato.
+
+Las partes están de acuerdo en que, en el supuesto de que las comisiones establecidas en el presente contrato y su Anexo A, se llegasen a incrementar o se establecieran nuevas comisiones, DINSA, deberá informar al DEUDOR, por lo menos con 30 días naturales a la fecha en que la modificación a las comisiones surtan efecto, en términos de lo establecido en el artículo 7º de la Ley para la Transparencia y Ordenamiento de los Servicios Financieros, el cual se encuentra transcrito en el Anexo B del presente contrato, formando parte integrante del mismo.
+
+Asimismo, las partes están de acuerdo en que las comisiones y tasas pactadas en el presente contrato y su Anexo A, solo podrán ser modificadas en caso de reestructura y con el previo consentimiento del DEUDOR.
+
+DÉCIMA QUINTA. TÍTULOS DE LAS CLÁUSULAS. Los títulos que se han incluido en cada cláusula de este contrato, son tan sólo para referencia y fácil manejo, por lo que no deberán tener ninguna trascendencia en la interpretación de las mismas.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="270"
+						x="285"
 						y="0"
-						width="236"
-						height="199"
+						width="261"
+						height="710"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[al DEUDOR la respuesta correspondiente, así como un informe detallado en el que se respondan todos los hechos contenidos en la INCONFORMIDAD O QUEJA respectiva. 
+				<text><![CDATA[DÉCIMA SEXTA. DOMICILIOS Y AVISOS. Para los efectos de este contrato, las partes señalan como sus domicilios los que se indican en las declaraciones de este contrato. Los avisos y notificaciones que deban hacerse las partes de conformidad con este contrato, se harán por escrito y entregarán o enviarán a cada una de las partes a su dirección o a cualquier otra dirección que designen mediante aviso escrito dado a su contraparte. 
 
-La respuesta respectiva quedará a disposición del DEUDOR en el domicilio de la Unidad Especializada de DINSA ante la cual haya presentado la solicitud, consulta, aclaración, inconformidad o queja, por lo que el DEUDOR quedará obligada a acudir a dicho domicilio a partir del trigésimo día hábil siguiente contado a partir de que haya presentado el escrito correspondiente
+DÉCIMA SÉPTIMA. GASTOS DE COBRANZA. Así mismo el DEUDOR pagará a DINSA, la cantidad que se indica en el Anexo A de este contrato, bajo el rubro de “Gastos de Cobranza”, por cada ocasión en que incurra en algún incumplimiento y durante cada día que dure su incumplimiento, hasta el pago, total, puntual y oportuno de cada una de las obligaciones de pago incumplidas, conforme a lo establecido en el presente contrato. Asimismo, todos los gastos de cobranza extrajudicial en los que incurra DINSA, que correspondan. En caso de que el DEUDOR no pague a DINSA los gastos a que se refieren los párrafos que anteceden, dentro de los 2 días siguientes a la fecha en que así se lo solicite, éstos causarán intereses a la tasa que por concepto de mora se establece en el presente contrato.
 
-El domicilio de la UNIDAD ESPECIALIZADA se encuentra en: Canoa 521, Despacho 502, Col. Tizapán San Angel, CP 01090, con correo electrónico: unidadespecializada@crediconfia.com, los teléfonos de atención a usuarios serán: lada sin costo 01 800 2260 462 y 5481 6470, Página de Internet: www.crediconfia.com.
-CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Internet. www.condusef.gob.mx y correo electrónico opinion@condusef.gob.mx
-]]></text>
+DÉCIMA OCTAVA. ESTADOS DE CUENTA. Desde este momento, las partes acuerdan que, en caso de que el DEUDOR, requiera de su estado de cuenta, deberá acudir a la sucursal de DINSA en donde haya contratado el Crédito para que le sea entregado gratuitamente. El DEUDOR tendrá un plazo de 5 días para objetar dicho estado de cuenta, contados a partir de la fecha en que haya sido recibido por este.
+DINSA no estará obligada a emitir o a poner a disposición del DEUDOR, estados de cuenta cuando el pago del crédito deba efectuarse en una sola amortización.
+En caso de que el DEUDOR por algún motivo no reciba el estado de cuenta correspondiente, podrá solicitarlo en la Unidad Especializada de DINSA señalada en la cláusula vigésima del presente contrato.
+
+DÉCIMA NOVENA. JURISDICCIÓN. Este Contrato es de naturaleza mercantil y se regirá, interpretará, cumplirá y ejecutará conforme a las Leyes de los Estados Unidos Mexicanos, y todos los procedimientos legales que se deriven o se relacionen con el mismo, razón por la cual las partes convienen en someterse expresamente a la jurisdicción de los Tribunales Competentes de cualquiera de la siguientes entidades: a) en el Estado de México; b) en el Estado de Puebla; c) en el Estado de Veracruz; d) en el Estado de Tlaxcala; e) en el Estado de Hidalgo; f) en el Estado de Michoacán, a elección de la parte actora. Las Partes del presente Contrato renuncian expresamente en este acto a cualquier otro Tribunal Competente que en razón de su domicilio presente o futuro o por cualquier otra razón pudiera corresponderles.
+
+VIGÉSIMA. INFORMACIÓN PARA EL DEUDOR. El DEUDOR tendrá un plazo de 15 días hábiles, contados a partir de la fecha de corte establecida en cada uno de los Estados de Cuenta para la presentación de solicitudes, aclaraciones, inconformidades y quejas, relacionados con la operación o servicio contratado, misma que deberá ser presentada por escrito debidamente firmado por el DEUDOR, en la cual se indique el nombre del titular del crédito, el número de referencia del mismo, una breve narración de los hechos, así como lo que solicite de DINSA, dicho escrito deberá acompañar copia de su credencial de elector o identificación oficial, así como una copia de los documentos que se relacionen con la solicitud, consulta, aclaración, reclamación, inconformidad o queja correspondiente.
+
+Las solicitudes, consultas, aclaraciones, reclamaciones, inconformidades y quejas, relacionados con el crédito objeto del presente contrato que formule el DEUDOR deberán ser presentados ante la Unidad Especializada de DINSA, en días y horas hábiles, en un horario de 9:00 a 2:00 p.m., en donde el DEUDOR dará seguimiento a los trámites referidos.
+
+Tratándose de INCONFORMIDADES Y QUEJAS, el DEUDOR podrá ]]></text>
 				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="261"
-						width="234"
-						height="29"
-						key="staticText-6"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[“DINSA” - DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE,ENTIDAD NO REGULADA]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="271"
-						y="261"
-						width="235"
-						height="10"
-						key="staticText-7"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA["DEUDOR"]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="331"
-						width="234"
-						height="11"
-						key="staticText-8"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Representantes Legales]]></text>
-				</staticText>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="331"
-						width="234"
-						height="0"
-						key="line-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="270"
-						y="330"
-						width="234"
-						height="0"
-						key="line-2"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<staticText>
-					<reportElement
-						x="1"
-						y="356"
-						width="234"
-						height="10"
-						key="staticText-10"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[OTORGANTE]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="270"
-						y="356"
-						width="235"
-						height="10"
-						key="staticText-11"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
-				</staticText>
-				<line direction="TopDown">
-					<reportElement
-						x="269"
-						y="425"
-						width="234"
-						height="0"
-						key="line-4"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<staticText>
-					<reportElement
-						x="-1"
-						y="451"
-						width="234"
-						height="10"
-						key="staticText-14"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="214"
-						width="506"
-						height="25"
-						key="textField-1"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Leído que fue por las partes este contrato y enterados de su contenido y alcance jurídico fue firmado por las partes en " + $F{DIRECCION_SUCURSAL} + ", el día " + $F{FECHA_ENTREGA} + "."]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="270"
-						y="331"
-						width="235"
-						height="13"
-						key="textField-2"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_CLIENTE}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="425"
-						width="235"
-						height="13"
-						key="textField-3"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GARANTE}]]></textFieldExpression>
-				</textField>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="425"
-						width="234"
-						height="0"
-						key="line-6"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="511"
-						width="235"
-						height="13"
-						key="textField-4"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
-				</textField>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="511"
-						width="234"
-						height="0"
-						key="line-7"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="270"
-						y="426"
-						width="235"
-						height="13"
-						key="textField-5"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_DEPOSITARIO}]]></textFieldExpression>
-				</textField>
 			</band>
 		</detail>
 		<columnFooter>
