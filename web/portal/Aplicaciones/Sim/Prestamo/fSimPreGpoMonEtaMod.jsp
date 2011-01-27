@@ -148,25 +148,27 @@
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaMontoEtapa}">		
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='100' valor=''>
-					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CVE_PRESTAMO"]}' funcion='SimPrestamo' operacion='CR' parametros='IdPrestamo=${registro.campos["ID_PRESTAMO"]}&Alta=No'/>
-				</Portal:Columna>	
-				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["NOM_COMPLETO"]}'/>
-					<input type='hidden' name='IdCliente' value='<c:out value='${registro.campos["ID_INTEGRANTE"]}'/>'>
-					<input type='hidden' name='IdPrestamo' value='<c:out value='${registro.campos["ID_PRESTAMO"]}'/>'>	
-				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_TIPO_NEGOCIO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["NOM_GIRO"]}'/>		
-				<td>
-				$ <input type='text' name='MontoSolicitado' size='18' maxlength='22' value='<c:out value='${registro.campos["MONTO_SOLICITADO"]}'/>'>
-				</td>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='$ ${registro.campos["MONTO_AUTORIZADO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_ESTATUS_PRESTAMO"]}'/>
-				<input type='hidden' name='IdEtapaPrestamo' value='<c:out value='${registro.campos["ID_ETAPA_PRESTAMO"]}'/>'>	
-				<Portal:Columna tipovalor='texto' ancho='70' valor='${registro.campos["B_AVANZAR"]}' control='checkbox' controlnombre='Avanzar${registro.campos["ID_INTEGRANTE"]}' />
-				<td>
-					<textarea name='Comentario' cols='20' rows='3'     onchange="fOnKeyUp();"  ><c:out value='${registro.campos["COMENTARIO"]}'/></textarea>		
-					
-				</td>
+				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] != "31")}'>
+					<Portal:Columna tipovalor='texto' ancho='100' valor=''>
+						<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CVE_PRESTAMO"]}' funcion='SimPrestamo' operacion='CR' parametros='IdPrestamo=${registro.campos["ID_PRESTAMO"]}&Alta=No'/>
+					</Portal:Columna>	
+					<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["NOM_COMPLETO"]}'/>
+						<input type='hidden' name='IdCliente' value='<c:out value='${registro.campos["ID_INTEGRANTE"]}'/>'>
+						<input type='hidden' name='IdPrestamo' value='<c:out value='${registro.campos["ID_PRESTAMO"]}'/>'>	
+					<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_TIPO_NEGOCIO"]}'/>
+					<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["NOM_GIRO"]}'/>		
+					<td>
+					$ <input type='text' name='MontoSolicitado' size='18' maxlength='22' value='<c:out value='${registro.campos["MONTO_SOLICITADO"]}'/>'>
+					</td>
+					<Portal:Columna tipovalor='texto' ancho='100' valor='$ ${registro.campos["MONTO_AUTORIZADO"]}'/>
+					<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_ESTATUS_PRESTAMO"]}'/>
+					<input type='hidden' name='IdEtapaPrestamo' value='<c:out value='${registro.campos["ID_ETAPA_PRESTAMO"]}'/>'>	
+					<Portal:Columna tipovalor='texto' ancho='70' valor='${registro.campos["B_AVANZAR"]}' control='checkbox' controlnombre='Avanzar${registro.campos["ID_INTEGRANTE"]}' />
+					<td>
+						<textarea name='Comentario' cols='20' rows='3'     onchange="fOnKeyUp();"  ><c:out value='${registro.campos["COMENTARIO"]}'/></textarea>		
+						
+					</td>
+				</c:if>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:FormaBotones>
