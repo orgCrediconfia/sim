@@ -54,7 +54,8 @@
 		</Portal:FormaBotones>
 	</Portal:Forma>
 	
-	<Portal:TablaForma maestrodetallefuncion="SimPrestamoCargoComisionCliente" nombre="Cargos y comisiones del Producto" funcion="SimPrestamoCargoComisionCliente" operacion="AL" parametros="&IdPrestamo=${param.IdPrestamo}&IdCliente=${param.IdCliente}">
+	
+	<Portal:TablaLista tipo="consulta" nombre="Cargos y comisiones del Producto">
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Cargo o comisi&oacute;n'/>
@@ -78,10 +79,9 @@
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_UNIDAD"]}'/>	
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_PERIODICIDAD"]}'/>	
 			</Portal:TablaListaRenglon>
-		</c:forEach>
-		<Portal:FormaBotones>
-		</Portal:FormaBotones>		
-	</Portal:TablaForma>
+		</c:forEach>	
+	</Portal:TablaLista>
+	
 
 	<Portal:TablaForma maestrodetallefuncion="SimPrestamoGrupalMontoEtapa" nombre="Montos solicitados" funcion="SimPrestamoGrupalCreditoIndividual" operacion="AL" parametros='IdProducto=${param.IdProducto}&IdGrupo=${param.IdGrupo}&NumCiclo=${param.NumCiclo}&BExisteCicloSig=${param.BExisteCicloSig}&Ciclo=${param.Ciclo}'>
 		<Portal:TablaListaTitulos>
@@ -104,8 +104,16 @@
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:FormaBotones>
-			<Portal:Boton tipo='submit' etiqueta='Aceptar'/>
+			<input type="button" name="Aceptar" value="Aceptar" onclick='javascript:fAceptar();'>
 		</Portal:FormaBotones>
 	</Portal:TablaForma>
+	
+	<script>
+		function fAceptar(){
+			document.frmTablaForma.Aceptar.disabled = true;
+			document.frmTablaForma.Aceptar.value = "Alta de Crédito"; 
+			document.frmTablaForma.submit();
+		}
+	</script>
 	
 </Portal:Pagina>

@@ -146,7 +146,7 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 		String sFechaEntrega = "";
 		
 		sFechaEntrega = (String)registro.getDefCampo("FECHA_ENTREGA");
-		
+
 		if (registro.getDefCampo("APLICA").equals("Grupo")){
 			
 			//Para créditos semanales y catorcenales que den un día de pago.
@@ -160,10 +160,8 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 				   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 				   " AND CVE_PAIS 			= 'MX' \n";		
 				ejecutaSql();
-				
 				//Si la fecha de desembolso resultará se un día festivo te pide que ingreses otra fecha.
 				if (rs.next()){
-					
 					resultadoCatalogo.mensaje.setClave("FD_DIA_FESTIVO");
 				}else {
 					
@@ -173,20 +171,21 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 					if (rs.next()){
 						
 						String sFecha = rs.getString("DIA");
+			
+						if (sFecha.equals("domingo  ")){
 						
-						if (sFecha.equals("sunday   ")){
 							iNumFecha = 1;
-						}else if (sFecha.equals("monday   ")){
+						}else if (sFecha.equals("lunes    ")){
 							iNumFecha = 2;
-						}else if (sFecha.equals("tuesday  ")){
+						}else if (sFecha.equals("martes   ")){
 							iNumFecha = 3;
-						}else if (sFecha.equals("wednesday")){
+						}else if (sFecha.equals("miercoles")){
 							iNumFecha = 4;
-						}else if (sFecha.equals("thursday ")){
+						}else if (sFecha.equals("jueves   ")){
 							iNumFecha = 5;
-						}else if (sFecha.equals("friday   ")){
+						}else if (sFecha.equals("viernes  ")){
 							iNumFecha = 6;
-						}else if (sFecha.equals("saturday ")){
+						}else if (sFecha.equals("sabado   ")){
 							iNumFecha = 7;
 						}
 					}
@@ -208,31 +207,26 @@ public class SimPrestamoFechaDesembolsoDAO extends Conexion2 implements Operacio
 						}
 						
 					if (iNumDia > iNumFecha){
-						
 						int iFactorSuma = iNumDia - iNumFecha;
-						
+					
 						sSql = "SELECT TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') + '"+iFactorSuma+"' FECHA_REAL FROM DUAL \n" ;
 						ejecutaSql();
 						if (rs.next()){
 							String sFechaReal = rs.getString("FECHA_REAL");
-							
 							registro.addDefCampo("FECHA_REAL",rs.getString("FECHA_REAL"));
 						}
 					}else if (iNumDia < iNumFecha){
-						
+					
 						int iFactorSuma = 7 - iNumFecha;
 						iFactorSuma = iFactorSuma + iNumDia;
 					
 						sSql = "SELECT TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') + '"+iFactorSuma+"' FECHA_REAL FROM DUAL \n" ;
 						ejecutaSql();
-						
 						if (rs.next()){
 							String sFechaReal = rs.getString("FECHA_REAL");
-							
 							registro.addDefCampo("FECHA_REAL",rs.getString("FECHA_REAL")== null ? "": rs.getString("FECHA_REAL"));
 						}
 					}else if (iNumDia == iNumFecha){
-						
 						registro.addDefCampo("FECHA_REAL","");
 					}
 					
