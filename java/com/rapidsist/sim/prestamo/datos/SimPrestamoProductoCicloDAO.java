@@ -13,7 +13,6 @@ import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.portal.catalogos.OperacionBaja; 
 import com.rapidsist.portal.catalogos.OperacionModificacion; 
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro; 
-import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
 import java.sql.PreparedStatement;
@@ -28,51 +27,7 @@ import com.rapidsist.sim.grupo.datos.SimGrupoIntegranteDAO;
  * Administra los accesos a la base de datos para los productos asigandos a los préstamos.
  */
  
-public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionAlta, OperacionBaja, OperacionModificacion, OperacionConsultaRegistro, OperacionConsultaTabla  {
-
-	/**
-	 * Obtiene un conjunto de registros en base ael filtro de búsqueda.
-	 * @param parametros Parámetros que se le envían a la consulta para obtener el conjunto
-	 * de registros deseados.
-	 * @return Lista de registros.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public LinkedList getRegistros(Registro parametros) throws SQLException{
-		/*
-		sSql =  "SELECT \n"+
-				"P.ID_PRESTAMO, \n"+
-				"P.FECHA_SOLICITUD, \n"+
-				"P.FECHA_ENTREGA \n"+
-			"FROM SIM_PRESTAMO P \n"+
-			"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n";
-		
-			
-		if (parametros.getDefCampo("ID_PRESTAMO") != null) {
-			sSql = sSql + "AND P.ID_PRESTAMO = '" + (String) parametros.getDefCampo("ID_PRESTAMO") + "' \n";
-		}
-		if (parametros.getDefCampo("ID_PRODUCTO") != null) {
-			sSql = sSql + "AND PP.ID_PRODUCTO = '" + (String) parametros.getDefCampo("ID_PRODUCTO") + "' \n";
-		}
-		if (parametros.getDefCampo("NUM_CICLO") != null) {
-			sSql = sSql + "AND PP.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
-		}
-		if (parametros.getDefCampo("FECHA_SOLICITUD") != null) {
-			sSql = sSql + "AND P.FECHA_SOLICITUD >= TO_DATE('" + (String) parametros.getDefCampo("FECHA_SOLICITUD") + "','DD/MM/YYYY') \n";
-		}
-		if (parametros.getDefCampo("FECHA_ENTREGA") != null) {
-			sSql = sSql + "AND P.FECHA_ENTREGA <= TO_DATE('" + (String) parametros.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') \n";
-		}
-		if (parametros.getDefCampo("NOM_GRUPO") != null) {
-			sSql = sSql + "AND UPPER(G.NOM_GRUPO) LIKE '%" + ((String) parametros.getDefCampo("NOM_GRUPO")).toUpperCase() + "%' \n";
-		}
-		if (parametros.getDefCampo("NOM_COMPLETO") != null) {
-			sSql = sSql + " AND UPPER(C.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase() + "%' \n";
-		}
-		*/
-		ejecutaSql();
-		return getConsultaLista();
-	}
+public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionAlta, OperacionBaja, OperacionModificacion, OperacionConsultaRegistro {
 
 	/**
 	 * Obtiene un registro tomando como base la llave primaria.

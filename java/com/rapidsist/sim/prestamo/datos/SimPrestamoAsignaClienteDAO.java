@@ -63,7 +63,8 @@ public class SimPrestamoAsignaClienteDAO extends Conexion2 implements OperacionC
 				"AND NA.ID_PERSONA (+)= U.ID_PERSONA \n"+
 				"AND S.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 				"AND S.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND S.ID_SUCURSAL = P.ID_SUCURSAL \n";
+				"AND S.ID_SUCURSAL = P.ID_SUCURSAL \n"+
+				"AND NA.NOM_COMPLETO IS NOT NULL \n";
 			
 		if (parametros.getDefCampo("ID_PERSONA") != null) {
 			sSql = sSql + "AND P.ID_PERSONA = '" + (String) parametros.getDefCampo("ID_PERSONA") + "' \n";
@@ -73,6 +74,7 @@ public class SimPrestamoAsignaClienteDAO extends Conexion2 implements OperacionC
 		}
 		
 		sSql = sSql + "ORDER BY P.ID_PERSONA \n";
+		System.out.println("clientes para asignar a créditos"+sSql);
 		
 		ejecutaSql();
 		return getConsultaLista();

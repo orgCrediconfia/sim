@@ -4,9 +4,8 @@
 	<Portal:PaginaNombre titulo="Pr&eacute;stamo" subtitulo="Modificaci&oacute;n de datos" subtituloalta="Alta de datos"/>
 	<Portal:Forma tipo='catalogo' funcion='SimPrestamo'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
-		<c:if test='${(requestScope.registro != null)}'>
-			<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='IdPrestamo' controlvalor='${requestScope.registro.campos["ID_PRESTAMO"]}' editarinicializado='false'/>
-		</c:if>
+		
+		<input type="hidden" name="IdPrestamo" value='<c:out value='${requestScope.registro.campos["ID_PRESTAMO"]}'/>' />
 		<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
 			<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamo' controlvalor='${requestScope.registro.campos["CVE_PRESTAMO"]}' editarinicializado='false'/>
 		</c:if>
