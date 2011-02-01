@@ -16,6 +16,7 @@
 		
 		<Portal:FormaElemento etiqueta='Deuda m&iacute;nima' control='Texto' controlnombre='DeudaMinima' controlvalor='${requestScope.registro.campos["IMP_DEUDA_MINIMA"]}' controllongitud='5' controllongitudmax='5' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaElemento etiqueta='Rango permitido' control='Texto' controlnombre='RangoPermitido' controlvalor='${requestScope.registro.campos["IMP_VAR_PROPORCION"]}' controllongitud='5' controllongitudmax='5' editarinicializado='true' obligatorio='true' />
+		
 		<c:if test='${(requestScope.registro == null)}'>
 			<Portal:FormaElemento etiqueta='Cr&eacute;ditos Simult&aacute;neos' control='checkbox' controlnombre='CreditosSimultaneos' controlvalor='${requestScope.registro.campos["CREDITOS_SIMULTANEOS"]}' />
 		</c:if>
@@ -32,6 +33,66 @@
 			   	<th>Cr&eacute;ditos Simult&aacute;neos</th>
 				<td> 
 					<input type='checkbox' name='CreditosSimultaneos' />
+				</td>
+			</tr>
+		</c:if>
+		
+		<c:if test='${(requestScope.registro == null)}'>
+			<Portal:FormaElemento etiqueta='Opera Sábados' control='checkbox' controlnombre='OperaSabados' controlvalor='${requestScope.registro.campos["B_OPERA_SABADO"]}' />
+		</c:if>
+		<c:if test='${(requestScope.registro.campos["B_OPERA_SABADO"] == "V")}'>
+			<tr> 
+			   	<th>Opera Sábados</th>
+				<td> 
+					<input type='checkbox' name='OperaSabados'/ checked >
+				</td>
+			</tr>
+		</c:if>
+		<c:if test='${(requestScope.registro.campos["B_OPERA_SABADO"] == "F")}'>
+			<tr> 
+			   	<th>Opera Sábados</th>
+				<td> 
+					<input type='checkbox' name='OperaSabados' />
+				</td>
+			</tr>
+		</c:if>
+		
+		<c:if test='${(requestScope.registro == null)}'>
+			<Portal:FormaElemento etiqueta='Opera Domingos' control='checkbox' controlnombre='OperaDomingos' controlvalor='${requestScope.registro.campos["B_OPERA_DOMINGO"]}' />
+		</c:if>
+		<c:if test='${(requestScope.registro.campos["B_OPERA_DOMINGO"] == "V")}'>
+			<tr> 
+			   	<th>Opera Domingos</th>
+				<td> 
+					<input type='checkbox' name='OperaDomingos'/ checked >
+				</td>
+			</tr>
+		</c:if>
+		<c:if test='${(requestScope.registro.campos["B_OPERA_DOMINGO"] == "F")}'>
+			<tr> 
+			   	<th>Opera Domingos</th>
+				<td> 
+					<input type='checkbox' name='OperaDomingos' />
+				</td>
+			</tr>
+		</c:if>
+		
+		<c:if test='${(requestScope.registro == null)}'>
+			<Portal:FormaElemento etiqueta='Opera Días festivos' control='checkbox' controlnombre='OperaDiasFestivos' controlvalor='${requestScope.registro.campos["B_OPERA_DIA_FESTIVO"]}' />
+		</c:if>
+		<c:if test='${(requestScope.registro.campos["B_OPERA_DIA_FESTIVO"] == "V")}'>
+			<tr> 
+			   	<th>Opera Días festivos</th>
+				<td> 
+					<input type='checkbox' name='OperaDiasFestivos'/ checked >
+				</td>
+			</tr>
+		</c:if>
+		<c:if test='${(requestScope.registro.campos["B_OPERA_DIA_FESTIVO"] == "F")}'>
+			<tr> 
+			   	<th>Opera Días festivos</th>
+				<td> 
+					<input type='checkbox' name='OperaDiasFestivos' />
 				</td>
 			</tr>
 		</c:if>

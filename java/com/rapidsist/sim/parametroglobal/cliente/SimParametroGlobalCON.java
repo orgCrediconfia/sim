@@ -51,12 +51,10 @@ public class SimParametroGlobalCON implements CatalogoControlConsultaIN, Catalog
 		RegistroControl registroControl = new RegistroControl();
 		
 		if (iTipoOperacion == CON_CONSULTA_REGISTRO){
-			//RECUPERA CAMPOS
 			parametros.addDefCampo("VALOR","Minimo");
 			registroControl.respuesta.addDefCampo("registromin", catalogoSL.getRegistro("SimParametroGlobalMinMaxGrupo", parametros));
 			parametros.addDefCampo("VALOR","Maximo");
 			registroControl.respuesta.addDefCampo("registromax", catalogoSL.getRegistro("SimParametroGlobalMinMaxGrupo", parametros));
-			
 			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimParametroGlobal", parametros));
 			registroControl.sPagina = "/Aplicaciones/Sim/ParametroGlobal/fSimParGloCon.jsp";
 		}
@@ -99,6 +97,24 @@ public class SimParametroGlobalCON implements CatalogoControlConsultaIN, Catalog
 			registro.addDefCampo("CREDITOS_SIMULTANEOS","V");
 		}else{
 			registro.addDefCampo("CREDITOS_SIMULTANEOS","F");
+		}
+		
+		if (request.getParameter("OperaSabados")!=null){
+			registro.addDefCampo("B_OPERA_SABADO","V");
+		}else{
+			registro.addDefCampo("B_OPERA_SABADO","F");
+		}
+		
+		if (request.getParameter("OperaDomingos")!=null){
+			registro.addDefCampo("B_OPERA_DOMINGO","V");
+		}else{
+			registro.addDefCampo("B_OPERA_DOMINGO","F");
+		}
+		
+		if (request.getParameter("OperaDiasFestivos")!=null){
+			registro.addDefCampo("B_OPERA_DIA_FESTIVO","V");
+		}else{
+			registro.addDefCampo("B_OPERA_DIA_FESTIVO","F");
 		}
 		
 		//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
