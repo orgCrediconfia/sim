@@ -67,12 +67,9 @@ public class SimEstadoCuentaResGruposREP implements ReporteControlIN {
 		//	sSql = sSql + "AND CVE_PRESTAMO = '" + sClave + "' \n";
 		//}
 
-		 sSql = sSql ;
-		
 		 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
 	    String sTipoReporte = request.getParameter("TipoReporte");
-	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimEstadoCuentaResGrupos.jasper");
