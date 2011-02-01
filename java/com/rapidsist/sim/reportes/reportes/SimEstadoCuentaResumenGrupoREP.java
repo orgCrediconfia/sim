@@ -63,13 +63,11 @@ public class SimEstadoCuentaResumenGrupoREP implements ReporteControlIN {
 
 							 sSql = sSql;
 							
-							 System.out.println("*****************Paso por aqui****************:"+sSql);
+							 System.out.println("reporte:"+sSql);
 							 
 							 		
 	    String sTipoReporte = request.getParameter("TipoReporte");
-	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
-		parametros.put("PathLogotipo", contextoServlet.getRealPath("Portales/Sam/img/Imagentsys1.gif"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimEstadoCuentaResumenGrupoXLS.jasper");
 		parametros.put("Subreporte1", "/Reportes/Sim/reportes/SimEstadoCuentaCrediconfiaGrupo1.jasper");

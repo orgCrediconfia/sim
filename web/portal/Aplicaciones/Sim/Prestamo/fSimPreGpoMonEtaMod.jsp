@@ -10,6 +10,7 @@
 		<input type="hidden" name="IdPrestamoGrupo" value='<c:out value='${requestScope.registro.campos["ID_PRESTAMO_GRUPO"]}'/>' />
 		<input type="hidden" name="IdGrupo" value='<c:out value='${requestScope.registro.campos["ID_GRUPO"]}'/>' />
 		<input type="hidden" name="IdProducto" value='<c:out value='${requestScope.registro.campos["ID_PRODUCTO"]}'/>' />
+		<Portal:FormaElemento etiqueta='Grupo' control='etiqueta-controloculto' controlnombre='NomGrupo' controlvalor='${requestScope.registro.campos["NOM_GRUPO"]}'/>
 		<Portal:FormaElemento etiqueta='N&uacute;mero de ciclo' control='etiqueta-controloculto' controlnombre='NumCiclo' controlvalor='${requestScope.registro.campos["NUM_CICLO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
 		<Portal:FormaElemento etiqueta='Periodicidad del Producto' control='selector' controlnombre='IdPeriodicidad' controlvalor='${registro.campos["ID_PERIODICIDAD"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>

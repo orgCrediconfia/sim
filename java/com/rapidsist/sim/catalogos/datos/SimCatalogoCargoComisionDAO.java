@@ -120,6 +120,26 @@ public class SimCatalogoCargoComisionDAO extends Conexion2 implements OperacionC
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
+		
+		sSql =  "INSERT INTO PFIN_CAT_CONCEPTO ( \n"+
+				"CVE_GPO_EMPRESA, \n" +
+				"CVE_EMPRESA, \n" +
+				"CVE_CONCEPTO, \n"+
+				"DESC_CORTA, \n"+
+				"DESC_LARGA, \n"+
+				"ID_ACCESORIO) \n"+
+				"VALUES ( \n"+
+				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+				sIdAccesorio + ", \n" +
+				"'" + (String)registro.getDefCampo("NOM_ACCESORIO") + "', \n" +
+				"'" + (String)registro.getDefCampo("NOM_ACCESORIO") + "', \n" +
+				sIdAccesorio + ") \n" ;
+		
+		//VERIFICA SI DIO DE ALTA EL REGISTRO
+		if (ejecutaUpdate() == 0){
+			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		}
 		return resultadoCatalogo;
 	}
 	
@@ -157,6 +177,17 @@ public class SimCatalogoCargoComisionDAO extends Conexion2 implements OperacionC
 		//BORRA LA FUNCION
 		sSql = "DELETE FROM SIM_CAT_ACCESORIO " +
 	 	   " WHERE ID_ACCESORIO  ='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n" +
+		   " AND CVE_GPO_EMPRESA  ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+		   " AND CVE_EMPRESA  ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
+		
+		
+		//VERIFICA SI DIO DE ALTA EL REGISTRO
+		if (ejecutaUpdate() == 0){
+			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		}
+		
+		sSql = "DELETE FROM PFIN_CAT_CONCEPTO " +
+	 	   " WHERE CVE_CONCEPTO  ='" + (String)registro.getDefCampo("ID_ACCESORIO") + "' \n" +
 		   " AND CVE_GPO_EMPRESA  ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 		   " AND CVE_EMPRESA  ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 		
