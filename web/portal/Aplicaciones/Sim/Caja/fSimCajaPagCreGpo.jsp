@@ -6,10 +6,10 @@
 	<Portal:Forma tipo='catalogo' funcion='SimCajaConsultaPagarCredito'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
 		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${registro.campos["CVE_PRESTAMO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
-		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='IdGrupo' controlvalor='${registro.campos["NOMBRE"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true' validadato='cantidades'/>
+		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='IdGrupo' controlvalor='${registro.campos["NOMBRE"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true' />
 		<Portal:FormaElemento etiqueta='Producto' control='Texto' controlnombre='IdProducto' controlvalor='${registro.campos["ID_PRODUCTO"]} - ${registro.campos["NOM_PRODUCTO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='N&uacute;mero de Ciclo' control='Texto' controlnombre='NumCiclo' controlvalor='${registro.campos["NUM_CICLO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
-		<Portal:FormaElemento etiqueta='Importe' control='Texto' controlnombre='Importe' controlvalor='${param.Importe}' controllongitud='10' controllongitudmax='10' editarinicializado='true' obligatorio='true'/>
+		<Portal:FormaElemento etiqueta='Importe' control='Texto' controlnombre='Importe' controlvalor='${param.Importe}' controllongitud='10' controllongitudmax='10' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
 		<c:if test='${(param.FechaMovimiento != "null")}'>
 			<Portal:Calendario2 etiqueta='Fecha de aplicación' contenedor='frmRegistro' controlnombre='FechaMovimiento' controlvalor='${param.FechaMovimiento}'  esfechasis='true'/>
 		</c:if>
@@ -33,11 +33,15 @@
 	
 	<script>
 		function fAceptar(){
-			if (compare_dates(document.frmRegistro.FechaMovimiento.value, document.frmRegistro.FechaMedio.value)){  
-				alert("La fecha del movimiento no puede ser mayor a la fecha del medio");  
-			}else{  
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoGrupalSaldo&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
-				document.frmRegistro.submit();
+			if (document.frmRegistro.Importe.value == ''){
+				alert("Ingrese el importe a pagar");
+			}else {
+				if (compare_dates(document.frmRegistro.FechaMovimiento.value, document.frmRegistro.FechaMedio.value)){  
+					alert("La fecha del movimiento no puede ser mayor a la fecha del medio");  
+				}else{  
+					document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoGrupalSaldo&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
+					document.frmRegistro.submit();
+				}
 			} 
 		}	
 		

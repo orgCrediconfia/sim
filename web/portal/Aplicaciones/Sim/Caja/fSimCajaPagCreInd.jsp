@@ -6,10 +6,10 @@
 	<Portal:Forma tipo='catalogo' funcion='SimCajaConsultaPagarCredito'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
 		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${registro.campos["CVE_PRESTAMO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
-		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='IdGrupo' controlvalor='${registro.campos["NOMBRE"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true' validadato='cantidades'/>
+		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='IdGrupo' controlvalor='${registro.campos["NOMBRE"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true' />
 		<Portal:FormaElemento etiqueta='Producto' control='Texto' controlnombre='IdProducto' controlvalor='${registro.campos["ID_PRODUCTO"]} - ${registro.campos["NOM_PRODUCTO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='N&uacute;mero de Ciclo' control='Texto' controlnombre='NumCiclo' controlvalor='${registro.campos["NUM_CICLO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
-		<Portal:FormaElemento etiqueta='Importe' control='Texto' controlnombre='Importe' controlvalor='${param.Importe}' controllongitud='10' controllongitudmax='10' editarinicializado='true' obligatorio='true'/>
+		<Portal:FormaElemento etiqueta='Importe' control='Texto' controlnombre='Importe' controlvalor='${param.Importe}' controllongitud='10' controllongitudmax='10' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
 		
 		<c:if test='${(param.FechaMovimiento != "null")}'>
 			<Portal:Calendario2 etiqueta='Fecha de aplicación' contenedor='frmRegistro' controlnombre='FechaMovimiento' controlvalor='${param.FechaMovimiento}'  esfechasis='true'/>
@@ -17,7 +17,7 @@
 		<c:if test='${(param.FechaMovimiento == "null")}'>
 			<Portal:Calendario2 etiqueta='Fecha de aplicación' contenedor='frmRegistro' controlnombre='FechaMovimiento' controlvalor=''  esfechasis='true'/>
 		</c:if>
-		
+		<input type="hidden" name="FechaMedio" value='<c:out value='${requestScope.registro.campos["F_MEDIO"]}'/>' />
 		<input type="hidden" name="IdPrestamo" value='<c:out value='${param.IdPrestamo}'/>' />
 		<input type="hidden" name="IdTransaccion" value='<c:out value='${param.IdTransaccion}'/>' />
 		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.TxRespuesta}'/>' />
@@ -27,7 +27,7 @@
 		<input type="hidden" name="Saldo" value='<c:out value='${param.Saldo}'/>' />
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
 		<Portal:FormaBotones>
-			<input type="button" name="Aceptar"  value="Realizar el pago" onclick='javascript:fAceptar()'>
+			<input type="button" name="PagoIndividual"  value="Realizar el pago" onclick='javascript:fAceptar()'>
 		</Portal:FormaBotones>
 	</Portal:Forma>	
 	
@@ -88,10 +88,55 @@
 	
 	<script>
 		function fAceptar(){
+			if (document.frmRegistro.Importe.value == ''){
+				alert("Ingrese el importe a pagar");
+			}else {
+				if (compare_dates(document.frmRegistro.FechaMovimiento.value, document.frmRegistro.FechaMedio.value)){  
+					alert("La fecha del movimiento no puede ser mayor a la fecha del medio");  
+				}else{  
+					fPagoIndividual();
+				} 
+			}
+		}
+		
+		function compare_dates(f1, f2){  
+			var xMonth=f1.substring(3, 5);  
+			var xDay=f1.substring(0, 2);  
+			var xYear=f1.substring(6,10);
+			var yMonth=f2.substring(3, 5);  
+			var yDay=f2.substring(0, 2); 
+			var yYear=f2.substring(6,10); 
+			
+			if (xYear> yYear){  
+			  	return(true)  
+			} else { 
+				if (xYear == yYear){  
+					if (xMonth> yMonth){  
+			             return(true)  
+			        } else { 
+			        	if (xMonth == yMonth){  
+			        		if (xDay> yDay){ 
+					          	return(true);  
+					        }else { 
+					          return(false);
+					        }  
+			        	}else{
+			        		return(false);
+			        	}
+			        }
+				}else {
+					return(false); 
+				}
+			}
+		}  
+		 
+		function fPagoIndividual(){
+			document.frmRegistro.PagoIndividual.disabled = true; 
+			document.frmRegistro.PagoIndividual.value = "Pago realizado"; 
 			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoIndividualSaldo&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
 			document.frmRegistro.submit();
 		}
-		
+		 
 		
 		if (document.frmRegistro.TxRespuesta.value != "0"){
 			var answer = confirm('<%=request.getParameter("TxRespuesta")%>');
