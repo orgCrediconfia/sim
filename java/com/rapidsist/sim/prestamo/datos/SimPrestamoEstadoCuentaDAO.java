@@ -88,7 +88,6 @@ public class SimPrestamoEstadoCuentaDAO extends Conexion2 implements OperacionCo
 						}
 						
 						sSql = sSql + "ORDER BY CVE_PRESTAMO \n";
-						System.out.println("Todos con nombre"+sSql);
 					}
 				}else  {
 					if (!parametros.getDefCampo("NOMBRE").equals("")) {

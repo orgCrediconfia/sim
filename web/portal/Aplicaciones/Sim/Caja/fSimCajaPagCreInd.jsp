@@ -33,24 +33,27 @@
 	
 	<Portal:TablaLista tipo="consulta" nombre="Estado de Cuenta">
 		<Portal:TablaListaTitulos> 
-			<Portal:Columna tipovalor='texto' ancho='200' valor='Fecha Operaci&oacute;n'/>
+			<Portal:Columna tipovalor='texto' ancho='120' valor='Fecha Operaci&oacute;n'/>
+			<Portal:Columna tipovalor='texto' ancho='150' valor='Fecha de Movimiento'/>
 			<Portal:Columna tipovalor='texto' ancho='200' valor='Descripci&oacute;n'/>
-			<Portal:Columna tipovalor='moneda' ancho='200' valor='Importe'/>
-			<Portal:Columna tipovalor='moneda' ancho='100%' valor='Desglose/Saldo Total'/>		
+			<Portal:Columna tipovalor='moneda' ancho='150' valor='Importe'/>
+			<Portal:Columna tipovalor='moneda' ancho='100%' valor='Desglose/Saldo Total'/>			
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaEstadoCuenta}">		
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["FECHA_OPERACION"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='120' valor='${registro.campos["FECHA_OPERACION"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["FECHA_AMORTIZACION"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["DESCRIPCION"]}'/>
-				<Portal:Columna tipovalor='moneda' ancho='200' valor='$ ${registro.campos["IMPORTE"]}'/>
+				<Portal:Columna tipovalor='moneda' ancho='150' valor='$ ${registro.campos["IMPORTE"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["IMP_DESGLOSE"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<c:forEach var="registro" items="${requestScope.SaldoFecha}">
 			<Portal:TablaListaRenglon>
-				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["DESCRIPCION"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='120' valor='SALDO A LA FECHA'/>
+				<Portal:Columna tipovalor='texto' ancho='150' valor=''/>
 				<Portal:Columna tipovalor='texto' ancho='200' valor=''/>
-				<Portal:Columna tipovalor='moneda' ancho='200' valor=''/>
+				<Portal:Columna tipovalor='moneda' ancho='150' valor=''/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["IMP_DESGLOSE"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
