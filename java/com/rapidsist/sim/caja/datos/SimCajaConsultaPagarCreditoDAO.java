@@ -87,9 +87,11 @@ public class SimCajaConsultaPagarCreditoDAO extends Conexion2 implements Operaci
 				"C.NOM_PRODUCTO, \n"+
 				"C.NUM_CICLO, \n"+
 				"C.APLICA_A, \n"+
-				"C.ID_ETAPA_PRESTAMO \n"+
+				"C.ID_ETAPA_PRESTAMO, \n"+
+				"TO_CHAR(P.F_MEDIO,'DD/MM/YYYY') F_MEDIO \n"+
 				"FROM V_CREDITO C, \n"+
-				"     SIM_CAT_ETAPA_PRESTAMO E \n"+
+				"     SIM_CAT_ETAPA_PRESTAMO E, \n"+
+				"     PFIN_PARAMETRO P \n"+
 				"WHERE C.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				"AND C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
 				"AND C.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n" +
@@ -97,7 +99,9 @@ public class SimCajaConsultaPagarCreditoDAO extends Conexion2 implements Operaci
 				"AND E.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 				"AND E.CVE_EMPRESA = C.CVE_EMPRESA \n"+
 				"AND E.ID_ETAPA_PRESTAMO = C.ID_ETAPA_PRESTAMO \n"+
-				"AND E.B_ENTREGADO = 'V' \n" ;
+				"AND E.B_ENTREGADO = 'V' \n" +
+				"AND P.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
+				"AND P.CVE_EMPRESA = C.CVE_EMPRESA \n";
 		
 		ejecutaSql();
 		return this.getConsultaRegistro();
