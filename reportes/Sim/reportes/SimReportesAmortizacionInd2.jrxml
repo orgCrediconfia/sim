@@ -88,7 +88,7 @@
 						x="0"
 						y="37"
 						width="136"
-						height="15"
+						height="41"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -126,7 +126,7 @@
 						x="355"
 						y="37"
 						width="84"
-						height="15"
+						height="41"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -145,7 +145,7 @@
 						x="439"
 						y="37"
 						width="112"
-						height="15"
+						height="41"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -164,7 +164,7 @@
 						x="551"
 						y="37"
 						width="137"
-						height="15"
+						height="41"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
