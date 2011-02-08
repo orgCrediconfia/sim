@@ -180,20 +180,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="262"
-						y="19"
-						width="85"
-						height="15"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Right">
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Tasa por aplicar]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="351"
+						x="249"
 						y="19"
 						width="99"
 						height="15"
@@ -202,11 +189,11 @@
 					<textElement textAlignment="Right">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Interes]]></text>
+				<text><![CDATA[Interés]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="452"
+						x="350"
 						y="19"
 						width="92"
 						height="15"
@@ -219,9 +206,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="556"
+						x="454"
 						y="19"
-						width="103"
+						width="159"
 						height="15"
 						key="staticText-7"/>
 					<box></box>
@@ -232,7 +219,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="662"
+						x="613"
 						y="19"
 						width="103"
 						height="15"
@@ -241,11 +228,11 @@
 					<textElement textAlignment="Right">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Acccesorios]]></text>
+				<text><![CDATA[Accesorios]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="768"
+						x="719"
 						y="19"
 						width="100"
 						height="15"
@@ -258,7 +245,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="871"
+						x="822"
 						y="19"
 						width="112"
 						height="15"
@@ -336,20 +323,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="262"
-						y="0"
-						width="71"
-						height="15"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TASA_INTERES}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="351"
+						x="249"
 						y="0"
 						width="99"
 						height="15"
@@ -362,7 +336,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="452"
+						x="350"
 						y="0"
 						width="92"
 						height="15"
@@ -375,9 +349,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="556"
+						x="454"
 						y="0"
-						width="103"
+						width="159"
 						height="15"
 						key="textField"/>
 					<box></box>
@@ -388,7 +362,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="662"
+						x="613"
 						y="0"
 						width="103"
 						height="15"
@@ -401,7 +375,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="768"
+						x="719"
 						y="0"
 						width="100"
 						height="15"
@@ -414,7 +388,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="871"
+						x="822"
 						y="0"
 						width="112"
 						height="15"
@@ -438,19 +412,6 @@
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_SALDO_INICIAL}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="334"
-						y="0"
-						width="13"
-						height="15"
-						key="staticText-14"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica" isBold="false"/>
-					</textElement>
-				<text><![CDATA[%]]></text>
-				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
@@ -463,19 +424,6 @@
 		</pageFooter>
 		<lastPageFooter>
 			<band height="15"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						x="0"
-						y="0"
-						width="543"
-						height="15"
-						key="staticText-16"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica" isBold="false"/>
-					</textElement>
-				<text><![CDATA[* CAT Sólo para efectos informativos]]></text>
-				</staticText>
 			</band>
 		</lastPageFooter>
 		<summary>
@@ -504,7 +452,7 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="351"
+						x="249"
 						y="3"
 						width="99"
 						height="15"
@@ -517,7 +465,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="452"
+						x="350"
 						y="3"
 						width="92"
 						height="15"
@@ -530,9 +478,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="556"
+						x="454"
 						y="3"
-						width="103"
+						width="159"
 						height="15"
 						key="textField-3"/>
 					<box></box>
@@ -543,7 +491,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="662"
+						x="613"
 						y="3"
 						width="103"
 						height="15"
@@ -556,7 +504,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="768"
+						x="719"
 						y="3"
 						width="100"
 						height="15"

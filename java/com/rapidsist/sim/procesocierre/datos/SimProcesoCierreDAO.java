@@ -16,7 +16,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.rapidsist.mysql.historicoMysql;
+import com.rapidsist.mysql.HistoricoMysql;
 
 /**
  * Administra los accesos a la base de datos para el proceso de cierre.
@@ -98,7 +98,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		sto.close();
 		
 		//COPIA INFORMACION HISTORICA A MYSQL
-		historicoMysql historicoMysql = new historicoMysql();
+		HistoricoMysql historicoMysql = new HistoricoMysql();
 		try{
 			historicoMysql.copyToMysql(conn);
 		}catch(Exception ex){
