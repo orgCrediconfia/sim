@@ -385,7 +385,7 @@ AND CVE_PRESTAMO = $P{CvePrestamo}]]></queryString>
 					<textElement>
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Peridicidad tasa]]></text>
+				<text><![CDATA[Periodicidad tasa]]></text>
 				</staticText>
 				<staticText>
 					<reportElement

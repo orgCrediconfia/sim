@@ -177,7 +177,7 @@
 					<textElement textAlignment="Right">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Acccesorios]]></text>
+				<text><![CDATA[Accesorios]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
