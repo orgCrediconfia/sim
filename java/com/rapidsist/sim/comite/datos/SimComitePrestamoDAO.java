@@ -48,6 +48,7 @@ public class SimComitePrestamoDAO extends Conexion2 implements OperacionConsulta
 					" SIM_CAT_ETAPA_PRESTAMO E \n"+
 					" WHERE P.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 					" AND P.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND P.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
 					"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
 					"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n"+ 
 					"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n"+ 
@@ -69,6 +70,7 @@ public class SimComitePrestamoDAO extends Conexion2 implements OperacionConsulta
 					" SIM_CAT_ETAPA_PRESTAMO E \n"+
 					" WHERE P.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 					" AND P.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND G.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
 					"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
 					"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n"+ 
 					"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n"+ 

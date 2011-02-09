@@ -64,8 +64,8 @@ public class SimPrestamoGrupalPaginacionDAO extends Conexion2 implements Operaci
 				"AND P.ID_GRUPO IS NOT NULL \n"+
 				" AND ROWNUM <= '"+ (String) parametros.getDefCampo("SUPERIOR") +"' \n";  
 				
-			if (parametros.getDefCampo("ID_PRESTAMO") != null) {
-				sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+			if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
+				sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 			}
 			if (parametros.getDefCampo("ID_PRODUCTO") != null) {
 				sSql = sSql + "AND P.ID_PRODUCTO = '" + (String) parametros.getDefCampo("ID_PRODUCTO") + "' \n";
@@ -120,8 +120,8 @@ public class SimPrestamoGrupalPaginacionDAO extends Conexion2 implements Operaci
 						"AND P.ID_GRUPO IS NOT NULL \n"+
 						" AND ROWNUM <= '"+ (String) parametros.getDefCampo("INFERIOR") +"' \n";  
 						
-					if (parametros.getDefCampo("ID_PRESTAMO") != null) {
-						sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+					if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
+						sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 					}
 					if (parametros.getDefCampo("ID_PRODUCTO") != null) {
 						sSql = sSql + "AND P.ID_PRODUCTO = '" + (String) parametros.getDefCampo("ID_PRODUCTO") + "' \n";
@@ -146,8 +146,6 @@ public class SimPrestamoGrupalPaginacionDAO extends Conexion2 implements Operaci
 			
 			
 			sSql = sSql + "ORDER BY P.CVE_PRESTAMO_GRUPO \n";
-			
-			System.out.println("GERarDO 1"+sSql);
 			
 		ejecutaSql();
 		return getConsultaLista();
@@ -197,8 +195,8 @@ public class SimPrestamoGrupalPaginacionDAO extends Conexion2 implements Operaci
 		    "AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
 			"AND P.ID_GRUPO IS NOT NULL \n";
 			
-		if (parametros.getDefCampo("ID_PRESTAMO") != null) {
-			sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
+			sSql = sSql + "AND P.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 		}
 		if (parametros.getDefCampo("ID_PRODUCTO") != null) {
 			sSql = sSql + "AND P.ID_PRODUCTO = '" + (String) parametros.getDefCampo("ID_PRODUCTO") + "' \n";

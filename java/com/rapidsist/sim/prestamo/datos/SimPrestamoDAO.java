@@ -43,8 +43,8 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 		sSql =  "SELECT \n"+
 				"P.ID_PRESTAMO, \n"+
 				"P.CVE_PRESTAMO, \n"+
-				"P.FECHA_SOLICITUD, \n"+
 				"P.FECHA_ENTREGA, \n"+
+				"P.FECHA_REAL, \n"+
 				"P.ID_CLIENTE, \n"+
 				"P.ID_GRUPO, \n"+
 				"C.NOM_COMPLETO, \n"+
