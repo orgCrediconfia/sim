@@ -45,8 +45,8 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 		sSql =  "SELECT \n"+
 					"P.ID_PRESTAMO_GRUPO, \n"+
 					"P.CVE_PRESTAMO_GRUPO, \n"+
-					//"P.FECHA_SOLICITUD, \n"+
-					//"P.FECHA_ENTREGA, \n"+
+					"P.FECHA_ENTREGA, \n"+
+					"P.FECHA_REAL, \n"+
 					"P.ID_GRUPO, \n"+
 					"G.NOM_GRUPO, \n"+
 					"P.ID_PRODUCTO, \n"+

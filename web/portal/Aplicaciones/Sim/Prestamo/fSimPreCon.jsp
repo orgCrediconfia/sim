@@ -18,8 +18,8 @@
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='80' valor='Producto'/>	
 			<Portal:Columna tipovalor='texto' ancho='50' valor='Ciclo'/>	
-			<Portal:Columna tipovalor='texto' ancho='100' valor='Fecha de solicitud'/>	
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Fecha de entrega'/>	
+			<Portal:Columna tipovalor='texto' ancho='100' valor='Fecha de real'/>	
 			<Portal:Columna tipovalor='texto' ancho='200' valor='Nombre del acreditado'/>	
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Estatus del pr&eacute;stamo'/>
 		</Portal:TablaListaTitulos>
@@ -30,8 +30,8 @@
 				</Portal:Columna>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["ID_PRODUCTO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='50' valor='${registro.campos["NUM_CICLO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["FECHA_SOLICITUD"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["FECHA_ENTREGA"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["FECHA_REAL"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='200' valor='${registro.campos["NOM_COMPLETO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_ESTATUS_PRESTAMO"]}'/>
 			</Portal:TablaListaRenglon>
