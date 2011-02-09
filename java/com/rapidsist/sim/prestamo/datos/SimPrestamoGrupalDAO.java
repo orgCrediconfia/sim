@@ -99,8 +99,6 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 			
 			sSql = sSql + "ORDER BY P.CVE_PRESTAMO_GRUPO \n";
 			
-			System.out.println("GERarDO 1"+sSql);
-			
 		ejecutaSql();
 		return getConsultaLista();
 		
