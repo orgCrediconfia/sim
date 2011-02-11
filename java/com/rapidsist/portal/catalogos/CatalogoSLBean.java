@@ -831,17 +831,37 @@ public class CatalogoSLBean implements SessionBean{
 					else {
 						//VERIFICA SI ES UNA ALTA
 						if (iTipoOperacion == CatalogoSLBean.ALTA){
-							System.out.println("**********ALTA");
 							boolean bDobleSubmit = false;
 							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
 							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
 							if (registroPrimerSubmit != null){
 								registro.eliminaCampo("RegistroPrimerSubmit");
+							    /*
+								System.out.println("Primer registro");
+								Iterator listaNombresCampos = registro.getCampos().keySet().iterator();
+								while (listaNombresCampos.hasNext()){
+									String sNombreCampo = (String)listaNombresCampos.next();
+									Object objetoLista = registro.getDefCampo(sNombreCampo);
+									System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
+								}
+								System.out.println("Segundo registro submit");
+								Iterator listaNombresCamposSubmit = registroPrimerSubmit.getCampos().keySet().iterator();
+								while (listaNombresCamposSubmit.hasNext()){
+									String sNombreCampo = (String)listaNombresCamposSubmit.next();
+									Object objetoLista = registro.getDefCampo(sNombreCampo);
+									System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
+								}
+								*/
 								if (registro.igual(registroPrimerSubmit)){
-									//SE HA GENERADO UN DOBLE SUBMIT
-									bDobleSubmit = true;
+									//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+									//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+									if (registro.getDefCampo("ListaRegistros") == null) {
+										//SE HA GENERADO UN DOBLE SUBMIT
+										bDobleSubmit = true;
+									}
 								}
 							}
+							//System.out.println("bDobleSubmit:"+ bDobleSubmit);
 							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
 							if (!bDobleSubmit){
 								//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
@@ -851,7 +871,7 @@ public class CatalogoSLBean implements SessionBean{
 									resultadoCatalogo = ((OperacionAlta)instanciaObj).alta(registro);
 								}
 								else{
-									//AL PARECER NUNCA PASA POR AQUI
+									//PARA POR AQUI CUANDO EXISTE UNA DAO PERO NO IMPLEMENTA LA INTERFACE DE ALTA
 									resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
 								}//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
 								
@@ -924,13 +944,15 @@ public class CatalogoSLBean implements SessionBean{
 							if (registroPrimerSubmit != null){
 								registro.eliminaCampo("RegistroPrimerSubmit");
 								if (registro.igual(registroPrimerSubmit)){
-									//SE HA GENERADO UN DOBLE SUBMIT
-									bDobleSubmit = true;
-								}
+									//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+									//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+									if (registro.getDefCampo("ListaRegistros") == null) {
+										//SE HA GENERADO UN DOBLE SUBMIT
+										bDobleSubmit = true;
+									}								}
 							}
 							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
 							if (!bDobleSubmit){							
-								System.out.println("****Alta automatica2");							
 								resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
 							}
 							//SE AGREGA AL RESULTADO EL OBJETO REGISTRO QUE FUE DADO DE ALTA
