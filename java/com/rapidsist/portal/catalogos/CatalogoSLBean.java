@@ -831,6 +831,7 @@ public class CatalogoSLBean implements SessionBean{
 					else {
 						//VERIFICA SI ES UNA ALTA
 						if (iTipoOperacion == CatalogoSLBean.ALTA){
+							System.out.println("**********ALTA");
 							boolean bDobleSubmit = false;
 							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
 							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
@@ -850,6 +851,7 @@ public class CatalogoSLBean implements SessionBean{
 									resultadoCatalogo = ((OperacionAlta)instanciaObj).alta(registro);
 								}
 								else{
+									//AL PARECER NUNCA PASA POR AQUI
 									resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
 								}//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
 								
@@ -915,7 +917,28 @@ public class CatalogoSLBean implements SessionBean{
 							resultadoCatalogo = bajaAutomatica(conexion, registro, sCveTabla, contexto);
 						}
 						else if (iTipoOperacion == CatalogoSLBean.ALTA) {
-							resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
+							
+							boolean bDobleSubmit = false;
+							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
+							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
+							if (registroPrimerSubmit != null){
+								registro.eliminaCampo("RegistroPrimerSubmit");
+								if (registro.igual(registroPrimerSubmit)){
+									//SE HA GENERADO UN DOBLE SUBMIT
+									bDobleSubmit = true;
+								}
+							}
+							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
+							if (!bDobleSubmit){							
+								System.out.println("****Alta automatica2");							
+								resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
+							}
+							//SE AGREGA AL RESULTADO EL OBJETO REGISTRO QUE FUE DADO DE ALTA
+							if (resultadoCatalogo.Resultado == null){
+								resultadoCatalogo.Resultado = new Registro();
+							}
+							resultadoCatalogo.Resultado.addDefCampo("RegistroPrimerSubmit", registro);							
+							
 						}
 						else if (iTipoOperacion == CatalogoSLBean.MODIFICACION) {
 							//VERIFICAMOS SI SE DEBE DESHABILITAR LA VERIFICACION DE RE-READ
