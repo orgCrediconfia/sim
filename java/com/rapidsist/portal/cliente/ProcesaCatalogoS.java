@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  */
 
@@ -36,17 +36,17 @@ import java.text.DateFormat;
 import bsh.Interpreter;
 
 /**
- * Servlet que lleva el control del componente de catálogos.
+ * Servlet que lleva el control del componente de catï¿½logos.
  * <br/><br/>
- * Parámetros:
+ * Parï¿½metros:
  * <ul>
  *	<li>
- * OperacionCatalogo.- Operación que debe realizar el catálogo<br>
- * Posibles valores: AL (alta), IN(inicialización), MO (modificación), BA (Baja),
+ * OperacionCatalogo.- Operaciï¿½n que debe realizar el catï¿½logo<br>
+ * Posibles valores: AL (alta), IN(inicializaciï¿½n), MO (modificaciï¿½n), BA (Baja),
  * CT (consulta todos), CR (consulta registro), CL (clonar registro).
  *  </li>
  *	<li>
- * Funcion.- Clave de la función que se debe procesar
+ * Funcion.- Clave de la funciï¿½n que se debe procesar
  *  </li>
  *	<li>
  * Filtro.- Clave del filtro que se debe procesar (este parametro solo es utilizado cuando
@@ -69,11 +69,11 @@ public class ProcesaCatalogoS extends HttpServlet {
 	}
 
 	/**
-	 * Adminstra la operación sobre los catálogos del sistema.
-	 * @param request Objeto que provee de información al servlet sobre el request del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletRequest y lo envía como un parámetro a este método.
+	 * Adminstra la operaciï¿½n sobre los catï¿½logos del sistema.
+	 * @param request Objeto que provee de informaciï¿½n al servlet sobre el request del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletRequest y lo envï¿½a como un parï¿½metro a este mï¿½todo.
 	 * @param response Objeto que asiste al servlet en enviar una respuesta HTTP al cliente. El
-	 * contenedor  de servlets crea un objeto HttpServletResponse y lo envía como parámetro a este método.
+	 * contenedor  de servlets crea un objeto HttpServletResponse y lo envï¿½a como parï¿½metro a este mï¿½todo.
 	 */
 	public void service (HttpServletRequest request, HttpServletResponse response){
 		RegistroControl registroControl = new RegistroControl();
@@ -288,11 +288,11 @@ public class ProcesaCatalogoS extends HttpServlet {
 							}
 						}
 						catch (RemoteException e) {
-							registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generó un error interno en el servidor de lógica de negocio";
+							registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generï¿½ un error interno en el servidor de lï¿½gica de negocio";
 							System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()) + " " + DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date()) + " - Error en clase: " + funcion.getClaseCon() + ", mensaje: " + e.getMessage());
 						}
 						catch (Exception e) {
-							registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generó un error interno en el servidor cliente";
+							registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generï¿½ un error interno en el servidor cliente";
 							System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()) + " " + DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date()) + " - Error en clase: " + funcion.getClaseCon() + ", mensaje: " + e.getMessage());
 							e.printStackTrace();
 						}
@@ -323,8 +323,18 @@ public class ProcesaCatalogoS extends HttpServlet {
 						try{
 
 							if (control != null){
+								//VERIFICA SI EXISTE EN LA SESION UN REGISTRO QUE HAYA SIDO DADO DE ALTA
+								Registro registroPrimerSubmit = (Registro)session.getAttribute("RegistroPrimerSubmit");
+								if (registroPrimerSubmit != null){
+									registroActualizacion.addDefCampo("RegistroPrimerSubmit", registroPrimerSubmit);
+								}
+								
 								CatalogoControlActualizaIN catActualiza = (CatalogoControlActualizaIN)control;
 								registroControl = catActualiza.actualiza(registroActualizacion, request, response, config, catalogoEjb, context, iOperacionCatalogo);
+								//ALMACENA EN LA SESION EL REGISTRO QUE HAYA SIDO DADO DE ALTA
+								if (iOperacionCatalogo == CatalogoControl.CON_ALTA){
+									session.setAttribute("RegistroPrimerSubmit", registroControl.resultadoCatalogo.Resultado.getDefCampo("RegistroPrimerSubmit"));
+								}
 							}
 							else{
 								registroControl = ejecutaOperacion(funcion, registroActualizacion, request, response, config, catalogoEjb, context, iOperacionCatalogo);
@@ -332,7 +342,7 @@ public class ProcesaCatalogoS extends HttpServlet {
 
 							//VERIFICA SI SE OBTUVO UNA RESPUESTA DE LA OPERACION INDICADA
 							if (registroControl.resultadoCatalogo == null) {
-								registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=No se definieron registros para la operación indicada";
+								registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=No se definieron registros para la operaciï¿½n indicada";
 							}
 							else{
 
@@ -341,30 +351,30 @@ public class ProcesaCatalogoS extends HttpServlet {
 									registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=" + registroControl.resultadoCatalogo.mensaje.getTipo() + " - " + registroControl.resultadoCatalogo.mensaje.getDescripcion();
 								}
 								else{
-									//VERIFICA SI EN LA OPERACIÓN SE GENERÓ UN SEQUENCE Y LO ENVÍA PARA SER USADO POR LA BITÁCORA
+									//VERIFICA SI EN LA OPERACIï¿½N SE GENERï¿½ UN SEQUENCE Y LO ENVï¿½A PARA SER USADO POR LA BITï¿½CORA
 									if(registroControl.resultadoCatalogo.Resultado != null){
 										if (registroControl.resultadoCatalogo.Resultado.getDefCampo("SEQUENCE") != null) {
 											registroActualizacion.addDefCampo("SEQUENCE", registroControl.resultadoCatalogo.Resultado.getDefCampo("SEQUENCE"));
 										}
 									}
-									// SE AGREGA EL TIPO DE OPERACIÓN PARA GENERAR EL ENCABEZADO DE LA BITÁCORA
+									// SE AGREGA EL TIPO DE OPERACIï¿½N PARA GENERAR EL ENCABEZADO DE LA BITï¿½CORA
 									registroActualizacion.addDefCampo("OPERACION", String.valueOf(iOperacionCatalogo));
 	
 									//SI NO SE GENERO NINGUN MENSAJE DE ERROR ENTOCES SE DEBE BITACORAR
-									//SE LLAMA AL COMPONENTE DE BITÁCORA AL INICIALIZAR EL EJB DE BITACORA
+									//SE LLAMA AL COMPONENTE DE BITï¿½CORA AL INICIALIZAR EL EJB DE BITACORA
 									try{
 										//SI NO ACTUALIZA LA BITACORA ENVIA UN MENSAJE DE ERROR A LA CONSOLA
 										String sResultadoBitacora = bitacoraEjb.registraBitacora(sIdFuncion, registroActualizacion);
 	
-										// VERIFICA SI SE GENERÓ ALGÚN ERROR AL ACTUALIZAR LA BITACORA
+										// VERIFICA SI SE GENERï¿½ ALGï¿½N ERROR AL ACTUALIZAR LA BITACORA
 									   // PARA DESHABILITAR LA FUNCIONALIDAD DE QUE SE MUESTREN EN PANTALLA LOS ERRORES DE
-									   // LA BITÁCORA SOLO DEBE COMENTAR EL SIGUIENTE MÉTODO
+									   // LA BITï¿½CORA SOLO DEBE COMENTAR EL SIGUIENTE Mï¿½TODO
 	
-									   // MÉTODO A COMENTAR ***********************************************************************
+									   // Mï¿½TODO A COMENTAR ***********************************************************************
 										if (sResultadoBitacora != null && !sResultadoBitacora.equals("")){
-											// SE GENERÓ UN ERROR
+											// SE GENERï¿½ UN ERROR
 											bErrorBitacora = true;
-											//VERIFICA EL PARÁMETRO VENTANA
+											//VERIFICA EL PARï¿½METRO VENTANA
 											if (sVentana != null) {
 												if (sVentana.equals("Si")) {
 													sVentana = "Ventana=Si";
@@ -374,15 +384,15 @@ public class ProcesaCatalogoS extends HttpServlet {
 												sVentana = "";
 											}
 	
-											// SE RECUPERA LA URL ORIGINAL PARA REDIRECCIONAR LA PÁGINA DESPUÉS DE ENVIARLA A LA PÁGINA DE ERROR
+											// SE RECUPERA LA URL ORIGINAL PARA REDIRECCIONAR LA Pï¿½GINA DESPUï¿½S DE ENVIARLA A LA Pï¿½GINA DE ERROR
 											String sUrlFinalErrorBitacora = Url.agregaParametro(request.getContextPath() + registroControl.sPagina, sVentana);
-											// SE ENVÍA LA URL ORIGINAL EN EL REQUEST
+											// SE ENVï¿½A LA URL ORIGINAL EN EL REQUEST
 											request.setAttribute("UrlOriginal", sUrlFinalErrorBitacora);
-											// SE REDIRECCIONA A LA PÁGINA DE ERROR CON EL MENSAJE DE ERROR PROVENIENTE DE LA ACTUALIZACIÓN DE LA BITÁCORA
+											// SE REDIRECCIONA A LA Pï¿½GINA DE ERROR CON EL MENSAJE DE ERROR PROVENIENTE DE LA ACTUALIZACIï¿½N DE LA BITï¿½CORA
 											registroControl.sPagina = usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=" + sResultadoBitacora ;
-											//SE ENVÍA EL MENSAJE A LA CONSOLA
+											//SE ENVï¿½A EL MENSAJE A LA CONSOLA
 											//System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()) + " " + DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date()) + " - " +sResultadoBitacora);
-										} // MÉTODO A COMENTAR *************************************************************************/
+										} // Mï¿½TODO A COMENTAR *************************************************************************/
 									}
 									catch(LogicaNegocioException e) {
 										System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()) + " " + DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date()) + " - Error en la bitacora, mensaje: " + e.getMessage());
@@ -395,11 +405,11 @@ public class ProcesaCatalogoS extends HttpServlet {
 
 						}
 						catch(LogicaNegocioException e) {
-							registroControl.sPagina= usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generó un error interno en el servidor de lógica de negocio";
+							registroControl.sPagina= usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generï¿½ un error interno en el servidor de lï¿½gica de negocio";
 							System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()) + " " + DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date()) + " - Error en clase: " + funcion.getClaseCon() + ", mensaje: " + e.getMessage());
 						}
 						catch(Exception e){
-							registroControl.sPagina= usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generó un error interno en el servidor cliente";
+							registroControl.sPagina= usuario.getUrlDirectorioDefault() + "/SistemaErrorPagina.jsp?Mensaje=Se generï¿½ un error interno en el servidor cliente";
 							System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date()) + " " + DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date()) + " - Error en clase: " + funcion.getClaseCon() + ", mensaje: " + e.getMessage());
 							e.printStackTrace();
 						}
@@ -443,8 +453,8 @@ public class ProcesaCatalogoS extends HttpServlet {
 							sVentana = "";
 						}
 						String sUrlFinal = Url.agregaParametro(request.getContextPath() + registroControl.sPagina, sVentana);
-						// SI SE PRODUJO ALGÚN ERROR EN LA GENERACIÓN DE LA BITÁCORA SE ENVÍA EL REQUEST
-						// CON LA URL ORIIGNAL A LA PÁGINA DE ERROR
+						// SI SE PRODUJO ALGï¿½N ERROR EN LA GENERACIï¿½N DE LA BITï¿½CORA SE ENVï¿½A EL REQUEST
+						// CON LA URL ORIIGNAL A LA Pï¿½GINA DE ERROR
 						if(bErrorBitacora){
 							request.getRequestDispatcher(registroControl.sPagina).forward(request,response);
 						}
@@ -474,17 +484,17 @@ public class ProcesaCatalogoS extends HttpServlet {
 	/**
 	 * @param funcion Objeto tipo Funcion.
 	 * @param parametros Objeto Registro.
-	 * @param request Objeto que provee de información al servlet sobre el request del cliente. El
-	 * contenedor de servlets crea un objeto HttpServletRequest y lo envía como un parámetro a este método.
+	 * @param request Objeto que provee de informaciï¿½n al servlet sobre el request del cliente. El
+	 * contenedor de servlets crea un objeto HttpServletRequest y lo envï¿½a como un parï¿½metro a este mï¿½todo.
 	 * @param response Objeto que asiste al servlet en enviar una respuesta HTTP al cliente. El
-	 * contenedor  de servlets crea un objeto HttpServletResponse y lo envía como parámetro a este método.
+	 * contenedor  de servlets crea un objeto HttpServletResponse y lo envï¿½a como parï¿½metro a este mï¿½todo.
 	 * @param config
 	 * @param catalogoEjb
 	 * @param context Objeto tipo Context.
-	 * @param iOperacionCatalogo Tipo de operación.
+	 * @param iOperacionCatalogo Tipo de operaciï¿½n.
 	 * @return registroControl
-	 * @throws RemoteException Se generó un error al ejecutar la operción.
-	 * @throws java.lang.Exception Si hubo algún error en la clase controladora.
+	 * @throws RemoteException Se generï¿½ un error al ejecutar la operciï¿½n.
+	 * @throws java.lang.Exception Si hubo algï¿½n error en la clase controladora.
 	 */
 
 	private RegistroControl ejecutaOperacion(Funcion funcion, Registro parametros, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoEjb, Context context, int iOperacionCatalogo) throws RemoteException, Exception{

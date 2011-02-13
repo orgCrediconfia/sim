@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  */
 
@@ -77,8 +77,8 @@ public class CatalogoSLBean implements SessionBean{
 	SessionContext sessionContext;
 
 	/**
-	 * Este método es requerido por la especificación J2EE, pero no tiene
-	 * implementado ningún código.
+	 * Este mï¿½todo es requerido por la especificaciï¿½n J2EE, pero no tiene
+	 * implementado ningï¿½n cï¿½digo.
 	 */
 	public void ejbCreate() {
 		try{
@@ -90,29 +90,29 @@ public class CatalogoSLBean implements SessionBean{
 	}
 
 	/**
-	 * Este método es requerido por la especificación J2EE, pero no tiene
-	 * implementado ningún código.
+	 * Este mï¿½todo es requerido por la especificaciï¿½n J2EE, pero no tiene
+	 * implementado ningï¿½n cï¿½digo.
 	 */
 	public void ejbRemove(){
 	}
 
 	/**
-	 * Este método es requerido por la especificación J2EE, pero no tiene
-	 * implementado ningún código.
+	 * Este mï¿½todo es requerido por la especificaciï¿½n J2EE, pero no tiene
+	 * implementado ningï¿½n cï¿½digo.
 	 */
 	public void ejbActivate(){
 	}
 
 	/**
-	 * Este método es requerido por la especificación J2EE, pero no tiene
-	 * implementado ningún código.
+	 * Este mï¿½todo es requerido por la especificaciï¿½n J2EE, pero no tiene
+	 * implementado ningï¿½n cï¿½digo.
 	 */
 	public void ejbPassivate(){
 	}
 
 	/**
 	 * Inicializa el contexto de la sesion para el EJB.
-	 * @param sessionContext Contexto de la sesion que provee información al EJB sobre
+	 * @param sessionContext Contexto de la sesion que provee informaciï¿½n al EJB sobre
 	 * el contenedor.
 	 */
 	public void setSessionContext(SessionContext sessionContext){
@@ -236,11 +236,11 @@ public class CatalogoSLBean implements SessionBean{
 	}
 
 	/**
-	 * Obtiene un registro de un catálogo en base a la llave primaria.
-	 * @param sCatalogo Nombre del catálogo.
+	 * Obtiene un registro de un catï¿½logo en base a la llave primaria.
+	 * @param sCatalogo Nombre del catï¿½logo.
 	 * @param registro Llave primaria.
 	 * @return Objeto Registro resultado de la consulta.
-	 * @throws LogicaNegocioException Se generó un error al obtener el registro.
+	 * @throws LogicaNegocioException Se generï¿½ un error al obtener el registro.
 	 * @ejb.interface-method
 	 */
 	public Registro getRegistro(String sCatalogo, Registro registro) throws com.rapidsist.portal.catalogos.LogicaNegocioException {
@@ -316,7 +316,7 @@ public class CatalogoSLBean implements SessionBean{
 			}
 			else{
 				//GENERA MENSAJE DE ERROR
-				System.out.println("La funcion: " +sCatalogo + ", no esta registrada en el catálogo de funciones");
+				System.out.println("La funcion: " +sCatalogo + ", no esta registrada en el catï¿½logo de funciones");
 				bErrorGenerado = true;
 			}//VERIFICA SI ENCONTRO LA FUNCION
 		}
@@ -362,11 +362,11 @@ public class CatalogoSLBean implements SessionBean{
 		return resultado;
 	}
 	/**
-	 * Obtiene registros de un catálogo en base a la llave primaria.
-	 * @param sCatalogo Nombre del catálogo.
-	 * @param parametros Parámetros de filtro de búsqueda.
+	 * Obtiene registros de un catï¿½logo en base a la llave primaria.
+	 * @param sCatalogo Nombre del catï¿½logo.
+	 * @param parametros Parï¿½metros de filtro de bï¿½squeda.
 	 * @return Objeto Registro resultado de la consulta.
-	 * @throws LogicaNegocioException Se generó un error al obtener los registros
+	 * @throws LogicaNegocioException Se generï¿½ un error al obtener los registros
 	 * @ejb.interface-method
 	 */
 	public LinkedList getRegistros(String sCatalogo, Registro parametros) throws com.rapidsist.portal.catalogos.LogicaNegocioException {
@@ -447,7 +447,7 @@ public class CatalogoSLBean implements SessionBean{
 			}
 			else{
 				//GENERA MENSAJE DE ERROR
-				System.out.println("La funcion: " +sCatalogo + ", no esta registrada en el catálogo de funciones");
+				System.out.println("La funcion: " +sCatalogo + ", no esta registrada en el catï¿½logo de funciones");
 				bErrorGenerado = true;
 			}//VERIFICA SI ENCONTRO LA FUNCION
 		}
@@ -496,11 +496,11 @@ public class CatalogoSLBean implements SessionBean{
 	/**
 	 * Genera las operaciones sobre la base de datos a partir de un archivo de configuracion
 	 * en XML.
-	 * @param sCatalogo Archivo de configuración para la clase DAO.
+	 * @param sCatalogo Archivo de configuraciï¿½n para la clase DAO.
 	 * @param registro Parametros de entrada que provienen de la clase CON.
 	 * @param iTipoOperacion Tipo de operacion a ejecutar.
 	 * @return Resultado de la operacion.
-	 * @throws LogicaNegocioException Se generó un error en operacionCatalogo
+	 * @throws LogicaNegocioException Se generï¿½ un error en operacionCatalogo
 	 * @ejb.interface-method
 	 */
 	public ResultadoCatalogo operacionCatalogo(String sCatalogo, Registro registro, int iTipoOperacion) throws com.rapidsist.portal.catalogos.LogicaNegocioException {
@@ -552,7 +552,7 @@ public class CatalogoSLBean implements SessionBean{
 							break;
 					}
 
-					//VERIFICA SI SE GENERO ALGUN MENSAJE DURANTE LA OPERACIÓN
+					//VERIFICA SI SE GENERO ALGUN MENSAJE DURANTE LA OPERACIï¿½N
 					if (resultadoCatalogo.mensaje.getClave() != null){
 						//VERIFICA SI EL MENSAJE NO SE GENERA AUTOMATICAMENTE
 						if(resultadoCatalogo.mensaje.getDescripcion() == null){
@@ -580,7 +580,7 @@ public class CatalogoSLBean implements SessionBean{
 				resultadoCatalogo.mensaje = mensaje;
 			}
 			catch(Exception e){
-				System.out.println("Se generó un error al asignar el mensaje en el bloque catch(SQLException) de la clase CatalogoSLBean: " + e.getMessage());
+				System.out.println("Se generï¿½ un error al asignar el mensaje en el bloque catch(SQLException) de la clase CatalogoSLBean: " + e.getMessage());
 			}
 		}
 		catch (Exception ex) {
@@ -594,7 +594,7 @@ public class CatalogoSLBean implements SessionBean{
 				resultadoCatalogo.mensaje = mensaje;
 			}
 			catch(Exception e){
-				System.out.println("Se generó un error al asignar el mensaje en el bloque catch(Exception) de la clase CatalogoSLBean: " + e.getMessage());
+				System.out.println("Se generï¿½ un error al asignar el mensaje en el bloque catch(Exception) de la clase CatalogoSLBean: " + e.getMessage());
 			}
 		}
 		finally{
@@ -619,7 +619,7 @@ public class CatalogoSLBean implements SessionBean{
 	 * @param registro Objeto Registro.
 	 * @param sCveTabla Clave de la tabla.
 	 * @param contexto Objeto tipo Context.
-	 * @throws java.lang.Exception Se generó un error en la baja automática.
+	 * @throws java.lang.Exception Se generï¿½ un error en la baja automï¿½tica.
 	 */
 	
 	private ResultadoCatalogo bajaAutomatica(Conexion2 conexion, Registro registro, String sCveTabla, Context contexto) throws Exception {
@@ -650,7 +650,7 @@ public class CatalogoSLBean implements SessionBean{
 		int iNumCampo = 0;
 		int iCantidadRegistros=1;
 		
-		//VERIFICA SI SE EJECUTA UNA BAJA LÓGICA
+		//VERIFICA SI SE EJECUTA UNA BAJA Lï¿½GICA
 		if (sBajaLogica.equals("V")){
 			//ITERA LOS REGISTROS PARA REALIZAR LA BAJA LOGICA
 			while (iListaRegistros.hasNext()) {
@@ -761,13 +761,13 @@ public class CatalogoSLBean implements SessionBean{
 	}
 
 	/**
-	 * Ejecuta las operaciones de alta, baja y modificación sobre la base de datos.
+	 * Ejecuta las operaciones de alta, baja y modificaciï¿½n sobre la base de datos.
 	 * en XML.
-	 * @param sCatalogo Clave de la función a ejecutar.
+	 * @param sCatalogo Clave de la funciï¿½n a ejecutar.
 	 * @param registro Parametros de entrada que provienen de la clase CON.
 	 * @param iTipoOperacion Tipo de operacion a ejecutar.
 	 * @return Resultado de la operacion.
-	 * @throws LogicaNegocioException Se generó un error al ejecutar la modifiación.
+	 * @throws LogicaNegocioException Se generï¿½ un error al ejecutar la modifiaciï¿½n.
 	 * @ejb.interface-method
 	 */
 	public ResultadoCatalogo modificacion(String sCatalogo, Registro registro, int iTipoOperacion) throws com.rapidsist.portal.catalogos.LogicaNegocioException {
@@ -831,15 +831,56 @@ public class CatalogoSLBean implements SessionBean{
 					else {
 						//VERIFICA SI ES UNA ALTA
 						if (iTipoOperacion == CatalogoSLBean.ALTA){
-							//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
-							if (instanciaObj instanceof OperacionAlta){
-								claseDao = (Conexion2)instanciaObj;
-								claseDao.setConexion(conexion.getConexion());
-								resultadoCatalogo = ((OperacionAlta)instanciaObj).alta(registro);
+							boolean bDobleSubmit = false;
+							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
+							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
+							if (registroPrimerSubmit != null){
+								registro.eliminaCampo("RegistroPrimerSubmit");
+							    /*
+								System.out.println("Primer registro");
+								Iterator listaNombresCampos = registro.getCampos().keySet().iterator();
+								while (listaNombresCampos.hasNext()){
+									String sNombreCampo = (String)listaNombresCampos.next();
+									Object objetoLista = registro.getDefCampo(sNombreCampo);
+									System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
+								}
+								System.out.println("Segundo registro submit");
+								Iterator listaNombresCamposSubmit = registroPrimerSubmit.getCampos().keySet().iterator();
+								while (listaNombresCamposSubmit.hasNext()){
+									String sNombreCampo = (String)listaNombresCamposSubmit.next();
+									Object objetoLista = registro.getDefCampo(sNombreCampo);
+									System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
+								}
+								*/
+								if (registro.igual(registroPrimerSubmit)){
+									//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+									//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+									if (registro.getDefCampo("ListaRegistros") == null) {
+										//SE HA GENERADO UN DOBLE SUBMIT
+										bDobleSubmit = true;
+									}
+								}
 							}
-							else{
-								resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
-							}//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
+							//System.out.println("bDobleSubmit:"+ bDobleSubmit);
+							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
+							if (!bDobleSubmit){
+								//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
+								if (instanciaObj instanceof OperacionAlta){
+									claseDao = (Conexion2)instanciaObj;
+									claseDao.setConexion(conexion.getConexion());
+									resultadoCatalogo = ((OperacionAlta)instanciaObj).alta(registro);
+								}
+								else{
+									//PARA POR AQUI CUANDO EXISTE UNA DAO PERO NO IMPLEMENTA LA INTERFACE DE ALTA
+									resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
+								}//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
+								
+							}
+							//SE AGREGA AL RESULTADO EL OBJETO REGISTRO QUE FUE DADO DE ALTA
+							if (resultadoCatalogo.Resultado == null){
+								resultadoCatalogo.Resultado = new Registro();
+							}
+							resultadoCatalogo.Resultado.addDefCampo("RegistroPrimerSubmit", registro);
 						}
 						else{
 							//REALIZA UNA MODIFICACION
@@ -856,7 +897,7 @@ public class CatalogoSLBean implements SessionBean{
 
 								Registro registroActual =  getRegistro(sCatalogo,registroOriginalCopia);
 
-								// ¿SON IGUALES EL REGISTRO ORIGINAL ORIGINAL Y LA DE LA BASE DE DATOS?
+								// ï¿½SON IGUALES EL REGISTRO ORIGINAL ORIGINAL Y LA DE LA BASE DE DATOS?
 								if (registroActual.igual(registroOriginal)) {
 									//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE MODIFICACION
 									if (instanciaObj instanceof OperacionModificacion){
@@ -896,7 +937,30 @@ public class CatalogoSLBean implements SessionBean{
 							resultadoCatalogo = bajaAutomatica(conexion, registro, sCveTabla, contexto);
 						}
 						else if (iTipoOperacion == CatalogoSLBean.ALTA) {
-							resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
+							
+							boolean bDobleSubmit = false;
+							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
+							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
+							if (registroPrimerSubmit != null){
+								registro.eliminaCampo("RegistroPrimerSubmit");
+								if (registro.igual(registroPrimerSubmit)){
+									//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+									//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+									if (registro.getDefCampo("ListaRegistros") == null) {
+										//SE HA GENERADO UN DOBLE SUBMIT
+										bDobleSubmit = true;
+									}								}
+							}
+							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
+							if (!bDobleSubmit){							
+								resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
+							}
+							//SE AGREGA AL RESULTADO EL OBJETO REGISTRO QUE FUE DADO DE ALTA
+							if (resultadoCatalogo.Resultado == null){
+								resultadoCatalogo.Resultado = new Registro();
+							}
+							resultadoCatalogo.Resultado.addDefCampo("RegistroPrimerSubmit", registro);							
+							
 						}
 						else if (iTipoOperacion == CatalogoSLBean.MODIFICACION) {
 							//VERIFICAMOS SI SE DEBE DESHABILITAR LA VERIFICACION DE RE-READ
@@ -912,7 +976,7 @@ public class CatalogoSLBean implements SessionBean{
 
 								Registro registroActual =  getRegistro(sCatalogo,registroOriginalCopia);
 
-								// ¿SON IGUALES EL REGISTRO ORIGINAL ORIGINAL Y LA DE LA BASE DE DATOS?
+								// ï¿½SON IGUALES EL REGISTRO ORIGINAL ORIGINAL Y LA DE LA BASE DE DATOS?
 								if (registroActual.igual(registroOriginal)) {
 									resultadoCatalogo = modificacionAutomatica(conexion, registro, sCveTabla, contexto);
 								}
@@ -924,7 +988,7 @@ public class CatalogoSLBean implements SessionBean{
 					}//VERIFICA SI ESTA ASIGNADA LA TABLA A LA FUNCION
 				}//VERIFICA SI LA FUNCION TIENE ASIGNADA UNA CLASE DAO
 
-				//VERIFICA SI SE GENERO ALGUN MENSAJE DURANTE LA OPERACIÓN
+				//VERIFICA SI SE GENERO ALGUN MENSAJE DURANTE LA OPERACIï¿½N
 				if (resultadoCatalogo.mensaje.getClave() != null){
 					//VERIFICA SI EL MENSAJE NO SE GENERA AUTOMATICAMENTE
 					if(resultadoCatalogo.mensaje.getDescripcion() == null){
@@ -1007,7 +1071,7 @@ public class CatalogoSLBean implements SessionBean{
 	 * @param registro Objeto registro.
 	 * @param sCveTabla Clave de la tabla.
 	 * @param contexto Objeto tipo Context
-	 * @throws java.lang.Exception Se generó un error al hacer la modificación automática.
+	 * @throws java.lang.Exception Se generï¿½ un error al hacer la modificaciï¿½n automï¿½tica.
 	 */
 	private ResultadoCatalogo modificacionAutomatica(Conexion2 conexion, Registro registro, String sCveTabla, Context contexto) throws Exception {
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
@@ -1120,8 +1184,8 @@ public class CatalogoSLBean implements SessionBean{
 	 * @param listaCamposSentencia Lista de campos de la sentencia.
 	 * @param definicionTabla objeto DefinicionTabla.
 	 * @param registro Objeto registro
-	 * @param resultadoCatalogo Objeto donde se almacena el resultado de la operación.
-	 * @throws SQLException Se generó un error al ejecutar la sentencia.
+	 * @param resultadoCatalogo Objeto donde se almacena el resultado de la operaciï¿½n.
+	 * @throws SQLException Se generï¿½ un error al ejecutar la sentencia.
 	 */
 	 
 	private void ejecutaSentenciaBd(Conexion2 conexion, String sSentenciaPreviaSql, LinkedList listaCamposSentencia, DefinicionTabla definicionTabla, Registro registro, ResultadoCatalogo resultadoCatalogo) throws SQLException {
@@ -1198,7 +1262,7 @@ public class CatalogoSLBean implements SessionBean{
 	 * @param registro Objeto Registro.
 	 * @param sCveTabla Clave de la tabla.
 	 * @param contexto Objeto tipo Context
-	 * @throws java.lang.Exception Se generó un error en la alta automática. 
+	 * @throws java.lang.Exception Se generï¿½ un error en la alta automï¿½tica. 
 	 */
 
 	private ResultadoCatalogo altaAutomatica(Conexion2 conexion, Registro registro, String sCveTabla, Context contexto) throws Exception {
@@ -1288,7 +1352,7 @@ public class CatalogoSLBean implements SessionBean{
 							else{
 								bError = true;
 								resultadoCatalogo.mensaje.setClave("CAMPOS_INCOMPLETOS_CON");
-								System.out.println("CatalogosSLBean, altaAutomatica: no se encontró el campo '" + sCampo + "' en el registro que viene de la CON");
+								System.out.println("CatalogosSLBean, altaAutomatica: no se encontrï¿½ el campo '" + sCampo + "' en el registro que viene de la CON");
 								break;
 							} //VERIFICA SI ENCONTRO EL CAMPO
 							sValorCampo = " ? ";
@@ -1309,8 +1373,8 @@ public class CatalogoSLBean implements SessionBean{
 					if (!bError){
 						sCadenaBd = sCadenaBd + ") " + sCadenaDatos + ")";
 						ejecutaSentenciaBd(conexion, sCadenaBd, listaCamposSentencia, definicionTabla, registro, resultadoCatalogo);
-						// SI SE REALIZÓ UN ALTA CON UN VALOR SEQUENCE EN LA LLAVE PRIMARIA ESTE SE ENVÍA
-						// DE REGRESO AL SERVLET PARA PODER GENERAR LA BITÁCORA DEL REGISTRO
+						// SI SE REALIZï¿½ UN ALTA CON UN VALOR SEQUENCE EN LA LLAVE PRIMARIA ESTE SE ENVï¿½A
+						// DE REGRESO AL SERVLET PARA PODER GENERAR LA BITï¿½CORA DEL REGISTRO
 						if(!sSequence.equals("")){
 							resultadoCatalogo.Resultado = new Registro();
 							resultadoCatalogo.Resultado.addDefCampo("SEQUENCE", sSequenceLlave);
@@ -1334,11 +1398,11 @@ public class CatalogoSLBean implements SessionBean{
 		return resultadoCatalogo;
 	}
 	/**
-	 * Método que obtiene el valor de un sequence para utilizarlo en una alta automática.
-	 * @param conexion Objeto Conexion2 para realizar la conexión al base de datos.
+	 * Mï¿½todo que obtiene el valor de un sequence para utilizarlo en una alta automï¿½tica.
+	 * @param conexion Objeto Conexion2 para realizar la conexiï¿½n al base de datos.
 	 * @param SNomSequence Nombre del sequence.
 	 * @return Objeto String con el valor del sequence.
-	 * @throws SQLException Se generó un error al obtener el valor del sequence.
+	 * @throws SQLException Se generï¿½ un error al obtener el valor del sequence.
 	 */
 	private String getSequence(Conexion2 conexion,String SNomSequence)throws SQLException {
 		String sSequence = "";
