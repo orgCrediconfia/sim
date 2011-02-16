@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="250"
+		 pageWidth="200"
 		 pageHeight="400"
-		 columnWidth="250"
+		 columnWidth="200"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -43,7 +43,7 @@
 	<field name="IMPORTE" class="java.lang.String"/>
 
 		<background>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="6"  isSplitAllowed="true" >
 			</band>
 		</background>
 		<title>
@@ -59,56 +59,56 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="361"  isSplitAllowed="true" >
+			<band height="372"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="1"
-						y="87"
-						width="53"
+						y="104"
+						width="66"
 						height="13"
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Caja No.:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="1"
-						y="103"
-						width="43"
+						y="120"
+						width="48"
 						height="13"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Cajero:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="1"
-						y="119"
-						width="109"
+						y="136"
+						width="74"
 						height="13"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Factura No:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="1"
-						y="135"
-						width="121"
+						y="152"
+						width="94"
 						height="13"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Recibimos de:]]></text>
 				</staticText>
@@ -116,12 +116,12 @@
 					<reportElement
 						x="1"
 						y="271"
-						width="242"
+						width="182"
 						height="30"
 						key="staticText-7"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Conserve este recibo para posibles aclaraciones.]]></text>
 				</staticText>
@@ -134,7 +134,7 @@
 						key="staticText-10"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Ciclo:]]></text>
 				</staticText>
@@ -142,12 +142,12 @@
 					<reportElement
 						x="1"
 						y="187"
-						width="91"
+						width="74"
 						height="13"
 						key="staticText-11"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Pago Total:]]></text>
 				</staticText>
@@ -155,12 +155,12 @@
 					<reportElement
 						x="1"
 						y="224"
-						width="242"
+						width="182"
 						height="29"
 						key="staticText-12"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[Por concepto de pago del 
 periodo.]]></text>
@@ -169,12 +169,12 @@ periodo.]]></text>
 					<reportElement
 						x="1"
 						y="301"
-						width="242"
-						height="27"
+						width="181"
+						height="42"
 						key="staticText-13"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<text><![CDATA[El pago realizado se aplica al 
 crédito total del grupo.]]></text>
@@ -183,51 +183,51 @@ crédito total del grupo.]]></text>
 					<reportElement
 						x="0"
 						y="46"
-						width="243"
-						height="13"
+						width="183"
+						height="37"
 						key="textField-1"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DOMICILIO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="71"
-						width="216"
+						y="88"
+						width="182"
 						height="13"
 						key="textField-2"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="54"
-						y="87"
-						width="189"
+						x="67"
+						y="104"
+						width="116"
 						height="13"
 						key="textField-5"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CAJA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="44"
-						y="103"
-						width="199"
+						x="49"
+						y="120"
+						width="134"
 						height="13"
 						key="textField-6"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{CveUsuario}]]></textFieldExpression>
 				</textField>
@@ -235,38 +235,38 @@ crédito total del grupo.]]></text>
 					<reportElement
 						x="35"
 						y="253"
-						width="208"
+						width="148"
 						height="13"
 						key="textField-8"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NUM_CICLO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1"
-						y="328"
-						width="242"
+						y="343"
+						width="182"
 						height="27"
 						key="textField-9"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Fecha de impresión:" + $P{FechaReporte}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="151"
-						width="242"
+						x="95"
+						y="152"
+						width="88"
 						height="13"
 						key="textField-10"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_GRUPO}]]></textFieldExpression>
 				</textField>
@@ -274,12 +274,12 @@ crédito total del grupo.]]></text>
 					<reportElement
 						x="0"
 						y="167"
-						width="242"
+						width="182"
 						height="13"
 						key="textField-11"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GRUPO}]]></textFieldExpression>
 				</textField>
@@ -287,25 +287,25 @@ crédito total del grupo.]]></text>
 					<reportElement
 						x="0"
 						y="31"
-						width="243"
-						height="13"
+						width="183"
+						height="15"
 						key="textField-12"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Sucursal: " + $F{ID_SUCURSAL} + " - " + $F{NOM_SUCURSAL}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1"
-						y="13"
-						width="204"
+						y="14"
+						width="180"
 						height="13"
 						key="textField-13"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_TRANSACCION}]]></textFieldExpression>
 				</textField>
@@ -320,7 +320,7 @@ crédito total del grupo.]]></text>
 						</reportElement>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Re-impresión]]></text>
 				</staticText>
@@ -328,12 +328,12 @@ crédito total del grupo.]]></text>
 					<reportElement
 						x="71"
 						y="187"
-						width="172"
+						width="112"
 						height="13"
 						key="textField-14"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{IMPORTE}]]></textFieldExpression>
 				</textField>
@@ -341,12 +341,12 @@ crédito total del grupo.]]></text>
 					<reportElement
 						x="1"
 						y="200"
-						width="242"
+						width="182"
 						height="18"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font pdfFontName="Helvetica" size="11"/>
+						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAGO_LETRAS}]]></textFieldExpression>
 				</textField>
