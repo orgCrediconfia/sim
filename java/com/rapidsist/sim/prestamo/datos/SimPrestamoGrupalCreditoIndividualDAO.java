@@ -136,7 +136,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 				
 				//SE OBTIENE EL SEQUENCE
 				   
-				sSql = "SELECT SQ01_SIM_PRESTAMO_GRUPO.nextval as ID_PRESTAMO_GRUPO FROM DUAL";
+				sSql = "SELECT SQ01_SIM_PRESTAMO.nextval as ID_PRESTAMO_GRUPO FROM DUAL";
 				ejecutaSql();
 				if (rs.next()){
 					sIdPrestamoGrupal = rs.getString("ID_PRESTAMO_GRUPO");
