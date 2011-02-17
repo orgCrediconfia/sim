@@ -77,6 +77,8 @@ public class SimCajaConsultaPagarCreditoDAO extends Conexion2 implements Operaci
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public Registro getRegistro(Registro parametros) throws SQLException{
+		
+		//Obtiene los datos generales del préstamo a pagar.
 		sSql =  "SELECT \n"+
 				"C.CVE_GPO_EMPRESA, \n"+
 				"C.CVE_EMPRESA, \n"+

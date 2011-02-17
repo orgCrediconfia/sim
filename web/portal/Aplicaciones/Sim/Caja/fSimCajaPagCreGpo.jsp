@@ -10,13 +10,16 @@
 		<Portal:FormaElemento etiqueta='Producto' control='Texto' controlnombre='IdProducto' controlvalor='${registro.campos["ID_PRODUCTO"]} - ${registro.campos["NOM_PRODUCTO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='N&uacute;mero de Ciclo' control='Texto' controlnombre='NumCiclo' controlvalor='${registro.campos["NUM_CICLO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='Importe' control='Texto' controlnombre='Importe' controlvalor='${param.Importe}' controllongitud='10' controllongitudmax='10' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
+		<!--
 		<c:if test='${(param.FechaMovimiento != "null")}'>
 			<Portal:Calendario2 etiqueta='Fecha de aplicación' contenedor='frmRegistro' controlnombre='FechaMovimiento' controlvalor='${param.FechaMovimiento}'  esfechasis='true'/>
 		</c:if>
 		<c:if test='${(param.FechaMovimiento == "null")}'>
 			<Portal:Calendario2 etiqueta='Fecha de aplicación' contenedor='frmRegistro' controlnombre='FechaMovimiento' controlvalor=''  esfechasis='true'/>
 		</c:if>
+		-->
 		<input type="hidden" name="FechaMedio" value='<c:out value='${requestScope.registro.campos["F_MEDIO"]}'/>' />
+		<input type="hidden" name="FechaMovimiento" value='<c:out value='${requestScope.registro.campos["F_MEDIO"]}'/>' />
 		<input type="hidden" name="IdPrestamo" value='<c:out value='${param.IdPrestamo}'/>' />
 		<input type="hidden" name="IdTransaccion" value='<c:out value='${param.IdTransaccion}'/>' />
 		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.TxRespuesta}'/>' />
