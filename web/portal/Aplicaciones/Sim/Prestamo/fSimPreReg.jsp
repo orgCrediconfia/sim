@@ -16,6 +16,7 @@
 		
 		<Portal:FormaElemento etiqueta='Cliente' control='etiqueta-controlreferencia' controlnombre='NomCompleto' controlvalor='${requestScope.registro.campos["NOM_COMPLETO"]}' editarinicializado='false'/>
 		<input type="hidden" name="IdPersona" value='<c:out value='${requestScope.registro.campos["ID_CLIENTE"]}'/>' />
+		<input type="hidden" name="IdPersonaAlta" value='<c:out value='${requestScope.registro.campos["ID_PERSONA"]}'/>' />
 		
 		<c:if test='${(requestScope.registro != null)}'>
 			<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursal' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='false' obligatorio='true' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}'/>
@@ -48,7 +49,8 @@
 			<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadProducto' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_PRODUCTO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
 			<Portal:FormaElemento etiqueta='M&eacute;todo de c&aacute;lculo del producto' control='selector' controlnombre='CveMetodo' controlvalor='${requestScope.registro.campos["CVE_METODO"]}' editarinicializado='true' obligatorio='false' campoclave="CVE_METODO" campodescripcion="NOM_METODO" datosselector='${requestScope.ListaMetodo}'/>			
 			
-			<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
+			<c:if test='${(requestScope.registro.campos["ID_PERSONA"] != null)}'>	
+			
 				<Portal:FormaElemento etiqueta='N&uacute;mero de ciclo' control='etiqueta-controlreferencia' controlnombre='NumCiclo' controlvalor='${requestScope.registro.campos["NUM_CICLO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true'/>
 				
 				<input type="hidden" name="NumCiclo" value='<c:out value='${requestScope.registro.campos["NUM_CICLO"]}'/>' />
@@ -117,10 +119,10 @@
 		
 		<Portal:FormaBotones>
 			<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
-				<c:if test='${(requestScope.registro.campos["ID_PRESTAMO"] == null)}'>
+				<c:if test='${(requestScope.registro.campos["ID_PERSONA"] == null)}'>
 					<input type='button' name='Aceptar' value='Aceptar' onClick='fAsignaClienteGrupo()'/>
 				</c:if>
-				<c:if test='${(requestScope.registro.campos["ID_PRESTAMO"] != null)}'>
+				<c:if test='${(requestScope.registro.campos["ID_PERSONA"] != null)}'>
 					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] == null)}'>
 						<input type='button' name='Aceptar' value='Aceptar' onClick='fAceptar()'/>
 					</c:if>
@@ -356,9 +358,9 @@
 
 		function fAsignaClienteGrupo(){
 			if (document.frmRegistro.IdPersona.value == ""){
-				alert("Debe asignar un cliente o un grupo");
+				alert("Debe asignar un cliente");
 			}else {
-					document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=AL";
+					document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=AL&IdPersona="+document.frmRegistro.IdPersona.value;
 					document.frmRegistro.submit();	
 				
 			}
@@ -366,7 +368,7 @@
 				
 		function fAceptar(){
 			if (document.frmRegistro.AplicaA.value == 'Individual'){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCiclo&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdPersona="+document.frmRegistro.IdPersona.value;
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCiclo&OperacionCatalogo=AL&IdPersona="+document.frmRegistro.IdPersonaAlta.value;
 				document.frmRegistro.submit();	
 			}
 		}
@@ -399,7 +401,7 @@
 		}
 		
 		function fAsignarProducto(){
-			MM_openBrWindow('/portal/Aplicaciones/Sim/Prestamo/fSimAsiProCicCon.jsp?&IdSucursal='+document.frmRegistro.IdSucursal.value+'&IdCliente='+document.frmRegistro.IdPersona.value+'&Ventana=Si','AsignaProductoCiclo','status=yes,scrollbars=yes,resizable=yes,width=700,height=500');
+			MM_openBrWindow('/portal/Aplicaciones/Sim/Prestamo/fSimAsiProCicCon.jsp?&IdSucursal='+document.frmRegistro.IdSucursal.value+'&IdCliente='+document.frmRegistro.IdPersonaAlta.value+'&Ventana=Si','AsignaProductoCiclo','status=yes,scrollbars=yes,resizable=yes,width=700,height=500');
 		}
 		
 		function fAsignarParticipante(sCveTipoPersona){

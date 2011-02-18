@@ -112,8 +112,34 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 		
 		if (rs.next()){
 			
-			
 			String sCvePrestamo = "";
+		
+			//OBTENEMOS EL SEQUENCE
+			sSql = "SELECT SQ01_SIM_PRESTAMO.nextval as ID_PRESTAMO FROM DUAL";
+			ejecutaSql();
+			
+			if (rs.next()){
+				registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO"));
+			}
+			
+			resultadoCatalogo.Resultado.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO"));
+			
+			sSql =  "SELECT \n" +
+					"ID_PERSONA, \n" +
+					"ID_SUCURSAL, \n" +
+					"CVE_ASESOR_CREDITO \n" +
+					"FROM RS_GRAL_PERSONA \n" +
+					" WHERE ID_PERSONA		='" + (String)registro.getDefCampo("ID_CLIENTE") + "' \n" +
+					" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+			ejecutaSql();
+			if (rs.next()){
+				registro.addDefCampo("ID_PERSONA",rs.getString("ID_PERSONA")== null ? "": rs.getString("ID_PERSONA"));
+				registro.addDefCampo("ID_SUCURSAL",rs.getString("ID_SUCURSAL")== null ? "": rs.getString("ID_SUCURSAL"));
+				registro.addDefCampo("CVE_ASESOR_CREDITO",rs.getString("CVE_ASESOR_CREDITO")== null ? "": rs.getString("CVE_ASESOR_CREDITO"));
+				
+			}
+			
 			//OBTIENE CLAVE DEL PRÉSTAMO.
 			sSql =  "SELECT REPLACE (CVE_PRESTAMO,' ','') CVE_PRESTAMO FROM ( \n"+
 					"SELECT TO_CHAR('" + (String)registro.getDefCampo("ID_PRODUCTO") + "','00')||'000000'||TO_CHAR('" + (String)registro.getDefCampo("ID_CLIENTE") + "','00000000')||TO_CHAR('" + (String)registro.getDefCampo("NUM_CICLO") + "','00') AS CVE_PRESTAMO FROM DUAL \n"+
@@ -123,30 +149,59 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 				sCvePrestamo = rs.getString("CVE_PRESTAMO");
 			}
 			
-			//INGRESA LOS DATOS DEL PRODUCTO ASIGNADO AL PRESTAMO
-			sSql =  "UPDATE SIM_PRESTAMO SET \n" + 
-					"CVE_PRESTAMO = '" + sCvePrestamo + "', \n" +
-					"ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
-					"ID_CLIENTE = '" + (String)registro.getDefCampo("ID_CLIENTE") + "', \n" +
-					"NUM_CICLO = '" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
-					"CVE_METODO = '" + (String)registro.getDefCampo("CVE_METODO") + "', \n" +
-					"APLICA_A = '" + (String)registro.getDefCampo("APLICA_A") + "', \n" +
-					"ID_PERIODICIDAD_PRODUCTO = '" + (String)registro.getDefCampo("ID_PERIODICIDAD_PRODUCTO") + "', \n" +
-					"ID_FORMA_DISTRIBUCION = '" + (String)registro.getDefCampo("ID_FORMA_DISTRIBUCION") + "', \n" +
-					"PLAZO = '" + (String)registro.getDefCampo("PLAZO") + "', \n" +
-					"TIPO_TASA = '" + (String)registro.getDefCampo("TIPO_TASA") + "', \n" +
-					"VALOR_TASA = '" + (String)registro.getDefCampo("VALOR_TASA") + "', \n" +
-					"ID_PERIODICIDAD_TASA = '" + (String)registro.getDefCampo("ID_PERIODICIDAD_TASA") + "', \n" +
-					"ID_TASA_REFERENCIA = '" + (String)registro.getDefCampo("ID_TASA_REFERENCIA") + "', \n" +
-					"MONTO_MAXIMO = '" + (String)registro.getDefCampo("MONTO_MAXIMO") + "', \n" +
-					"MONTO_MINIMO = '" + (String)registro.getDefCampo("MONTO_MINIMO") + "', \n" +
-					"PORC_FLUJO_CAJA = '" + (String)registro.getDefCampo("PORC_FLUJO_CAJA") + "', \n" +
-					"B_ENTREGADO = 'F', \n" +
-					"FECHA_SOLICITUD = SYSDATE \n" +
-				"WHERE ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO")+ "' \n" +
-				"AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA")+"' \n" +
-				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA")+"' \n" ;
 			
+			
+			sSql =  "INSERT INTO SIM_PRESTAMO ( "+
+					"CVE_GPO_EMPRESA, \n" +
+					"CVE_EMPRESA, \n" +
+					"ID_PRESTAMO, \n" +
+					"CVE_PRESTAMO, \n" +
+					"FECHA_SOLICITUD, \n" +
+					"ID_CLIENTE, \n" +
+					"ID_SUCURSAL, \n" +
+					"CVE_ASESOR_CREDITO, \n" +
+					"FECHA_ASESOR_SIST, \n" +
+					"ID_PRODUCTO, \n" +
+					"NUM_CICLO, \n" +
+					"CVE_METODO, \n" +
+					"APLICA_A, \n" +
+					"ID_PERIODICIDAD_PRODUCTO, \n" +
+					"ID_FORMA_DISTRIBUCION, \n" +
+					"PLAZO, \n" +
+					"TIPO_TASA, \n" +
+					"VALOR_TASA, \n" +
+					"ID_PERIODICIDAD_TASA, \n" +
+					"ID_TASA_REFERENCIA, \n" +
+					"MONTO_MAXIMO, \n" +
+					"MONTO_MINIMO, \n" +
+					"PORC_FLUJO_CAJA, \n" +
+					"B_ENTREGADO) \n" +
+					" VALUES (" +
+					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+					" " + sCvePrestamo +", \n" +
+					"SYSDATE, \n" +
+					"'" + (String)registro.getDefCampo("ID_CLIENTE") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
+					"SYSDATE, \n" +
+					"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
+					"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_METODO") + "', \n" +
+					"'" + (String)registro.getDefCampo("APLICA_A") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_PERIODICIDAD_PRODUCTO") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_FORMA_DISTRIBUCION") + "', \n" +
+					"'" + (String)registro.getDefCampo("PLAZO") + "', \n" +
+					"'" + (String)registro.getDefCampo("TIPO_TASA") + "', \n" +
+					"'" + (String)registro.getDefCampo("VALOR_TASA") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_PERIODICIDAD_TASA") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_TASA_REFERENCIA") + "', \n" +
+					"'" + (String)registro.getDefCampo("MONTO_MAXIMO") + "', \n" +
+					"'" + (String)registro.getDefCampo("MONTO_MINIMO") + "', \n" +
+					"'" + (String)registro.getDefCampo("PORC_FLUJO_CAJA") + "', \n" +
+					"'F') \n" ;
+					
 			if (ejecutaUpdate() == 0){
 				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 			}
