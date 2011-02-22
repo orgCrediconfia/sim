@@ -104,7 +104,7 @@
 					<reportElement
 						x="0"
 						y="168"
-						width="43"
+						width="31"
 						height="14"
 						key="staticText-4"/>
 					<box></box>
@@ -130,14 +130,14 @@
 					<reportElement
 						x="0"
 						y="229"
-						width="52"
+						width="50"
 						height="14"
 						key="staticText-6"/>
 					<box></box>
 					<textElement textAlignment="Left">
 						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Monto]]></text>
+				<text><![CDATA[Monto: ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -215,7 +215,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="43"
+						x="31"
 						y="168"
 						width="157"
 						height="14"
@@ -256,7 +256,7 @@
 					<reportElement
 						x="0"
 						y="87"
-						width="95"
+						width="199"
 						height="14"
 						key="textField"/>
 					<box></box>
@@ -360,7 +360,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="109"
+						width="85"
 						height="14"
 						key="staticText-12">
 							<printWhenExpression><![CDATA[$P{Reimpresion}.equals("1")?Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
