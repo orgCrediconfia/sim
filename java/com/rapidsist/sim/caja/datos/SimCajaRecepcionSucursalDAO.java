@@ -42,7 +42,7 @@ public class SimCajaRecepcionSucursalDAO extends Conexion2 implements OperacionA
 				"T.ID_CAJA, \n" +
 				"T.FUENTE_DESTINO, \n" +
 				"S.NOM_SUCURSAL, \n" +
-				"T.MONTO, \n" +
+				"TO_CHAR(T.MONTO,'999,999,999.99') MONTO, \n" +
 				"T.FECHA_REGISTRO, \n" +
 				"T.FECHA_TRANSACCION, \n" +
 				"T.CVE_USUARIO_CAJERO \n" +
@@ -50,6 +50,8 @@ public class SimCajaRecepcionSucursalDAO extends Conexion2 implements OperacionA
 				"SIM_CAT_SUCURSAL S \n" +
 				"WHERE T.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND T.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND T.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
+				"AND T.ID_CAJA = '" + (String)parametros.getDefCampo("ID_CAJA") + "' \n"+
 				"AND T.CVE_MOVIMIENTO_CAJA = 'RECSUC' \n"+
 				"AND S.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
 				"AND S.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
@@ -57,7 +59,7 @@ public class SimCajaRecepcionSucursalDAO extends Conexion2 implements OperacionA
 				
 		
 		if (parametros.getDefCampo("FECHA") != null) {
-			sSql = sSql + " AND T.FECHA_REGISTRO = TO_DATE('" + (String) parametros.getDefCampo("FECHA") + "','DD/MM/YYYY') \n";
+			sSql = sSql + " AND TO_CHAR(T.FECHA_TRANSACCION,'DD/MM/YYYY') = '" + (String) parametros.getDefCampo("FECHA") + "' \n";
 		}
 		if (parametros.getDefCampo("FUENTE_DESTINO") != null) {
 			sSql = sSql + " AND T.FUENTE_DESTINO = '" + (String) parametros.getDefCampo("FUENTE_DESTINO") + "' \n";

@@ -7,7 +7,7 @@
 		<Portal:FormaSeparador nombre="Retiro a otra sucursal"/>
 		<Portal:FormaElemento etiqueta='Monto' control='Texto' controlnombre='Cantidad' controlvalor='' controllongitud='24' controllongitudmax='24' editarinicializado='true' obligatorio='true' validadato='numerico' />
 		<Portal:FormaElemento etiqueta='Usuario que recibe' control='Texto' controlnombre='UsuarioRecibe' controlvalor='' controllongitud='80' controllongitudmax='150' editarinicializado='true' obligatorio='true' />
-		<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursal' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='true' obligatorio='true' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}'/>
+		<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursalDestino' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='true' obligatorio='true' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}'/>
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
 		<Portal:FormaBotones>
 			<input type="button" name="Aceptar"  value="Aceptar" onclick='javascript:fAceptar()'>

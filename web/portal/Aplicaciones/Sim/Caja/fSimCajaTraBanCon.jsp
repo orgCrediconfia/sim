@@ -22,7 +22,7 @@
 				<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
 						<input type="button" name="Aceptar"  value="Reimpresión" onclick='javascript:fReimpresion(<c:out value='${registro.campos["ID_TRANSACCION"]}'/>)'>
 				</Portal:Columna>			
-				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["FECHA"]}'/>	
+				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["FECHA_TRANSACCION"]}'/>	
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_BANCO"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["MONTO"]}'/>
 			</Portal:TablaListaRenglon>

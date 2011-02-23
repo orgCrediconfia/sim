@@ -54,7 +54,7 @@ public class SimPrestamoConsultaMontoAutorizadoDAO extends Conexion2 implements 
 			" AND PER.CVE_GPO_EMPRESA = M.CVE_GPO_EMPRESA \n"+
 			" AND PER.CVE_EMPRESA = M.CVE_EMPRESA \n"+
 			" AND PER.ID_PERSONA = M.ID_INTEGRANTE \n"+
-			" AND M.ID_ETAPA_PRESTAMO != '18' \n";
+			" AND M.ID_ETAPA_PRESTAMO != '31' \n";
 			
 		}else if (parametros.getDefCampo("TOTAL").equals("SI")) {
 		
@@ -65,7 +65,7 @@ public class SimPrestamoConsultaMontoAutorizadoDAO extends Conexion2 implements 
 			"AND C.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND C.ID_PRESTAMO ='" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
 			"AND C.APLICA_A = 'GRUPO' \n"+
-			"AND C.ID_ETAPA_PRESTAMO != '18' \n";
+			"AND C.ID_ETAPA_PRESTAMO != '31' \n";
 			
 		}
 		

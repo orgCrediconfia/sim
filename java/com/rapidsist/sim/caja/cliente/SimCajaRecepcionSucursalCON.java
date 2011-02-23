@@ -56,11 +56,22 @@ public class SimCajaRecepcionSucursalCON implements CatalogoControlConsultaIN, C
 		if (iTipoOperacion == CON_CONSULTA_TABLA){	
 			registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
 			
+			String sIdCaja = "";
+			String sIdCajaSucursal = "";
+			String sIdSucursal = "";
+			
+			sIdCajaSucursal = request.getParameter("IdCaja");
+			
+			sIdSucursal = sIdCajaSucursal.substring(0, sIdCajaSucursal.indexOf("-"));
+			sIdCaja = sIdCajaSucursal.substring(sIdCajaSucursal.indexOf("-")+1, sIdCajaSucursal.length());
+			parametros.addDefCampo("ID_CAJA", sIdCaja);
+			parametros.addDefCampo("ID_SUCURSAL", sIdSucursal);
+			
 			if (request.getParameter("Fecha") != "" && !request.getParameter("Fecha").equals("")){	
 				parametros.addDefCampo("FECHA", request.getParameter("Fecha"));
 			}
-			if (request.getParameter("IdSucursal") != "" && !request.getParameter("IdSucursal").equals("null")){	
-				parametros.addDefCampo("FUENTE_DESTINO", request.getParameter("IdSucursal"));
+			if (request.getParameter("IdSucursalDestino") != "" && !request.getParameter("IdSucursalDestino").equals("null")){	
+				parametros.addDefCampo("FUENTE_DESTINO", request.getParameter("IdSucursalDestino"));
 			}
 			if (request.getParameter("Monto") != "" && !request.getParameter("Monto").equals("")){	
 				parametros.addDefCampo("MONTO", request.getParameter("Monto"));
@@ -120,7 +131,7 @@ public class SimCajaRecepcionSucursalCON implements CatalogoControlConsultaIN, C
 		registro.addDefCampo("CVE_USUARIO_CAJERO", usuario.sCveUsuario);
 		registro.addDefCampo("MONTO", request.getParameter("Cantidad"));
 		registro.addDefCampo("USUARIO_ENTREGA", request.getParameter("UsuarioEntrega"));
-		registro.addDefCampo("FUENTE_DESTINO", request.getParameter("IdSucursal"));
+		registro.addDefCampo("FUENTE_DESTINO", request.getParameter("IdSucursalDestino"));
 		
 		sIdCajaSucursal = request.getParameter("IdCaja");
 	

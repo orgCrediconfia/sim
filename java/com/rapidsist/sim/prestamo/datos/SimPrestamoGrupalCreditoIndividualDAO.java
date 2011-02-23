@@ -294,7 +294,6 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					}	
 				}
 		}else if (registro.getDefCampo("ALTA").equals("CREDITO_INDIVIDUAL")) {
-		System.out.println("credito individual pasa por aqui");
 		
 			sSql =  "SELECT \n"+
 					"CVE_GPO_EMPRESA, \n" +
@@ -318,7 +317,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
 						"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
 						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
-				System.out.println("A"+sSql);
+				
 				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 				ps2.execute();
 				ResultSet rs2 = ps2.getResultSet();
@@ -425,7 +424,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 				if(rs.next()){
 					registro.addDefCampo("ID_SUCURSAL",rs.getString("ID_SUCURSAL")== null ? "": rs.getString("ID_SUCURSAL"));
 				}
-				System.out.println("h");
+		
 				sSql =  "INSERT INTO SIM_PRESTAMO ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
@@ -2554,6 +2553,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 											ps17.execute();
 											ResultSet rs17 = ps17.getResultSet();	
 											
+											
 											sSql = "SELECT \n"+
 													"PG.CVE_GPO_EMPRESA, \n"+
 													"PG.CVE_EMPRESA, \n"+
@@ -2730,6 +2730,26 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 													
 												}
 										
+												sSql =  "INSERT INTO SIM_CLIENTE_MONTO ( \n" +
+														"CVE_GPO_EMPRESA, \n" +
+														"CVE_EMPRESA, \n" +
+														"ID_PRESTAMO, \n" +
+														"ID_CLIENTE, \n" +
+														"ID_PRODUCTO, \n" +
+														"NUM_CICLO) \n" +
+														" VALUES (" +
+														"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+														"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+														"'" + sIdPrestamo + "', \n" +
+														"'" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
+														"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
+														"'" + (String)registro.getDefCampo("NUM_CICLO") + "') \n" ;
+						
+												
+												PreparedStatement ps50 = this.conn.prepareStatement(sSql);
+												ps50.execute();
+												ResultSet rs50= ps50.getResultSet();
+												
 												sSql =  "SELECT \n"+
 														"CVE_GPO_EMPRESA, \n"+
 														"CVE_EMPRESA, \n"+

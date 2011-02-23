@@ -5,7 +5,7 @@
 	<Portal:PaginaNombre titulo="Recepción de otra sucursal" subtitulo=""/>
 	<Portal:Forma tipo='busqueda' funcion='SimCajaRecepcionSucursal' operacion='CT' filtro='Todos' parametros='IdCaja=${param.IdCaja}'>
 		<Portal:Calendario2 etiqueta='Fecha' contenedor='frmRegistro' controlnombre='Fecha' esfechasis='false'/>
-		<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursal' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='true' obligatorio='false' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}'/>
+		<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursalDestino' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='true' obligatorio='false' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}'/>
 		<Portal:FormaElemento etiqueta='Monto' control='Texto' controlnombre='Monto' controllongitud='22' controllongitudmax='22' />
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
 		<input type="hidden" name="IdTransaccion" value='<c:out value='${param.IdTransaccion}'/>' />
@@ -22,7 +22,7 @@
 				<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
 						<input type="button" name="Aceptar"  value="Reimpresión" onclick='javascript:fReimpresion(<c:out value='${registro.campos["ID_TRANSACCION"]}'/>)'>
 				</Portal:Columna>				
-				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["FECHA"]}'/>	
+				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["FECHA_TRANSACCION"]}'/>	
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_SUCURSAL"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["MONTO"]}'/>
 			</Portal:TablaListaRenglon>

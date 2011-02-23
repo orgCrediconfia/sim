@@ -223,6 +223,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 							   " ID_PRESTAMO \n" +
 							   " FROM SIM_PRESTAMO_GPO_DET \n" +
 							   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+							   " AND ID_ETAPA_PRESTAMO != '31' \n" +
 							   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 							   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 						PreparedStatement ps5 = this.conn.prepareStatement(sSql);
@@ -288,6 +289,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 								   " ID_PRESTAMO \n" +
 								   " FROM SIM_PRESTAMO_GPO_DET \n" +
 								   " WHERE ID_PRESTAMO_GRUPO      	= '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+								   " AND ID_ETAPA_PRESTAMO != '31' \n" +
 								   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 								   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 							PreparedStatement ps8 = this.conn.prepareStatement(sSql);
@@ -388,6 +390,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 									"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 									"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 									"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
+									" AND ID_ETAPA_PRESTAMO != '31' \n" +
 									"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
 							
 							PreparedStatement ps15 = this.conn.prepareStatement(sSql);
