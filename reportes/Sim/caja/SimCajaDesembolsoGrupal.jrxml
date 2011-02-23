@@ -60,13 +60,13 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="370"  isSplitAllowed="true" >
+			<band height="375"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
-						y="89"
-						width="61"
-						height="13"
+						y="102"
+						width="50"
+						height="14"
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -77,9 +77,9 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="102"
-						width="52"
-						height="13"
+						y="115"
+						width="50"
+						height="14"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -90,9 +90,9 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="163"
-						width="52"
-						height="13"
+						y="182"
+						width="43"
+						height="14"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -103,9 +103,9 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="149"
-						width="34"
-						height="13"
+						y="168"
+						width="31"
+						height="14"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -116,9 +116,9 @@
 				<staticText>
 					<reportElement
 						x="-1"
-						y="202"
+						y="214"
 						width="200"
-						height="13"
+						height="14"
 						key="staticText-5"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -129,22 +129,22 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="217"
-						width="52"
-						height="13"
+						y="229"
+						width="50"
+						height="14"
 						key="staticText-6"/>
 					<box></box>
 					<textElement textAlignment="Left">
 						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Monto]]></text>
+				<text><![CDATA[Monto: ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="-1"
-						y="254"
+						y="266"
 						width="200"
-						height="13"
+						height="15"
 						key="staticText-7"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -154,10 +154,10 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="3"
-						y="319"
+						x="-1"
+						y="327"
 						width="127"
-						height="13"
+						height="15"
 						key="staticText-8"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -168,7 +168,7 @@
 				<staticText>
 					<reportElement
 						x="-1"
-						y="337"
+						y="345"
 						width="200"
 						height="29"
 						key="staticText-9"/>
@@ -181,7 +181,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="-1"
-						y="292"
+						y="304"
 						width="187"
 						height="0"
 						key="line-1"/>
@@ -189,10 +189,10 @@
 				</line>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="61"
-						y="89"
-						width="138"
-						height="13"
+						x="50"
+						y="102"
+						width="140"
+						height="14"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -202,10 +202,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="51"
-						y="163"
-						width="149"
-						height="13"
+						x="43"
+						y="182"
+						width="157"
+						height="14"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -215,10 +215,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="33"
-						y="149"
-						width="167"
-						height="13"
+						x="31"
+						y="168"
+						width="157"
+						height="14"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -229,9 +229,9 @@
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="51"
-						y="217"
+						y="229"
 						width="149"
-						height="13"
+						height="14"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -242,9 +242,9 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="38"
+						y="39"
 						width="199"
-						height="33"
+						height="42"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -255,9 +255,9 @@
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="76"
-						width="95"
-						height="13"
+						y="87"
+						width="199"
+						height="14"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -268,7 +268,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="300"
+						y="310"
 						width="201"
 						height="13"
 						key="textField"/>
@@ -281,9 +281,9 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="179"
+						y="196"
 						width="201"
-						height="13"
+						height="14"
 						key="textField-1"/>
 					<box></box>
 					<textElement>
@@ -293,10 +293,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="130"
-						y="319"
+						x="126"
+						y="327"
 						width="69"
-						height="13"
+						height="15"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -306,10 +306,10 @@
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="52"
-						y="102"
-						width="147"
-						height="13"
+						x="50"
+						y="115"
+						width="149"
+						height="14"
 						key="textField"/>
 					<box></box>
 					<textElement>
@@ -320,9 +320,9 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="230"
+						y="243"
 						width="201"
-						height="13"
+						height="14"
 						key="textField-4"/>
 					<box></box>
 					<textElement>
@@ -333,7 +333,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="25"
+						y="26"
 						width="199"
 						height="13"
 						key="textField-5"/>
@@ -346,7 +346,7 @@
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="12"
+						y="13"
 						width="194"
 						height="13"
 						key="textField-6"/>
@@ -360,8 +360,8 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="109"
-						height="13"
+						width="85"
+						height="14"
 						key="staticText-12">
 							<printWhenExpression><![CDATA[$P{Reimpresion}.equals("1")?Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
 						</reportElement>
@@ -374,9 +374,9 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="115"
-						width="109"
-						height="13"
+						y="129"
+						width="104"
+						height="14"
 						key="staticText-13"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -387,9 +387,9 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="128"
+						y="143"
 						width="109"
-						height="13"
+						height="14"
 						key="staticText-14"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -399,10 +399,10 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="109"
-						y="115"
-						width="90"
-						height="13"
+						x="104"
+						y="129"
+						width="95"
+						height="14"
 						key="textField-7"/>
 					<box></box>
 					<textElement>
@@ -412,10 +412,10 @@
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="109"
-						y="128"
-						width="91"
-						height="13"
+						x="104"
+						y="143"
+						width="95"
+						height="25"
 						key="textField-8"/>
 					<box></box>
 					<textElement>
@@ -425,8 +425,8 @@
 				</textField>
 				<break>
 					<reportElement
-						x="-1"
-						y="367"
+						x="0"
+						y="374"
 						width="200"
 						height="0"
 						key="element-1"/>
