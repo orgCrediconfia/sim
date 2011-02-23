@@ -2307,6 +2307,8 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							   "WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
 					           "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
 							   "GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n" ;
+						System.out.println("SimPrestamoGrupoCreditoIndividual saldo actual"+sSql);
+						System.out.println("fDeudaMinima"+fDeudaMinima);
 						ejecutaSql();	
 						if (rs.next()){
 							sSaldo = rs.getString("IMP_SALDO_HOY");

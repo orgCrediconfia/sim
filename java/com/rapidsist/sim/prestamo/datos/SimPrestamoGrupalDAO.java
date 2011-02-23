@@ -563,7 +563,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									rs1.close();
 									ps1.close();	
 								}
-								System.out.println("6");
+							
 								//Comprueba si el n�mero de candidatos en riesgo se encuentra dentro de los par�metros globales del grupo.
 								if (iMaxRiesgoProp <= iMaximoRiego){
 									
@@ -888,9 +888,9 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						ResultSet rs1 = ps1.getResultSet();
 						
 						while (rs1.next()){
-						
+							
 							registro.addDefCampo("ID_PERSONA",rs1.getString("ID_INTEGRANTE")== null ? "": rs1.getString("ID_INTEGRANTE"));
-							System.out.println("10");
+						
 							//Busca todos los creditos del cliente.
 							sSql =  "SELECT \n" +
 									"P.ID_PRESTAMO \n" +
@@ -901,16 +901,15 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
 									"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
 									"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
-									"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" +
-									"AND E.B_ENTREGADO = 'V' \n" ;
-							System.out.println("Busca todos los creditos del cliente");
-							
+									"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" ;
+									//"AND E.B_ENTREGADO = 'V' \n" ;
+						
 							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 							ps2.execute();
 							ResultSet rs2 = ps2.getResultSet();
 							
 							while (rs2.next()){
-								System.out.println("No debe de entrar aqui");
+							
 								registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO")== null ? "": rs2.getString("ID_PRESTAMO"));
 								
 								sSql= "SELECT CVE_GPO_EMPRESA, \n" +
@@ -929,9 +928,8 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 								if (rs3.next()){
 									sSaldo = rs3.getString("IMP_SALDO_HOY");
 									fSaldo = (Float.parseFloat(sSaldo));
-									
+									System.out.println("tiene un saldo"+fSaldo);
 								}
-								
 								fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
 								
 								if (fSaldo >= iDeudaMinima){
@@ -986,7 +984,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 							
 							//Compara si el n�mero de candidatos al grupo se encuentra dentro de los par�metros globales del grupo.
 							if (iNumIntegrantes >= iMinIntegrantes){
-								System.out.println("11");
+								
 								if (iNumIntegrantes <= iMaxIntegrantes){
 									
 									//Obtiene de los par�metros globales del grupo el m�ximo de integrantes que pueden estar en riesgo.
