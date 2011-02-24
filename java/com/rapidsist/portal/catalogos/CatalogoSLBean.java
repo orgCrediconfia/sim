@@ -831,12 +831,14 @@ public class CatalogoSLBean implements SessionBean{
 					else {
 						//VERIFICA SI ES UNA ALTA
 						if (iTipoOperacion == CatalogoSLBean.ALTA){
+							
+							/*
 							boolean bDobleSubmit = false;
 							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
 							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
 							if (registroPrimerSubmit != null){
 								registro.eliminaCampo("RegistroPrimerSubmit");
-							    /*
+							    
 								System.out.println("Primer registro");
 								Iterator listaNombresCampos = registro.getCampos().keySet().iterator();
 								while (listaNombresCampos.hasNext()){
@@ -851,17 +853,24 @@ public class CatalogoSLBean implements SessionBean{
 									Object objetoLista = registro.getDefCampo(sNombreCampo);
 									System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
 								}
-								*/
-								if (registro.igual(registroPrimerSubmit)){
-									//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
-									//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
-									if (registro.getDefCampo("ListaRegistros") == null) {
-										//SE HA GENERADO UN DOBLE SUBMIT
-										bDobleSubmit = true;
+								
+								try{
+									if (registro.igual(registroPrimerSubmit)){
+										//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+										//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+										if (registro.getDefCampo("ListaRegistros") == null && registro.getDefCampo("DobleSubmit") == null ) {
+											//SE HA GENERADO UN DOBLE SUBMIT
+											bDobleSubmit = true;
+										}
 									}
+								}catch(Exception e){
+									System.out.println("Problema al comparar un registro para validar el doble submit");
 								}
 							}
 							//System.out.println("bDobleSubmit:"+ bDobleSubmit);
+							*/
+							boolean bDobleSubmit = isDobleSubmit(registro);
+							
 							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
 							if (!bDobleSubmit){
 								//VERIFICA SI SE GENERA AUTOMATICAMENTE LA OPERACION DE ALTA
@@ -938,19 +947,28 @@ public class CatalogoSLBean implements SessionBean{
 						}
 						else if (iTipoOperacion == CatalogoSLBean.ALTA) {
 							
+							/*
 							boolean bDobleSubmit = false;
 							//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
 							Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
 							if (registroPrimerSubmit != null){
 								registro.eliminaCampo("RegistroPrimerSubmit");
-								if (registro.igual(registroPrimerSubmit)){
-									//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
-									//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
-									if (registro.getDefCampo("ListaRegistros") == null) {
-										//SE HA GENERADO UN DOBLE SUBMIT
-										bDobleSubmit = true;
-									}								}
+								try{
+									if (registro.igual(registroPrimerSubmit)){
+										//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+										//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+										if (registro.getDefCampo("ListaRegistros") == null && registro.getDefCampo("DobleSubmit") == null) {
+											//SE HA GENERADO UN DOBLE SUBMIT
+											bDobleSubmit = true;
+										}
+									}
+								}catch(Exception e){
+									System.out.println("Problema al compara un registro para validar el doble submit");
+								}
 							}
+							*/
+							boolean bDobleSubmit = isDobleSubmit(registro);
+							
 							//SI SE GENERO UN DOBLE SUBMIT NO DA DE ALTA EL REGISTRO
 							if (!bDobleSubmit){							
 								resultadoCatalogo = altaAutomatica(conexion, registro, sCveTabla, contexto);
@@ -1415,5 +1433,45 @@ public class CatalogoSLBean implements SessionBean{
 		res.close();
 		sentencia.close();
 		return sSequence;
+	}
+	
+	private boolean isDobleSubmit(Registro registro){
+		boolean bDobleSubmit = false;
+
+		//SE RECUPERA EL REGISTRO QUE FUE PREVIAMENTE DADO DE ALTA EN LA SESION
+		Registro registroPrimerSubmit = (Registro)registro.getDefCampo("RegistroPrimerSubmit");
+		if (registroPrimerSubmit != null){
+			registro.eliminaCampo("RegistroPrimerSubmit");
+		    /*
+			System.out.println("Primer registro");
+			Iterator listaNombresCampos = registro.getCampos().keySet().iterator();
+			while (listaNombresCampos.hasNext()){
+				String sNombreCampo = (String)listaNombresCampos.next();
+				Object objetoLista = registro.getDefCampo(sNombreCampo);
+				System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
+			}
+			System.out.println("Segundo registro submit");
+			Iterator listaNombresCamposSubmit = registroPrimerSubmit.getCampos().keySet().iterator();
+			while (listaNombresCamposSubmit.hasNext()){
+				String sNombreCampo = (String)listaNombresCamposSubmit.next();
+				Object objetoLista = registro.getDefCampo(sNombreCampo);
+				System.out.println("Campo: "+sNombreCampo + "Valor: "+objetoLista);
+			}
+			*/
+			try{
+				if (registro.igual(registroPrimerSubmit)){
+					//VALIDA SI EL REGISTRO A INSERTAR TIENE UNA LISTA DE REGISTROS
+					//SI TIENE UNA LISTA DE REGISTROS POR EL MOMENTO NO SE PUEDEN COMPARAR
+					if (registro.getDefCampo("ListaRegistros") == null && registro.getDefCampo("DobleSubmit") == null ) {
+						//SE HA GENERADO UN DOBLE SUBMIT
+						bDobleSubmit = true;
+					}
+				}
+			}catch(Exception e){
+				System.out.println("Problema al comparar un registro para validar el doble submit");
+			}
+		}
+		//System.out.println("bDobleSubmit:"+ bDobleSubmit);
+		return bDobleSubmit;
 	}
 }
