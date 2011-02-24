@@ -24,6 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaFin" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT G.ID_INTEGRANTE,
 P.NOM_COMPLETO,
 D.CALLE||' '||D.NUMERO_INT||' '||D.NOM_ASENTAMIENTO||' '||D.NOM_DELEGACION||' '||D.NOM_ESTADO||' '||'C.P.'||' '||D.CODIGO_POSTAL DIRECCION
@@ -119,7 +120,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="16"  isSplitAllowed="true" >
+			<band height="27"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="157"
@@ -138,7 +139,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 						x="20"
 						y="2"
 						width="257"
-						height="13"
+						height="25"
 						key="textField-1"/>
 					<box></box>
 					<textElement>
@@ -146,16 +147,16 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="277"
 						y="2"
 						width="253"
-						height="13"
-						key="textField-2"/>
+						height="25"
+						key="textField"/>
 					<box></box>
 					<textElement>
-						<font fontName="Arial" size="10"/>
+						<font/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION}]]></textFieldExpression>
 				</textField>
@@ -166,7 +167,50 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="300"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="108"
+						width="530"
+						height="34"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los Suscriptores convienen extender el plazo de presentación de este PAGARÉ para efectos del Artículo 128 de la Ley General de Títulos y Operaciones de Crédito al día " +$P{FechaFin}+ "."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="530"
+						height="101"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[Los Suscriptores renuncian a toda diligencia, presentación, protesto o aviso de no pago o incumplimiento o cualquier aviso de cualquier otro tipo respecto a este Pagaré. La falta de ejercicio por parte de DINSA de cualquiera de los derechos bajo este Pagaré en cualquier caso concreto no constituirá una renuncia al mismo en dicho caso o en cualquier otro caso subsiguiente.
+
+Los Suscriptores por medio del presente PAGARÉ, se obligan a pagar a DINSA, los gastos que impliquen el cobro de este PAGARÉ y los honorarios de los abogados que intervengan en el mismo cobro, en caso de que haya incumplimiento en el pago de este PAGARÉ.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="145"
+						width="530"
+						height="105"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[Este PAGARE consta de ____ páginas, mismas que ha sido debidamente suscritas por los Suscriptores.
+
+Para todo lo relativo a este Pagaré, los Firmantes, Avales solidarios, se someten expresamente a la Legislación Federal y a la jurisdicción de los tribunales que tengan competencia en los domicilios de los suscriptores del presente Pagaré renunciando desde este momento a cualquier otro fuero que pudiera corresponder por cualquier otra causa. En el evento de existir varios tribunales competentes por existir domicilios en distintos distritos o poblaciones lo será en definitiva el que conozca primero del juicio correspondiente.]]></text>
+				</staticText>
 			</band>
 		</pageFooter>
 		<summary>
