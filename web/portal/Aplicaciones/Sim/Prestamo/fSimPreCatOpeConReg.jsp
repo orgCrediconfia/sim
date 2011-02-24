@@ -12,8 +12,6 @@
 		<Portal:FormaElemento etiqueta='Concepto' control='selector' controlnombre='CveConcepto' controlvalor='${requestScope.registro.campos["CVE_CONCEPTO"]}' editarinicializado='true' obligatorio='true' campoclave="CVE_CONCEPTO" campodescripcion="DESC_LARGA" datosselector='${requestScope.ListaConcepto}'/>
 		
 		<Portal:FormaBotones>
-			<Portal:FormaBotonAltaModificacion/>
-			<Portal:FormaBotonBaja/>
 		</Portal:FormaBotones>
 	</Portal:Forma>	
 </Portal:Pagina>	

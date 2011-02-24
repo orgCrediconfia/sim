@@ -54,6 +54,18 @@ public class SimCajaRetiroCON implements CatalogoControlConsultaIN, CatalogoCont
 		//VERIFICA SI BUSCA TODOS LOS REGISTROS
 		
 		if (iTipoOperacion == CON_CONSULTA_TABLA){	
+			
+			String sIdCaja = "";
+			String sIdCajaSucursal = "";
+			String sIdSucursal = "";
+			
+			sIdCajaSucursal = request.getParameter("IdCaja");
+			
+			sIdSucursal = sIdCajaSucursal.substring(0, sIdCajaSucursal.indexOf("-"));
+			sIdCaja = sIdCajaSucursal.substring(sIdCajaSucursal.indexOf("-")+1, sIdCajaSucursal.length());
+			parametros.addDefCampo("ID_CAJA", sIdCaja);
+			parametros.addDefCampo("ID_SUCURSAL", sIdSucursal);
+			
 			if (request.getParameter("Fecha") != "" && !request.getParameter("Fecha").equals("")){	
 				parametros.addDefCampo("FECHA", request.getParameter("Fecha"));
 			}

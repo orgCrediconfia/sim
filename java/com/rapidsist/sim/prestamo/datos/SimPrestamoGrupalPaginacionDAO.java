@@ -145,7 +145,7 @@ public class SimPrestamoGrupalPaginacionDAO extends Conexion2 implements Operaci
 			
 			
 			
-			sSql = sSql + "ORDER BY P.CVE_PRESTAMO_GRUPO \n";
+			sSql = sSql + "ORDER BY CVE_PRESTAMO_GRUPO \n";
 			
 		ejecutaSql();
 		return getConsultaLista();

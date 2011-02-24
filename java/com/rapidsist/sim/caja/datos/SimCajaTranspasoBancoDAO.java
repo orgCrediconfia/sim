@@ -50,6 +50,8 @@ public class SimCajaTranspasoBancoDAO extends Conexion2 implements OperacionAlta
 				"SIM_CAT_BANCO B \n" +
 				"WHERE T.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND T.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND T.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
+				"AND T.ID_CAJA = '" + (String)parametros.getDefCampo("ID_CAJA") + "' \n"+
 				"AND T.CVE_MOVIMIENTO_CAJA = 'TRABAN' \n"+
 				"AND B.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
 				"AND B.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
@@ -57,13 +59,13 @@ public class SimCajaTranspasoBancoDAO extends Conexion2 implements OperacionAlta
 				
 		
 		if (parametros.getDefCampo("FECHA") != null) {
-			sSql = sSql + " AND T.FECHA_REGISTRO = TO_DATE('" + (String) parametros.getDefCampo("FECHA") + "','DD/MM/YYYY') \n";
+			sSql = sSql + " AND TO_CHAR(T.FECHA_TRANSACCION,'DD/MM/YYYY') = '" + (String) parametros.getDefCampo("FECHA") + "' \n";
 		}
 		if (parametros.getDefCampo("FUENTE_DESTINO") != null) {
 			sSql = sSql + " AND T.FUENTE_DESTINO = '" + (String) parametros.getDefCampo("FUENTE_DESTINO") + "' \n";
 		}
 		if (parametros.getDefCampo("MONTO") != null) {
-			sSql = sSql + " AND T.MONTO = '" + (String) parametros.getDefCampo("MONTO") + "' \n";
+			sSql = sSql + " AND -T.MONTO = '" + (String) parametros.getDefCampo("MONTO") + "' \n";
 		}
 		
 		sSql = sSql + "ORDER BY T.ID_TRANSACCION \n";

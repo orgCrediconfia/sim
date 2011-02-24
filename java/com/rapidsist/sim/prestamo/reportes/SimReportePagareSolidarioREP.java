@@ -6,6 +6,8 @@
 package com.rapidsist.sim.prestamo.reportes;
 
 import com.rapidsist.portal.cliente.reportes.ReporteControlIN;
+
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,9 +17,10 @@ import javax.servlet.ServletContext;
 import com.rapidsist.portal.catalogos.CatalogoSL;
 import javax.naming.Context;
 import com.rapidsist.comun.bd.Registro;
+import java.util.LinkedList;
 
 /**
- * Esta clase se encarga de administrar la operaci�n consulta del Reporte Anexo A
+ * Esta clase se encarga de administrar la operaci�n consulta del Reporte Anexo A
  * Esta clase es llamada por el servlet ProcesaReporteS.
  */
 
@@ -26,6 +29,21 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 	public Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
 
+		//OBTIENE EL NOMBRE DE TODOS LOS INTEGRANTES DEL PRESTAMO GRUPAL
+		parametrosCatalogo.addDefCampo("ID_PRESTAMO_GRUPO", request.getParameter("IdPrestamoGrupo"));
+		LinkedList lIntegrantes = catalogoSL.getRegistros("SimIntegrantesGrupo", parametrosCatalogo);
+		Iterator iteratorIntegrantes = lIntegrantes.iterator();
+		String sIntegrantes = "";
+		
+		//ITEREA TODOS LOS INTEGRANTES Y LO DEJA EN UNA CADENA UNICA
+		while(iteratorIntegrantes.hasNext()){
+			Registro registro = (Registro)iteratorIntegrantes.next();
+			sIntegrantes = sIntegrantes + " " + (String)registro.getDefCampo("NOM_COMPLETO") +", ";
+			System.out.println(sIntegrantes);
+		}
+		
+		//sIntegrantes = "Por este Pagaré los señor(es) firmantes, "+ sIntegrantes + "(el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a";
+		
 		String sSql = 	"SELECT \n"+
 						"C.ID_PRESTAMO ID_PRESTAMO_GRUPO, \n"+
 						"C.CVE_NOMBRE ID_GRUPO, \n"+
@@ -50,12 +68,13 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 						"AND E.CVE_EMPRESA = C.CVE_EMPRESA \n";
 		
 		parametros.put("Sql", sSql);
+		parametros.put("NombresIntegrantes", sIntegrantes);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReportePagareSolidario.jasper");
-		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
+		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReportePagareSolidarioNuevo.jasper");
+		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
 		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
-		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario3.jasper"));
-		return parametros;		
+		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
+		return parametros;
 	}
 }

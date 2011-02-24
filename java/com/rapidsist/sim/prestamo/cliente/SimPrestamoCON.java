@@ -92,39 +92,41 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 		}
 		else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
 			
-			//String sCombo = "";
-			
-			//OBTIENE SOLO EL REGISTRO SOLICITADO
-			parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
-			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
-			parametros.addDefCampo("ETAPA_DOCUMENTOS","INDIVIDUAL");
-			registroControl.respuesta.addDefCampo("registroEtapaDocumentos", catalogoSL.getRegistro("SimPrestamoDocumentacion", parametros));
-			registroControl.respuesta.addDefCampo("ListaParticipante", catalogoSL.getRegistros("SimPrestamoParticipante", parametros));
-			registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimUsuarioSucursalAsignada", parametros));
-			registroControl.respuesta.addDefCampo("ListaComite", catalogoSL.getRegistros("SimComite", parametros));
-			registroControl.respuesta.addDefCampo("ListaEstatusPrestamo", catalogoSL.getRegistros("SimListaEstatusPrestamo", parametros));
-			registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
-			registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
-			registroControl.respuesta.addDefCampo("ListaMetodo", catalogoSL.getRegistros("SimCatalogoMetodoCalculo", parametros));
-			//registroControl.respuesta.addDefCampo("ListaEstatusHistorico", catalogoSL.getRegistros("SimPrestamoEstatusHistorico", parametros));
-			
-			if (request.getParameter("Alta").equals("No")){
-			
-				registroControl.respuesta.addDefCampo("ListaActividadRequisito", catalogoSL.getRegistros("SimPrestamoActividadRequisito", parametros));
+			if (request.getParameter("Alta").equals("Si")){
+				parametros.addDefCampo("ID_PERSONA",request.getParameter("IdPersona"));
+				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimClientes", parametros));
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimUsuarioSucursalAsignada", parametros));
+				registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
+				registroControl.respuesta.addDefCampo("ListaMetodo", catalogoSL.getRegistros("SimCatalogoMetodoCalculo", parametros));
+				registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
 			}
-				
-			registroControl.respuesta.addDefCampo("ListaUnidad", catalogoSL.getRegistros("SimCatalogoUnidad", parametros));
-			registroControl.respuesta.addDefCampo("ListaFormaAplicacion", catalogoSL.getRegistros("SimCatalogoFormaAplicacion", parametros));
-			registroControl.respuesta.addDefCampo("ListaCargoComision", catalogoSL.getRegistros("SimPrestamoCargoComisionCliente", parametros));
-			registroControl.respuesta.addDefCampo("ListaMontoCliente", catalogoSL.getRegistros("SimPrestamoMontoCliente", parametros));
-			registroControl.respuesta.addDefCampo("ListaAccesorio", catalogoSL.getRegistros("SimPrestamoAccesorioOrdenCliente", parametros));
-			registroControl.respuesta.addDefCampo("ListaDocumentacion", catalogoSL.getRegistros("SimPrestamoDocumentacion", parametros));
-			parametros.addDefCampo("FILTRO","ASIGNADOS");
-			registroControl.respuesta.addDefCampo("ListaGarantia", catalogoSL.getRegistros("SimPrestamoGarantia", parametros));
-			parametros.addDefCampo("CONSULTA","ARCHIVOS");
-			registroControl.respuesta.addDefCampo("ListaArchivo", catalogoSL.getRegistros("SimPrestamoFlujoEfectivo", parametros));
-			//VERIFICA SI SOLO CONSULTA LOS DATOS DEL REGISTRO
-			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreReg.jsp?IdCliente="+request.getParameter("IdCliente");
+			if (request.getParameter("Alta").equals("No")){
+				parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
+				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
+				registroControl.respuesta.addDefCampo("ListaParticipante", catalogoSL.getRegistros("SimPrestamoParticipante", parametros));
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimUsuarioSucursalAsignada", parametros));
+				registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
+				registroControl.respuesta.addDefCampo("ListaMetodo", catalogoSL.getRegistros("SimCatalogoMetodoCalculo", parametros));
+				registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
+				registroControl.respuesta.addDefCampo("ListaComite", catalogoSL.getRegistros("SimComite", parametros));
+				registroControl.respuesta.addDefCampo("ListaEstatusPrestamo", catalogoSL.getRegistros("SimListaEstatusPrestamo", parametros));
+				registroControl.respuesta.addDefCampo("ListaActividadRequisito", catalogoSL.getRegistros("SimPrestamoActividadRequisito", parametros));
+				registroControl.respuesta.addDefCampo("ListaUnidad", catalogoSL.getRegistros("SimCatalogoUnidad", parametros));
+				registroControl.respuesta.addDefCampo("ListaFormaAplicacion", catalogoSL.getRegistros("SimCatalogoFormaAplicacion", parametros));
+				registroControl.respuesta.addDefCampo("ListaCargoComision", catalogoSL.getRegistros("SimPrestamoCargoComisionCliente", parametros));
+				registroControl.respuesta.addDefCampo("ListaMontoCliente", catalogoSL.getRegistros("SimPrestamoMontoCliente", parametros));
+				registroControl.respuesta.addDefCampo("ListaAccesorio", catalogoSL.getRegistros("SimPrestamoAccesorioOrdenCliente", parametros));
+				registroControl.respuesta.addDefCampo("ListaDocumentacion", catalogoSL.getRegistros("SimPrestamoDocumentacion", parametros));
+				parametros.addDefCampo("FILTRO","ASIGNADOS");
+				registroControl.respuesta.addDefCampo("ListaGarantia", catalogoSL.getRegistros("SimPrestamoGarantia", parametros));
+				parametros.addDefCampo("CONSULTA","ARCHIVOS");
+				registroControl.respuesta.addDefCampo("ListaArchivo", catalogoSL.getRegistros("SimPrestamoFlujoEfectivo", parametros));
+				parametros.addDefCampo("ETAPA_DOCUMENTOS","INDIVIDUAL");
+				registroControl.respuesta.addDefCampo("registroEtapaDocumentos", catalogoSL.getRegistro("SimPrestamoDocumentacion", parametros));
+				registroControl.respuesta.addDefCampo("ListaEstatusHistorico", catalogoSL.getRegistros("SimPrestamoEstatusHistorico", parametros));
+			}
+			
+			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreReg.jsp";
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Alta")){
@@ -170,32 +172,22 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 
-		//
 		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-		registro.addDefCampo("ID_PERSONA", request.getParameter("IdPersona") != null ? request.getParameter("IdPersona") : "" );
-		registro.addDefCampo("ID_GRUPO", request.getParameter("IdGrupo") != null ? request.getParameter("IdGrupo") : "" );
+		registro.addDefCampo("ID_PERSONA", request.getParameter("IdPersona"));
 		registro.addDefCampo("ID_SUCURSAL", request.getParameter("IdSucursal") != null ? request.getParameter("IdSucursal") : "");
 		registro.addDefCampo("CVE_ASESOR_CREDITO", request.getParameter("IdAsesorCredito") != null ? request.getParameter("IdAsesorCredito") : "" );
-		registro.addDefCampo("FECHA_ASESOR", request.getParameter("FechaAsesor") != null ? request.getParameter("FechaAsesor") : "");
-		registro.addDefCampo("CVE_RECUPERADOR", request.getParameter("IdRecuperador") != null ? request.getParameter("IdRecuperador") : "" );
-		registro.addDefCampo("FECHA_RECUPERADOR", request.getParameter("FechaRecuperador") != null ? request.getParameter("FechaRecuperador") : "");
-		registro.addDefCampo("ID_ETAPA_PRESTAMO", request.getParameter("IdEstatusPrestamo") != null ? request.getParameter("IdEstatusPrestamo") : "");
-		registro.addDefCampo("ID_TASA_REFERENCIA", request.getParameter("IdTasaReferencia") != null ? request.getParameter("IdTasaReferencia") : "");
-		
-		
-		//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamo", registro, iTipoOperacion);
 		
 		String sIdPrestamo = "";
+		String sIdPersona = "";
 		
 		if (iTipoOperacion == 1){
-			sIdPrestamo = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_PRESTAMO");
-			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+sIdPrestamo+"&Alta=Si";
+			sIdPersona = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_PERSONA");
+			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPersona="+sIdPersona+"&Alta=Si";
 		}else if (iTipoOperacion == 2){
 			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+request.getParameter("IdPrestamo")+"&Alta=No";
 		}
-		
 		
 		return registroControl;
 	}

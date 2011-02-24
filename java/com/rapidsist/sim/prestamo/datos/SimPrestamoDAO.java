@@ -115,6 +115,7 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 				"P.ID_PRESTAMO, \n"+
 				"P.CVE_PRESTAMO, \n"+
 				"P.ID_CLIENTE, \n"+
+				"P.ID_CLIENTE ID_PERSONA, \n"+
 				"C.NOM_COMPLETO, \n"+
 				"P.ID_GRUPO, \n"+
 				"G.NOM_GRUPO, \n"+
@@ -211,158 +212,115 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 		
-		String sIdPrestamo = "";
+		String sNegocioGiro = "";
 		String sCreditosSimultaneos = "";
 		String sDeudaMinima = "";
 		float fDeudaMinima = 0;
 		int iDeuda = 0;
 		String sSaldo = "";
 		float fSaldo = 0;
-	
-		//Preguntamos por el parámetro Crédito Simultáneos.
 		
-		sSql = " SELECT \n" + 
-			  " CREDITOS_SIMULTANEOS, \n" +
-			  " IMP_DEUDA_MINIMA \n" +
-			  "	FROM SIM_PARAMETRO_GLOBAL  \n" +
-			  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-			  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
+		//Validamos que el cliente tenga un negocio principal y este definido su giro.
+		sSql = " SELECT COUNT(*) NEGOCIO_CLIENTE \n" +
+				"FROM ( \n" +
+					"SELECT \n" +
+					"ID_NEGOCIO \n" +
+					"FROM \n" +
+					"SIM_CLIENTE_NEGOCIO \n" + 
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+					"AND ID_PERSONA = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
+					"AND B_PRINCIPAL = 'V' \n" +
+					"AND CVE_CLASE IS NOT NULL \n" +
+				") \n" ;
 		ejecutaSql();
 		if (rs.next()){
-			sCreditosSimultaneos = rs.getString("CREDITOS_SIMULTANEOS");
-			sDeudaMinima = rs.getString("IMP_DEUDA_MINIMA");
-			fDeudaMinima = (Float.parseFloat(sDeudaMinima));
+			sNegocioGiro = rs.getString("NEGOCIO_CLIENTE");
 		}
 		
-		if (sCreditosSimultaneos.equals("V")){
-			//Realiza el crédito.
+		if (sNegocioGiro.equals("1")){
+			//Preguntamos por el parámetro Crédito Simultáneos.
 			
-			//OBTENEMOS EL SEQUENCE
-			sSql = "SELECT SQ01_SIM_PRESTAMO.nextval as ID_PRESTAMO FROM DUAL";
+			sSql = " SELECT \n" + 
+				  " CREDITOS_SIMULTANEOS, \n" +
+				  " IMP_DEUDA_MINIMA \n" +
+				  "	FROM SIM_PARAMETRO_GLOBAL  \n" +
+				  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
 			ejecutaSql();
-			
 			if (rs.next()){
-				sIdPrestamo = rs.getString("ID_PRESTAMO");
+				sCreditosSimultaneos = rs.getString("CREDITOS_SIMULTANEOS");
+				sDeudaMinima = rs.getString("IMP_DEUDA_MINIMA");
+				fDeudaMinima = (Float.parseFloat(sDeudaMinima));
 			}
 			
-			sSql =  "INSERT INTO SIM_PRESTAMO ( "+
-				"CVE_GPO_EMPRESA, \n" +
-				"CVE_EMPRESA, \n" +
-				"ID_PRESTAMO, \n" +
-				"FECHA_SOLICITUD, \n" +
-				"ID_CLIENTE, \n" +
-				"ID_GRUPO, \n" +
-				"ID_SUCURSAL, \n" +
-				"CVE_ASESOR_FUNDADOR, \n" +
-				"CVE_ASESOR_CREDITO, \n" +
-				"FECHA_ASESOR_SIST) \n" +
-				" VALUES (" +
-				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				" " + sIdPrestamo +", \n" +
-				"SYSDATE, \n" +
-				"'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
-				"SYSDATE) \n" ;
-
-			if (ejecutaUpdate() == 0){
-				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-			}
-			resultadoCatalogo.Resultado.addDefCampo("ID_PRESTAMO", sIdPrestamo);
-			
-
-		}else {
-			
-			//Consulta si no tiene un crédito vigente.
-			
-			//Busca todos los creditos del cliente.
-			sSql =  "SELECT \n" +
-					"P.ID_PRESTAMO \n" +
-					"FROM SIM_PRESTAMO P, \n" +
-					"SIM_CAT_ETAPA_PRESTAMO E \n" +
-					"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-					"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-					"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
-					"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
-					"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
-					"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" +
-					"AND E.B_ENTREGADO = 'V' \n" ;
-			
-			ejecutaSql();
-			
-			while (rs.next()){
-				registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
+			if (sCreditosSimultaneos.equals("V")){
 				
-				sSql= "SELECT CVE_GPO_EMPRESA, \n" +
-				  "    CVE_EMPRESA, \n"+
-				  "    Id_Prestamo, \n"+
-				  "    SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n"+
-				  "  From V_SIM_PRESTAMO_RES_EDO_CTA \n"+
-				  "  WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
-				    "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-				  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n";
-			
-				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
-				ps1.execute();
-				ResultSet rs1 = ps1.getResultSet();
+				sSql = "Todavia no se da ningún alta";
+				resultadoCatalogo.Resultado.addDefCampo("ID_PERSONA", (String)registro.getDefCampo("ID_PERSONA"));
 				
-				if (rs1.next()){
-					sSaldo = rs1.getString("IMP_SALDO_HOY");
-					fSaldo = (Float.parseFloat(sSaldo));
-					
-				}
-				
-				fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
-			
-				System.out.println("fDeudaMinima"+fDeudaMinima);
-				System.out.println("fSaldo"+fSaldo);
-				if (fSaldo >= fDeudaMinima){
-					iDeuda++;
-				}
-			}
-		
-			if (iDeuda != 0){
-				resultadoCatalogo.mensaje.setClave("PRESTAMO_VIGENTE");
 			}else {
 				
-				//OBTENEMOS EL SEQUENCE
-				sSql = "SELECT SQ01_SIM_PRESTAMO.nextval as ID_PRESTAMO FROM DUAL";
+				//Consulta si no tiene un crédito vigente.
+				
+				//Busca todos los creditos del cliente.
+				sSql =  "SELECT \n" +
+						"P.ID_PRESTAMO \n" +
+						"FROM SIM_PRESTAMO P, \n" +
+						"SIM_CAT_ETAPA_PRESTAMO E \n" +
+						"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+						"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+						"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
+						"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
+						"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
+						"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" +
+						"AND E.B_ENTREGADO = 'V' \n" ;
+				
 				ejecutaSql();
 				
-				if (rs.next()){
-					sIdPrestamo = rs.getString("ID_PRESTAMO");
+				while (rs.next()){
+					registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
+					
+					sSql= "SELECT CVE_GPO_EMPRESA, \n" +
+					  "    CVE_EMPRESA, \n"+
+					  "    Id_Prestamo, \n"+
+					  "    SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n"+
+					  "  From V_SIM_PRESTAMO_RES_EDO_CTA \n"+
+					  "  WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
+					    "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n";
+				
+					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+					ps1.execute();
+					ResultSet rs1 = ps1.getResultSet();
+					
+					if (rs1.next()){
+						sSaldo = rs1.getString("IMP_SALDO_HOY");
+						fSaldo = (Float.parseFloat(sSaldo));
+						
+					}
+					
+					fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
+				
+					System.out.println("fDeudaMinima"+fDeudaMinima);
+					System.out.println("fSaldo"+fSaldo);
+					if (fSaldo >= fDeudaMinima){
+						iDeuda++;
+					}
 				}
-
-				sSql =  "INSERT INTO SIM_PRESTAMO ( "+
-					"CVE_GPO_EMPRESA, \n" +
-					"CVE_EMPRESA, \n" +
-					"ID_PRESTAMO, \n" +
-					"FECHA_SOLICITUD, \n" +
-					"ID_CLIENTE, \n" +
-					"ID_GRUPO, \n" +
-					"ID_SUCURSAL, \n" +
-					"CVE_ASESOR_CREDITO, \n" +
-					"FECHA_ASESOR_SIST) \n" +
-					" VALUES (" +
-					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-					" " + sIdPrestamo +", \n" +
-					"SYSDATE, \n" +
-					"'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-					"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
-					"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
-					"SYSDATE) \n" ;
 			
-				if (ejecutaUpdate() == 0){
-					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				if (iDeuda != 0){
+					resultadoCatalogo.mensaje.setClave("PRESTAMO_VIGENTE");
+				}else {
+					
+					sSql = "Todavia no se da ningún alta";
+					resultadoCatalogo.Resultado.addDefCampo("ID_PERSONA", (String)registro.getDefCampo("ID_PERSONA"));
+				
 				}
-				resultadoCatalogo.Resultado.addDefCampo("ID_PRESTAMO", sIdPrestamo);
+				
 			}
-			
+		}else {
+			resultadoCatalogo.mensaje.setClave("INTEGRANTE_NO_NEGOCIO_GIRO");
 		}
 				
 		return resultadoCatalogo;

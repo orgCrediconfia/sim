@@ -563,7 +563,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									rs1.close();
 									ps1.close();	
 								}
-								System.out.println("6");
+							
 								//Comprueba si el nï¿½mero de candidatos en riesgo se encuentra dentro de los parï¿½metros globales del grupo.
 								if (iMaxRiesgoProp <= iMaximoRiego){
 									
@@ -637,7 +637,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 											rs1.close();
 											ps1.close();
 										}	
-										System.out.println("7");
+										
 										//Comprueba si el nï¿½mero de integrantes con negocios tipo venta por catï¿½logo es el permitido.
 										if (iMaxCatalogoProp <= iMaximoCatalogo){
 											
@@ -709,7 +709,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 														if (rs.next()){
 															sNumCiclo = rs.getString("NUM_CICLO");
 															
-															sSql = "Todavia no se da nungun alta";
+															sSql = "Todavia no se da ningún alta";
 															resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
 															resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",sNumCiclo);
 														}else{
@@ -731,7 +731,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 															if (rs.next()){
 																registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
 																
-																sSql = "Todavia no se da nungun alta";
+																sSql = "Todavia no se da ningún alta";
 																
 																resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","F");
 																resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
@@ -739,8 +739,6 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 														}
 														
 													}else{
-														
-														System.out.println("8");
 														
 														//Busca si hay una excepciï¿½n.
 														sSql =  "SELECT \n"+
@@ -799,7 +797,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																if (rs.next()){
 																	registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
 																	
-																	sSql = "Todavia no se da nungun alta";
+																	sSql = "Todavia no se da ningún alta";
 																	resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
 																	resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																}else{
@@ -822,7 +820,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																	if (rs.next()){
 																		registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
 																		
-																		sSql = "Todavia no se da nungun alta";
+																		sSql = "Todavia no se da ningún alta";
 																		resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","F");
 																		resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																	}
@@ -830,46 +828,14 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 														
 															}else {
 														
-														
-																System.out.println("9");
 														//Se le asigna el producto-ciclo 1.
 														//Ingresa el crï¿½dito grupal.
-														//String sIdPrestamoGrupo = "";
-														/*
-														//OBTENEMOS EL SEQUENCE
-														sSql = "SELECT SQ01_SIM_PRESTAMO_GRUPO.nextval as ID_PRESTAMO_GRUPO FROM DUAL";
-														ejecutaSql();
 														
-														if (rs.next()){
-															sIdPrestamoGrupo = rs.getString("ID_PRESTAMO_GRUPO");
-														}
-														*/
-														sSql = "Todavia no se da nungun alta";
+														sSql = "Todavia no se da ningún alta";
 														resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
 														resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO","1");
 															}
-														/*
-														sSql =  "INSERT INTO SIM_PRESTAMO_GRUPO ( "+
-															"CVE_GPO_EMPRESA, \n" +
-															"CVE_EMPRESA, \n" +
-															"ID_PRESTAMO_GRUPO, \n" +
-															"ID_GRUPO, \n" +
-															"ID_PRODUCTO, \n" +
-															"NUM_CICLO) \n" +
-															" VALUES (" +
-															"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-															"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-															" " + sIdPrestamoGrupo +", \n" +
-															"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-															"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
-															"'1') \n" ;
-																
-														System.out.println("*ALTA EN LA TABLA PADRE cilco 1*"+sSql);
 														
-														if (ejecutaUpdate() == 0){
-															resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-														}
-														*/
 													}
 											
 												
@@ -922,9 +888,9 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						ResultSet rs1 = ps1.getResultSet();
 						
 						while (rs1.next()){
-						
+							
 							registro.addDefCampo("ID_PERSONA",rs1.getString("ID_INTEGRANTE")== null ? "": rs1.getString("ID_INTEGRANTE"));
-							System.out.println("10");
+						
 							//Busca todos los creditos del cliente.
 							sSql =  "SELECT \n" +
 									"P.ID_PRESTAMO \n" +
@@ -935,16 +901,15 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
 									"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
 									"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
-									"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" +
-									"AND E.B_ENTREGADO = 'V' \n" ;
-							System.out.println("Busca todos los creditos del cliente");
-							
+									"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" ;
+									//"AND E.B_ENTREGADO = 'V' \n" ;
+						
 							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 							ps2.execute();
 							ResultSet rs2 = ps2.getResultSet();
 							
 							while (rs2.next()){
-								System.out.println("No debe de entrar aqui");
+							
 								registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO")== null ? "": rs2.getString("ID_PRESTAMO"));
 								
 								sSql= "SELECT CVE_GPO_EMPRESA, \n" +
@@ -963,9 +928,8 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 								if (rs3.next()){
 									sSaldo = rs3.getString("IMP_SALDO_HOY");
 									fSaldo = (Float.parseFloat(sSaldo));
-									
+									System.out.println("tiene un saldo"+fSaldo);
 								}
-								
 								fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
 								
 								if (fSaldo >= iDeudaMinima){
@@ -1020,7 +984,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 							
 							//Compara si el nï¿½mero de candidatos al grupo se encuentra dentro de los parï¿½metros globales del grupo.
 							if (iNumIntegrantes >= iMinIntegrantes){
-								System.out.println("11");
+								
 								if (iNumIntegrantes <= iMaxIntegrantes){
 									
 									//Obtiene de los parï¿½metros globales del grupo el mï¿½ximo de integrantes que pueden estar en riesgo.
@@ -1137,7 +1101,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 											rs12.close();
 											ps12.close();
 										}	
-										System.out.println("12");
+										
 										//Comprueba si el nï¿½mero de integrantes con negocios tipo ambulantes es el permitido.
 										if (iMaxAmbulanteProp <= iMaximoAmbulante){
 											
@@ -1238,7 +1202,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 															if (rs.next()){
 																sNumCiclo = rs.getString("NUM_CICLO");
 																
-																sSql = "Todavia no se da nungun alta";
+																sSql = "Todavia no se da ningún alta";
 																resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
 																resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",sNumCiclo);
 															}else{
@@ -1260,7 +1224,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																if (rs.next()){
 																	registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
 																	
-																	sSql = "Todavia no se da nungun alta";
+																	sSql = "Todavia no se da ningún alta";
 																	resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","F");
 																	resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																}
@@ -1326,7 +1290,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																	if (rs.next()){
 																		registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
 																		
-																		sSql = "Todavia no se da nungun alta";
+																		sSql = "Todavia no se da ningún alta";
 																		resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
 																		resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																	}else{
@@ -1349,51 +1313,21 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																		if (rs.next()){
 																			registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
 																			
-																			sSql = "Todavia no se da nungun alta";
+																			sSql = "Todavia no se da ningún alta";
 																			resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","F");
 																			resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																		}
 																	}
-																	System.out.println("13");
+																	
 																}else {
 															//Se le asigna el producto-ciclo 1.
 															//Ingresa el crï¿½dito grupal.
-															//String sIdPrestamoGrupo = "";
-															/*
-															//OBTENEMOS EL SEQUENCE
-															sSql = "SELECT SQ01_SIM_PRESTAMO_GRUPO.nextval as ID_PRESTAMO_GRUPO FROM DUAL";
-															ejecutaSql();
 															
-															if (rs.next()){
-																sIdPrestamoGrupo = rs.getString("ID_PRESTAMO_GRUPO");
-															}
-															*/
-															sSql = "Todavia no se da nungun alta";
+															sSql = "Todavia no se da ningún alta";
 															resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
 															resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO","1");
 														}
-															/*
-															sSql =  "INSERT INTO SIM_PRESTAMO_GRUPO ( "+
-																"CVE_GPO_EMPRESA, \n" +
-																"CVE_EMPRESA, \n" +
-																"ID_PRESTAMO_GRUPO, \n" +
-																"ID_GRUPO, \n" +
-																"ID_PRODUCTO, \n" +
-																"NUM_CICLO) \n" +
-																" VALUES (" +
-																"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-																"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-																" " + sIdPrestamoGrupo +", \n" +
-																"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-																"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
-																"'1') \n" ;
-																	
-															System.out.println("*ALTA EN LA TABLA PADRE cilco 1*"+sSql);
 															
-															if (ejecutaUpdate() == 0){
-																resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-															}
-															*/
 														}
 												
 													

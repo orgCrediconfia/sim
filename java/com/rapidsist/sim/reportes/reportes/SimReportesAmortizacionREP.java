@@ -74,7 +74,6 @@ public class SimReportesAmortizacionREP implements ReporteControlIN {
 	    String sTipoReporte = request.getParameter("TipoReporte");
 	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
-		parametros.put("PathLogotipo", contextoServlet.getRealPath("Portales/Sam/img/Imagentsys1.gif"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReportesAmortizacion.jasper");
 		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/reportes/SimReportesAmortizacion_subreport.jasper"));

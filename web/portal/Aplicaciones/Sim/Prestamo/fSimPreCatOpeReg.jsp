@@ -6,18 +6,17 @@
 		<Portal:FormaSeparador nombre="Datos generales"/>
 		
 		<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CveOperacion' controlvalor='${requestScope.registro.campos["CVE_OPERACION"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true' />
-		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='DescCorta' controlvalor='${requestScope.registro.campos["DESC_CORTA"]}' controllongitud='20' controllongitudmax='20' editarinicializado='true' obligatorio='true' />
-		<Portal:FormaElemento etiqueta='Descripci&oacute;n' control='Texto' controlnombre='DescLarga' controlvalor='${requestScope.registro.campos["DESC_LARGA"]}' controllongitud='60' controllongitudmax='60' editarinicializado='true' obligatorio='true' />
+		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='DescCorta' controlvalor='${requestScope.registro.campos["DESC_CORTA"]}' controllongitud='20' controllongitudmax='20' editarinicializado='false' obligatorio='true' />
+		<Portal:FormaElemento etiqueta='Descripci&oacute;n' control='Texto' controlnombre='DescLarga' controlvalor='${requestScope.registro.campos["DESC_LARGA"]}' controllongitud='60' controllongitudmax='60' editarinicializado='false' obligatorio='true' />
 		<Portal:FormaElemento etiqueta='Afecta Saldo' control='SelectorAfecta' controlnombre='CveAfectaSaldo' controlvalor='${requestScope.registro.campos["CVE_AFECTA_SALDO"]}' editarinicializado='false' obligatorio='true' />
 		<Portal:FormaElemento etiqueta='Afecta Cr&eacute;dito' control='SelectorAfecta' controlnombre='CveAfectaCredito' controlvalor='${requestScope.registro.campos["CVE_AFECTA_CREDITO"]}' editarinicializado='false' obligatorio='true' />
 		
 		<Portal:FormaBotones>
-			<Portal:FormaBotonAltaModificacion/>
-			<Portal:FormaBotonBaja/>
 		</Portal:FormaBotones>
 	</Portal:Forma>	
 		
-	<Portal:TablaLista maestrodetallefuncion="SimPrestamoCatalogoOperacionConcepto" tipo="alta" nombre="Conceptos relacionados a la Operaci&oacute;n" botontipo="url" url='/ProcesaCatalogo?Funcion=SimPrestamoCatalogoOperacionConcepto&OperacionCatalogo=IN&Filtro=Alta&CveOperacion=${registro.campos["CVE_OPERACION"]}'>
+	<!--Portal:TablaLista maestrodetallefuncion="SimPrestamoCatalogoOperacionConcepto" tipo="alta" nombre="Conceptos relacionados a la Operaci&oacute;n" botontipo="url" url='/ProcesaCatalogo?Funcion=SimPrestamoCatalogoOperacionConcepto&OperacionCatalogo=IN&Filtro=Alta&CveOperacion=${registro.campos["CVE_OPERACION"]}'-->
+	<Portal:TablaLista tipo="consulta" nombre="Conceptos relacionados a la Operaci&oacute;n" >
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Concepto'/>

@@ -158,7 +158,8 @@ public class SimPrestamoProductoCicloCON implements CatalogoControlConsultaIN, C
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoProductoCiclo", registro, 1);
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+request.getParameter("IdPrestamo")+"&Alta=No";
+		String IdPrestamo = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_PRESTAMO");
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+IdPrestamo+"&Alta=No";
 		return registroControl;
 	}
 }

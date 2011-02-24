@@ -69,8 +69,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 			if (parametros.getDefCampo("NOM_GRUPO") != null) {
 				sSql = sSql + " AND UPPER(C.NOMBRE) LIKE '%" + ((String) parametros.getDefCampo("NOM_GRUPO")).toUpperCase() + "%' \n";
 			}
-			
-			System.out.println(sSql);
+		
 		}else if (parametros.getDefCampo("CONSULTA").equals("SUMA")){
 			sSql =  "SELECT \n"+
 					"SUM(PD.MONTO_AUTORIZADO) TOTAL \n"+ 
@@ -265,6 +264,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 					"WHERE G.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 					"AND G.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 					"AND G.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+					"AND D.ID_ETAPA_PRESTAMO != '31' \n"+
 					"AND D.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n" +
 					"AND D.CVE_EMPRESA = G.CVE_EMPRESA \n" +
 					"AND D.ID_PRESTAMO_GRUPO = G.ID_PRESTAMO_GRUPO \n" +
@@ -464,6 +464,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 							"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+							"AND ID_ETAPA_PRESTAMO != '31' \n" +
 							"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
 				
 					PreparedStatement ps15 = this.conn.prepareStatement(sSql);

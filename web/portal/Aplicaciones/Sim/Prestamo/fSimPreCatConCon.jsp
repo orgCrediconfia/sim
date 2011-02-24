@@ -8,7 +8,7 @@
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='DescCorta' controllongitud='20' controllongitudmax='20' editarinicializado='true'/>
 	</Portal:Forma>
 	
-	<Portal:TablaLista tipo="alta" nombre="Consulta de conceptos" botontipo="url" url='/ProcesaCatalogo?Funcion=SimPrestamoCatalogoConcepto&OperacionCatalogo=IN&Filtro=Alta'>
+	<Portal:TablaLista tipo="consulta" nombre="Consulta de conceptos" botontipo="url" url='/ProcesaCatalogo?Funcion=SimPrestamoCatalogoConcepto&OperacionCatalogo=IN&Filtro=Alta'>
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='200' valor='Nombre'/>	
