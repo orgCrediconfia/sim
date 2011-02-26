@@ -5,10 +5,10 @@
 		 name="SimReportesAmortizacionInd2"
 		 columnCount="1"
 		 printOrder="Vertical"
-		 orientation="Portrait"
-		 pageWidth="690"
+		 orientation="Landscape"
+		 pageWidth="1247"
 		 pageHeight="802"
-		 columnWidth="690"
+		 columnWidth="1247"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -74,7 +74,105 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="36"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="2"
+						width="1172"
+						height="20"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cargos y comisiones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="21"
+						width="201"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Accesorio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="201"
+						y="21"
+						width="268"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Forma de aplicación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="469"
+						y="21"
+						width="85"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Valor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="554"
+						y="21"
+						width="111"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Unidad
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="665"
+						y="21"
+						width="137"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Periodicidad
+]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="35"
+						width="1172"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="2"
+						width="1172"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -82,13 +180,13 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="80"  isSplitAllowed="true" >
+			<band height="21"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="37"
-						width="136"
-						height="41"
+						y="2"
+						width="201"
+						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -104,10 +202,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="136"
-						y="37"
-						width="219"
-						height="41"
+						x="201"
+						y="2"
+						width="268"
+						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -123,10 +221,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="355"
-						y="37"
+						x="469"
+						y="2"
 						width="84"
-						height="41"
+						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -142,10 +240,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="439"
-						y="37"
+						x="553"
+						y="2"
 						width="112"
-						height="41"
+						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -161,10 +259,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="551"
-						y="37"
+						x="665"
+						y="2"
 						width="137"
-						height="41"
+						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField"/>
@@ -178,104 +276,6 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_PERIODICIDAD}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="0"
-						width="689"
-						height="20"
-						key="staticText-1"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Cargos y comisiones]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="22"
-						width="136"
-						height="15"
-						key="staticText-2"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Accesorio]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="136"
-						y="22"
-						width="219"
-						height="15"
-						key="staticText-3"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Forma de aplicación]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="356"
-						y="22"
-						width="85"
-						height="15"
-						key="staticText-4"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Valor]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="441"
-						y="22"
-						width="111"
-						height="15"
-						key="staticText-5"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Unidad
-]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="552"
-						y="22"
-						width="137"
-						height="15"
-						key="staticText-6"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Periodicidad
-]]></text>
-				</staticText>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="-1"
-						width="689"
-						height="0"
-						key="line-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="21"
-						width="689"
-						height="0"
-						key="line-2"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
 			</band>
 		</detail>
 		<columnFooter>

@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="1340"
+		 pageWidth="1247"
 		 pageHeight="842"
-		 columnWidth="1280"
+		 columnWidth="1187"
 		 columnSpacing="0"
 		 leftMargin="30"
 		 rightMargin="30"
@@ -58,7 +58,7 @@
 					<reportElement
 						x="1"
 						y="0"
-						width="740"
+						width="1166"
 						height="40"
 						key="subreport-1"/>
 					<subreportParameter  name="CvePrestamo">
@@ -75,7 +75,7 @@
 					<reportElement
 						x="1"
 						y="1"
-						width="740"
+						width="1166"
 						height="40"
 						key="subreport-2"/>
 					<subreportParameter  name="IdPrestamoAcc">
@@ -222,7 +222,7 @@
 					<reportElement
 						x="0"
 						y="2"
-						width="1280"
+						width="1172"
 						height="15"
 						key="staticText-12"/>
 					<box></box>
@@ -235,7 +235,7 @@
 					<reportElement
 						x="0"
 						y="1"
-						width="1280"
+						width="1172"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -244,7 +244,7 @@
 					<reportElement
 						x="0"
 						y="18"
-						width="1280"
+						width="1172"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -373,19 +373,15 @@
 			</band>
 		</detail>
 		<columnFooter>
-			<band height="30"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="50"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</pageFooter>
-		<lastPageFooter>
-			<band height="50"  isSplitAllowed="true" >
-			</band>
-		</lastPageFooter>
 		<summary>
-			<band height="50"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</summary>
 </jasperReport>

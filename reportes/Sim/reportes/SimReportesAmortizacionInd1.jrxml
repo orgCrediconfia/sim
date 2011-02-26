@@ -40,7 +40,8 @@ NOM_SUCURSAL
 FROM V_CREDITO
 WHERE CVE_GPO_EMPRESA = 'SIM'
 AND CVE_EMPRESA = 'CREDICONFIA'
-AND CVE_PRESTAMO = $P{CvePrestamo}]]></queryString>
+AND CVE_PRESTAMO = $P{CvePrestamo}
+AND ID_ETAPA_PRESTAMO != '16']]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
