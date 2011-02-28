@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
-		 pageWidth="566"
+		 pageWidth="511"
 		 pageHeight="792"
-		 columnWidth="538"
+		 columnWidth="483"
 		 columnSpacing="28"
 		 leftMargin="14"
 		 rightMargin="14"
@@ -116,7 +116,7 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="1"  isSplitAllowed="true" >
+			<band height="368"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						mode="Opaque"
@@ -137,18 +137,10 @@
 					</textElement>
 				<text><![CDATA[Static text]]></text>
 				</staticText>
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</columnHeader>
-		<detail>
-			<band height="368"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="16"
-						y="88"
+						x="17"
+						y="89"
 						width="216"
 						height="29"
 						key="staticText-2"/>
@@ -160,8 +152,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="250"
-						y="88"
+						x="251"
+						y="89"
 						width="216"
 						height="10"
 						key="staticText-3"/>
@@ -173,8 +165,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="16"
-						y="158"
+						x="17"
+						y="159"
 						width="216"
 						height="11"
 						key="staticText-4"/>
@@ -186,8 +178,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="16"
-						y="156"
+						x="17"
+						y="157"
 						width="216"
 						height="0"
 						key="line-1"/>
@@ -195,8 +187,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="250"
-						y="157"
+						x="251"
+						y="158"
 						width="216"
 						height="11"
 						key="staticText-5"/>
@@ -208,8 +200,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="250"
-						y="155"
+						x="251"
+						y="156"
 						width="216"
 						height="0"
 						key="line-2"/>
@@ -217,8 +209,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="17"
-						y="186"
+						x="18"
+						y="187"
 						width="216"
 						height="10"
 						key="staticText-6"/>
@@ -226,12 +218,12 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[GARANTE PRENDARIO]]></text>
+				<text><![CDATA[OTORGANTE]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="250"
-						y="186"
+						x="251"
+						y="187"
 						width="216"
 						height="10"
 						key="staticText-7"/>
@@ -239,12 +231,12 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[DEPOSITARIO]]></text>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="16"
-						y="256"
+						x="17"
+						y="257"
 						width="216"
 						height="11"
 						key="staticText-8"/>
@@ -252,12 +244,12 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[Nombre del "GARANTE PRENDARIO"]]></text>
+				<text><![CDATA[Nombre del "OTORGANTE"]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="16"
-						y="254"
+						x="17"
+						y="255"
 						width="216"
 						height="0"
 						key="line-3"/>
@@ -265,8 +257,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="250"
-						y="255"
+						x="251"
+						y="256"
 						width="216"
 						height="11"
 						key="staticText-9"/>
@@ -274,12 +266,12 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[Nombre del "DEPOSITARIO"]]></text>
+				<text><![CDATA[Nombre del "OBLIGADO SOLIDARIO"]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="250"
-						y="253"
+						x="251"
+						y="254"
 						width="216"
 						height="0"
 						key="line-4"/>
@@ -287,8 +279,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="16"
-						y="285"
+						x="17"
+						y="286"
 						width="216"
 						height="10"
 						key="staticText-10"/>
@@ -300,8 +292,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="16"
-						y="343"
+						x="17"
+						y="344"
 						width="216"
 						height="11"
 						key="staticText-11"/>
@@ -313,8 +305,8 @@
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="15"
-						y="341"
+						x="16"
+						y="342"
 						width="216"
 						height="0"
 						key="line-5"/>
@@ -322,8 +314,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="0"
-						y="0"
+						x="1"
+						y="1"
 						width="482"
 						height="32"
 						key="staticText-12"/>
@@ -331,15 +323,15 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[LOS TÉRMINOS Y CONDICIONES DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE, SON, EN ESTE ACTO, INCORPORADOS Y FORMAN PARTE DEL PRESENTE ANEXO, COMO SÍ DICHOS TÉRMINOS Y CONDICIONES ESTUVIESEN TOTALMENTE PREVISTOS EN EL PRESENTE DOCUMENTO.
+				<text><![CDATA[LOS TÉRMINOS Y CONDICIONES DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACION EN PAGO, SON, EN ESTE ACTO, INCORPORADOS Y FORMAN PARTE DEL PRESENTE ANEXO, COMO SÍ DICHOS TÉRMINOS Y CONDICIONES ESTUVIESEN TOTALMENTE PREVISTOS EN EL PRESENTE DOCUMENTO.
 ]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="46"
+						x="1"
+						y="47"
 						width="482"
-						height="25"
+						height="37"
 						key="textField-2"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -349,8 +341,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="16"
-						y="354"
+						x="17"
+						y="355"
 						width="216"
 						height="13"
 						key="textField"/>
@@ -362,8 +354,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="250"
-						y="267"
+						x="251"
+						y="268"
 						width="216"
 						height="13"
 						key="textField"/>
@@ -375,8 +367,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="16"
-						y="267"
+						x="17"
+						y="268"
 						width="216"
 						height="13"
 						key="textField"/>
@@ -388,8 +380,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="250"
-						y="169"
+						x="251"
+						y="170"
 						width="216"
 						height="13"
 						key="textField-5"/>
@@ -399,6 +391,14 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
 				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</detail>
 		<columnFooter>

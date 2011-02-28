@@ -56,7 +56,9 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 						"E.TX_DESC_EMPRESA, \n"+
 						"C.ID_SUCURSAL, \n"+
 						"C.DIRECCION_SUCURSAL, \n"+
-						"'$'||''||TO_CHAR(C.MONTO_AUTORIZADO,'999,999,999.00') MONTO_AUTORIZADO, \n"+
+						"C.PLAZO, \n"+
+						"TO_CHAR(C.MONTO_AUTORIZADO,'999,999,999.00') MONTO_AUTORIZADO, \n"+
+						//"'$'||''||TO_CHAR(C.MONTO_AUTORIZADO,'999,999,999.00') MONTO_AUTORIZADO, \n"+
 						"CANTIDADES_LETRAS(C.MONTO_AUTORIZADO) MONTO_AUTORIZADO_LETRAS \n"+
 						"FROM V_CREDITO C, \n"+
 						"RS_CONF_EMPRESA E \n"+
@@ -67,6 +69,8 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 						"AND E.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 						"AND E.CVE_EMPRESA = C.CVE_EMPRESA \n";
 		
+		System.out.println("sSql"+sSql);
+		
 		parametros.put("Sql", sSql);
 		parametros.put("NombresIntegrantes", sIntegrantes);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
@@ -75,6 +79,9 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
 		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
 		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
+		//parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
+		//parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
+		//parametros.put("Subreporte5", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
 		return parametros;
 	}
 }

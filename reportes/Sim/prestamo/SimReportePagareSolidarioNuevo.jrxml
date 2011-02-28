@@ -46,6 +46,7 @@
 	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.lang.String"/>
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="PLAZO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 
@@ -103,7 +104,7 @@
 					<textElement textAlignment="Justified">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré los señor(es) firmantes, " + $P{NombresIntegrantes} + " (el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de " + $F{MONTO_AUTORIZADO} + " (" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.), " + "a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré los señor(es) firmantes, " + $P{NombresIntegrantes} + " (el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " (" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.), " + "a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable."]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -129,7 +130,7 @@
 					<textElement textAlignment="Justified">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Los pagos de principal e intereses ordinarios se realzarán, mediante ______ pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días establecidos "+$F{NOM_PERIODICIDAD}+"(es), conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los pagos de principal e intereses ordinarios se realzarán, mediante "+$F{PLAZO}+" pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días establecidos "+$F{NOM_PERIODICIDAD}+"(es), conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>
@@ -150,7 +151,7 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="215"  isSplitAllowed="true" >
+			<band height="590"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
@@ -188,9 +189,9 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="165"
+						y="574"
 						width="552"
-						height="50"
+						height="16"
 						key="subreport-2"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
@@ -198,14 +199,6 @@
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
 				</subreport>
-				<break>
-					<reportElement
-						x="0"
-						y="155"
-						width="552"
-						height="0"
-						key="element-3"/>
-				</break>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"

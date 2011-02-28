@@ -17,7 +17,7 @@ import javax.naming.Context;
 import com.rapidsist.comun.bd.Registro;
 
 /**
- * Esta clase se encarga de administrar la operación consulta del Reporte Anexo A
+ * Esta clase se encarga de administrar la operaciï¿½n consulta del Reporte Anexo A
  * Esta clase es llamada por el servlet ProcesaReporteS.
  */
 
@@ -38,6 +38,7 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_AUTORIZADO, \n"+ 
 						"CANTIDADES_LETRAS(C.MONTO_AUTORIZADO) MONTO_AUTORIZADO_LETRAS, \n"+ 
 						"C.VALOR_TASA, \n"+
+						"C.VALOR_TASA * 12 AS TASA_ANUAL, \n"+ 
 						"C.PERIODICIDAD_PRODUCTO, \n"+ 
 						"C.CARGO_INICIAL CONSULTA_BURO, \n"+ 
 						"NVL(NVL(CA.CARGO_INICIAL,CA.PORCENTAJE_MONTO/100*C.MONTO_AUTORIZADO),0) COMISION_APERTURA, \n"+
@@ -52,11 +53,7 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"PD.ID_PERSONA ID_DEPOSITARIO, \n"+
 						"DECODE(PPD.NOM_COMPLETO,'',' ',PPD.NOM_COMPLETO) NOM_DEPOSITARIO, \n"+ 
 						"PG.ID_PERSONA ID_GARANTE, \n"+
-						"DECODE(PPG.NOM_COMPLETO,'',' ',PPG.NOM_COMPLETO) NOM_GARANTE, \n"+ 
-						"G.ID_GARANTIA, \n"+
-						"CG.DESCRIPCION, \n"+
-						"CG.NUMERO_FACTURA_ESCRITURA, \n"+ 
-						"TO_CHAR(TO_DATE(CG.FECHA_FACTURA_ESCRITURA),'DD \"de\" MONTH \"de\" YYYY') FECHA_FACTURA_ESCRITURA \n"+
+						"DECODE(PPG.NOM_COMPLETO,'',' ',PPG.NOM_COMPLETO) NOM_GARANTE \n"+  
 						"FROM \n"+
 						"V_CREDITO C, \n"+
 						"SIM_PRESTAMO_CARGO_COMISION CA, \n"+
@@ -65,9 +62,7 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"SIM_PRESTAMO_PARTICIPANTE PD, \n"+ 
 						"RS_GRAL_PERSONA PPD, \n"+
 						"SIM_PRESTAMO_PARTICIPANTE PG, \n"+ 
-						"RS_GRAL_PERSONA PPG, \n"+
-						"SIM_PRESTAMO_GARANTIA G, \n"+
-						"SIM_CLIENTE_GARANTIA CG \n"+
+						"RS_GRAL_PERSONA PPG \n"+
 						"WHERE C.CVE_GPO_EMPRESA = 'SIM' \n"+ 
 						"AND C.CVE_EMPRESA = 'CREDICONFIA' \n"+
 						"AND C.ID_PRESTAMO = '" + request.getParameter("IdPrestamo")+"' \n"+
@@ -96,22 +91,17 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"AND PG.CVE_TIPO_PERSONA (+)= 'GARANTE' \n"+
 						"AND PPG.CVE_GPO_EMPRESA (+)= PG.CVE_GPO_EMPRESA \n"+ 
 						"AND PPG.CVE_EMPRESA (+)= PG.CVE_EMPRESA \n"+
-						"AND PPG.ID_PERSONA (+)= PG.ID_PERSONA \n"+
-						"AND G.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+ 
-						"AND G.CVE_EMPRESA (+)= C.CVE_EMPRESA  \n"+
-						"AND G.ID_PRESTAMO (+)= C.ID_PRESTAMO \n"+
-						"AND CG.CVE_GPO_EMPRESA (+)= G.CVE_GPO_EMPRESA \n"+ 
-						"AND CG.CVE_EMPRESA (+)= G.CVE_EMPRESA \n"+
-						"AND CG.ID_GARANTIA (+)= G.ID_GARANTIA  \n";
+						"AND PPG.ID_PERSONA (+)= PG.ID_PERSONA \n";
 		
 		System.out.println("sSql"+sSql);
 		
 		parametros.put("Sql", sSql);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReporteAnexoA1.jasper");
-		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
-		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
+		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReporteAnexoANuevo.jasper");
+		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
+		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
+		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
 		return parametros;		
 	}
 }
