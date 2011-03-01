@@ -20,7 +20,7 @@ import com.rapidsist.comun.bd.Registro;
 import java.util.LinkedList;
 
 /**
- * Esta clase se encarga de administrar la operaci�n consulta del Reporte Anexo A
+ * Esta clase se encarga de administrar la operaciï¿½n consulta del Reporte Anexo A
  * Esta clase es llamada por el servlet ProcesaReporteS.
  */
 
@@ -30,7 +30,8 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 		Map parametros = new HashMap();
 
 		//OBTIENE EL NOMBRE DE TODOS LOS INTEGRANTES DEL PRESTAMO GRUPAL
-		parametrosCatalogo.addDefCampo("ID_PRESTAMO_GRUPO", request.getParameter("IdPrestamoGrupo"));
+		parametrosCatalogo.addDefCampo("ID_GRUPO", request.getParameter("IdGrupo"));
+		parametrosCatalogo.addDefCampo("CONSULTA", "ASIGNADOS");
 		LinkedList lIntegrantes = catalogoSL.getRegistros("SimIntegrantesGrupo", parametrosCatalogo);
 		Iterator iteratorIntegrantes = lIntegrantes.iterator();
 		String sIntegrantes = "";
@@ -42,7 +43,7 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 			System.out.println(sIntegrantes);
 		}
 		
-		//sIntegrantes = "Por este Pagaré los señor(es) firmantes, "+ sIntegrantes + "(el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a";
+		//sIntegrantes = "Por este PagarÃ© los seÃ±or(es) firmantes, "+ sIntegrantes + "(el (los) â€œSuscriptor(es)â€�), se obliga(n) incondicional y solidariamente en este acto a pagar a";
 		
 		String sSql = 	"SELECT \n"+
 						"C.ID_PRESTAMO ID_PRESTAMO_GRUPO, \n"+
