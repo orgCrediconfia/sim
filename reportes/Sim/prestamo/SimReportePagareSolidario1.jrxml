@@ -27,7 +27,7 @@
 	<parameter name="FechaFin" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT G.ID_INTEGRANTE,
 P.NOM_COMPLETO,
-D.CALLE||' '||D.NUMERO_INT||' '||D.NOM_ASENTAMIENTO||' '||D.NOM_DELEGACION||' '||D.NOM_ESTADO||' '||'C.P.'||' '||D.CODIGO_POSTAL DIRECCION
+D.CALLE||' '||D.NUMERO_EXT||', '||D.NUMERO_INT||', '||D.NOM_ASENTAMIENTO||', '||D.NOM_DELEGACION||', '||D.NOM_CIUDAD||', '||D.NOM_ESTADO||'. CP: '||D.CODIGO_POSTAL DIRECCION
 FROM
 SIM_PRESTAMO_GPO_DET G,
 RS_GRAL_PERSONA P,

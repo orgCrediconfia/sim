@@ -31,7 +31,8 @@
   FECHA_AMORTIZACION,
   IMP_CAPITAL_AMORT AS CAPITAL,
   INTERES,
-  IMP_ACCESORIO
+  IMP_ACCESORIO,
+  IMP_CAPITAL_AMORT + INTERES + IMP_ACCESORIO AS TOTAL
 FROM V_TABLA_AMORTIZACION_GRUPAL
 WHERE CVE_GPO_EMPRESA   = 'SIM' AND
       CVE_EMPRESA       = 'CREDICONFIA' AND
@@ -44,6 +45,7 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 	<field name="CAPITAL" class="java.math.BigDecimal"/>
 	<field name="INTERES" class="java.math.BigDecimal"/>
 	<field name="IMP_ACCESORIO" class="java.math.BigDecimal"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -76,7 +78,7 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 					<reportElement
 						x="6"
 						y="28"
-						width="135"
+						width="96"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -87,9 +89,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				</staticText>
 				<staticText>
 					<reportElement
-						x="141"
+						x="103"
 						y="28"
-						width="135"
+						width="104"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
@@ -100,9 +102,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				</staticText>
 				<staticText>
 					<reportElement
-						x="276"
+						x="209"
 						y="28"
-						width="135"
+						width="110"
 						height="15"
 						key="staticText-7"/>
 					<box></box>
@@ -116,7 +118,7 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 						mode="Transparent"
 						x="6"
 						y="28"
-						width="135"
+						width="96"
 						height="14"
 						key="rectangle-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -124,9 +126,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="274"
+						x="207"
 						y="28"
-						width="135"
+						width="110"
 						height="14"
 						key="rectangle-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -134,18 +136,18 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="140"
+						x="102"
 						y="28"
-						width="135"
+						width="104"
 						height="14"
 						key="rectangle-3"/>
 					<graphicElement stretchType="NoStretch"/>
 				</rectangle>
 				<staticText>
 					<reportElement
-						x="411"
+						x="319"
 						y="28"
-						width="135"
+						width="104"
 						height="15"
 						key="staticText-9"/>
 					<box></box>
@@ -157,11 +159,34 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="409"
+						x="317"
 						y="28"
-						width="135"
+						width="104"
 						height="14"
 						key="rectangle-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="422"
+						y="28"
+						width="104"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="420"
+						y="28"
+						width="104"
+						height="14"
+						key="rectangle-9"/>
 					<graphicElement stretchType="NoStretch"/>
 				</rectangle>
 			</band>
@@ -173,7 +198,7 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 						mode="Transparent"
 						x="6"
 						y="-1"
-						width="135"
+						width="96"
 						height="14"
 						key="rectangle-4"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -181,9 +206,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="274"
+						x="207"
 						y="-1"
-						width="135"
+						width="110"
 						height="14"
 						key="rectangle-5"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -191,9 +216,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="140"
+						x="102"
 						y="-1"
-						width="135"
+						width="104"
 						height="14"
 						key="rectangle-6"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -202,7 +227,7 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 					<reportElement
 						x="6"
 						y="-1"
-						width="135"
+						width="96"
 						height="14"
 						key="textField"/>
 					<box></box>
@@ -213,9 +238,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="140"
+						x="102"
 						y="-1"
-						width="135"
+						width="104"
 						height="14"
 						key="textField"/>
 					<box></box>
@@ -226,9 +251,9 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="274"
+						x="207"
 						y="-1"
-						width="135"
+						width="110"
 						height="14"
 						key="textField"/>
 					<box></box>
@@ -240,18 +265,18 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="409"
+						x="317"
 						y="-1"
-						width="135"
+						width="104"
 						height="14"
 						key="rectangle-8"/>
 					<graphicElement stretchType="NoStretch"/>
 				</rectangle>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="409"
+						x="317"
 						y="-1"
-						width="135"
+						width="104"
 						height="14"
 						key="textField-1"/>
 					<box></box>
@@ -259,6 +284,29 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_ACCESORIO}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="420"
+						y="-1"
+						width="104"
+						height="14"
+						key="rectangle-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="420"
+						y="-1"
+						width="104"
+						height="14"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{TOTAL}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
