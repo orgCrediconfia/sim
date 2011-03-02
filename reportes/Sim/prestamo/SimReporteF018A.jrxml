@@ -40,11 +40,11 @@
 	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
-	<field name="MONTO_AUTORIZADO" class="java.math.BigDecimal"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
 
-	<variable name="Prueba" class="java.math.BigDecimal" resetType="None" calculation="Nothing">
+	<variable name="Prueba" class="java.lang.String" resetType="None" calculation="Nothing">
 		<variableExpression><![CDATA[$F{MONTO_AUTORIZADO}]]></variableExpression>
 	</variable>
 		<background>
@@ -60,9 +60,9 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="15"
-						width="430"
-						height="13"
+						y="26"
+						width="552"
+						height="16"
 						key="textField-1">
 							<printWhenExpression><![CDATA[new Boolean(!$F{DIRECCION_SUCURSAL}.equals("C.P."))]]></printWhenExpression>
 						</reportElement>
@@ -75,9 +75,9 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="31"
+						y="42"
 						width="552"
-						height="26"
+						height="19"
 						key="staticText-6"/>
 					<box></box>
 					<textElement>
@@ -91,7 +91,7 @@ CrediConfía.
 				<staticText>
 					<reportElement
 						x="0"
-						y="61"
+						y="66"
 						width="552"
 						height="13"
 						key="staticText-7"/>
@@ -112,7 +112,7 @@ CrediConfía.
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Le informamos que recibimos la cantidad de $" + $V{Prueba} + " pesos M.N. " + "(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.)," + " del crédito " + $F{ID_GRUPO} + "-" +$F{NUM_CICLO}+ " documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma: "]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Le informamos que recibimos la cantidad de $" + $F{MONTO_AUTORIZADO}.trim() + " pesos M.N. " + "(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.)," + " del crédito " + $F{ID_GRUPO} + "-" +$F{NUM_CICLO}+ " documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma: "]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -146,8 +146,8 @@ CrediConfía.
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="430"
-						y="15"
+						x="451"
+						y="13"
 						width="101"
 						height="13"
 						key="textField-8">
@@ -346,7 +346,7 @@ CrediConfía.
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[1) Pagar <periocidad> mente una comisión de <x%> calculada sobre el sueldo global del crédito por concepto de <concepto producto 1>]]></text>
+				<text><![CDATA[1) Pagar <periocidad> mente una comisión de <x%> calculada sobre el saldo global del crédito por concepto de <concepto producto 1>]]></text>
 				</staticText>
 			</band>
 		</summary>
