@@ -62,16 +62,7 @@ public class SimReportesResEdoCtaIndREP implements ReporteControlIN {
 						"AND CVE_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"+
 						"AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "'\n";
 	
-		//if (sClave != null && !sClave.equals("") && !sClave.equals("null") ){								
-		//	sSql = sSql + "AND CVE_PRESTAMO = '" + sClave + "' \n";
-		//}
-
-		 sSql = sSql ;
-		
-		 System.out.println("*****************Paso por aqui****************:"+sSql);
-		
 	    String sTipoReporte = request.getParameter("TipoReporte");
-	    System.out.println("TipoReporte:"+sTipoReporte);
 		parametros.put("Sql", sSql);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReportesResEdoCtaInd.jasper");
