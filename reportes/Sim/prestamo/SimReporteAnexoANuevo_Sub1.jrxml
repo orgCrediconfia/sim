@@ -24,6 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 	<import value="it.businesslogic.ireport.IReportScriptlet" />
 
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT
 	C.CVE_GPO_EMPRESA,
 	C.CVE_EMPRESA,
@@ -63,7 +64,7 @@
 	RS_GRAL_PERSONA PPG
 	WHERE C.CVE_GPO_EMPRESA = 'SIM' 
 	AND C.CVE_EMPRESA = 'CREDICONFIA'
-	AND C.ID_PRESTAMO = 366
+	AND C.ID_PRESTAMO = $P{IdPrestamo}
 	AND C.APLICA_A = 'INDIVIDUAL'
 	AND CA.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA 
 	AND CA.CVE_EMPRESA (+)= C.CVE_EMPRESA
