@@ -176,6 +176,7 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 		registro.addDefCampo("ID_PERSONA", request.getParameter("IdPersona"));
 		registro.addDefCampo("ID_SUCURSAL", request.getParameter("IdSucursal") != null ? request.getParameter("IdSucursal") : "");
 		registro.addDefCampo("CVE_ASESOR_CREDITO", request.getParameter("IdAsesorCredito") != null ? request.getParameter("IdAsesorCredito") : "" );
+		registro.addDefCampo("DobleSubmit","Desabilitado");
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamo", registro, iTipoOperacion);
 		
