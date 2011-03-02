@@ -25,41 +25,105 @@
 
 	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[Select 
-   T.Cve_Gpo_Empresa, T.Cve_Empresa, T.Id_Prestamo, '1', 'Total cargo',
-   Sum(T.Imp_Capital_Amort*-1) + Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) + -SUM(A.IMP_ACCESORIO) + SUM(IMP_PAGO_TARDIO*-1) + SUM(IMP_INTERES_MORA*-1) + SUM(IMP_IVA_INTERES_MORA*-1) TOTAL,
-   Sum(T.Imp_Capital_Amort*-1) As Cargo_Capital,
-   Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) As Cargo_Interes,
-   -SUM(A.IMP_ACCESORIO) AS CARGO_ACCESORIO,
-   SUM(IMP_PAGO_TARDIO*-1) + SUM(IMP_INTERES_MORA*-1) + SUM(IMP_IVA_INTERES_MORA*-1) AS CARGO_RECARGO
-FROM SIM_TABLA_AMORTIZACION T, 
-     Sim_Tabla_Amort_Accesorio A
-WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
-And T.Cve_Empresa     = 'CREDICONFIA'  
-AND T.ID_PRESTAMO     = $P{IdPrestamo}
-AND A.CVE_GPO_EMPRESA       = T.CVE_GPO_EMPRESA  
-AND A.CVE_EMPRESA           = T.CVE_EMPRESA 
-AND A.ID_PRESTAMO           = T.ID_PRESTAMO 
-And A.Num_Pago_Amortizacion = T.Num_Pago_Amortizacion  
-GROUP BY T.Cve_Gpo_Empresa, T.Cve_Empresa, T.Id_Prestamo, '1', 'Total cargo'   
+	<queryString><![CDATA[SELECT
+A.CVE_GPO_EMPRESA,
+A.CVE_EMPRESA,
+A.ID_PRESTAMO,
+'1',
+'Total cargo',
+A.CARGO_CAPITAL + A.CARGO_INTERES + B.CARGO_ACCESORIO + A.CARGO_RECARGO TOTAL,
+A.CARGO_CAPITAL,
+A.CARGO_INTERES,
+B.CARGO_ACCESORIO,
+A.CARGO_RECARGO
+FROM
+(SELECT  
+		 P.CVE_GPO_EMPRESA, 
+		 P.Cve_Empresa, 
+		 P.Id_Prestamo,
+     Sum(T.Imp_Capital_Amort*-1) As Cargo_Capital,
+     Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) As Cargo_Interes,
+    SUM(T.IMP_PAGO_TARDIO*-1) + SUM(T.IMP_INTERES_MORA*-1) + SUM(T.IMP_IVA_INTERES_MORA*-1) AS CARGO_RECARGO
+FROM   
+		SIM_PRESTAMO P,
+		Sim_Tabla_Amortizacion T
+WHERE P.CVE_GPO_EMPRESA = 'SIM'  
+And P.Cve_Empresa     = 'CREDICONFIA'  
+AND P.ID_PRESTAMO = $P{IdPrestamo}
+AND T.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA 
+AND T.CVE_EMPRESA = P.CVE_EMPRESA 
+AND T.ID_PRESTAMO = P.ID_PRESTAMO 
+GROUP BY P.CVE_GPO_EMPRESA, P.Cve_Empresa, P.Id_Prestamo
+)A,
+(SELECT  
+		 P.CVE_GPO_EMPRESA, 
+		 P.Cve_Empresa, 
+		 P.Id_Prestamo,
+     -SUM(A.IMP_ACCESORIO) AS CARGO_ACCESORIO
+FROM   
+		SIM_PRESTAMO P,
+    SIM_TABLA_AMORT_ACCESORIO A
+WHERE P.CVE_GPO_EMPRESA = 'SIM'  
+And P.Cve_Empresa     = 'CREDICONFIA'  
+AND P.ID_PRESTAMO = $P{IdPrestamo}
+AND A.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA 
+AND A.CVE_EMPRESA = P.CVE_EMPRESA 
+AND A.ID_PRESTAMO = P.ID_PRESTAMO 
+GROUP BY P.CVE_GPO_EMPRESA, P.Cve_Empresa, P.Id_Prestamo
+)B
+WHERE A.CVE_GPO_EMPRESA = B.CVE_GPO_EMPRESA
+AND A.CVE_EMPRESA = B.CVE_EMPRESA
+AND A.ID_PRESTAMO = B.ID_PRESTAMO
 UNION
-Select 
-   T.Cve_Gpo_Empresa, T.Cve_Empresa, T.Id_Prestamo, '2', 'Total abono',
-   -Sum(T.Imp_Capital_Amort_Pagado*-1) + -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) + SUM(A.IMP_ACCESORIO_pagado) + SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) TOTAL,
-   -Sum(T.Imp_Capital_Amort_Pagado*-1) As Abono_Capital,
-   -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) As ABONO_Interes,
-   SUM(A.IMP_ACCESORIO_Pagado) AS ABONO_ACCESORIO,
-	 SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) AS ABONO_RECARGO
-FROM    SIM_TABLA_AMORTIZACION T,
-        Sim_Tabla_Amort_Accesorio A 
-WHERE   T.CVE_GPO_EMPRESA = 'SIM' 
-And T.Cve_Empresa     = 'CREDICONFIA'  
-AND T.ID_PRESTAMO     = $P{IdPrestamo}
-AND A.CVE_GPO_EMPRESA       = T.CVE_GPO_EMPRESA  
-AND A.CVE_EMPRESA           = T.CVE_EMPRESA 
-AND A.ID_PRESTAMO           = T.ID_PRESTAMO 
-And A.Num_Pago_Amortizacion = T.Num_Pago_Amortizacion  
-GROUP BY T.Cve_Gpo_Empresa, T.Cve_Empresa, T.Id_Prestamo, '2', 'Total abono']]></queryString>
+SELECT
+A.CVE_GPO_EMPRESA,
+A.CVE_EMPRESA,
+A.ID_PRESTAMO,
+'2',
+'Total abono',
+A.ABONO_CAPITAL + A.ABONO_INTERES + B.ABONO_ACCESORIO + A.ABONO_RECARGO TOTAL,
+A.ABONO_CAPITAL,
+A.ABONO_INTERES,
+B.ABONO_ACCESORIO,
+A.ABONO_RECARGO
+FROM
+(SELECT  
+		 P.CVE_GPO_EMPRESA, 
+		 P.Cve_Empresa, 
+		 P.Id_Prestamo,
+    -Sum(T.Imp_Capital_Amort_Pagado*-1) As Abono_Capital,  
+    -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) As ABONO_Interes,  
+    SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) AS ABONO_RECARGO
+FROM   
+		SIM_PRESTAMO P,
+		Sim_Tabla_Amortizacion T
+WHERE P.CVE_GPO_EMPRESA = 'SIM'  
+And P.Cve_Empresa     = 'CREDICONFIA'  
+AND P.ID_PRESTAMO = $P{IdPrestamo}
+AND T.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA 
+AND T.CVE_EMPRESA = P.CVE_EMPRESA 
+AND T.ID_PRESTAMO = P.ID_PRESTAMO 
+GROUP BY P.CVE_GPO_EMPRESA, P.Cve_Empresa, P.Id_Prestamo
+)A,
+(SELECT  
+		 P.CVE_GPO_EMPRESA, 
+		 P.Cve_Empresa, 
+		 P.Id_Prestamo,
+     SUM(A.IMP_ACCESORIO_pagado) AS ABONO_ACCESORIO
+FROM   
+		SIM_PRESTAMO P,
+    SIM_TABLA_AMORT_ACCESORIO A
+WHERE P.CVE_GPO_EMPRESA = 'SIM'  
+And P.Cve_Empresa     = 'CREDICONFIA'  
+AND P.ID_PRESTAMO = $P{IdPrestamo}
+AND A.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA 
+AND A.CVE_EMPRESA = P.CVE_EMPRESA 
+AND A.ID_PRESTAMO = P.ID_PRESTAMO 
+GROUP BY P.CVE_GPO_EMPRESA, P.Cve_Empresa, P.Id_Prestamo
+)B
+WHERE A.CVE_GPO_EMPRESA = B.CVE_GPO_EMPRESA
+AND A.CVE_EMPRESA = B.CVE_EMPRESA
+AND A.ID_PRESTAMO = B.ID_PRESTAMO]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
