@@ -34,7 +34,7 @@
 	<field name="ID_GRUPO" class="java.lang.String"/>
 	<field name="NOM_GRUPO" class="java.lang.String"/>
 	<field name="NUM_CICLO" class="java.lang.String"/>
-	<field name="MONTO_FIJO_PERIODO" class="java.math.BigDecimal"/>
+	<field name="MONTO_FIJO_PERIODO" class="java.lang.String"/>
 	<field name="MONTO_FIJO_PERIODO_LETRAS" class="java.lang.String"/>
 	<field name="FECHA_INICIO" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
@@ -112,7 +112,7 @@ CrediConfía.
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Le informamos que recibimos la cantidad de $" + $F{MONTO_AUTORIZADO}.trim() + " pesos M.N. " + "(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.)," + " del crédito " + $F{ID_GRUPO} + "-" +$F{NUM_CICLO}+ " documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma: "]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Le informamos que recibimos la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " pesos M.N. " + "(" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.)," + " del crédito " + $F{ID_GRUPO} + "-" +$F{NUM_CICLO}+ " documentado en un pagaré que firmamos a su nombre (el “Pagaré”). El monto total del crédito está distribuido de la siguiente forma: "]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -333,7 +333,7 @@ CrediConfía.
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["2)	De registrarse atraso en el pago puntual de las cantidades señaladas en el Pagaré, cada integrante del grupo nos obligamos a pagar por cada retraso en el pago de cualquier cuota una penalidad de $" + $F{MONTO_FIJO_PERIODO} +  " (" + $F{MONTO_FIJO_PERIODO_LETRAS} + "00/100 M.N.)" + " que serán causados al momento de cada incumplimiento."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2)	De registrarse atraso en el pago puntual de las cantidades señaladas en el Pagaré, cada integrante del grupo nos obligamos a pagar por cada retraso en el pago de cualquier cuota una penalidad de $ " + $F{MONTO_FIJO_PERIODO}.trim() +  " (" + $F{MONTO_FIJO_PERIODO_LETRAS} + "00/100 M.N.)" + " que serán causados al momento de cada incumplimiento."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement

@@ -60,7 +60,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 						mode="Opaque"
 						x="20"
 						y="3"
-						width="257"
+						width="209"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -87,9 +87,9 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="277"
+						x="229"
 						y="3"
-						width="253"
+						width="301"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -120,7 +120,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="27"  isSplitAllowed="true" >
+			<band height="29"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="157"
@@ -138,8 +138,8 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 					<reportElement
 						x="20"
 						y="2"
-						width="257"
-						height="25"
+						width="209"
+						height="27"
 						key="textField-1"/>
 					<box></box>
 					<textElement>
@@ -149,14 +149,14 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="277"
+						x="229"
 						y="2"
-						width="253"
-						height="25"
+						width="301"
+						height="27"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font/>
+						<font size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION}]]></textFieldExpression>
 				</textField>

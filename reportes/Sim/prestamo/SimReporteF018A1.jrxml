@@ -25,7 +25,7 @@
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 
-'$'||''||TO_CHAR(M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO),'999,999,999.00') MONTO_AUTORIZADO,
+TO_CHAR(M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO),'999,999,999.00') MONTO_AUTORIZADO,
 CANTIDADES_LETRAS(M.MONTO_AUTORIZADO + NVL(C.CARGO_INICIAL,C.PORCENTAJE_MONTO/100*M.MONTO_AUTORIZADO)) MONTO_AUTORIZADO_LETRAS,
 P.NOM_COMPLETO
 FROM
@@ -82,7 +82,7 @@ AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 						height="13"
 						key="textField-1"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
@@ -95,10 +95,10 @@ AND C.ID_CARGO_COMISION (+)  = 9]]></queryString>
 						height="13"
 						key="textField-2"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MONTO_AUTORIZADO} + " " + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["$ " + $F{MONTO_AUTORIZADO}.trim() + " " + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N."]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

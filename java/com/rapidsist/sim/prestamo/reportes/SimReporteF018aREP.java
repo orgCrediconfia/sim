@@ -31,8 +31,7 @@ public class SimReporteF018aREP implements ReporteControlIN {
 						"C.CVE_NOMBRE ID_GRUPO, \n"+
 						"C.NOMBRE NOM_GRUPO, \n"+
 						"C.NUM_CICLO, \n"+
-						//"'$'||''||TO_CHAR(C.MONTO_FIJO_PERIODO,'999,999.00') MONTO_FIJO_PERIODO, \n"+
-						"MONTO_FIJO_PERIODO, \n"+
+						"TO_CHAR(C.MONTO_FIJO_PERIODO,'999,999.00') MONTO_FIJO_PERIODO, \n"+
 						"CANTIDADES_LETRAS(MONTO_FIJO_PERIODO) MONTO_FIJO_PERIODO_LETRAS, \n"+ 
 						"TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD \"de\" MONTH \"de\" YYYY') FECHA_INICIO, \n"+
 						"C.ID_SUCURSAL, \n"+
