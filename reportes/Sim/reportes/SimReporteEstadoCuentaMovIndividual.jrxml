@@ -35,6 +35,7 @@ M.F_Operacion,
 M.F_Aplicacion,
 VI.FECHA_AMORTIZACION,
 M.Desc_Movimiento,
+M.ID_ACCESORIO,
 CASE
       When M.Imp_Pago = '0'
       Then M.Imp_Concepto
@@ -52,10 +53,11 @@ Case
       When M.Desc_Movimiento Like ('%Interes%')
         Then M.Imp_Concepto
 end as interes,
+
 Case
-      When M.Desc_Movimiento Like ('%Seguro Deudor%')
-        Then M.Imp_Concepto  
-end as Seguro,
+      When M.ID_ACCESORIO IN (select id_accesorio from sim_cat_accesorio where cve_tipo_accesorio = 'CARGO_COMISION') 
+        Then M.Imp_Concepto
+end as Accesorios,
 Case
       When M.Desc_Movimiento Like ('%Pago Tardío%')
         Then M.Imp_Concepto
@@ -89,7 +91,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP
 	<field name="MONTO" class="java.lang.Float"/>
 	<field name="CAPITAL" class="java.lang.Float"/>
 	<field name="INTERES" class="java.lang.Float"/>
-	<field name="SEGURO" class="java.lang.Float"/>
+	<field name="ACCESORIOS" class="java.lang.Float"/>
 	<field name="RECARGO" class="java.lang.Float"/>
 	<field name="FECHA_AMORTIZACION" class="java.util.Date"/>
 
@@ -100,7 +102,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP
 		<variableExpression><![CDATA[$F{INTERES}]]></variableExpression>
 	</variable>
 	<variable name="SumAccesorio" class="java.lang.Float" resetType="Report" calculation="Sum">
-		<variableExpression><![CDATA[$F{SEGURO}]]></variableExpression>
+		<variableExpression><![CDATA[$F{ACCESORIOS}]]></variableExpression>
 	</variable>
 	<variable name="SumRecargo" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{RECARGO}]]></variableExpression>
@@ -212,7 +214,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, NVL(ROUND(M.IMP
 					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{SEGURO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{ACCESORIOS}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

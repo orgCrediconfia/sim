@@ -36,6 +36,7 @@ M.F_Operacion,
 M.F_Aplicacion,
 VG.FECHA_AMORTIZACION,
 M.Desc_Movimiento,
+M.ID_ACCESORIO,
 CASE
       When Sum(Nvl(Round(M.Imp_Pago,2),0)) = '0'
       Then Sum(Nvl(Round(M.Imp_Concepto,2),0))
@@ -54,9 +55,9 @@ Case
         Then SUM(NVL(ROUND(M.Imp_Concepto,2),0))
 End As Interes,
 Case
-      When M.Desc_Movimiento Like ('%Seguro Deudor%')
+      When M.ID_ACCESORIO IN (select id_accesorio from sim_cat_accesorio where cve_tipo_accesorio = 'CARGO_COMISION') 
         Then Sum(Nvl(Round(M.Imp_Concepto,2),0)) 
-end as Seguro,
+end as Accesorios,
 Case
       When M.Desc_Movimiento Like ('%Pago Tardío%')
         Then Sum(Nvl(Round(M.Imp_Concepto,2),0))
@@ -79,7 +80,7 @@ AND VG.CVE_GPO_EMPRESA = M.Cve_Gpo_Empresa
 AND VG.CVE_EMPRESA = M.cve_empresa
 AND VG.ID_PRESTAMO_GRUPO = M.Id_Prestamo
 AND VG.NUM_PAGO_AMORTIZACION = M.NUM_PAGO_AMORTIZACION
-GROUP BY M.Cve_Gpo_Empresa, M.Cve_Empresa, P.F_Medio, M.Id_Prestamo, M.NUM_PAGO_AMORTIZACION, M.F_Operacion, M.F_Aplicacion, VG.FECHA_AMORTIZACION, M.Desc_Movimiento 
+GROUP BY M.Cve_Gpo_Empresa, M.Cve_Empresa, P.F_Medio, M.Id_Prestamo, M.NUM_PAGO_AMORTIZACION, M.F_Operacion, M.F_Aplicacion, VG.FECHA_AMORTIZACION, M.Desc_Movimiento, M.ID_ACCESORIO 
 ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(M.IMP_CONCEPTO,2),0))]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
@@ -93,7 +94,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(M
 	<field name="MONTO" class="java.lang.Float"/>
 	<field name="CAPITAL" class="java.lang.Float"/>
 	<field name="INTERES" class="java.lang.Float"/>
-	<field name="SEGURO" class="java.lang.Float"/>
+	<field name="ACCESORIOS" class="java.lang.Float"/>
 	<field name="RECARGO" class="java.lang.Float"/>
 	<field name="SUM(NVL(ROUND(M.IMP_CONCEPTO,2),0))" class="java.lang.Float"/>
 	<field name="FECHA_AMORTIZACION" class="java.util.Date"/>
@@ -105,7 +106,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(M
 		<variableExpression><![CDATA[$F{INTERES}]]></variableExpression>
 	</variable>
 	<variable name="SumAccesorio" class="java.lang.Float" resetType="Report" calculation="Sum">
-		<variableExpression><![CDATA[$F{SEGURO}]]></variableExpression>
+		<variableExpression><![CDATA[$F{ACCESORIOS}]]></variableExpression>
 	</variable>
 	<variable name="SumRecargo" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{RECARGO}]]></variableExpression>
@@ -217,7 +218,7 @@ ORDER BY M.F_APLICACION, M.F_OPERACION, M.NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(M
 					<textElement textAlignment="Right">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{SEGURO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{ACCESORIOS}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
