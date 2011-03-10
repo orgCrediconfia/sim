@@ -25,18 +25,23 @@
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 	 
-			  CVE_GPO_EMPRESA, 	
-			  CVE_EMPRESA, 	
-			  ID_PRESTAMO, 	
-			  DESC_MOVIMIENTO DESCRIPCION,	
-			  TO_CHAR(IMP_DEBE_TOTAL,'999,999,999.99') IMPORTE, 
-			  TO_CHAR(IMP_PAGO_TOTAL,'999,999,999.99') PAGADO, 
-			  TO_CHAR(IMP_SALDO_TOTAL,'999,999,999.99') SALDO 
-			  FROM 
-			  V_SIM_PRESTAMO_RES_EDO_CTA 
-			  WHERE CVE_GPO_EMPRESA = 'SIM' 
-			  AND CVE_EMPRESA = 'CREDICONFIA' 
-			  AND ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
+				A.cve_concepto, 
+				sum(imp_neto) SALDO,  
+				sum(imp_original) IMPORTE,  
+				sum(imp_pagado) PAGADO, 
+				'Total De ' || INITCAP(B.DESC_CORTA) DESCRIPCION 
+				FROM  
+				V_SIM_TABLA_AMORT_CONCEPTO A, 
+				PFIN_CAT_CONCEPTO B 
+				WHERE A.CVE_GPO_EMPRESA = 'SIM' 
+				AND A.CVE_EMPRESA = 'CREDICONFIA'
+				AND A.ID_PRESTAMO = $P{IdPrestamo}
+				AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA 
+				AND B.CVE_EMPRESA       = A.CVE_EMPRESA 
+				AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO 
+				AND A.IMP_ORIGINAL     <> 0 
+				GROUP BY A.cve_concepto, 'Total De ' || INITCAP(B.DESC_CORTA) 
+				Order by cve_concepto ]]></queryString>
 
 	<field name="DESCRIPCION" class="java.lang.String"/>
 	<field name="IMPORTE" class="java.lang.String"/>
@@ -144,7 +149,7 @@
 					<textElement verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Total de " + $F{DESCRIPCION}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

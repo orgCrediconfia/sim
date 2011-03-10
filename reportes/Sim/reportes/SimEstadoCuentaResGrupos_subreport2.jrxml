@@ -24,19 +24,28 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[SELECT 	 
-			  CVE_GPO_EMPRESA, 	
-			  CVE_EMPRESA, 	
-			  ID_PRESTAMO, 	
-			  DESC_MOVIMIENTO DESCRIPCION,	
-			  TO_CHAR(IMP_DEBE_TOTAL,'999,999,999.99') IMPORTE, 
-			  TO_CHAR(IMP_PAGO_TOTAL,'999,999,999.99') PAGADO, 
-			  TO_CHAR(IMP_SALDO_TOTAL,'999,999,999.99') SALDO 
-			  FROM 
-			  V_SIM_PRESTAMO_GPO_RES_EDO_CTA 
-			  WHERE CVE_GPO_EMPRESA = 'SIM' 
-			  AND CVE_EMPRESA = 'CREDICONFIA' 
-			  AND ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
+	<queryString><![CDATA[	 SELECT 	
+			A.cve_concepto, 
+			sum(imp_neto) SALDO,  
+			sum(imp_original) IMPORTE,  
+			sum(imp_pagado) PAGADO, 
+			'Total De ' || INITCAP(B.DESC_CORTA) DESCRIPCION 
+			FROM 
+			SIM_PRESTAMO_GPO_DET G, 
+			V_SIM_TABLA_AMORT_CONCEPTO A, 
+			PFIN_CAT_CONCEPTO B 
+			WHERE G.CVE_GPO_EMPRESA = 'SIM' 
+			AND G.CVE_EMPRESA = 'CREDICONFIA' 
+			AND G.ID_PRESTAMO_GRUPO = $P{IdPrestamo}
+			AND A.CVE_GPO_EMPRESA   = G.CVE_GPO_EMPRESA 
+			AND A.CVE_EMPRESA       = G.CVE_EMPRESA 
+			AND A.ID_PRESTAMO       = G.ID_PRESTAMO 
+			AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA 
+			AND B.CVE_EMPRESA       = A.CVE_EMPRESA 
+			AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO 
+			AND A.IMP_ORIGINAL     <> 0 
+			GROUP BY A.cve_concepto, 'Total De ' || INITCAP(B.DESC_CORTA) 
+			Order by cve_concepto ]]></queryString>
 
 	<field name="DESCRIPCION" class="java.lang.String"/>
 	<field name="IMPORTE" class="java.lang.String"/>
