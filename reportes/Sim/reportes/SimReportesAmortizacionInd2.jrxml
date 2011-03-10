@@ -6,9 +6,9 @@
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="1247"
+		 pageWidth="1047"
 		 pageHeight="802"
-		 columnWidth="1247"
+		 columnWidth="1047"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -74,25 +74,12 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="36"  isSplitAllowed="true" >
+			<band height="20"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
-						y="2"
-						width="1172"
-						height="20"
-						key="staticText-1"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Cargos y comisiones]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="21"
-						width="201"
+						y="4"
+						width="180"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
@@ -103,9 +90,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="201"
-						y="21"
-						width="268"
+						x="183"
+						y="4"
+						width="381"
 						height="15"
 						key="staticText-3"/>
 					<box></box>
@@ -116,9 +103,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="469"
-						y="21"
-						width="85"
+						x="567"
+						y="4"
+						width="140"
 						height="15"
 						key="staticText-4"/>
 					<box></box>
@@ -129,9 +116,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="554"
-						y="21"
-						width="111"
+						x="711"
+						y="4"
+						width="140"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -143,9 +130,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="665"
-						y="21"
-						width="137"
+						x="856"
+						y="4"
+						width="140"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
@@ -158,8 +145,8 @@
 				<line direction="TopDown">
 					<reportElement
 						x="0"
-						y="35"
-						width="1172"
+						y="18"
+						width="1000"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -168,7 +155,7 @@
 					<reportElement
 						x="0"
 						y="2"
-						width="1172"
+						width="1000"
 						height="0"
 						key="line-3"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -185,7 +172,7 @@
 					<reportElement
 						x="0"
 						y="2"
-						width="201"
+						width="180"
 						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -202,9 +189,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="201"
+						x="183"
 						y="2"
-						width="268"
+						width="381"
 						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -221,9 +208,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="469"
+						x="567"
 						y="2"
-						width="84"
+						width="140"
 						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -240,9 +227,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="553"
+						x="710"
 						y="2"
-						width="112"
+						width="140"
 						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -259,9 +246,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="665"
+						x="856"
 						y="2"
-						width="137"
+						width="140"
 						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
