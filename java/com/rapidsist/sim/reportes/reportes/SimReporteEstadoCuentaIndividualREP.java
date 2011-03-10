@@ -130,7 +130,7 @@ public class SimReporteEstadoCuentaIndividualREP implements ReporteControlIN {
 		  "    Id_Prestamo, \n"+
 		  "    SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n"+
 		  "  From V_SIM_PRESTAMO_RES_EDO_CTA \n"+
-		  "  WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
+		  "  WHERE DESC_MOVIMIENTO NOT IN ('Pago prestamo') \n"+
 		  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n"+
 		  "  Order By Id_Prestamo \n"+ 
 		  "  ) AE, \n"+
