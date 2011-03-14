@@ -36,6 +36,8 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 		Iterator iteratorIntegrantes = lIntegrantes.iterator();
 		String sIntegrantes = "";
 		
+		int iCantidadIntegrantes = lIntegrantes.size();
+		
 		//ITEREA TODOS LOS INTEGRANTES Y LO DEJA EN UNA CADENA UNICA
 		while(iteratorIntegrantes.hasNext()){
 			Registro registro = (Registro)iteratorIntegrantes.next();
@@ -75,13 +77,21 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 		parametros.put("NombresIntegrantes", sIntegrantes);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReportePagareSolidarioNuevo.jasper");
-		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
-		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
-		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
-		//parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
-		//parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
-		//parametros.put("Subreporte5", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
+		
+		
+		if (iCantidadIntegrantes <= 7){
+			parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReportePagareSolidarioNuevo.jasper");
+			parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
+			parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
+			parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
+		}else{
+			parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReportePagareSolidarioNuevo.jasper");
+			parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0.jasper"));
+			parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario2.jasper"));
+			parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
+			
+		}
+
 		return parametros;
 	}
 }
