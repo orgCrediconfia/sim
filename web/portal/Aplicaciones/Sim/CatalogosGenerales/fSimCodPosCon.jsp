@@ -7,23 +7,23 @@
 	<Portal:Forma tipo='busqueda' funcion='SimCatalogoCodigoPostal' operacion='CT' filtro='Todos'>
 		<Portal:FormaElemento etiqueta='C&oacute;digo postal' control='Texto' controlnombre='CodigoPostal' controlvalor='${param.CodigoPostal}' controllongitud='6' controllongitudmax='10' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaElemento etiqueta='Colonia/Asentamiento' control='Texto' controlnombre='NomAsentamiento' controlvalor='${param.NomAsentamiento}' controllongitud='30' controllongitudmax='100' editarinicializado='true' obligatorio='false' />
-
+		<input type="hidden" name="Ventana" value='<c:out value='${param.Ventana}'/>' />
 	</Portal:Forma>
 	
-	<Portal:TablaLista tipo="alta" nombre="Consulta cat&aacute;logo de c&oacute;digos postales" botontipo="url" url='/ProcesaCatalogo?Funcion=SimCatalogoCodigoPostal&OperacionCatalogo=IN&Filtro=Alta'>
-		<Portal:TablaListaTitulos> 
+	<Portal:TablaForma nombre="Consulta cat&aacute;logo de c&oacute;digos postales" funcion='SimCatalogoCodigoPostal' operacion='AL' parametros='CodigoPostal=${param.CodigoPostal}'>
+		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='10%' valor='C&oacute;digo postal'/>
 			<Portal:Columna tipovalor='texto' ancho='50' valor='Referencia'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Colonia/Asentamiento'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Tipo asentamiento'/>		
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Delegaci&oacute;n/Municipio'/>		
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Ciudad'/>
-			<Portal:Columna tipovalor='texto' ancho='100%' valor='Estado'/>		
+			<Portal:Columna tipovalor='texto' ancho='100%' valor='Estado'/>	
 		</Portal:TablaListaTitulos>
-		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
+		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">
 			<Portal:TablaListaRenglon>
 				<Portal:Columna tipovalor='texto' ancho='10%' valor=''>					
-					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CODIGO_POSTAL"]}' funcion='SimCatalogoCodigoPostal' operacion='CR' parametros='CodigoPostal=${registro.campos["CODIGO_POSTAL"]}&IdReferPost=${registro.campos["ID_REFER_POST"]}' parametrosregreso='\'${registro.campos["CODIGO_POSTAL"]}\', \'${registro.campos["ID_REFER_POST"]}\', \'${registro.campos["NOM_ASENTAMIENTO"]}\', \'${registro.campos["NOM_DELEGACION"]}\', \'${registro.campos["NOM_CIUDAD"]}\', \'${registro.campos["NOM_ESTADO"]}\', \'${registro.campos["TIPO_ASENTAMIENTO"]}\''/>
+					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CODIGO_POSTAL"]}' funcion='SimCatalogoCodigoPostal' operacion='CR' parametros='Filtro=Consulta&CodigoPostal=${registro.campos["CODIGO_POSTAL"]}&IdReferPost=${registro.campos["ID_REFER_POST"]}' parametrosregreso='\'${registro.campos["CODIGO_POSTAL"]}\', \'${registro.campos["ID_REFER_POST"]}\', \'${registro.campos["NOM_ASENTAMIENTO"]}\', \'${registro.campos["NOM_DELEGACION"]}\', \'${registro.campos["NOM_CIUDAD"]}\', \'${registro.campos["NOM_ESTADO"]}\', \'${registro.campos["TIPO_ASENTAMIENTO"]}\''/>
 				</Portal:Columna>
 				<Portal:Columna tipovalor='texto' ancho='50' valor='${registro.campos["ID_REFER_POST"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_ASENTAMIENTO"]}'/>
@@ -33,10 +33,26 @@
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_ESTADO"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
-
-	</Portal:TablaLista>	
+		
+		
+		<Portal:FormaBotones>
+			<input type='button' name='Alta' value='Alta' onClick='fAltaColonia()'/>
+		</Portal:FormaBotones>				
+	</Portal:TablaForma>
+	
+	
 	
 	<script>
+	
+		function fAltaColonia(){
+			if (document.frmRegistro.CodigoPostal.value == ""){
+				alert("Ingrese el Código Postal para dar de alta la colonia");
+			}else{ 
+				document.frmTablaForma.action="ProcesaCatalogo?Funcion=SimCatalogoCodigoPostal&OperacionCatalogo=CR&Filtro=AltaColonia&Ventana="+document.frmRegistro.Ventana.value+"&CodigoPostal="+document.frmRegistro.CodigoPostal.value;
+				document.frmTablaForma.submit();
+			}
+		}
+		
 		function RegresaDatos(CodigoPostal, IdReferPost, Colonia, Municipio, Ciudad, Estado, TipoAsentamiento){
 			var padre = window.opener;
 			
