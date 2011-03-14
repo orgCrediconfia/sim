@@ -797,10 +797,12 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 				}else if (sOperaDiaFestivo.equals("V") && bDiaFestivo){
 					bBuscaFechaValida = false;
 				}else {
+					//No se permiten días festivos, ni sábados, ni domingos, por lo que obtiene el siguiente.
 					sSql = " SELECT TO_CHAR(TO_DATE('" + sFechaEntrega + "','DD/MM/YYYY') + 1,'DD/MM/YYYY') FECHA_VALIDA FROM DUAL \n" ;
 					ejecutaSql();
 					System.out.println("la siguiente fecha a analizar es: "+sSql);
 					if (rs.next()){
+						//La siguiente fecha de entrega a analizar.
 						sFechaEntrega = rs.getString("FECHA_VALIDA");
 					}
 				}
@@ -812,9 +814,8 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 		}
 		
 		sFechaDesembolsoValida = sFechaEntrega;
-		System.out.println("Esta funcion hace lo mismo que la de lalo y creo que es mas simple "+sFechaDesembolsoValida);
 		iDiaEntrega = Integer.parseInt(sDiaEntrega);
-		//Pregunta si es un crÃ©dito catorcena o semanal.
+		
 		if (!registro.getDefCampo("DIA_SEMANA_PAGO").equals("ninguno")) {
 			if (registro.getDefCampo("DIA_SEMANA_PAGO").equals("Lunes")){
 				iDiaSemanaPago = 1;
@@ -889,6 +890,9 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 				}
 				System.out.println("sDiaEntrega "+sDiaEntrega);
 				
+				if (sDiaEntrega == null){
+					sDiaEntrega = "0";
+				}
 				
 				if (sDiaEntrega.equals("6") || sDiaEntrega.equals("7") || bDiaFestivo){
 					System.out.println("Se trata de unn domingo sabado o dia festivo");

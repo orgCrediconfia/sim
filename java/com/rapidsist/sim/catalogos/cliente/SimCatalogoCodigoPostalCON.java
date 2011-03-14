@@ -51,7 +51,6 @@ public class SimCatalogoCodigoPostalCON implements CatalogoControlConsultaIN, Ca
 		boolean bParametrosFiltro = false;
 		//VERIFICA SI BUSCA TODOS LOS REGISTROS
 		if (iTipoOperacion == CON_CONSULTA_TABLA){
-
 			//VERIFICA SI SE ENVIO EL PARAMETRO CODIGO_POSTAL
 			if (request.getParameter("CodigoPostal") != null && !request.getParameter("CodigoPostal").equals("")){
 				parametros.addDefCampo("CODIGO_POSTAL", request.getParameter("CodigoPostal"));
@@ -64,29 +63,31 @@ public class SimCatalogoCodigoPostalCON implements CatalogoControlConsultaIN, Ca
 				bParametrosFiltro = true;
 			}
 
-            		//VERIFICA SI SE RECOLECTARON LOS PARAMETROS PARA OBTENER LA CONSULTA DE LOS CODIGOS POSTALES
+            //VERIFICA SI SE RECOLECTARON LOS PARAMETROS PARA OBTENER LA CONSULTA DE LOS CODIGOS POSTALES
 			if (bParametrosFiltro){
 				registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimCatalogoCodigoPostal", parametros));
 			}
-			registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosCon.jsp";
+			registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosCon.jsp?CodigoPostal="+request.getParameter("CodigoPostal");
 			
 		}else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
-		
-			parametros.addDefCampo("CODIGO_POSTAL", request.getParameter("CodigoPostal"));
-			
-			parametros.addDefCampo("ID_REFER_POST", request.getParameter("IdReferPost"));
-			
-			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCatalogoCodigoPostal", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosReg.jsp";
+			if (request.getParameter("Filtro").equals("AltaColonia")){
+				parametros.addDefCampo("CONSULTA","PARA_ALTA");
+				parametros.addDefCampo("CODIGO_POSTAL", request.getParameter("CodigoPostal"));
+				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCatalogoCodigoPostal", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosReg.jsp";
+			}else{
+				parametros.addDefCampo("CONSULTA","CONSULTA_REGISTRO");
+				parametros.addDefCampo("CODIGO_POSTAL", request.getParameter("CodigoPostal"));
+				parametros.addDefCampo("ID_REFER_POST", request.getParameter("IdReferPost"));
+				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCatalogoCodigoPostal", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosReg.jsp";
+			}
 		}
 		
 		else if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosCon.jsp";
-			}else if (request.getParameter("Filtro").equals("Alta")){
-				registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosReg.jsp";
+				registroControl.sPagina = "/Aplicaciones/Sim/CatalogosGenerales/fSimCodPosCon.jsp?Ventana="+request.getParameter("Ventana")+"&CodigoPostal=";
 			}
-			
 		} 
 		return registroControl;
 	}
@@ -124,12 +125,12 @@ public class SimCatalogoCodigoPostalCON implements CatalogoControlConsultaIN, Ca
 		registro.addDefCampo("NOM_DELEGACION",request.getParameter("NomDelegacion"));
 		registro.addDefCampo("NOM_CIUDAD",request.getParameter("NomCiudad"));
 		registro.addDefCampo("NOM_ESTADO",request.getParameter("NomEstado"));
-		registro.addDefCampo("FILTRO_DATOS",request.getParameter("FiltroRegresaDatos"));
-
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCatalogoCodigoPostal&OperacionCatalogo=CT&Filtro=Todos&FiltroRegresaDatos="+request.getParameter("FiltroRegresaDatos");
-
+		
 		//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCatalogoCodigoPostal", registro, iTipoOperacion);
+		
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCatalogoCodigoPostal&OperacionCatalogo=CT&Filtro=Todos&CodigoPostal="+request.getParameter("CodigoPostal");
+
 		return registroControl;
 	}
 }

@@ -44,7 +44,7 @@ public class SimCatalogoCodigoPostalDAO extends Conexion2 implements OperacionAl
 		}
 		
 		sSql = sSql + " ORDER BY NOM_ASENTAMIENTO \n";
-		
+	
 		ejecutaSql();
 		return this.getConsultaLista();
 	}
@@ -57,10 +57,29 @@ public class SimCatalogoCodigoPostalDAO extends Conexion2 implements OperacionAl
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public Registro getRegistro(Registro parametros) throws SQLException{
-		sSql = "SELECT * FROM RS_GRAL_CODIGO_POSTAL \n" +
-			   "WHERE CODIGO_POSTAL='" + (String)parametros.getDefCampo("CODIGO_POSTAL") + "' \n"+
-			   "AND ID_REFER_POST='" + (String)parametros.getDefCampo("ID_REFER_POST") + "' \n";
-			   
+		
+		if (parametros.getDefCampo("ID_REFER_POST") == null){
+			sSql =  "SELECT DISTINCT \n" +
+					"CODIGO_POSTAL, \n" +
+					"NOM_DELEGACION, \n" +
+					"NOM_CIUDAD, \n" +
+					"NOM_ESTADO \n" +
+					"FROM RS_GRAL_CODIGO_POSTAL \n" +
+					"WHERE CODIGO_POSTAL='" + (String)parametros.getDefCampo("CODIGO_POSTAL") + "' \n";
+		}else if (parametros.getDefCampo("ID_REFER_POST") != null){
+			sSql =  "SELECT DISTINCT \n" +
+					"CODIGO_POSTAL, \n" +
+					"ID_REFER_POST, \n" +
+					"NOM_ASENTAMIENTO, \n" +
+					"TIPO_ASENTAMIENTO, \n" +
+					"NOM_DELEGACION, \n" +
+					"NOM_CIUDAD, \n" +
+					"NOM_ESTADO \n" +
+					"FROM RS_GRAL_CODIGO_POSTAL \n" +
+					"WHERE CODIGO_POSTAL = '" + (String)parametros.getDefCampo("CODIGO_POSTAL") + "' \n"+
+					"AND ID_REFER_POST = '" + (String)parametros.getDefCampo("ID_REFER_POST") + "' \n";
+		}
+		
 		ejecutaSql();
 		return this.getConsultaRegistro();
 	}
@@ -73,6 +92,15 @@ public class SimCatalogoCodigoPostalDAO extends Conexion2 implements OperacionAl
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
+		
+		sSql = "SELECT MAX(ID_REFER_POST) + 1 AS ID_REFER_POST \n" +
+				"FROM RS_GRAL_CODIGO_POSTAL \n" +
+				"WHERE CODIGO_POSTAL='" + (String)registro.getDefCampo("CODIGO_POSTAL") + "' \n";
+		ejecutaSql();
+		if (rs.next()){
+			registro.addDefCampo("ID_REFER_POST",rs.getString("ID_REFER_POST"));
+		}
+		
 		sSql = "INSERT INTO RS_GRAL_CODIGO_POSTAL ( \n"+
 					"CODIGO_POSTAL, \n" +
 					"ID_REFER_POST, \n" +
@@ -93,6 +121,7 @@ public class SimCatalogoCodigoPostalDAO extends Conexion2 implements OperacionAl
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
+		
 		return resultadoCatalogo;
 	}
 
