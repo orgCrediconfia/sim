@@ -137,6 +137,7 @@ public class SimComitePrestamoDAO extends Conexion2 implements OperacionConsulta
 					"AND G.CVE_GPO_EMPRESA = CP.CVE_GPO_EMPRESA \n"+
 					"AND G.CVE_EMPRESA = CP.CVE_EMPRESA \n"+
 					"AND G.ID_PRESTAMO_GRUPO = CP.ID_PRESTAMO_GRUPO \n"+
+					"AND G.ID_ETAPA_PRESTAMO != '16' \n"+
 					"AND GPO.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+
 					"AND GPO.CVE_EMPRESA = G.CVE_EMPRESA \n"+
 					"AND GPO.ID_GRUPO = G.ID_GRUPO \n"+
@@ -159,6 +160,7 @@ public class SimComitePrestamoDAO extends Conexion2 implements OperacionConsulta
 			"AND P.CVE_GPO_EMPRESA = CP.CVE_GPO_EMPRESA \n"+
 			"AND P.CVE_EMPRESA = CP.CVE_EMPRESA \n"+
 			"AND P.ID_PRESTAMO = CP.ID_PRESTAMO \n"+
+			"AND P.ID_ETAPA_PRESTAMO != '16' \n"+
 			"AND PER.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
 			"AND PER.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 			"AND PER.ID_PERSONA = P.ID_CLIENTE \n";
