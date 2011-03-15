@@ -153,13 +153,13 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="675"  isSplitAllowed="true" >
+			<band height="649"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
 						y="84"
 						width="254"
-						height="348"
+						height="333"
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -189,9 +189,9 @@
 				<staticText>
 					<reportElement
 						x="298"
-						y="463"
+						y="430"
 						width="252"
-						height="206"
+						height="219"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -261,7 +261,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="298"
-						y="450"
+						y="417"
 						width="252"
 						height="13"
 						key="staticText-6"/>
@@ -274,7 +274,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="0"
-						y="662"
+						y="636"
 						width="254"
 						height="13"
 						key="staticText-7"/>
@@ -287,7 +287,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="0"
-						y="432"
+						y="417"
 						width="254"
 						height="13"
 						key="staticText-8"/>
@@ -315,33 +315,31 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 						x="298"
 						y="344"
 						width="252"
-						height="106"
+						height="73"
 						key="staticText-9"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<text><![CDATA[2) Es su deseo constituirse en OBLIGADO SOLIDARIO del DEUDOR, en favor de DINSA respecto de todas las obligaciones de la primera, contraídas de conformidad con este contrato, su Anexo A y PAGARÉ, de los cuales conoce y conocerá plenamente todas y cada una de las obligaciones crediticias que contrae y contraerá el DEUDOR, en favor de DINSA. 
-
-Conformes las partes en las declaraciones que anteceden, celebran este Contrato de Apertura de Crédito Simple con Dación en Pago en términos de las siguientes:]]></text>
+				<text><![CDATA[2) Es su deseo constituirse en OBLIGADO SOLIDARIO del DEUDOR, en favor de DINSA respecto de todas las obligaciones de la primera, contraídas de conformidad con este contrato, su Anexo A y PAGARÉ, de los cuales conoce y conocerá plenamente todas y cada una de las obligaciones crediticias que contrae y contraerá el DEUDOR, en favor de DINSA]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="445"
+						y="430"
 						width="252"
-						height="38"
+						height="27"
 						key="textField-4"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_CLIENTE}+ "."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_AVAL}+ "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="0"
-						y="483"
+						y="457"
 						width="252"
 						height="179"
 						key="staticText-10"/>
