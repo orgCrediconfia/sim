@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimReportePagareSolidario_subreport0"
+		 name="SimReportePagareSolidario_subreport0Copia"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -315,13 +315,13 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="260"  isSplitAllowed="true" >
+			<band height="217"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="6"
-						y="7"
-						width="555"
-						height="157"
+						x="0"
+						y="17"
+						width="558"
+						height="200"
 						key="staticText-8"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -330,20 +330,8 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 				<text><![CDATA[En caso de mora en el pago oportuno de cualquier cantidad adeudada por los Suscriptores conforme a este Pagare, se generarán intereses moratorios computados desde la fecha en que debió efectuarse el pago y hasta el pago total del mismo a una tasa de 1.5 veces la tasa de interés mensual utilizada para calcular los intereses ordinarios. Los intereses moratorios que cause este Pagaré, se calcularán sobre la base de un año de 365 días por el número de días efectivamente transcurridos en dicha periodicidad.
 
 Todas las cantidades pagaderas por los Suscriptores a DINSA serán cubiertas sin deducción y libres de cualesquiera impuestos, contribuciones, deducciones o retenciones de cualquier naturaleza que se impongan o graven en cualquier tiempo, por cualquier autoridad, respecto del pago del principal bajo este Pagaré, incluyendo especialmente, pero sin limitación, el Impuesto Sobre la Renta en vigor. En caso de ser aplicables cualesquiera de los anteriores impuestos, contribuciones, deducciones o retenciones, los Suscriptores deberán cubrir las cantidades adicionales que sean necesarias a fin de que DINSA reciba las sumas que le corresponderían conforme a este Pagaré si no hubieran sido aplicables tales impuestos, contribuciones, deducciones o retenciones.
-]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="6"
-						y="165"
-						width="555"
-						height="54"
-						key="staticText-11"/>
-					<box></box>
-					<textElement>
-						<font/>
-					</textElement>
-				<text><![CDATA[Expresamente convenimos, en que por la falta de pago puntual de cualquiera de las cantidades arriba estipuladas se dé por vencido, anticipadamente el saldo pendiente de pago y se procederá al cobro del mismo conjuntamente con los intereses convencionales, impuestos, comisiones, gastos y demás erogaciones existentes.]]></text>
+
+Expresamente convenimos, en que por la falta de pago puntual de cualquiera de las cantidades arriba estipuladas se dé por vencido, anticipadamente el saldo pendiente de pago y se procederá al cobro del mismo conjuntamente con los intereses convencionales, impuestos, comisiones, gastos y demás erogaciones existentes. ]]></text>
 				</staticText>
 			</band>
 		</pageFooter>
