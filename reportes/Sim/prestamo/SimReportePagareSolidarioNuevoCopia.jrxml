@@ -49,6 +49,7 @@
 	<field name="PLAZO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL_CIUDAD" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -59,7 +60,7 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="221"  isSplitAllowed="true" >
+			<band height="212"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						mode="Opaque"
@@ -111,7 +112,7 @@
 						x="0"
 						y="127"
 						width="552"
-						height="55"
+						height="35"
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -122,7 +123,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="182"
+						y="173"
 						width="552"
 						height="39"
 						key="textField-4"/>
@@ -130,7 +131,7 @@
 					<textElement textAlignment="Justified">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Los pagos de principal e intereses ordinarios se realizarán, mediante "+$F{PLAZO}+" pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días establecidos "+$F{NOM_PERIODICIDAD}+"(es), conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los pagos de principal e intereses ordinarios se realizarán, mediante "+$F{PLAZO}+" pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días "+$F{NOM_PERIODICIDAD}+"(es), establecidos conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>
@@ -151,11 +152,11 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="590"  isSplitAllowed="true" >
+			<band height="340"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="2"
+						y="0"
 						width="552"
 						height="50"
 						key="subreport-1"/>
@@ -168,7 +169,7 @@
 				<break>
 					<reportElement
 						x="0"
-						y="79"
+						y="56"
 						width="552"
 						height="0"
 						key="element-2"/>
@@ -176,7 +177,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="100"
+						y="77"
 						width="552"
 						height="23"
 						key="textField-5"/>
@@ -189,9 +190,9 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="574"
+						y="259"
 						width="552"
-						height="16"
+						height="81"
 						key="subreport-2"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
@@ -202,9 +203,9 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="123"
+						y="100"
 						width="552"
-						height="52"
+						height="76"
 						key="subreport-3"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
@@ -218,7 +219,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="85"
+						y="62"
 						width="552"
 						height="13"
 						key="staticText-1"/>
@@ -228,6 +229,27 @@
 					</textElement>
 				<text><![CDATA[Las partes declaran como sus domicilios:]]></text>
 				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="224"
+						width="552"
+						height="25"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Este PAGARÉ se firma en la Ciudad de " + $F{DIRECCION_SUCURSAL_CIUDAD} + " el " + $F{FECHA_ENTREGA}.trim() + "."]]></textFieldExpression>
+				</textField>
+				<break>
+					<reportElement
+						x="0"
+						y="209"
+						width="552"
+						height="0"
+						key="element-3"/>
+				</break>
 			</band>
 		</summary>
 </jasperReport>
