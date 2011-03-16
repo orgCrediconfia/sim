@@ -7,7 +7,7 @@
 		 printOrder="Vertical"
 		 orientation="Portrait"
 		 pageWidth="612"
-		 pageHeight="792"
+		 pageHeight="900"
 		 columnWidth="556"
 		 columnSpacing="28"
 		 leftMargin="28"
@@ -58,11 +58,11 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="584"  isSplitAllowed="true" >
+			<band height="739"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="22"
-						y="493"
+						y="534"
 						width="235"
 						height="10"
 						key="staticText-4"/>
@@ -75,7 +75,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="21"
-						y="528"
+						y="569"
 						width="234"
 						height="0"
 						key="line-1"/>
@@ -84,7 +84,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="551"
+						y="592"
 						width="235"
 						height="10"
 						key="staticText-6"/>
@@ -97,7 +97,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="570"
+						y="611"
 						width="40"
 						height="13"
 						key="staticText-7"/>
@@ -122,16 +122,16 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="46"
-						y="461"
-						width="510"
-						height="13"
+						x="-1"
+						y="494"
+						width="556"
+						height="24"
 						key="textField-6"/>
 					<box></box>
 					<textElement textAlignment="Left">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_SUCURSAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Suscrito en " + $F{DIRECCION_SUCURSAL} + " el día " + $F{FECHA_ENTREGA}.trim()+ "."]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -144,7 +144,7 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré, " + $F{NOM_COMPLETO} + " a quien(es) en lo sucesivo se le(s) denominará (el Suscriptor), se obliga(n) a pagar ncondicionalmente a la orden de DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE, ENTIDAD NO REGULADA, en lo sucesivo (la Beneficiaria), la cantidad de $ " + $F{MONTO_AUTORIZADO} + " M.N. (" + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N.) a la vista, en el domicilio ubicado en  " + $F{DIRECCION_SUCURSAL} + " mediante " + $F{PLAZO} + " pagos " + $F{NOM_PERIODICIDAD} + "(es)."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré, " + $F{NOM_COMPLETO} + " a quien(es) en lo sucesivo se le(s) denominará (el Suscriptor), se obliga(n) a pagar incondicionalmente a la orden de DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE, ENTIDAD NO REGULADA, en lo sucesivo (la Beneficiaria), la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " M.N. (" + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N.) a la vista, en el domicilio ubicado en  " + $F{DIRECCION_SUCURSAL} + " mediante " + $F{PLAZO} + " pagos " + $F{NOM_PERIODICIDAD} + "(es)."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -175,8 +175,8 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="362"
-						width="369"
+						y="395"
+						width="414"
 						height="13"
 						key="staticText-88"/>
 					<box></box>
@@ -187,21 +187,21 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="369"
-						y="362"
-						width="184"
+						x="389"
+						y="395"
+						width="139"
 						height="13"
 						key="textField-17"/>
 					<box></box>
 					<textElement textAlignment="Left">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO} + "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="1"
-						y="379"
+						y="410"
 						width="555"
 						height="79"
 						key="staticText-89"/>
@@ -216,36 +216,10 @@ En el evento de existir varios tribunales competentes por existir domicilios en 
 Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscrita(s) por el Suscriptor  y el (los) Avale (s).
 ]]></text>
 				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="461"
-						width="46"
-						height="13"
-						key="staticText-96"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[Suscrito en ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="474"
-						width="22"
-						height="13"
-						key="staticText-97"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[el día]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="22"
-						y="530"
+						y="571"
 						width="235"
 						height="13"
 						key="textField-19"/>
@@ -258,7 +232,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="61"
-						y="570"
+						y="611"
 						width="196"
 						height="13"
 						key="textField-20"/>
@@ -267,19 +241,6 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_CLIENTE}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="dd" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="22"
-						y="474"
-						width="136"
-						height="13"
-						key="textField-21"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_ENTREGA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -292,7 +253,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 					<textElement textAlignment="Right">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["BUENO. Por $ " + $F{MONTO_AUTORIZADO} + " M.N. " + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BUENO. Por $ " + $F{MONTO_AUTORIZADO}.trim() + " M.N. " + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -310,7 +271,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="301"
-						y="493"
+						y="534"
 						width="235"
 						height="10"
 						key="staticText-104"/>
@@ -323,7 +284,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<line direction="TopDown">
 					<reportElement
 						x="300"
-						y="528"
+						y="569"
 						width="234"
 						height="0"
 						key="line-2"/>
@@ -332,7 +293,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="300"
-						y="554"
+						y="595"
 						width="235"
 						height="10"
 						key="staticText-105"/>
@@ -345,7 +306,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="300"
-						y="570"
+						y="611"
 						width="40"
 						height="13"
 						key="staticText-106"/>
@@ -358,7 +319,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="340"
-						y="570"
+						y="611"
 						width="196"
 						height="13"
 						key="textField-28"/>
@@ -371,7 +332,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="300"
-						y="529"
+						y="570"
 						width="235"
 						height="13"
 						key="textField-29"/>
@@ -384,9 +345,9 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="0"
-						y="169"
+						y="159"
 						width="553"
-						height="189"
+						height="235"
 						key="staticText-107"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -403,6 +364,80 @@ El Suscriptor por medio del presente promete pagar los gastos que impliquen el c
 El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Operaciones de Crédito, conviene en extender el plazo de presentación del presente PAGARÉ por un periodo de tres años a partir de la fecha de su suscripción, en la inteligencia de que la extensión de dicho plazo no deberá entenderse como un impedimento para que la Beneficiaria presente este PAGARÉ para su pago, con anterioridad a dicha fecha.
 ]]></text>
 				</staticText>
+				<staticText>
+					<reportElement
+						x="303"
+						y="649"
+						width="235"
+						height="10"
+						key="staticText-108"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Aval (es)]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="302"
+						y="684"
+						width="234"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="302"
+						y="710"
+						width="235"
+						height="10"
+						key="staticText-109"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre y Firma]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="726"
+						width="40"
+						height="13"
+						key="staticText-110"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Dirección:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="342"
+						y="726"
+						width="196"
+						height="13"
+						key="textField-30"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_AVAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="302"
+						y="685"
+						width="235"
+						height="13"
+						key="textField-31"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>
