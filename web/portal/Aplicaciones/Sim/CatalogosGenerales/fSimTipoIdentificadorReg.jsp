@@ -9,8 +9,6 @@
 		<Portal:FormaElemento etiqueta='Id Tipo Identificador' control='etiqueta-controloculto' controlnombre='IdTipoIdentificador' controlvalor='${param.IdTipoIdentificador}' controllongitud='2' controllongitudmax='2' editarinicializado='false' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='Descripci&oacute;n' control='Texto' controlnombre='DescTipoIdentificador' controlvalor='${requestScope.registro.campos["DESC_TIPO_IDENTIFICADOR"]}' controllongitud='60' controllongitudmax='50' editarinicializado='true' obligatorio='true' />
 		<Portal:FormaBotones>
-			<Portal:FormaBotonAltaModificacion/>
-			<Portal:FormaBotonBaja/>
 		</Portal:FormaBotones>
 	</Portal:Forma>	
 </Portal:Pagina>

@@ -44,6 +44,7 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			"	CN.CVE_CLASE, \n"+
 			"	DECODE(CN.B_PRINCIPAL,'V','Principal','F','Secundario') B_PRINCIPAL, \n"+
 			"	CN.FECHA_INICIO_OPERACION, \n"+
+			"	CN.ID_UBICACION_NEGOCIO, \n"+
 			"	D.ID_DOMICILIO, \n"+
 			"	D.CALLE, \n"+
 			"	D.NUMERO_INT, \n"+
@@ -94,6 +95,7 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			"	C.NOM_CLASE, \n"+
 			"	CN.B_PRINCIPAL, \n"+
 			"	CN.FECHA_INICIO_OPERACION, \n"+
+			"	CN.ID_UBICACION_NEGOCIO, \n"+
 			"	D.ID_DOMICILIO, \n"+
 			"	D.CALLE, \n"+
 			"	D.NUMERO_INT, \n"+
@@ -141,11 +143,61 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 		
 		//OBTENEMOS EL SEQUENCE
 		sSql = "SELECT SQ01_SIM_CLIENTE_NEGOCIO.nextval as ID_NEGOCIO FROM DUAL";
-			ejecutaSql();
-			if (rs.next()){
-				sIdNegocio = rs.getString("ID_NEGOCIO");
-			}
+		ejecutaSql();
+		if (rs.next()){
+			sIdNegocio = rs.getString("ID_NEGOCIO");
+		}
+			
+		String sIdDomicilio = "";
+			
+		//OBTENEMOS EL SEQUENCE
+		sSql = "SELECT SQ01_RS_GRAL_DOMICILIO.nextval as ID_DOMICILIO FROM DUAL";
+		ejecutaSql();
+		if (rs.next()){
+			sIdDomicilio = rs.getString("ID_DOMICILIO");
+		}
 
+		//INSERTA EL REGISTRO DE DOMICILIO PARA PODER OBTENER EL ID_DOMICILIO DEL SEQUENCE
+		sSql = "INSERT INTO RS_GRAL_DOMICILIO ( "+
+			   "CVE_GPO_EMPRESA, \n" +
+			   "CVE_EMPRESA, \n" +
+			   "ID_DOMICILIO, \n" +
+			   "CALLE, \n" +
+			   "NUMERO_INT, \n" +
+			   "NUMERO_EXT, \n" +
+			   "CODIGO_POSTAL, \n" +
+			   "ID_REFER_POST, \n" +
+			   "NOM_ASENTAMIENTO, \n" +
+			   "TIPO_ASENTAMIENTO, \n" +
+			   "NOM_DELEGACION, \n" +
+			   "NOM_CIUDAD, \n" +
+			   "NOM_ESTADO, \n" +
+			   "IDENTIFICADOR, \n" +
+			   "CVE_TIPO_IDENTIFICADOR) \n" +
+			" VALUES (" +
+			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+			"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+			" " + sIdDomicilio +", \n" +
+			"'" + (String)registro.getDefCampo("CALLE") + "', \n" +
+			"'" + (String)registro.getDefCampo("NUMERO_INT") + "', \n" +
+			"'" + (String)registro.getDefCampo("NUMERO_EXT") + "', \n" +
+			"'" + (String)registro.getDefCampo("CODIGO_POSTAL") + "', \n" +
+			"'" + (String)registro.getDefCampo("ID_REFER_POST") + "', \n" +
+			"'" + (String)registro.getDefCampo("NOM_ASENTAMIENTO") + "', \n" +
+			"'" + (String)registro.getDefCampo("TIPO_ASENTAMIENTO") + "', \n" +				
+			"'" + (String)registro.getDefCampo("NOM_DELEGACION") + "', \n" +
+			"'" + (String)registro.getDefCampo("NOM_CIUDAD") + "', \n" +
+			"'" + (String)registro.getDefCampo("NOM_ESTADO") + "', \n" +
+			" " + sIdNegocio +", \n" +
+			"'" + (String)registro.getDefCampo("CVE_TIPO_IDENTIFICADOR") + "') \n" ;
+
+			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+			if (ejecutaUpdate() == 0){
+				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+			}
+			resultadoCatalogo.Resultado.addDefCampo("ID_DOMICILIO", sIdDomicilio);
+		
+				
 			//INSERTA EL REGISTRO DE DOMICILIO PARA PODER OBTENER EL ID_DOMICILIO DEL SEQUENCE
 			sSql = "INSERT INTO SIM_CLIENTE_NEGOCIO ( "+
 				   "CVE_GPO_EMPRESA, \n" +
@@ -157,6 +209,8 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 				   "RFC, \n" +
 				   "CVE_CLASE, \n" +
 				   "B_PRINCIPAL, \n" +
+				   "ID_DOMICILIO, \n" +
+				   "ID_UBICACION_NEGOCIO, \n" +
 				   "FECHA_INICIO_OPERACION) \n" +
 				" VALUES (" +
 				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
@@ -168,6 +222,8 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 				"'" + (String)registro.getDefCampo("RFC") + "', \n" +
 				"'" + (String)registro.getDefCampo("CVE_CLASE") + "', \n" +
 				"'" + (String)registro.getDefCampo("B_PRINCIPAL") + "', \n" +
+				" " + sIdDomicilio +", \n" +
+				"'" + (String)registro.getDefCampo("ID_UBICACION_NEGOCIO") + "', \n" +
 				"TO_DATE('" + (String)registro.getDefCampo("FECHA_INICIO_OPERACION") + "','DD/MM/YYYY')) \n" ;
 
 		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
@@ -176,55 +232,6 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 		}
 		resultadoCatalogo.Resultado.addDefCampo("ID_NEGOCIO", sIdNegocio);
 		
-		String sIdDomicilio = "";
-		
-		//OBTENEMOS EL SEQUENCE
-		sSql = "SELECT SQ01_RS_GRAL_DOMICILIO.nextval as ID_DOMICILIO FROM DUAL";
-			ejecutaSql();
-			if (rs.next()){
-				sIdDomicilio = rs.getString("ID_DOMICILIO");
-			}
-
-			//INSERTA EL REGISTRO DE DOMICILIO PARA PODER OBTENER EL ID_DOMICILIO DEL SEQUENCE
-			sSql = "INSERT INTO RS_GRAL_DOMICILIO ( "+
-				   "CVE_GPO_EMPRESA, \n" +
-				   "CVE_EMPRESA, \n" +
-				   "ID_DOMICILIO, \n" +
-				   "CALLE, \n" +
-				   "NUMERO_INT, \n" +
-				   "NUMERO_EXT, \n" +
-				   "CODIGO_POSTAL, \n" +
-				   "ID_REFER_POST, \n" +
-				   "NOM_ASENTAMIENTO, \n" +
-				   "TIPO_ASENTAMIENTO, \n" +
-				   "NOM_DELEGACION, \n" +
-				   "NOM_CIUDAD, \n" +
-				   "NOM_ESTADO, \n" +
-				   "IDENTIFICADOR, \n" +
-				   "CVE_TIPO_IDENTIFICADOR) \n" +
-				" VALUES (" +
-				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				" " + sIdDomicilio +", \n" +
-				"'" + (String)registro.getDefCampo("CALLE") + "', \n" +
-				"'" + (String)registro.getDefCampo("NUMERO_INT") + "', \n" +
-				"'" + (String)registro.getDefCampo("NUMERO_EXT") + "', \n" +
-				"'" + (String)registro.getDefCampo("CODIGO_POSTAL") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_REFER_POST") + "', \n" +
-				"'" + (String)registro.getDefCampo("NOM_ASENTAMIENTO") + "', \n" +
-				"'" + (String)registro.getDefCampo("TIPO_ASENTAMIENTO") + "', \n" +				
-				"'" + (String)registro.getDefCampo("NOM_DELEGACION") + "', \n" +
-				"'" + (String)registro.getDefCampo("NOM_CIUDAD") + "', \n" +
-				"'" + (String)registro.getDefCampo("NOM_ESTADO") + "', \n" +
-				" " + sIdNegocio +", \n" +
-				"'" + (String)registro.getDefCampo("CVE_TIPO_IDENTIFICADOR") + "') \n" ;
-
-		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
-		resultadoCatalogo.Resultado.addDefCampo("ID_DOMICILIO", sIdDomicilio);
-	
 		return resultadoCatalogo;
 	}
 
@@ -244,13 +251,13 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			     " RFC ='" + (String)registro.getDefCampo("RFC") + "', \n" +
 			     " CVE_CLASE ='" + (String)registro.getDefCampo("CVE_CLASE") + "', \n" +
 			     " FECHA_INICIO_OPERACION = TO_DATE('" + (String)registro.getDefCampo("FECHA_INICIO_OPERACION") + "','DD/MM/YYYY'), \n" +
-			     " B_PRINCIPAL ='" + (String)registro.getDefCampo("B_PRINCIPAL") + "' \n" +
-			     
+			     " B_PRINCIPAL ='" + (String)registro.getDefCampo("B_PRINCIPAL") + "', \n" +
+			     " ID_UBICACION_NEGOCIO ='" + (String)registro.getDefCampo("ID_UBICACION_NEGOCIO") + "' \n" +
 		   	" WHERE ID_NEGOCIO = '" + (String)registro.getDefCampo("ID_NEGOCIO") + "' \n" +
 		   	" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 		   	" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 		   	" AND ID_PERSONA = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" ;
-		   	
+		  
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
@@ -267,16 +274,17 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			     " NOM_DELEGACION ='" + (String)registro.getDefCampo("NOM_DELEGACION") + "', \n" +
 			     " NOM_CIUDAD ='" + (String)registro.getDefCampo("NOM_CIUDAD") + "', \n" +
 			     " NOM_ESTADO ='" + (String)registro.getDefCampo("NOM_ESTADO") + "' \n" +
-			  
-		   	" WHERE ID_DOMICILIO = '" + (String)registro.getDefCampo("ID_DOMICILIO") + "' \n" +
-		   	" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-		   	" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-		   	" AND IDENTIFICADOR = '" + (String)registro.getDefCampo("IDENTIFICADOR") + "' \n" +
-		   	" AND CVE_TIPO_IDENTIFICADOR= '" + (String)registro.getDefCampo("CVE_TIPO_IDENTIFICADOR") + "' \n" ;
-		   	
+				  
+			     " WHERE ID_DOMICILIO = '" + (String)registro.getDefCampo("ID_DOMICILIO") + "' \n" +
+			   	" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+			   	" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+			   	" AND IDENTIFICADOR = '" + (String)registro.getDefCampo("IDENTIFICADOR") + "' \n" +
+			   	" AND CVE_TIPO_IDENTIFICADOR= '" + (String)registro.getDefCampo("CVE_TIPO_IDENTIFICADOR") + "' \n" ;
+			
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
+	
 		return resultadoCatalogo;
 	}
 

@@ -8,9 +8,6 @@
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='NomTipoPersona' controlvalor='${requestScope.registro.campos["NOM_TIPO_PERSONA"]}' controllongitud='60' controllongitudmax='50' editarinicializado='false' obligatorio='true' />
 		<Portal:FormaElemento etiqueta='Descripción' control='Texto' controlnombre='Descripcion' controlvalor='${requestScope.registro.campos["DESCRIPCION"]}'  	controllongitud='60' controllongitudmax='50' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaBotones>
-			<Portal:FormaBotonAltaModificacion/>
-			<Portal:FormaBotonBaja/>
-			<Portal:FormaBotonBitacora/>
 		</Portal:FormaBotones>
 	</Portal:Forma>	
 </Portal:Pagina>

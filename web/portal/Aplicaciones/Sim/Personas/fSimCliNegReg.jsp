@@ -58,6 +58,35 @@
 				</c:if>
 			</c:if>
 		</c:if>
+		
+		<tr>
+			<th>Ubicación del Negocio</th>
+			<td>
+				<select name='IdUbicacionNegocio' size='1'>
+					<option value='null'></option>
+					<option value='1'>TIENDA, ACCESORIA O TENDEJON</option>
+					<option value='2'>PUESTO EN MERCADO BAJO TECHO COMUN</option>
+					<option value='3'>LOCALES BAJO TECHO COMUN</option>
+					<option value='4'>PASILLOS EN CENTRO COMERCIAL (KIOSCO)</option>
+					<option value='5'>TALLER DE SERVICIOS O REPARACION</option>
+					<option value='6'>FABRICA, TORTILLERIA O PANADERIA</option>
+					<option value='7'>OFICINA, DESPACHO O CONSULTORIO</option>
+					<option value='8'>VEHICULO CON O SIN MOTOR</option>
+					<option value='9'>PUESTO IMPROVISADO EN VIA PUBLICA</option>
+					<option value='10'>PUESTO FIJO EN LA VIA PUBLICA</option>
+					<option value='11'>PUESTO IMPROVISADO EN TIANGUIS</option>
+					<option value='12'>PUESTO FIJO EN TIANGUIS</option>
+					<option value='13'>AMBULANTE DE CASA EN CASA O CALLE</option>
+					<option value='14'>DOMICILIO DEL CLIENTE</option>
+					<option value='15'>DOMICILIO CON INSTALACION ESPECIAL</option>
+					<option value='16'>OTRO LOCAL</option>
+					<option value='17'>OTRO SIN LOCAL</option>
+				</select>
+			</td>
+		</tr>
+		<script> BuscaSelectOpcion(document.frmRegistro.IdUbicacionNegocio,'<c:out value='${requestScope.registro.campos["ID_UBICACION_NEGOCIO"]}'/>'); </script>
+		
+		
 		<Portal:FormaSeparador nombre="Direcci&oacute;n"/>				
 		<Portal:FormaElemento etiqueta='Calle' control='Texto' controlnombre='Calle' controlvalor='${requestScope.registro.campos["CALLE"]}' controllongitud='100' controllongitudmax='100' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaElemento etiqueta='N&uacute;mero interior' control='Texto' controlnombre='NumeroInt' controlvalor='${requestScope.registro.campos["NUMERO_INT"]}' controllongitud='10' controllongitudmax='10' editarinicializado='true' obligatorio='false' />
