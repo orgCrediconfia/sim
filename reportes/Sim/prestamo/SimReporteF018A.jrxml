@@ -43,6 +43,8 @@
 	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
+	<field name="VALOR_ACCESORIO_NUEVO" class="java.lang.String"/>
+	<field name="PERIODICIDAD_ACCESORIO_NUEVO" class="java.lang.String"/>
 
 	<variable name="Prueba" class="java.lang.String" resetType="None" calculation="Nothing">
 		<variableExpression><![CDATA[$F{MONTO_AUTORIZADO}]]></variableExpression>
@@ -249,7 +251,7 @@ CrediConfía.
 			</band>
 		</lastPageFooter>
 		<summary>
-			<band height="329"  isSplitAllowed="true" >
+			<band height="280"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
@@ -266,9 +268,9 @@ CrediConfía.
 				<staticText>
 					<reportElement
 						x="0"
-						y="101"
+						y="94"
 						width="552"
-						height="123"
+						height="99"
 						key="staticText-14"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -285,7 +287,7 @@ CrediConfía.
 				<staticText>
 					<reportElement
 						x="0"
-						y="252"
+						y="203"
 						width="206"
 						height="13"
 						key="staticText-15"/>
@@ -298,7 +300,7 @@ CrediConfía.
 				<staticText>
 					<reportElement
 						x="0"
-						y="269"
+						y="220"
 						width="206"
 						height="13"
 						key="staticText-16"/>
@@ -311,7 +313,7 @@ CrediConfía.
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="5"
-						y="282"
+						y="233"
 						width="542"
 						height="47"
 						key="subreport-2"
@@ -325,7 +327,7 @@ CrediConfía.
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="59"
+						y="52"
 						width="552"
 						height="33"
 						key="textField-5"/>
@@ -335,19 +337,19 @@ CrediConfía.
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["2)	De registrarse atraso en el pago puntual de las cantidades señaladas en el Pagaré, cada integrante del grupo nos obligamos a pagar por cada retraso en el pago de cualquier cuota una penalidad de $ " + $F{MONTO_FIJO_PERIODO}.trim() +  " (" + $F{MONTO_FIJO_PERIODO_LETRAS} + "00/100 M.N.)" + " que serán causados al momento de cada incumplimiento."]]></textFieldExpression>
 				</textField>
-				<staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="28"
+						y="26"
 						width="552"
-						height="22"
-						key="staticText-17"/>
+						height="26"
+						key="textField-9"/>
 					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Arial" size="8"/>
+					<textElement>
+						<font size="8"/>
 					</textElement>
-				<text><![CDATA[1) Pagar <periocidad> mente una comisión de <x%> calculada sobre el saldo global del crédito por concepto de <concepto producto 1>]]></text>
-				</staticText>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Pagar " + $F{PERIODICIDAD_ACCESORIO_NUEVO}.trim() + "mente una comisión de " + $F{VALOR_ACCESORIO_NUEVO}.trim() + "% calculada sobre el saldo global del crédito por concepto de ADMINISTRACIÓN CREDITICIA."]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>

@@ -176,7 +176,7 @@
 					<reportElement
 						x="0"
 						y="395"
-						width="369"
+						width="414"
 						height="13"
 						key="staticText-88"/>
 					<box></box>
@@ -187,16 +187,16 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="369"
+						x="389"
 						y="395"
-						width="184"
+						width="139"
 						height="13"
 						key="textField-17"/>
 					<box></box>
 					<textElement textAlignment="Left">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO} + "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -345,7 +345,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="0"
-						y="169"
+						y="159"
 						width="553"
 						height="235"
 						key="staticText-107"/>

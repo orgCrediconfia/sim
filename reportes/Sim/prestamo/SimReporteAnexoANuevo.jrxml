@@ -96,8 +96,8 @@
 				</image>
 				<staticText>
 					<reportElement
-						x="0"
-						y="7"
+						x="2"
+						y="10"
 						width="43"
 						height="10"
 						key="staticText-9"/>
@@ -109,8 +109,8 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="43"
-						y="7"
+						x="45"
+						y="10"
 						width="151"
 						height="10"
 						key="staticText-10"/>
