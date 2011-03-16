@@ -133,7 +133,12 @@ public class SimClienteNegocioCON implements CatalogoControlConsultaIN, Catalogo
 			registro.addDefCampo("B_PRINCIPAL","F");
 		}
 		
-		
+		if (request.getParameter("IdUbicacionNegocio").equals("null")){
+			registro.addDefCampo("ID_UBICACION_NEGOCIO","");
+		}else {
+			registro.addDefCampo("ID_UBICACION_NEGOCIO",request.getParameter("IdUbicacionNegocio"));
+		}
+
 		registro.addDefCampo("ID_DOMICILIO", request.getParameter("IdDomicilio"));
 		registro.addDefCampo("CALLE", request.getParameter("Calle")!= null ? request.getParameter("Calle") : "");
 		registro.addDefCampo("NUMERO_INT", request.getParameter("NumeroInt")!= null ? request.getParameter("NumeroInt") : "");

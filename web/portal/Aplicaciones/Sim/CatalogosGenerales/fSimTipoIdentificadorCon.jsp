@@ -7,7 +7,7 @@
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='DescTipoIdentificador'  controllongitud='20' controllongitudmax='30' editarinicializado='true'/>
 	</Portal:Forma>
 	
-	<Portal:TablaLista tipo="alta" nombre="Consulta" botontipo="url" url="/Aplicaciones/Sim/CatalogosGenerales/fSimTipoIdentificadorReg.jsp?OperacionCatalogo=AL">
+	<Portal:TablaLista tipo="consulta" nombre="Consulta">
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='80' valor='Id Tipo Identificador'/>
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Nombre'/>
