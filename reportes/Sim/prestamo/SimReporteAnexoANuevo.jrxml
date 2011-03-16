@@ -245,7 +245,6 @@
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[<A – DESCRIPCION DEL BIEN EN DACION EN PAGO >
-<B – VALOR FACTURA >
 <C – NUMERO FACTURA >
 <D – RAZON SOCIAL DE QUIEN FACTURA O EXPIDE LA FACTURA>
 <E – FECHA DE FACTURA O ADQUISICION>]]></text>
@@ -373,7 +372,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<text><![CDATA[MONEDA: _____________________]]></text>
+				<text><![CDATA[MONEDA: Pesos Mexicanos]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

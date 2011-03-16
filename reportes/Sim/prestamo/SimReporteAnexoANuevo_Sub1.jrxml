@@ -149,7 +149,7 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO " + $F{ID_CLIENTE} + "-" + $F{NUM_CICLO} + " DE FECHA " + $F{FECHA_ENTREGA} + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, " + $F{NOM_COMPLETO} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " + $F{NOM_AVAL} + " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OBLIGADO SOLIDARIO”"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO " + $F{ID_CLIENTE} + "-" + $F{NUM_CICLO} + " DE FECHA " + $F{FECHA_ENTREGA}.replace( '\\', ' ' ) + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, " + $F{NOM_COMPLETO} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " + $F{NOM_AVAL} + " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OBLIGADO SOLIDARIO”"]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -211,7 +211,7 @@
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["$ " + $F{MONTO_AUTORIZADO} + " por comisión apertura"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["$ " + $F{MONTO_AUTORIZADO}.trim() + " por comisión apertura"]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -263,7 +263,7 @@
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Fecha de Pago de la Comisión por Apertura: " + $F{FECHA_ENTREGA}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Fecha de Pago de la Comisión por Apertura: " + $F{FECHA_ENTREGA}.replace( '\\', ' ' )]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -430,14 +430,14 @@
 					<reportElement
 						x="62"
 						y="282"
-						width="220"
-						height="25"
+						width="217"
+						height="42"
 						key="staticText-9"/>
 					<box></box>
 					<textElement>
 						<font/>
 					</textElement>
-				<text><![CDATA[Factor del _____ veces la tasa de interés ordinario.]]></text>
+				<text><![CDATA[Factor del 1.5 veces la tasa de interés ordinario.]]></text>
 				</staticText>
 				<rectangle>
 					<reportElement
@@ -610,7 +610,7 @@ Beneficiarios: DINSA.]]></text>
 					<textElement>
 						<font size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_FIN}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_FIN}.replace( '\\', ' ' )]]></textFieldExpression>
 				</textField>
 				<rectangle>
 					<reportElement

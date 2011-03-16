@@ -90,7 +90,7 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 		parametros.put("FechaReporte", Fecha2
 				.formatoCorporativoHora(new Date()));
 
-		if (iCantidadIntegrantes <= 7) {
+		if (iCantidadIntegrantes <= 6) {
 			parametros
 					.put("NomReporte",
 							"/Reportes/Sim/prestamo/SimReportePagareSolidarioNuevo.jasper");
