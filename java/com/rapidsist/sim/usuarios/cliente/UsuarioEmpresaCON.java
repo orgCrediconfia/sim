@@ -135,11 +135,19 @@ public class UsuarioEmpresaCON implements CatalogoControlConsultaIN, CatalogoCon
 		registro.addDefCampo("NUM_NOMINA", request.getParameter("NumNomina"));
 		registro.addDefCampo("FECHA_INGRESO_EMPRESA", request.getParameter("FechaIngresoEmpresa"));
 		registro.addDefCampo("ID_SUCURSAL", request.getParameter("IdSucursal") != null ? request.getParameter("IdSucursal") : "");
+		registro.addDefCampo("EMAIL", request.getParameter("Email")!= null ? request.getParameter("Email") : "");
 		
 		if(request.getParameter("BRegionales")!=null){
 			registro.addDefCampo("B_REGIONALES","V");
 		}else{
 			registro.addDefCampo("B_REGIONALES","F");
+		}
+		if(request.getParameter("BVigencia")!=null){
+			registro.addDefCampo("B_VIGENCIA","V");
+			registro.addDefCampo("FECHA_BAJA_LOGICA","");
+		}else{
+			registro.addDefCampo("B_VIGENCIA","F");
+			registro.addDefCampo("FECHA_BAJA_LOGICA","SYSDATE");
 		}
 		
 		//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS

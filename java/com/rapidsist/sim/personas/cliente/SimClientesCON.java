@@ -158,6 +158,19 @@ public class SimClientesCON implements CatalogoControlConsultaIN, CatalogoContro
 		registro.addDefCampo("NUM_IDENTIFICACION_OFICIAL", request.getParameter("NumIdentificacionOficial")!= null ? request.getParameter("NumIdentificacionOficial") : "");
 		registro.addDefCampo("RFC",request.getParameter("Rfc")!= null ? request.getParameter("Rfc") : "");
 		registro.addDefCampo("CURP", request.getParameter("Curp")!= null ? request.getParameter("Curp") : "");
+		
+		if (request.getParameter("IdDestinoCredito").equals("null")){
+			registro.addDefCampo("ID_DESTINO_CREDITO","");
+		}else {
+			registro.addDefCampo("ID_DESTINO_CREDITO",request.getParameter("IdDestinoCredito"));
+		}
+		
+		if (request.getParameter("IdRolHogar").equals("null")){
+			registro.addDefCampo("ID_ROL_HOGAR","");
+		}else {
+			registro.addDefCampo("ID_ROL_HOGAR",request.getParameter("IdRolHogar"));
+		}
+		
 		registro.addDefCampo("NUM_DEPENDIENTES_ECONOMICOS",request.getParameter("NumDependientesEconomicos")!= null ? request.getParameter("NumDependientesEconomicos") : "");
 		registro.addDefCampo("ID_ESCOLARIDAD",request.getParameter("IdEscolaridad")!= null ? request.getParameter("IdEscolaridad") : "");
 		registro.addDefCampo("ID_ESCOLARIDAD",request.getParameter("IdEscolaridad")!= null ? request.getParameter("IdEscolaridad") : "");
@@ -169,7 +182,7 @@ public class SimClientesCON implements CatalogoControlConsultaIN, CatalogoContro
 		}else{
 			registro.addDefCampo("LISTA_NEGRA","F");
 		}
-		
+	
 		registro.addDefCampo("ID_EX_CONYUGE", request.getParameter("IdExConyuge"));
 		registro.addDefCampo("ID_PERSONA_EX_CONYUGE", request.getParameter("IdPersonaExConyuge"));
 		registro.addDefCampo("AP_PATERNO_EX_CONYUGE", request.getParameter("ApPaternoExConyuge") != null ? request.getParameter("ApPaternoExConyuge") : "" );
@@ -210,7 +223,11 @@ public class SimClientesCON implements CatalogoControlConsultaIN, CatalogoContro
 			}
 		}
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimClientes&OperacionCatalogo=CR&IdPersona="+sIdPersona+"&IdExConyuge="+sIdExConyuge;
+		if (iTipoOperacion == 2){
+			registroControl.sPagina = "/Aplicaciones/Sim/Personas/fSimCliCon.jsp";
+		}else {
+			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimClientes&OperacionCatalogo=CR&IdPersona="+sIdPersona+"&IdExConyuge="+sIdExConyuge;
+		}
 		
 		return registroControl;
 	}

@@ -101,6 +101,8 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				 " P.NUM_IDENTIFICACION_OFICIAL, \n" +
 				 " P.RFC, \n" +
 				 " P.CURP, \n" +
+				 " P.ID_DESTINO_CREDITO, \n" +
+				 " P.ID_ROL_HOGAR, \n" +
 				 " P.NUM_DEPENDIENTES_ECONOMICOS, \n" +
 				 " P.ID_ESCOLARIDAD, \n" +	
 				 " P.LISTA_NEGRA, \n" +
@@ -173,6 +175,8 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				"NUM_IDENTIFICACION_OFICIAL, \n" +
 				"RFC, \n" +
 				"CURP, \n" +
+				"ID_DESTINO_CREDITO, \n" +
+				"ID_ROL_HOGAR, \n" +
 				"NUM_DEPENDIENTES_ECONOMICOS, \n" +
 				"ID_ESCOLARIDAD, \n" +
 				"LISTA_NEGRA, \n" +
@@ -197,9 +201,11 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				"'" + (String)registro.getDefCampo("NUM_IDENTIFICACION_OFICIAL") + "', \n" +
 				"'" + (String)registro.getDefCampo("RFC") + "', \n" +
 				"'" + (String)registro.getDefCampo("CURP") + "', \n" +
+				"'" + (String)registro.getDefCampo("ID_DESTINO_CREDITO") + "', \n" +
+				"'" + (String)registro.getDefCampo("ID_ROL_HOGAR") + "', \n" +
 				"'" + (String)registro.getDefCampo("NUM_DEPENDIENTES_ECONOMICOS") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_ESCOLARIDAD") + "', \n" +
-				"'F', \n" +					
+				"'F', \n" +		
 				"'V', \n" +
 				"'" + (String)registro.getDefCampo("CVE_ASESOR_CREDITO") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "') \n" ;
@@ -252,6 +258,8 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				"NUM_IDENTIFICACION_OFICIAL = '" + (String)registro.getDefCampo("NUM_IDENTIFICACION_OFICIAL") + "', \n" +
 				"RFC = '" + (String)registro.getDefCampo("RFC") + "', \n" +
 				"CURP = '" + (String)registro.getDefCampo("CURP") + "', \n" +
+				"ID_DESTINO_CREDITO = '" + (String)registro.getDefCampo("ID_DESTINO_CREDITO") + "', \n" +
+				"ID_ROL_HOGAR = '" + (String)registro.getDefCampo("ID_ROL_HOGAR") + "', \n" +
 				"NUM_DEPENDIENTES_ECONOMICOS = '" + (String)registro.getDefCampo("NUM_DEPENDIENTES_ECONOMICOS") + "', \n" +
 				"ID_ESCOLARIDAD	= '" + (String)registro.getDefCampo("ID_ESCOLARIDAD") + "', \n" +
 				"LISTA_NEGRA = '" + (String)registro.getDefCampo("LISTA_NEGRA") + "', \n" +
@@ -303,7 +311,7 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		sSql =  " UPDATE RS_GRAL_PERSONA SET " +
 		   	" FECHA_BAJA_LOGICA     = SYSDATE \n" +
-		   	" WHERE ID_PERSONA 	='" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
+		   	" WHERE ID_PERSONA 		='" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
 		   	" AND CVE_GPO_EMPRESA   ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 		   	" AND CVE_EMPRESA       ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n";
 		//VERIFICA SI DIO DE ALTA EL REGISTRO
