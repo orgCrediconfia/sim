@@ -50,6 +50,39 @@
 		<Portal:FormaElemento etiqueta='No. Identificaci&oacute;n Oficial' control='Texto' controlnombre='NumIdentificacionOficial' controlvalor='${requestScope.registro.campos["NUM_IDENTIFICACION_OFICIAL"]}' controllongitud='25' controllongitudmax='20' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaElemento etiqueta='RFC' control='Texto' controlnombre='Rfc' controlvalor='${requestScope.registro.campos["RFC"]}' controllongitud='17' controllongitudmax='15' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaElemento etiqueta='CURP' control='Texto' controlnombre='Curp' controlvalor='${requestScope.registro.campos["CURP"]}' controllongitud='25' controllongitudmax='20' editarinicializado='true' obligatorio='false' />
+		
+		<tr>
+			<th>Destino del crédito</th>
+			<td>
+				<select name='IdDestinoCredito' size='1'>
+					<option value='null'></option>
+					<option value='1'>ADQUIRIR O COMPRAR MERCANCIA</option>
+					<option value='2'>COMPRAR MAQUINARIA, EQUIPO O HERRAMIENTAS</option>
+					<option value='3'>AMPLIAR, ADECUAR O REPARAR EL LOCAL O VEHICULO</option>
+					<option value='4'>COMPRAR LOCAL O VEHICULO</option>
+					<option value='5'>PAGAR DEUDAS DEL NEGOCIO</option>
+					<option value='6'>OTRO FIN RELACIONADO</option>
+					<option value='7'>FINES AJENOS AL NEGOCIO</option>
+				</select>
+			</td>
+		</tr>
+		<script> BuscaSelectOpcion(document.frmRegistro.IdDestinoCredito,'<c:out value='${requestScope.registro.campos["ID_DESTINO_CREDITO"]}'/>'); </script>
+		
+		<tr>
+			<th>Rol en el hogar</th>
+			<td>
+				<select name='IdRolHogar' size='1'>
+					<option value='null'></option>
+					<option value='1'>JEFE(A)</option>
+					<option value='2'>ESPOSO(A)</option>
+					<option value='3'>HIJO(A)</option>
+					<option value='4'>OTRO</option>
+				</select>
+			</td>
+		</tr>
+		<script> BuscaSelectOpcion(document.frmRegistro.IdRolHogar,'<c:out value='${requestScope.registro.campos["ID_ROL_HOGAR"]}'/>'); </script>
+		
+		
 		<Portal:FormaElemento etiqueta='No. Dependientes econ&oacute;micos' control='Texto' controlnombre='NumDependientesEconomicos' controlvalor='${requestScope.registro.campos["NUM_DEPENDIENTES_ECONOMICOS"]}' controllongitud='1' controllongitudmax='1' editarinicializado='true' obligatorio='false' validadato='numerico' />
 		<Portal:FormaElemento etiqueta='Escolaridad' control='selector' controlnombre='IdEscolaridad' controlvalor='${requestScope.registro.campos["ID_ESCOLARIDAD"]}' editarinicializado='true' obligatorio='true' campoclave="ID_ESCOLARIDAD" campodescripcion="NOM_ESCOLARIDAD" datosselector='${requestScope.ListaEscolaridad}'/>			
 	

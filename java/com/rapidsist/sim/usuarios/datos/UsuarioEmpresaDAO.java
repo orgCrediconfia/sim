@@ -49,6 +49,7 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			 " 	P.NOMBRE_1, \n" +
 			 " 	P.NOMBRE_2, \n" +
 			 " 	P.NOM_COMPLETO, \n" +
+			 "  P.EMAIL, \n" +
 			 " 	C.NOM_PUESTO \n" +
 			" FROM  RS_GRAL_USUARIO U, \n" +
 			"	RS_GRAL_PERSONA P, \n" +
@@ -60,8 +61,8 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			" AND P.ID_PERSONA (+)= U.ID_PERSONA \n" +
 			" AND C.CVE_GPO_EMPRESA (+)= U.CVE_GPO_EMPRESA \n" +
 			" AND C.CVE_EMPRESA (+)= U.CVE_EMPRESA \n" +
-			" AND C.CVE_PUESTO (+)= U.CVE_PUESTO \n" +
-			" AND P.FECHA_BAJA_LOGICA IS NULL \n" ;
+			" AND C.CVE_PUESTO (+)= U.CVE_PUESTO \n" ;
+			//" AND P.FECHA_BAJA_LOGICA IS NULL \n" ;
 			
 		if (parametros.getDefCampo("CLAVE_USUARIO") != null) {
 			sSql = sSql + " AND U.CVE_USUARIO = '" + (String) parametros.getDefCampo("CLAVE_USUARIO") + "' \n";
@@ -101,7 +102,10 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			 " 	P.NOMBRE_1, \n" +
 			 " 	P.NOMBRE_2, \n" +
 			 " 	P.NOM_COMPLETO, \n" +
+			 "  P.EMAIL, \n" +
+			 " 	P.B_VIGENCIA, \n" +
 			 " 	P.ID_SUCURSAL, \n" +
+			 "  P.FECHA_BAJA_LOGICA, \n" +
 			 "	B_REGIONALES \n" +
 			" FROM  RS_GRAL_USUARIO U, \n" +
 			"	RS_GRAL_PERSONA P \n" +
@@ -146,6 +150,8 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 				"NOMBRE_1, \n" +
 				"NOMBRE_2, \n" +
 				"NOM_COMPLETO, \n" +
+				"EMAIL, \n" +
+				"B_VIGENCIA, \n" +
 				"ID_SUCURSAL, \n" +
 				"B_PERSONA_FISICA) \n" +
 			" VALUES (" +
@@ -157,6 +163,8 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			"'" + (String)registro.getDefCampo("NOMBRE_1") + "', \n" +
 			"'" + (String)registro.getDefCampo("NOMBRE_2") + "', \n" +
 			"'" + (String)registro.getDefCampo("NOM_COMPLETO") + "', \n" +
+			"'" + (String)registro.getDefCampo("EMAIL") + "', \n" +
+			"'V', \n" +
 			"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 			"'V') \n" ;
 					
@@ -265,7 +273,8 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			" NOMBRE_1 = '" + (String)registro.getDefCampo("NOMBRE_1") + "', \n" +
 			" NOMBRE_2 = '" + (String)registro.getDefCampo("NOMBRE_2") + "', \n" +
 			" NOM_COMPLETO = '" + (String)registro.getDefCampo("NOM_COMPLETO") + "', \n" +
-			" ID_SUCURSAL = '" + (String)registro.getDefCampo("ID_SUCURSAL") + "' \n" +
+			" EMAIL = '" + (String)registro.getDefCampo("EMAIL") + "', \n" +
+			" B_VIGENCIA = '" + (String)registro.getDefCampo("B_VIGENCIA") + "' \n" +
 			" WHERE ID_PERSONA = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
 			" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
@@ -287,7 +296,8 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 	public ResultadoCatalogo baja(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		sSql = " UPDATE RS_GRAL_PERSONA SET " +
-	 	       " FECHA_BAJA_LOGICA    = SYSDATE \n" +
+	 	       " FECHA_BAJA_LOGICA    = SYSDATE, \n" +
+	 	       " B_VIGENCIA    		  = 'F' \n" +
 		       " WHERE ID_PERSONA     ='" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
 		       " AND CVE_GPO_EMPRESA  = '" + (String) registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 		       " AND CVE_EMPRESA      = '" + (String) registro.getDefCampo("CVE_EMPRESA") + "' \n";

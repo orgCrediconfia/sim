@@ -21,6 +21,7 @@
 			<input type="password" name="PasswordConfirma" size="50" maxlength="256" onBlur="validarPasswd()"/>
 		</Portal:FormaElemento>
 		
+		<Portal:FormaElemento etiqueta='E-mail' control='Texto' controlnombre='Email' controlvalor='${requestScope.registro.campos["EMAIL"]}' controllongitud='25' controllongitudmax='20' editarinicializado='true' obligatorio='false' />
 		<Portal:FormaElemento etiqueta='Puesto' control='selector' controlnombre='CvePuesto' controlvalor='${requestScope.registro.campos["CVE_PUESTO"]}' editarinicializado='true' obligatorio='true' campoclave="CVE_PUESTO" campodescripcion="NOM_PUESTO" datosselector='${requestScope.ListaPuesto}'/>	
 		<Portal:FormaElemento etiqueta='Perfil' control='selector' controlnombre='CvePerfil' controlvalor='${requestScope.registro.campos["CVE_PERFIL"]}' editarinicializado='true' obligatorio='true' campoclave="CVE_PERFIL" campodescripcion="NOM_PERFIL" datosselector='${requestScope.ListaPerfil}'/>
 		
@@ -30,6 +31,29 @@
 		<c:if test='${(requestScope.registro == null)}'>
 			<Portal:FormaElemento etiqueta='Asignar a todas las regiones (Superusuario)' control='checkbox' controlnombre='BRegionales' controlvalor='${requestScope.registro.campos["B_REGIONALES"]}'/>	
 		</c:if>
+		<c:if test='${(requestScope.registro != null)}'>
+			<c:if test='${(requestScope.registro.campos["B_VIGENCIA"] == "V")}'>
+				<tr> 
+				   	<th>Vigencia</th>
+					<td> 
+						<input type='checkbox' name='BVigencia'/ checked >
+					</td>
+				</tr>
+			</c:if>
+			<c:if test='${(requestScope.registro.campos["B_VIGENCIA"] == "F")}'>
+				<tr> 
+				   	<th>Vigencia</th>
+					<td> 
+						<input type='checkbox' name='BVigencia'/>
+					</td>
+				</tr>
+			</c:if>
+		</c:if>
+		
+		<c:if test='${(requestScope.registro.campos["B_VIGENCIA"] == "F")}'>
+			<Portal:Calendario2 etiqueta='Fecha de Baja' contenedor='frmRegistro' controlnombre='FechaBajaLogica' controlvalor='${requestScope.registro.campos["FECHA_BAJA_LOGICA"]}'  esfechasis='false'/>
+		</c:if>
+		
 		<c:if test='${(requestScope.registro != null)}'>
 			<c:if test='${(requestScope.registro.campos["B_REGIONALES"] == "V")}'>
 				<tr> 
@@ -51,7 +75,9 @@
 		<Portal:FormaElemento etiqueta='Sucursal a la que pertenece' control='selector' controlnombre='IdSucursal' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='true' obligatorio='true' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursalPertenece}'/>
 	    	<Portal:FormaBotones>
 			<Portal:FormaBotonAltaModificacion/>
-			<Portal:FormaBotonBaja/>
+			<c:if test='${(requestScope.registro.campos["B_VIGENCIA"] == "V")}'>
+				<Portal:FormaBotonBaja/>
+			</c:if>
 		</Portal:FormaBotones>
 	</Portal:Forma>
 	
