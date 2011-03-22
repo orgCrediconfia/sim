@@ -66,7 +66,7 @@ public class SimPrestamoProductoCicloModificacionCON implements CatalogoControlA
 		if (request.getParameter("IdTasaReferencia").equals("null")){
 			registro.addDefCampo("ID_TASA_REFERENCIA","");
 		}else {
-			registro.addDefCampo("ID_TASA_REFERENCIA",request.getParameter("IdTasaReferencia") != null ? request.getParameter("IdTasaReferencia") : "");
+			registro.addDefCampo("ID_TASA_REFERENCIA",request.getParameter("IdTasaReferencia"));
 		}
 		
 		//Características del producto-ciclo a modificar
@@ -76,7 +76,12 @@ public class SimPrestamoProductoCicloModificacionCON implements CatalogoControlA
 		registro.addDefCampo("PLAZO", request.getParameter("Plazo") != null ? request.getParameter("Plazo") : "" );
 		registro.addDefCampo("TIPO_TASA", request.getParameter("TipoTasa") != null ? request.getParameter("TipoTasa") : "" );
 		registro.addDefCampo("VALOR_TASA", request.getParameter("ValorTasa") != null ? request.getParameter("ValorTasa") : "" );
-		registro.addDefCampo("ID_PERIODICIDAD_TASA", request.getParameter("IdPeriodicidadTasa") != null ? request.getParameter("IdPeriodicidadTasa") : "" );
+		
+		if (request.getParameter("IdPeriodicidadTasa").equals("null")){
+			registro.addDefCampo("ID_PERIODICIDAD_TASA","");
+		}else {
+			registro.addDefCampo("ID_PERIODICIDAD_TASA",request.getParameter("IdPeriodicidadTasa"));
+		}
 		
 		//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoProductoCicloModificacion", registro, iTipoOperacion);

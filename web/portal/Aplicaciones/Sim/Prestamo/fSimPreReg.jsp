@@ -87,23 +87,6 @@
 				<Portal:FormaElemento etiqueta='Porcentaje de flujo de caja a financiar' control='etiqueta-controlreferencia' controlnombre='PorcFlujoCaja' controlvalor='${requestScope.registro.campos["PORC_FLUJO_CAJA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
 				<input type="hidden" name="PorcFlujoCaja" value='<c:out value='${requestScope.registro.campos["PORC_FLUJO_CAJA"]}'/>' />
 				
-				<!--
-				<tr>
-					<th>Día de la Semana de Pago</th>
-					<td>
-						<select name='DiaSemanaPago' size='1'>
-							<option value='null'></option>
-							<option value='Domingo'>Domingo</option>
-							<option value='Lunes'>Lunes</option>
-							<option value='Martes'>Martes</option>
-							<option value='Miércoles'>Miércoles</option>
-							<option value='Jueves'>Jueves</option>
-							<option value='Viernes'>Viernes</option>
-							<option value='Sábado'>Sábado</option>
-						</select>
-					</td>
-				</tr>
-				-->
 				</c:if>
 				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
 					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
@@ -355,7 +338,32 @@
 		
 	</c:if>							
 	<script>
-
+	
+		<c:if test='${(requestScope.registro != null)}'>
+			<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
+				BuscaSelectOpcion(document.frmRegistro.TipoTasa,'<c:out value='${requestScope.registro.campos["TIPO_TASA"]}'/>'); 
+				BuscaSelectOpcion(document.frmRegistro.IdFormaDistribucion,'<c:out value='${requestScope.registro.campos["ID_FORMA_DISTRIBUCION"]}'/>');
+			</c:if> 
+		</c:if>
+		
+		if (document.frmRegistro.TipoTasa.value == "No indexada"){
+			document.frmRegistro.IdTasaReferencia.disabled = true;
+			document.frmRegistro.ValorTasa.disabled = false;
+			document.frmRegistro.IdPeriodicidadTasa.disabled = false;
+			document.frmRegistro.IdTasaReferencia.style.backgroundColor = '#CCCCCC';
+			document.frmRegistro.ValorTasa.style.backgroundColor = 'white';
+			document.frmRegistro.IdPeriodicidadTasa.style.backgroundColor = 'white';
+		}
+		
+		if (document.frmRegistro.TipoTasa.value == "Si indexada"){
+			document.frmRegistro.IdTasaReferencia.disabled = false;
+			document.frmRegistro.ValorTasa.disabled = true;
+			document.frmRegistro.IdPeriodicidadTasa.disabled = true;
+			document.frmRegistro.IdTasaReferencia.style.backgroundColor = 'white';
+			document.frmRegistro.ValorTasa.style.backgroundColor = '#CCCCCC';
+			document.frmRegistro.IdPeriodicidadTasa.style.backgroundColor = '#CCCCCC';
+		}
+		
 		function fAsignaClienteGrupo(){
 			if (document.frmRegistro.IdPersona.value == ""){
 				alert("Debe asignar un cliente");
@@ -368,16 +376,42 @@
 				
 		function fAceptar(){
 			if (document.frmRegistro.AplicaA.value == 'Individual'){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCiclo&OperacionCatalogo=AL&IdPersona="+document.frmRegistro.IdPersonaAlta.value;
-				document.frmRegistro.submit();	
+				if (document.frmRegistro.TipoTasa.value == "Si indexada"){
+					if (document.frmRegistro.IdTasaReferencia.value != "null"){
+						document.frmRegistro.IdTasaReferencia.disabled = false;
+						document.frmRegistro.IdPeriodicidadTasa.disabled = false;
+						document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCiclo&OperacionCatalogo=AL&IdPersona="+document.frmRegistro.IdPersonaAlta.value;
+						document.frmRegistro.submit();	
+					}else {
+						alert("Ingrese el papel de la tasa indexada");
+					}				
+				}else{
+					document.frmRegistro.IdTasaReferencia.disabled = false;
+					document.frmRegistro.IdPeriodicidadTasa.disabled = false;
+					document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCiclo&OperacionCatalogo=AL&IdPersona="+document.frmRegistro.IdPersonaAlta.value;
+					document.frmRegistro.submit();	
+				}
 			}
 		}
 		
 		function fModificar(){
-			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCicloModificacion&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdPersona="+document.frmRegistro.IdPersona.value;
-			document.frmRegistro.submit();	
+			if (document.frmRegistro.TipoTasa.value == "Si indexada"){
+				if (document.frmRegistro.IdTasaReferencia.value != "null"){
+					document.frmRegistro.IdTasaReferencia.disabled = false;
+					document.frmRegistro.IdPeriodicidadTasa.disabled = false;
+					document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCicloModificacion&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdPersona="+document.frmRegistro.IdPersona.value;
+					document.frmRegistro.submit();	
+				}else {
+					alert("Ingrese el papel de la tasa indexada");
+				}				
+			}else{
+				document.frmRegistro.IdTasaReferencia.disabled = false;
+				document.frmRegistro.IdPeriodicidadTasa.disabled = false;
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoProductoCicloModificacion&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdPersona="+document.frmRegistro.IdPersona.value;
+				document.frmRegistro.submit();	
+			}
 		}
-	
+		
 		function fTasa(){
 			if(document.frmRegistro.TipoTasa.value == "No indexada"){
 				document.frmRegistro.IdTasaReferencia.disabled = true;
@@ -419,14 +453,6 @@
 		function fReporte(sFuncion){
 			MM_openBrWindow('/portal/ProcesaReporte?Funcion='+sFuncion+'&TipoReporte=Pdf&IdPrestamo='+document.frmRegistro.IdPrestamo.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
 		}
-		
-		<c:if test='${(requestScope.registro != null)}'>
-			<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
-				<!--BuscaSelectOpcion(document.frmRegistro.DiaSemanaPago,'<c:out value='${requestScope.registro.campos["DIA_SEMANA_PAGO"]}'/>');--> 
-				BuscaSelectOpcion(document.frmRegistro.TipoTasa,'<c:out value='${requestScope.registro.campos["TIPO_TASA"]}'/>'); 
-				BuscaSelectOpcion(document.frmRegistro.IdFormaDistribucion,'<c:out value='${requestScope.registro.campos["ID_FORMA_DISTRIBUCION"]}'/>');
-			</c:if> 
-		</c:if>
 		
 	</script>
 </Portal:Pagina>	
