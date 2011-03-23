@@ -53,8 +53,8 @@ public class SimPrestamoCreditosPersonalesCON implements CatalogoControlConsulta
 		if (iTipoOperacion == CON_CONSULTA_TABLA){
 			//VERIFICA SI SE ENVIO EL PARAMETRO NOMBRE
 			
-			if (request.getParameter("CvePrestamo") != null && !request.getParameter("CvePrestamo").equals("")){
-				parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
+			if (request.getParameter("CveNombre") != null && !request.getParameter("CveNombre").equals("")){
+				parametros.addDefCampo("CVE_NOMBRE", request.getParameter("CveNombre"));
 			}
 			if (request.getParameter("Nombre") != null && !request.getParameter("Nombre").equals("")){
 				parametros.addDefCampo("NOMBRE", request.getParameter("Nombre"));

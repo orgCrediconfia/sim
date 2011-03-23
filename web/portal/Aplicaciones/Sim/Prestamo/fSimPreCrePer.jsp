@@ -4,7 +4,7 @@
 	<Portal:PaginaNombre titulo="Créditos del cliente" subtitulo="Consulta de datos"/>
 	
 	<Portal:Forma tipo='busqueda' funcion='SimPrestamoCreditosPersonales' operacion='CT' filtro='Todos'>
-		<Portal:FormaElemento etiqueta='Clave del Préstamo' control='Texto' controlnombre='CvePrestamo' controllongitud='19' controllongitudmax='18' editarinicializado='true'/>
+		<Portal:FormaElemento etiqueta='Clave del Cliente' control='Texto' controlnombre='CveNombre' controllongitud='6' controllongitudmax='18' editarinicializado='true'/>
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='Nombre' controllongitud='40' controllongitudmax='60' editarinicializado='true'/>
 	</Portal:Forma>
 	

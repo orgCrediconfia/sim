@@ -40,6 +40,7 @@ public class SimPrestamoCreditosPersonalesDAO extends Conexion2 implements Opera
 				"V.CVE_EMPRESA, \n"+
 				"V.ID_PRESTAMO, \n"+
 				"V.CVE_PRESTAMO, \n"+
+				"V.CVE_NOMBRE, \n"+
 				"V.ID_PRODUCTO, \n"+
 				"V.NUM_CICLO, \n"+
 				"V.FECHA_ENTREGA, \n"+
@@ -60,8 +61,8 @@ public class SimPrestamoCreditosPersonalesDAO extends Conexion2 implements Opera
 			"AND E.CVE_EMPRESA = V.CVE_EMPRESA \n"+
 			"AND E.ID_ETAPA_PRESTAMO = V.ID_ETAPA_PRESTAMO \n";
 		
-		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
-			sSql = sSql + "AND CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+		if (parametros.getDefCampo("CVE_NOMBRE") != null) {
+			sSql = sSql + "AND CVE_NOMBRE = '" + (String) parametros.getDefCampo("CVE_NOMBRE") + "' \n";
 		}
 		if (parametros.getDefCampo("NOMBRE") != null) {
 			sSql = sSql + "AND UPPER(NOMBRE) LIKE '%" + ((String) parametros.getDefCampo("NOMBRE")).toUpperCase() + "%' \n";
