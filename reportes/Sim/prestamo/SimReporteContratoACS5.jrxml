@@ -25,11 +25,17 @@
 	<import value="it.businesslogic.ireport.IReportScriptlet" />
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUnoDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDosDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteDomicilio" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 
 						C.CVE_GPO_EMPRESA, 
 						C.CVE_EMPRESA, 
 						C.ID_PRESTAMO, 
-						TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD "de" MONTH "de" YYYY') FECHA_ENTREGA,  
+						TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA,  
 						C.DIRECCION_SUCURSAL,  
 						C.NOMBRE NOM_CLIENTE, 
 						PPA.NOM_COMPLETO NOM_AVAL, 
@@ -160,7 +166,7 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="11"
 						key="staticText-5"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[Representantes Legales]]></text>
@@ -191,7 +197,7 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="10"
 						key="staticText-6"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[OTORGANTE]]></text>
@@ -204,7 +210,7 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="10"
 						key="staticText-7"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
@@ -226,7 +232,7 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="10"
 						key="staticText-8"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
@@ -252,7 +258,7 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="13"
 						key="textField-2"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_CLIENTE}]]></textFieldExpression>
@@ -265,7 +271,7 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="13"
 						key="textField-3"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GARANTE}]]></textFieldExpression>
@@ -287,10 +293,10 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="13"
 						key="textField-4"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoDos}]]></textFieldExpression>
 				</textField>
 				<line direction="TopDown">
 					<reportElement
@@ -309,10 +315,10 @@ CONDUSEF: Teléfono 53 400 999 ó Lada sin costo 01 800 999 8080. Página de Int
 						height="13"
 						key="textField-5"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_DEPOSITARIO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoUno}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

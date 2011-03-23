@@ -25,6 +25,12 @@
 
 	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUnoDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDosDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteDomicilio" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="ID_CLIENTE" class="java.lang.String"/>
@@ -58,11 +64,11 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="739"  isSplitAllowed="true" >
+			<band height="726"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="22"
-						y="534"
+						y="507"
 						width="235"
 						height="10"
 						key="staticText-4"/>
@@ -75,7 +81,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="21"
-						y="569"
+						y="542"
 						width="234"
 						height="0"
 						key="line-1"/>
@@ -84,7 +90,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="592"
+						y="565"
 						width="235"
 						height="10"
 						key="staticText-6"/>
@@ -97,7 +103,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="611"
+						y="613"
 						width="40"
 						height="13"
 						key="staticText-7"/>
@@ -123,7 +129,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="494"
+						y="467"
 						width="556"
 						height="24"
 						key="textField-6"/>
@@ -175,7 +181,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="395"
+						y="368"
 						width="414"
 						height="13"
 						key="staticText-88"/>
@@ -187,8 +193,8 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="389"
-						y="395"
+						x="384"
+						y="368"
 						width="139"
 						height="13"
 						key="textField-17"/>
@@ -201,7 +207,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="410"
+						y="383"
 						width="555"
 						height="79"
 						key="staticText-89"/>
@@ -219,7 +225,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="22"
-						y="571"
+						y="544"
 						width="235"
 						height="13"
 						key="textField-19"/>
@@ -232,9 +238,9 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="61"
-						y="611"
+						y="584"
 						width="196"
-						height="13"
+						height="27"
 						key="textField-20"/>
 					<box></box>
 					<textElement>
@@ -270,9 +276,9 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				</staticText>
 				<staticText>
 					<reportElement
-						x="301"
-						y="534"
-						width="235"
+						x="275"
+						y="507"
+						width="268"
 						height="10"
 						key="staticText-104"/>
 					<box></box>
@@ -283,18 +289,18 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="300"
-						y="569"
-						width="234"
+						x="274"
+						y="542"
+						width="267"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
 				<staticText>
 					<reportElement
-						x="300"
-						y="595"
-						width="235"
+						x="274"
+						y="568"
+						width="268"
 						height="10"
 						key="staticText-105"/>
 					<box></box>
@@ -305,9 +311,9 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				</staticText>
 				<staticText>
 					<reportElement
-						x="300"
-						y="611"
-						width="40"
+						x="274"
+						y="584"
+						width="39"
 						height="13"
 						key="staticText-106"/>
 					<box></box>
@@ -318,36 +324,36 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="340"
-						y="611"
-						width="196"
-						height="13"
+						x="313"
+						y="584"
+						width="230"
+						height="27"
 						key="textField-28"/>
 					<box></box>
-					<textElement>
+					<textElement verticalAlignment="Top">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_AVAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoUnoDomicilio}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="300"
-						y="570"
-						width="235"
+						x="274"
+						y="543"
+						width="268"
 						height="13"
 						key="textField-29"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoUno}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="0"
 						y="159"
 						width="553"
-						height="235"
+						height="207"
 						key="staticText-107"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -366,9 +372,9 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				</staticText>
 				<staticText>
 					<reportElement
-						x="303"
-						y="649"
-						width="235"
+						x="275"
+						y="622"
+						width="268"
 						height="10"
 						key="staticText-108"/>
 					<box></box>
@@ -379,18 +385,18 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
-						x="302"
-						y="684"
-						width="234"
+						x="274"
+						y="657"
+						width="267"
 						height="0"
 						key="line-3"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
 				<staticText>
 					<reportElement
-						x="302"
-						y="710"
-						width="235"
+						x="274"
+						y="683"
+						width="268"
 						height="10"
 						key="staticText-109"/>
 					<box></box>
@@ -401,9 +407,9 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				</staticText>
 				<staticText>
 					<reportElement
-						x="302"
-						y="726"
-						width="40"
+						x="274"
+						y="699"
+						width="39"
 						height="13"
 						key="staticText-110"/>
 					<box></box>
@@ -414,29 +420,29 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="342"
-						y="726"
-						width="196"
-						height="13"
-						key="textField-30"/>
-					<box></box>
-					<textElement>
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_AVAL}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="302"
-						y="685"
-						width="235"
+						x="274"
+						y="658"
+						width="268"
 						height="13"
 						key="textField-31"/>
 					<box></box>
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_AVAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoDos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="313"
+						y="699"
+						width="230"
+						height="27"
+						key="textField-32"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoDosDomicilio}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

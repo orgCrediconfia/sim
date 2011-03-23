@@ -60,14 +60,14 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="212"  isSplitAllowed="true" >
+			<band height="218"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						mode="Opaque"
 						x="0"
 						y="15"
 						width="552"
-						height="16"
+						height="13"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="element-1"/>
@@ -97,9 +97,9 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="31"
+						y="28"
 						width="552"
-						height="96"
+						height="112"
 						key="textField-2"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -110,9 +110,9 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="127"
+						y="140"
 						width="552"
-						height="35"
+						height="39"
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -123,7 +123,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="173"
+						y="179"
 						width="552"
 						height="39"
 						key="textField-4"/>
@@ -152,13 +152,13 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="340"  isSplitAllowed="true" >
+			<band height="570"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="0"
+						y="7"
 						width="552"
-						height="50"
+						height="38"
 						key="subreport-1"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
@@ -169,7 +169,7 @@
 				<break>
 					<reportElement
 						x="0"
-						y="56"
+						y="51"
 						width="552"
 						height="0"
 						key="element-2"/>
@@ -177,7 +177,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="77"
+						y="73"
 						width="552"
 						height="23"
 						key="textField-5"/>
@@ -190,9 +190,9 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="259"
+						y="554"
 						width="552"
-						height="81"
+						height="16"
 						key="subreport-2"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
@@ -203,9 +203,9 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="100"
+						y="96"
 						width="552"
-						height="76"
+						height="52"
 						key="subreport-3"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
@@ -219,7 +219,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="62"
+						y="58"
 						width="552"
 						height="13"
 						key="staticText-1"/>
@@ -232,7 +232,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="224"
+						y="529"
 						width="552"
 						height="25"
 						key="textField-7"/>
@@ -240,12 +240,12 @@
 					<textElement>
 						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Este PAGARÉ se firma en la Ciudad de " + $F{DIRECCION_SUCURSAL_CIUDAD} + " el " + $F{FECHA_ENTREGA}.trim() + "."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Este PAGARÉ se firma en la Ciudad de " + $F{DIRECCION_SUCURSAL_CIUDAD} + " el " + $F{FECHA_ENTREGA} + "."]]></textFieldExpression>
 				</textField>
 				<break>
 					<reportElement
 						x="0"
-						y="209"
+						y="525"
 						width="552"
 						height="0"
 						key="element-3"/>

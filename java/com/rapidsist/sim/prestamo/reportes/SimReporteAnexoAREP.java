@@ -6,6 +6,9 @@
 package com.rapidsist.sim.prestamo.reportes;
 
 import com.rapidsist.portal.cliente.reportes.ReporteControlIN;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,7 +28,56 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 
 	public Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
-
+		
+		String sIdPrestamo = request.getParameter("IdPrestamo");
+		System.out.println("Id Prestamo:"+sIdPrestamo);
+		
+		parametrosCatalogo.addDefCampo("ID_PRESTAMO", sIdPrestamo);
+		
+		
+		//Se obtine una sola garantia del prestamo
+		Registro registroGarantia = catalogoSL.getRegistro("SimGarantiasPrestamo", parametrosCatalogo);
+		
+		String sGarantiaDescripcion = (String)registroGarantia.getDefCampo("DESCRIPCION");
+		String sGarantiaValorComercial = (String)registroGarantia.getDefCampo("VALOR_COMERCIAL");
+		String sGarantiaNumeroFacturaEscritura = (String)registroGarantia.getDefCampo("NUMERO_FACTURA_ESCRITURA");
+		String sGarantiaFechaFacturaEscritura = (String)registroGarantia.getDefCampo("FECHA_FACTURA_ESCRITURA");
+		
+		//System.out.println("sGarantiaDescripcion:"+sGarantiaDescripcion);
+		//System.out.println("sGarantiaValorComercial:"+sGarantiaValorComercial);
+		//System.out.println("sGarantiaNumeroFacturaEscritura:"+sGarantiaNumeroFacturaEscritura);
+		//System.out.println("sGarantiaFechaFacturaEscritura:"+sGarantiaFechaFacturaEscritura);
+		
+		//Se obtiene un solo giro por persona
+		Registro registroGiro = catalogoSL.getRegistro("SimGiroPrestamo", parametrosCatalogo);
+		
+		String sGiroPersona = (String)registroGiro.getDefCampo("GIRO");
+		
+		LinkedList lParticipantes = catalogoSL.getRegistros(
+				"SimParticipanteC", parametrosCatalogo);
+		Iterator iteratorParticipantes = lParticipantes.iterator();
+		
+		String sObligadoUno = "";
+		String sObligadoUnoDomicilio = "";
+		String sObligadoDos = "";
+		String sObligadoDosDomicilio = "";
+		String sGarante = "";
+		String sGaranteDomicilio = "";
+		// ITEREA TODOS LOS PARTICIPANTES DEL CREDITO
+		while (iteratorParticipantes.hasNext()) {
+			Registro registro = (Registro) iteratorParticipantes.next();
+			String sTipoPersona = (String)registro.getDefCampo("CVE_TIPO_PERSONA");
+			if (sTipoPersona.equals("OBLIGADO")){
+				sObligadoUno = (String)registro.getDefCampo("NOM_COMPLETO");
+				sObligadoUnoDomicilio = (String)registro.getDefCampo("DIRECCION");
+			}else if(sTipoPersona.equals("OBLIGADO 2")){
+				sObligadoDos = (String)registro.getDefCampo("NOM_COMPLETO");
+				sObligadoDosDomicilio = (String)registro.getDefCampo("DIRECCION");
+			}else if(sTipoPersona.equals("GARANTE")){
+				sGarante = (String)registro.getDefCampo("NOM_COMPLETO");
+				sGaranteDomicilio = (String)registro.getDefCampo("DIRECCION");
+			}
+		}
 		String sSql =   "SELECT \n"+
 						"C.CVE_GPO_EMPRESA, \n"+
 						"C.CVE_EMPRESA, \n"+
@@ -33,16 +85,16 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 						"C.CVE_NOMBRE ID_CLIENTE, \n"+ 
 						"C.ID_PRODUCTO, \n"+
 						"C.NUM_CICLO, \n"+
-						"TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD \"de\" MONTH \"de\" YYYY') FECHA_ENTREGA, \n"+
+						"TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA, \n"+
 						"C.NOMBRE NOM_COMPLETO, \n"+ 
 						"TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_AUTORIZADO, \n"+ 
-						"CANTIDADES_LETRAS(C.MONTO_AUTORIZADO + C.CARGO_INICIAL) MONTO_AUTORIZADO_LETRAS, \n"+ 
+						"CANTIDADES_LETRAS(C.MONTO_AUTORIZADO) MONTO_AUTORIZADO_LETRAS, \n"+ 
 						"C.VALOR_TASA, \n"+
 						"C.VALOR_TASA * 12 AS TASA_ANUAL, \n"+ 
 						"C.PERIODICIDAD_PRODUCTO, \n"+ 
 						"C.CARGO_INICIAL CONSULTA_BURO, \n"+ 
 						"NVL(NVL(CA.CARGO_INICIAL,CA.PORCENTAJE_MONTO/100*C.MONTO_AUTORIZADO),0) COMISION_APERTURA, \n"+
-						"TO_CHAR(TO_DATE(C.FECHA_FIN),'DD \"de\" MONTH \"de\" YYYY') FECHA_FIN, \n"+
+						"TO_CHAR(C.FECHA_FIN, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_FIN, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_FIN, 'YYYY') FECHA_FIN, \n"+
 						"C.PLAZO, \n"+
 						"C.ID_SUCURSAL, \n"+ 
 						"C.DIRECCION_SUCURSAL, \n"+ 
@@ -96,6 +148,23 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 		System.out.println("sSql"+sSql);
 		
 		parametros.put("Sql", sSql);
+		//Parametros para obtener una sola garantia de un prestamo
+		parametros.put("GarantiaDescripcion", sGarantiaDescripcion);
+		parametros.put("GarantiaValorComercial", sGarantiaValorComercial);
+		parametros.put("GarantiaNumeroFacturaEscritura", sGarantiaNumeroFacturaEscritura);
+		parametros.put("GarantiaFechaFacturaEscritura", sGarantiaFechaFacturaEscritura);
+		
+		//Parametros para obtener un giro por persona
+		parametros.put("GiroPersona", sGiroPersona);
+		
+		//Parámetros para obtener los obligados solidarios y el garante
+		parametros.put("ObligadoUno", sObligadoUno);
+		parametros.put("ObligadoUnoDomicilio", sObligadoUnoDomicilio);
+		parametros.put("ObligadoDos", sObligadoDos);
+		parametros.put("ObligadoDosDomicilio", sObligadoDosDomicilio);
+		parametros.put("GaranteUno", sGarante);
+		parametros.put("GaranteDomicilio", sGaranteDomicilio);
+				
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReporteAnexoANuevo.jasper");

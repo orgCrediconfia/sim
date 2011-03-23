@@ -60,8 +60,8 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 				+ "C.CVE_NOMBRE ID_GRUPO, \n"
 				+ "C.NUM_CICLO, \n"
 				+ "C.VALOR_TASA, \n"
-				+ "TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD \"de\" MONTH \"de\" YYYY') FECHA_ENTREGA, \n"
-				+ "TO_CHAR(TO_DATE(C.FECHA_FIN),'DD \"de\" MONTH \"de\" YYYY') FECHA_FIN, \n"
+				+ "TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA, \n"
+				+ "TO_CHAR(C.FECHA_FIN, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_FIN, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_FIN, 'YYYY') FECHA_FIN, \n"
 				+ "C.PERIODICIDAD_PRODUCTO NOM_PERIODICIDAD, \n"
 				+ "CANTIDADES_LETRAS(MONTO_FIJO_PERIODO) MONTO_FIJO_PERIODO_LETRAS, \n"
 				+ "E.TX_DESC_EMPRESA, \n"
@@ -117,7 +117,7 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 					.put(
 							"Subreporte1",
 							contextoServlet
-									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0Capia.jasper"));
+									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario_subreport0Copia.jasper"));
 			parametros
 					.put(
 							"Subreporte2",
