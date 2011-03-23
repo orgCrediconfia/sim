@@ -25,6 +25,9 @@
 	<import value="it.businesslogic.ireport.IReportScriptlet" />
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GiroPersona" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT
 	C.CVE_GPO_EMPRESA,
 	C.CVE_EMPRESA,
@@ -32,7 +35,7 @@
 	C.CVE_NOMBRE ID_CLIENTE, 
 	C.ID_PRODUCTO,
 	C.NUM_CICLO,
-	TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD \"de\" MONTH \"de\" YYYY') FECHA_ENTREGA,
+	TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA,
 	C.NOMBRE NOM_COMPLETO, 
 	TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.99') MONTO_AUTORIZADO, 
 	CANTIDADES_LETRAS(C.MONTO_AUTORIZADO + C.CARGO_INICIAL) MONTO_AUTORIZADO_LETRAS, 
@@ -41,7 +44,7 @@
 	C.PERIODICIDAD_PRODUCTO, 
 	C.CARGO_INICIAL CONSULTA_BURO, 
 	NVL(NVL(CA.CARGO_INICIAL,CA.PORCENTAJE_MONTO/100*C.MONTO_AUTORIZADO),0) COMISION_APERTURA,
-	TO_CHAR(TO_DATE(C.FECHA_FIN),'DD \"de\" MONTH \"de\" YYYY') FECHA_FIN,
+	TO_CHAR(C.FECHA_FIN, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_FIN, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_FIN, 'YYYY') FECHA_FIN,
 	C.PLAZO,
 	C.ID_SUCURSAL, 
 	C.DIRECCION_SUCURSAL, 
@@ -149,7 +152,7 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO " + $F{ID_CLIENTE} + "-" + $F{NUM_CICLO} + " DE FECHA " + $F{FECHA_ENTREGA}.replace( '\\', ' ' ) + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, " + $F{NOM_COMPLETO} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " + $F{NOM_AVAL} + " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OBLIGADO SOLIDARIO”"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO " + $F{ID_CLIENTE} + "-" + $F{NUM_CICLO} + " DE FECHA " + $F{FECHA_ENTREGA}.replace( '\\', ' ' ) + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, " + $F{NOM_COMPLETO} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " + $F{NOM_AVAL} + " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL(LOS) “OBLIGADO SOLIDARIO”, "+$P{ObligadoUno}+", "+ $P{ObligadoDos}+ "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -282,7 +285,7 @@
 						key="staticText-4"/>
 					<box></box>
 					<textElement>
-						<font/>
+						<font size="8"/>
 					</textElement>
 				<text><![CDATA[_______% a la fecha de contratación, sin IVA para fines informativos y de comparación.]]></text>
 				</staticText>
@@ -299,7 +302,7 @@
 				<rectangle>
 					<reportElement
 						mode="Transparent"
-						x="282"
+						x="281"
 						y="78"
 						width="250"
 						height="55"
@@ -430,7 +433,7 @@
 						key="staticText-9"/>
 					<box></box>
 					<textElement>
-						<font/>
+						<font size="8"/>
 					</textElement>
 				<text><![CDATA[Factor del 1.5 veces la tasa de interés ordinario.]]></text>
 				</staticText>
@@ -794,6 +797,19 @@ El pago estará acreditado en la fecha en que los fondos sean inmediatamente dis
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="62"
+						y="150"
+						width="219"
+						height="33"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{GiroPersona} + "."]]></textFieldExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>

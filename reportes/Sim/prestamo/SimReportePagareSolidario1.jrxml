@@ -179,7 +179,7 @@ AND DOMICILIO_FISCAL (+)= 'V']]></queryString>
 					<textElement textAlignment="Justified">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Los Suscriptores convienen extender el plazo de presentación de este PAGARÉ para efectos del Artículo 128 de la Ley General de Títulos y Operaciones de Crédito al día " +$P{FechaFin}.trim()+ "."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los Suscriptores convienen extender el plazo de presentación de este PAGARÉ para efectos del Artículo 128 de la Ley General de Títulos y Operaciones de Crédito al día " +$P{FechaFin} + "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement

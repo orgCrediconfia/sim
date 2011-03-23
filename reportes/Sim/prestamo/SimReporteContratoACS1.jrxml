@@ -25,13 +25,19 @@
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="PathLogotipo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUnoDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDosDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteDomicilio" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT 
 						C.CVE_GPO_EMPRESA, 
 						C.CVE_EMPRESA, 
 						C.ID_PRESTAMO, 
 						C.CVE_NOMBRE ID_CLIENTE, 
 						C.NUM_CICLO,  
-						TO_CHAR(TO_DATE(C.FECHA_ENTREGA),'DD "de" MONTH "de" YYYY') FECHA_ENTREGA, 
+						TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA, 
 						C.DIRECCION_SUCURSAL,  
             DECODE(C.NOMBRE,'',' ',C.NOMBRE) NOM_CLIENTE,
             DECODE(DC.CALLE||' '||DC.NUMERO_INT||' '||DC.NOM_ASENTAMIENTO||' '||DC.NOM_DELEGACION||' '||DC.NOM_ESTADO||' '||'C.P.'||' '||DC.CODIGO_POSTAL,'     C.P. ',' ',DC.CALLE||' '||DC.NUMERO_INT||' '||DC.NOM_ASENTAMIENTO||' '||DC.NOM_DELEGACION||' '||DC.NOM_ESTADO||' '||'C.P.'||' '||DC.CODIGO_POSTAL) DIRECCION_CLIENTE,
@@ -99,20 +105,20 @@
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
-	<field name="ID_PRESTAMO" class="java.lang.String"/>
-	<field name="ID_CLIENTE" class="java.lang.String"/>
-	<field name="NUM_CICLO" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="ID_CLIENTE" class="java.math.BigDecimal"/>
+	<field name="NUM_CICLO" class="java.math.BigDecimal"/>
 	<field name="FECHA_ENTREGA" class="java.lang.String"/>
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
 	<field name="NOM_CLIENTE" class="java.lang.String"/>
 	<field name="DIRECCION_CLIENTE" class="java.lang.String"/>
-	<field name="ID_AVAL" class="java.lang.String"/>
+	<field name="ID_AVAL" class="java.math.BigDecimal"/>
 	<field name="NOM_AVAL" class="java.lang.String"/>
 	<field name="DIRECCION_AVAL" class="java.lang.String"/>
-	<field name="ID_DEPOSITARIO" class="java.lang.String"/>
+	<field name="ID_DEPOSITARIO" class="java.math.BigDecimal"/>
 	<field name="NOM_DEPOSITARIO" class="java.lang.String"/>
 	<field name="DIRECCION_DEPOSITARIO" class="java.lang.String"/>
-	<field name="ID_GARANTE" class="java.lang.String"/>
+	<field name="ID_GARANTE" class="java.math.BigDecimal"/>
 	<field name="NOM_GARANTE" class="java.lang.String"/>
 	<field name="DIRECCION_GARANTE" class="java.lang.String"/>
 
@@ -159,7 +165,7 @@
 						x="0"
 						y="84"
 						width="254"
-						height="348"
+						height="326"
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -184,14 +190,14 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1) Es (Son) una persona(s) física(s), mayor(es) de edad, con capacidad legal para celebrar este contrato, teniendo su(s) domicilio en "+$F{DIRECCION_GARANTE}+"."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Es (Son) una persona(s) física(s), mayor(es) de edad, con capacidad legal para celebrar este contrato, teniendo su(s) domicilio en "+$P{GaranteDomicilio}+"."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="298"
-						y="463"
+						y="479"
 						width="252"
-						height="206"
+						height="190"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -243,7 +249,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["CONTRATO DE APERTURA CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO (" + $F{ID_CLIENTE} + " - " + $F{NUM_CICLO} +"), QUE CELEBRAN DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM, ENR, EN SU CARÁCTER DE ACREDITANTE, A QUIEN SE LE DENOMINARÁ “DINSA”, REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, EL(LA) SEÑOR(A) " + $F{NOM_CLIENTE} + ", EN SU CARÁCTER DE ACREDITADO, A QUIEN SE LE DENOMINARÁ “EL DEUDOR”, EL(LA) SEÑOR(A) " + $F{NOM_GARANTE} +", EN SU CARÁCTER DE OTORGANTE, A QUIEN SE LE DENOMINARÁ EL “OTORGANTE”, EL(LA) SEÑOR(A) " + $F{NOM_AVAL} +", EN SU CARÁCTER DE OBLIGADO(S) SOLIDARIO(S) A QUIEN SE DENOMINA DE FORMA CONJUNTA EL “OBLIGADO SOLIDARIO”, AL TENOR DE LAS SIGUIENTES DECLARACIONES Y CLÁUSULAS:  "]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CONTRATO DE APERTURA CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO (" + $F{ID_CLIENTE} + " - " + $F{NUM_CICLO} +"), QUE CELEBRAN DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM, ENR, EN SU CARÁCTER DE ACREDITANTE, A QUIEN SE LE DENOMINARÁ “DINSA”, REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, EL(LA) SEÑOR(A) " + $F{NOM_CLIENTE} + ", EN SU CARÁCTER DE ACREDITADO, A QUIEN SE LE DENOMINARÁ “EL DEUDOR”, EL(LA) SEÑOR(A) " + $F{NOM_GARANTE} +", EN SU CARÁCTER DE OTORGANTE, A QUIEN SE LE DENOMINARÁ EL “OTORGANTE”, EL(LA) SEÑOR(A) " + $P{ObligadoUno} + " Y EL(LA) SEÑOR(A) " + $P{ObligadoDos} + ", EN SU CARÁCTER DE OBLIGADO(S) SOLIDARIO(S) A QUIENES SE LES DENOMINARÁ DE FORMA CONJUNTA EL “OBLIGADO SOLIDARIO”, AL TENOR DE LAS SIGUIENTES DECLARACIONES Y CLÁUSULAS:  "]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -261,7 +267,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="298"
-						y="450"
+						y="465"
 						width="252"
 						height="13"
 						key="staticText-6"/>
@@ -274,7 +280,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="0"
-						y="662"
+						y="647"
 						width="254"
 						height="13"
 						key="staticText-7"/>
@@ -287,7 +293,7 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="0"
-						y="432"
+						y="415"
 						width="254"
 						height="13"
 						key="staticText-8"/>
@@ -302,20 +308,20 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 						x="298"
 						y="317"
 						width="252"
-						height="27"
+						height="55"
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_AVAL}+ "."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $P{ObligadoUnoDomicilio}+ " Y " +$P{ObligadoDosDomicilio}+ "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="298"
-						y="344"
+						y="372"
 						width="252"
-						height="106"
+						height="93"
 						key="staticText-9"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -328,7 +334,7 @@ Conformes las partes en las declaraciones que anteceden, celebran este Contrato 
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="445"
+						y="428"
 						width="252"
 						height="38"
 						key="textField-4"/>
@@ -341,7 +347,7 @@ Conformes las partes en las declaraciones que anteceden, celebran este Contrato 
 				<staticText>
 					<reportElement
 						x="0"
-						y="483"
+						y="468"
 						width="252"
 						height="179"
 						key="staticText-10"/>

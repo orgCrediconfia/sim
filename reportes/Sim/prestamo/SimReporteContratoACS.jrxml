@@ -33,6 +33,12 @@
 		<defaultValueExpression ><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Subreporte5" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUnoDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDosDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteDomicilio" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT ID_PRESTAMO FROM SIM_PRESTAMO WHERE ID_PRESTAMO = $P{IdPrestamo}]]></queryString>
 
 	<field name="ID_PRESTAMO" class="java.lang.String"/>
@@ -183,6 +189,24 @@
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$P{IdPrestamo}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter  name="ObligadoUno">
+						<subreportParameterExpression><![CDATA[$P{ObligadoUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoUnoDomicilio">
+						<subreportParameterExpression><![CDATA[$P{ObligadoUnoDomicilio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoDos">
+						<subreportParameterExpression><![CDATA[$P{ObligadoDos}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoDosDomicilio">
+						<subreportParameterExpression><![CDATA[$P{ObligadoDosDomicilio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GaranteUno">
+						<subreportParameterExpression><![CDATA[$P{GaranteUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GaranteDomicilio">
+						<subreportParameterExpression><![CDATA[$P{GaranteDomicilio}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
 				</subreport>
@@ -203,6 +227,24 @@
 						key="subreport-11"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoUno">
+						<subreportParameterExpression><![CDATA[$P{ObligadoUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoUnoDomicilio">
+						<subreportParameterExpression><![CDATA[$P{ObligadoUnoDomicilio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoDos">
+						<subreportParameterExpression><![CDATA[$P{ObligadoDos}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoDosDomicilio">
+						<subreportParameterExpression><![CDATA[$P{ObligadoDosDomicilio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GaranteUno">
+						<subreportParameterExpression><![CDATA[$P{GaranteUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GaranteDomicilio">
+						<subreportParameterExpression><![CDATA[$P{GaranteDomicilio}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte5}]]></subreportExpression>

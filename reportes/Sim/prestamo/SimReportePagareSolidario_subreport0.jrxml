@@ -315,13 +315,13 @@ WHERE CVE_GPO_EMPRESA   = 'SIM' AND
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="260"  isSplitAllowed="true" >
+			<band height="231"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="6"
 						y="7"
 						width="555"
-						height="157"
+						height="168"
 						key="staticText-8"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -335,7 +335,7 @@ Todas las cantidades pagaderas por los Suscriptores a DINSA serán cubiertas sin
 				<staticText>
 					<reportElement
 						x="6"
-						y="165"
+						y="177"
 						width="555"
 						height="54"
 						key="staticText-11"/>
