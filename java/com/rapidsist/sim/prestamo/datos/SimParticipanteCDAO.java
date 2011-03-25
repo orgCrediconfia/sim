@@ -37,6 +37,8 @@ public class SimParticipanteCDAO extends Conexion2 implements OperacionConsultaT
 	      "GP.ID_PERSONA,\n"+
 	      "GD.CALLE\n"+
 	      "||', '\n"+
+	      "||GD.NUMERO_EXT\n"+
+	      "||', '\n"+
 	      "||GD.NUMERO_INT\n"+
 	      "||', '\n"+
 	      "||GD.NOM_ASENTAMIENTO\n"+
