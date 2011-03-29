@@ -85,7 +85,7 @@
 			</td>
 		</tr>
 		<script> BuscaSelectOpcion(document.frmRegistro.IdUbicacionNegocio,'<c:out value='${requestScope.registro.campos["ID_UBICACION_NEGOCIO"]}'/>'); </script>
-		
+		<Portal:FormaElemento etiqueta='Personas trabajando' control='Texto' controlnombre='NumPersonasTrabajando' controlvalor='${requestScope.registro.campos["NUM_PERSONAS_TRABAJANDO"]}' controllongitud='2' controllongitudmax='3' editarinicializado='true' obligatorio='false' validadato='numerico'/>
 		
 		<Portal:FormaSeparador nombre="Direcci&oacute;n"/>				
 		<Portal:FormaElemento etiqueta='Calle' control='Texto' controlnombre='Calle' controlvalor='${requestScope.registro.campos["CALLE"]}' controllongitud='100' controllongitudmax='100' editarinicializado='true' obligatorio='false' />

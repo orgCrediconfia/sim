@@ -82,7 +82,7 @@
 		</tr>
 		<script> BuscaSelectOpcion(document.frmRegistro.IdRolHogar,'<c:out value='${requestScope.registro.campos["ID_ROL_HOGAR"]}'/>'); </script>
 		
-		
+		<Portal:FormaElemento etiqueta='Ingreso Semanal $' control='Texto' controlnombre='IngresoSemanal' controlvalor='${requestScope.registro.campos["INGRESO_SEMANAL"]}' controllongitud='7' controllongitudmax='6' editarinicializado='true' obligatorio='false' validadato='numerico'/>
 		<Portal:FormaElemento etiqueta='No. Dependientes econ&oacute;micos' control='Texto' controlnombre='NumDependientesEconomicos' controlvalor='${requestScope.registro.campos["NUM_DEPENDIENTES_ECONOMICOS"]}' controllongitud='1' controllongitudmax='1' editarinicializado='true' obligatorio='false' validadato='numerico' />
 		<Portal:FormaElemento etiqueta='Escolaridad' control='selector' controlnombre='IdEscolaridad' controlvalor='${requestScope.registro.campos["ID_ESCOLARIDAD"]}' editarinicializado='true' obligatorio='true' campoclave="ID_ESCOLARIDAD" campodescripcion="NOM_ESCOLARIDAD" datosselector='${requestScope.ListaEscolaridad}'/>			
 	

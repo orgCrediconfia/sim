@@ -171,6 +171,7 @@ public class SimClientesCON implements CatalogoControlConsultaIN, CatalogoContro
 			registro.addDefCampo("ID_ROL_HOGAR",request.getParameter("IdRolHogar"));
 		}
 		
+		registro.addDefCampo("INGRESO_SEMANAL",request.getParameter("IngresoSemanal")!= null ? request.getParameter("IngresoSemanal") : "");
 		registro.addDefCampo("NUM_DEPENDIENTES_ECONOMICOS",request.getParameter("NumDependientesEconomicos")!= null ? request.getParameter("NumDependientesEconomicos") : "");
 		registro.addDefCampo("ID_ESCOLARIDAD",request.getParameter("IdEscolaridad")!= null ? request.getParameter("IdEscolaridad") : "");
 		registro.addDefCampo("ID_ESCOLARIDAD",request.getParameter("IdEscolaridad")!= null ? request.getParameter("IdEscolaridad") : "");

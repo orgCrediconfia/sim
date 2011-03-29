@@ -103,6 +103,7 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				 " P.CURP, \n" +
 				 " P.ID_DESTINO_CREDITO, \n" +
 				 " P.ID_ROL_HOGAR, \n" +
+				 " P.INGRESO_SEMANAL, \n" +
 				 " P.NUM_DEPENDIENTES_ECONOMICOS, \n" +
 				 " P.ID_ESCOLARIDAD, \n" +	
 				 " P.LISTA_NEGRA, \n" +
@@ -177,6 +178,7 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				"CURP, \n" +
 				"ID_DESTINO_CREDITO, \n" +
 				"ID_ROL_HOGAR, \n" +
+				"INGRESO_SEMANAL, \n" +
 				"NUM_DEPENDIENTES_ECONOMICOS, \n" +
 				"ID_ESCOLARIDAD, \n" +
 				"LISTA_NEGRA, \n" +
@@ -203,6 +205,7 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				"'" + (String)registro.getDefCampo("CURP") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_DESTINO_CREDITO") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_ROL_HOGAR") + "', \n" +
+				"'" + (String)registro.getDefCampo("INGRESO_SEMANAL") + "', \n" +
 				"'" + (String)registro.getDefCampo("NUM_DEPENDIENTES_ECONOMICOS") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_ESCOLARIDAD") + "', \n" +
 				"'F', \n" +		
@@ -260,6 +263,7 @@ public class SimClientesDAO extends Conexion2 implements OperacionAlta, Operacio
 				"CURP = '" + (String)registro.getDefCampo("CURP") + "', \n" +
 				"ID_DESTINO_CREDITO = '" + (String)registro.getDefCampo("ID_DESTINO_CREDITO") + "', \n" +
 				"ID_ROL_HOGAR = '" + (String)registro.getDefCampo("ID_ROL_HOGAR") + "', \n" +
+				"INGRESO_SEMANAL = '" + (String)registro.getDefCampo("INGRESO_SEMANAL") + "', \n" +
 				"NUM_DEPENDIENTES_ECONOMICOS = '" + (String)registro.getDefCampo("NUM_DEPENDIENTES_ECONOMICOS") + "', \n" +
 				"ID_ESCOLARIDAD	= '" + (String)registro.getDefCampo("ID_ESCOLARIDAD") + "', \n" +
 				"LISTA_NEGRA = '" + (String)registro.getDefCampo("LISTA_NEGRA") + "', \n" +

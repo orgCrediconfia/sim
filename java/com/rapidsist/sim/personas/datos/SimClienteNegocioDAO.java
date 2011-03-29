@@ -45,6 +45,7 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			"	DECODE(CN.B_PRINCIPAL,'V','Principal','F','Secundario') B_PRINCIPAL, \n"+
 			"	CN.FECHA_INICIO_OPERACION, \n"+
 			"	CN.ID_UBICACION_NEGOCIO, \n"+
+			"	CN.NUM_PERSONAS_TRABAJANDO, \n"+
 			"	D.ID_DOMICILIO, \n"+
 			"	D.CALLE, \n"+
 			"	D.NUMERO_INT, \n"+
@@ -96,6 +97,7 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			"	CN.B_PRINCIPAL, \n"+
 			"	CN.FECHA_INICIO_OPERACION, \n"+
 			"	CN.ID_UBICACION_NEGOCIO, \n"+
+			"	CN.NUM_PERSONAS_TRABAJANDO, \n"+
 			"	D.ID_DOMICILIO, \n"+
 			"	D.CALLE, \n"+
 			"	D.NUMERO_INT, \n"+
@@ -211,6 +213,7 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 				   "B_PRINCIPAL, \n" +
 				   "ID_DOMICILIO, \n" +
 				   "ID_UBICACION_NEGOCIO, \n" +
+				   "NUM_PERSONAS_TRABAJANDO, \n"+
 				   "FECHA_INICIO_OPERACION) \n" +
 				" VALUES (" +
 				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
@@ -224,6 +227,7 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 				"'" + (String)registro.getDefCampo("B_PRINCIPAL") + "', \n" +
 				" " + sIdDomicilio +", \n" +
 				"'" + (String)registro.getDefCampo("ID_UBICACION_NEGOCIO") + "', \n" +
+				"'" + (String)registro.getDefCampo("NUM_PERSONAS_TRABAJANDO") + "', \n" +
 				"TO_DATE('" + (String)registro.getDefCampo("FECHA_INICIO_OPERACION") + "','DD/MM/YYYY')) \n" ;
 
 		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
@@ -252,7 +256,8 @@ public class SimClienteNegocioDAO extends Conexion2 implements OperacionAlta, Op
 			     " CVE_CLASE ='" + (String)registro.getDefCampo("CVE_CLASE") + "', \n" +
 			     " FECHA_INICIO_OPERACION = TO_DATE('" + (String)registro.getDefCampo("FECHA_INICIO_OPERACION") + "','DD/MM/YYYY'), \n" +
 			     " B_PRINCIPAL ='" + (String)registro.getDefCampo("B_PRINCIPAL") + "', \n" +
-			     " ID_UBICACION_NEGOCIO ='" + (String)registro.getDefCampo("ID_UBICACION_NEGOCIO") + "' \n" +
+			     " ID_UBICACION_NEGOCIO ='" + (String)registro.getDefCampo("ID_UBICACION_NEGOCIO") + "', \n" +
+			     " NUM_PERSONAS_TRABAJANDO ='" + (String)registro.getDefCampo("NUM_PERSONAS_TRABAJANDO") + "' \n" +
 		   	" WHERE ID_NEGOCIO = '" + (String)registro.getDefCampo("ID_NEGOCIO") + "' \n" +
 		   	" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 		   	" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
