@@ -240,12 +240,6 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 
-		String sClaveUsuario = (String)registro.getDefCampo("CLAVE_USUARIO");
-		String sUsuarioSesion = (String)registro.getDefCampo("CVE_USUARIO");
-		
-		System.out.println("sClaveUsuario"+sClaveUsuario);
-		System.out.println("sUsuarioSesion"+sUsuarioSesion);
-		
 		//ACTUALIZA EL USUARIO
 		sSql =  " UPDATE RS_GRAL_USUARIO SET "+
 			" NUM_NOMINA = '" + (String)registro.getDefCampo("NUM_NOMINA") + "', \n" +
@@ -255,21 +249,16 @@ public class UsuarioEmpresaDAO extends Conexion2 implements OperacionAlta, Opera
 			" CVE_PERFIL = '" + (String)registro.getDefCampo("CVE_PERFIL") + "', \n" ;
 		
 			//SI EL PASSWORD ESTA VACIO CONSERVAR EL ACTUAL EN BASE DE DATOS
-			if (sClaveUsuario.equals(sUsuarioSesion)){
-				System.out.println("el usuario en sesión puede cambiar su password");
-				if (!registro.getDefCampo("PASSWORD").equals("")){
-					sSql = sSql + "PASSWORD = '" + (String)registro.getDefCampo("PASSWORD")+"' ,";
-				}
-			}
 			
+			if (!registro.getDefCampo("PASSWORD").equals("")){
+				sSql = sSql + "PASSWORD = '" + (String)registro.getDefCampo("PASSWORD")+"' ,";
+			}
 			
 		sSql= sSql+ " B_REGIONALES = '" + (String)registro.getDefCampo("B_REGIONALES") + "' \n" +
 			" WHERE CVE_USUARIO = '" + (String)registro.getDefCampo("CLAVE_USUARIO") + "' \n" +
 			" AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			" AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
 			
-		System.out.println("modificando password?"+sSql);
-		
 		//VERIFICA SI NO SE ACTUALIZÓ EL REGISTRO
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
