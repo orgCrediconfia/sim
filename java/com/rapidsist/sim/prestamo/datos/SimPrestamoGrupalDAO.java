@@ -161,6 +161,8 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 				"PG.MONTO_MAXIMO, \n"+
 				"PG.ID_TIPO_RECARGO, \n"+
 				"PG.TIPO_TASA_RECARGO, \n"+
+				"DECODE(PG.ID_TIPO_RECARGO,3,'Interés moratorio',4,'Monto fijo por periodo',5,'Interés moratorio y Monto fijo por periodo') TIPO_RECARGO, \n"+
+				"DECODE(PG.TIPO_TASA_RECARGO,1,'Fija independiente',2,'Dependiente de la tasa de credito') TIPO_TASA_DE_RECARGO, \n"+
 				"PG.TASA_RECARGO, \n"+
 				"PG.ID_PERIODICIDAD_TASA_RECARGO, \n"+
 				"PG.ID_TASA_REFERENCIA_RECARGO, \n"+

@@ -139,6 +139,8 @@ public class SimPrestamoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 				registroControl.respuesta.addDefCampo("ListaDocumentoImprimir", catalogoSL.getRegistros("SimPrestamoDocumentoImprimir", parametros));
 				parametros.addDefCampo("PANTALLA","MODIFICACION");
 				registroControl.respuesta.addDefCampo("ListaMontoEtapa", catalogoSL.getRegistros("SimPrestamoGrupalMontoEtapa", parametros));
+				parametros.addDefCampo("PRESTAMO","GRUPAL");
+				registroControl.respuesta.addDefCampo("registroVerificarEtapa", catalogoSL.getRegistro("SimPrestamoVerificaEtapaAnteriorAutMonRie", parametros));
 				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreGpoMonEtaMod.jsp";
 			}
 		}

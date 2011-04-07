@@ -1,3 +1,4 @@
+<%@ page language="java" import="com.rapidsist.portal.configuracion.Usuario"%>
 <%@ taglib uri="Portal" prefix="Portal" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <Portal:Pagina funcion="SimPrestamo" precarga="SimPrestamoParticipante SimPrestamoEstatusHistorico SimPrestamoActividadRequisito SimPrestamoCargoComisionCliente SimPrestamoMontoCliente SimPrestamoAccesorioOrdenCliente SimPrestamoDocumentacion SimPrestamoGarantia SimPrestamoFlujoEfectivo">
@@ -5,19 +6,23 @@
 	<Portal:Forma tipo='catalogo' funcion='SimPrestamo'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
 		
+		<%Usuario usuario = (Usuario)session.getAttribute("Usuario");%>
+		
 		<input type="hidden" name="IdPrestamo" value='<c:out value='${requestScope.registro.campos["ID_PRESTAMO"]}'/>' />
 		<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
 			<Portal:FormaElemento etiqueta='Clave' control='Texto' controlnombre='CvePrestamo' controlvalor='${requestScope.registro.campos["CVE_PRESTAMO"]}' editarinicializado='false'/>
 		</c:if>
 		
 		<Portal:FormaElemento etiqueta='' control='etiqueta' controlvalor=''>		
-		    	<a id="AsignarCliente" href="javascript:fAsignarCliente();">Asignar Cliente</a>			
+		   	<a id="AsignarCliente" href="javascript:fAsignarCliente();">Asignar Cliente</a>			
 		</Portal:FormaElemento>
 		
 		<Portal:FormaElemento etiqueta='Cliente' control='etiqueta-controlreferencia' controlnombre='NomCompleto' controlvalor='${requestScope.registro.campos["NOM_COMPLETO"]}' editarinicializado='false'/>
 		<input type="hidden" name="IdPersona" value='<c:out value='${requestScope.registro.campos["ID_CLIENTE"]}'/>' />
 		<input type="hidden" name="IdPersonaAlta" value='<c:out value='${requestScope.registro.campos["ID_PERSONA"]}'/>' />
 		
+		
+	
 		<c:if test='${(requestScope.registro != null)}'>
 			<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursal' controlvalor='${requestScope.registro.campos["ID_SUCURSAL"]}' editarinicializado='false' obligatorio='true' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}'/>
 		</c:if>
@@ -34,9 +39,11 @@
 		
 			<Portal:FormaSeparador nombre="Producto"/>
 			
-			<Portal:FormaElemento etiqueta='' control='etiqueta' controlvalor=''>		
-			    	<a id="AsignarProducto" href="javascript:fAsignarProducto();">Asignar Producto</a>			
-			</Portal:FormaElemento>
+			<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<Portal:FormaElemento etiqueta='' control='etiqueta' controlvalor=''>		
+				    	<a id="AsignarProducto" href="javascript:fAsignarProducto();">Asignar Producto</a>			
+				</Portal:FormaElemento>
+			<%}%>
 			
 			<Portal:FormaElemento etiqueta='Clave' control='etiqueta-controlreferencia' controlnombre='IdProducto' controlvalor='${requestScope.registro.campos["ID_PRODUCTO"]}' editarinicializado='false'/>
 			<input type="hidden" name="IdProducto" value='<c:out value='${requestScope.registro.campos["ID_PRODUCTO"]}'/>' />
@@ -45,42 +52,111 @@
 			<input type="hidden" name="AplicaA" value='<c:out value='${requestScope.registro.campos["APLICA_A"]}'/>' />
 			
 			
+			<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadProducto' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_PRODUCTO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+				<Portal:FormaElemento etiqueta='M&eacute;todo de c&aacute;lculo del producto' control='selector' controlnombre='CveMetodo' controlvalor='${requestScope.registro.campos["CVE_METODO"]}' editarinicializado='true' obligatorio='false' campoclave="CVE_METODO" campodescripcion="NOM_METODO" datosselector='${requestScope.ListaMetodo}'/>			
+			<%}%>
 			
-			<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadProducto' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_PRODUCTO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
-			<Portal:FormaElemento etiqueta='M&eacute;todo de c&aacute;lculo del producto' control='selector' controlnombre='CveMetodo' controlvalor='${requestScope.registro.campos["CVE_METODO"]}' editarinicializado='true' obligatorio='false' campoclave="CVE_METODO" campodescripcion="NOM_METODO" datosselector='${requestScope.ListaMetodo}'/>			
-			
+			<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadProducto' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_PRODUCTO"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+				<Portal:FormaElemento etiqueta='M&eacute;todo de c&aacute;lculo del producto' control='selector' controlnombre='CveMetodo' controlvalor='${requestScope.registro.campos["CVE_METODO"]}' editarinicializado='false' obligatorio='false' campoclave="CVE_METODO" campodescripcion="NOM_METODO" datosselector='${requestScope.ListaMetodo}'/>		
+			<%}%>
+	
 			<c:if test='${(requestScope.registro.campos["ID_PERSONA"] != null)}'>	
 			
 				<Portal:FormaElemento etiqueta='N&uacute;mero de ciclo' control='etiqueta-controlreferencia' controlnombre='NumCiclo' controlvalor='${requestScope.registro.campos["NUM_CICLO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true'/>
 				
 				<input type="hidden" name="NumCiclo" value='<c:out value='${requestScope.registro.campos["NUM_CICLO"]}'/>' />
-				<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
-				<tr>
-					<th>Forma de distribuci&oacute;n de pago</th>
-					<td>
-						<select name='IdFormaDistribucion' size='1'  >
-							<option value='null'></option>
-							<option value='1'  >Saldos - Accesorios y capital</option>
-							<option value='2'   >Saldos - Capital y accesorio</option>
-						</select>
-					</td>
-				</tr>
 				
-				<tr>
-					<th>Tasa</th>
-					<td>
-						<select name='TipoTasa' size='1' onchange='fTasa();' >
-							<option value='null'></option>
-							<option value='No indexada'   >No indexada</option>
-							<option value='Si indexada'   >S&iacute; indexada</option>
-						</select>
-					</td>
-				</tr>
+				<!--Cuando el usuario tiene un perfil de COORDINADOR el campo Plazo pueden ser editado hasta antes de la etapa de Autorización de montos por riesgo-->
+				<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] == null)}'>
+						<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='false' obligatorio='true' validadato='numerico'/>
+					</c:if>
+					<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] != null)}'>
+						<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
+					</c:if>
+				<%}%>
 				
-				<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+				<!--Cuando el usuario tiene un perfil diferente al de COORDINADOR el campo Plazo pueden ser editado-->
+				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
+				<%}%>
 				
-				<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
-				<Portal:FormaElemento etiqueta='Papeles' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>	
+				
+				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<tr>
+						<th>Forma de distribuci&oacute;n de pago</th>
+						<td>
+							<select name='IdFormaDistribucion' size='1'  >
+								<option value='null'></option>
+								<option value='1'  >Saldos - Accesorios y capital</option>
+								<option value='2'   >Saldos - Capital y accesorio</option>
+							</select>
+						</td>
+					</tr>
+					<c:if test='${(requestScope.registro != null)}'>
+						<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	 
+							<script> BuscaSelectOpcion(document.frmRegistro.IdFormaDistribucion,'<c:out value='${requestScope.registro.campos["ID_FORMA_DISTRIBUCION"]}'/>'); </script>
+						</c:if> 
+					</c:if>
+				<%}%>
+				<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<Portal:FormaElemento etiqueta='Forma de distribuci&oacute;n de pago' control='etiqueta-controlreferencia' controlnombre='IdFormaDistribucion' controlvalor='${requestScope.registro.campos["FORMA_APLICACION"]}' controllongitud='25' controllongitudmax='30' editarinicializado='true' obligatorio='true'/>
+				<%}%>
+				
+				<!--Cuando el usuario tiene un perfil diferente al COORDINADOR los campos Tipo de la tasa, valor de la tasa, periodicidad de la tasa y papeles pueden ser editados-->
+				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<tr>
+						<th>Tasa</th>
+						<td>
+							<select name='TipoTasa' size='1' onchange='fTasa();' >
+								<option value='null'></option>
+								<option value='No indexada'   >No indexada</option>
+								<option value='Si indexada'   >S&iacute; indexada</option>
+							</select>
+						</td>
+					</tr>
+					<c:if test='${(requestScope.registro != null)}'>
+						<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
+							<script> BuscaSelectOpcion(document.frmRegistro.TipoTasa,'<c:out value='${requestScope.registro.campos["TIPO_TASA"]}'/>'); </script>
+						</c:if> 
+					</c:if>
+					<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+					<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
+					<Portal:FormaElemento etiqueta='Papeles' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+				<%}%>
+				
+				<!--Cuando el usuario tiene un perfil de COORDINADOR los campos Tipo de la tasa, valor de la tasa, periodicidad de la tasa y papeles pueden ser editados hasta antes de la etapa de Autorización de montos por riesgo-->
+				<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] == null)}'>
+						<Portal:FormaElemento etiqueta='Tasa' control='Texto' controlnombre='TipoTasa' controlvalor='${requestScope.registro.campos["TIPO_TASA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+						<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+						<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
+						<Portal:FormaElemento etiqueta='Papeles' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+					</c:if>
+					<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] != null)}'>
+						<tr>
+							<th>Tasa</th>
+							<td>
+								<select name='TipoTasa' size='1' onchange='fTasa();' >
+									<option value='null'></option>
+									<option value='No indexada'   >No indexada</option>
+									<option value='Si indexada'   >S&iacute; indexada</option>
+								</select>
+							</td>
+						</tr>
+						<c:if test='${(requestScope.registro != null)}'>
+							<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
+								<script> BuscaSelectOpcion(document.frmRegistro.TipoTasa,'<c:out value='${requestScope.registro.campos["TIPO_TASA"]}'/>');</script> 
+							</c:if> 
+						</c:if>
+						<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+						<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
+						<Portal:FormaElemento etiqueta='Papeles*' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+					</c:if>
+				<%}%>
+				
 				<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='etiqueta-controlreferencia' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='15' controllongitudmax='15' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
 				<input type="hidden" name="MontoMaximo" value='<c:out value='${requestScope.registro.campos["MONTO_MAXIMO"]}'/>' />
 				<input type="hidden" name="MontoMinimo" value='<c:out value='${requestScope.registro.campos["MONTO_MINIMO"]}'/>' />
@@ -336,33 +412,28 @@
 		</form>
 		<br/>	
 		
-	</c:if>							
+	</c:if>						
 	<script>
 	
-		<c:if test='${(requestScope.registro != null)}'>
-			<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
-				BuscaSelectOpcion(document.frmRegistro.TipoTasa,'<c:out value='${requestScope.registro.campos["TIPO_TASA"]}'/>'); 
-				BuscaSelectOpcion(document.frmRegistro.IdFormaDistribucion,'<c:out value='${requestScope.registro.campos["ID_FORMA_DISTRIBUCION"]}'/>');
-			</c:if> 
+		<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	
+			if (document.frmRegistro.TipoTasa.value == "No indexada"){
+				document.frmRegistro.IdTasaReferencia.disabled = true;
+				document.frmRegistro.ValorTasa.disabled = false;
+				document.frmRegistro.IdPeriodicidadTasa.disabled = false;
+				document.frmRegistro.IdTasaReferencia.style.backgroundColor = '#CCCCCC';
+				document.frmRegistro.ValorTasa.style.backgroundColor = 'white';
+				document.frmRegistro.IdPeriodicidadTasa.style.backgroundColor = 'white';
+			}
+			
+			if (document.frmRegistro.TipoTasa.value == "Si indexada"){
+				document.frmRegistro.IdTasaReferencia.disabled = false;
+				document.frmRegistro.ValorTasa.disabled = true;
+				document.frmRegistro.IdPeriodicidadTasa.disabled = true;
+				document.frmRegistro.IdTasaReferencia.style.backgroundColor = 'white';
+				document.frmRegistro.ValorTasa.style.backgroundColor = '#CCCCCC';
+				document.frmRegistro.IdPeriodicidadTasa.style.backgroundColor = '#CCCCCC';
+			}
 		</c:if>
-		
-		if (document.frmRegistro.TipoTasa.value == "No indexada"){
-			document.frmRegistro.IdTasaReferencia.disabled = true;
-			document.frmRegistro.ValorTasa.disabled = false;
-			document.frmRegistro.IdPeriodicidadTasa.disabled = false;
-			document.frmRegistro.IdTasaReferencia.style.backgroundColor = '#CCCCCC';
-			document.frmRegistro.ValorTasa.style.backgroundColor = 'white';
-			document.frmRegistro.IdPeriodicidadTasa.style.backgroundColor = 'white';
-		}
-		
-		if (document.frmRegistro.TipoTasa.value == "Si indexada"){
-			document.frmRegistro.IdTasaReferencia.disabled = false;
-			document.frmRegistro.ValorTasa.disabled = true;
-			document.frmRegistro.IdPeriodicidadTasa.disabled = true;
-			document.frmRegistro.IdTasaReferencia.style.backgroundColor = 'white';
-			document.frmRegistro.ValorTasa.style.backgroundColor = '#CCCCCC';
-			document.frmRegistro.IdPeriodicidadTasa.style.backgroundColor = '#CCCCCC';
-		}
 		
 		function fAsignaClienteGrupo(){
 			if (document.frmRegistro.IdPersona.value == ""){

@@ -1,3 +1,4 @@
+<%@ page language="java" import="com.rapidsist.portal.configuracion.Usuario"%>
 <%@ taglib uri="Portal" prefix="Portal" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 <Portal:Pagina funcion="SimPrestamoGrupalCreditoIndividual" precarga="SimPrestamoGrupalCargoComision SimPrestamoGrupalMontoEtapa SimPrestamoDocumentoImprimir">
@@ -6,55 +7,131 @@
 	
 	<Portal:Forma tipo='catalogo' funcion='SimPrestamoGrupal' parametros='IdPrestamoGrupo=${param.IdPrestamoGrupo}'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
+		
+		<%Usuario usuario = (Usuario)session.getAttribute("Usuario");%>
+		
 		<Portal:FormaElemento etiqueta='Clave del préstamo grupal' control='etiqueta-controloculto' controlnombre='CvePrestamoGrupo' controlvalor='${requestScope.registro.campos["CVE_PRESTAMO_GRUPO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true'/>
 		<input type="hidden" name="IdPrestamoGrupo" value='<c:out value='${requestScope.registro.campos["ID_PRESTAMO_GRUPO"]}'/>' />
 		<input type="hidden" name="IdGrupo" value='<c:out value='${requestScope.registro.campos["ID_GRUPO"]}'/>' />
 		<input type="hidden" name="IdProducto" value='<c:out value='${requestScope.registro.campos["ID_PRODUCTO"]}'/>' />
 		<Portal:FormaElemento etiqueta='Grupo' control='etiqueta-controloculto' controlnombre='NomGrupo' controlvalor='${requestScope.registro.campos["NOM_GRUPO"]}'/>
 		<Portal:FormaElemento etiqueta='N&uacute;mero de ciclo' control='etiqueta-controloculto' controlnombre='NumCiclo' controlvalor='${requestScope.registro.campos["NUM_CICLO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true'/>
-		<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
-		<Portal:FormaElemento etiqueta='Periodicidad del Producto' control='selector' controlnombre='IdPeriodicidad' controlvalor='${registro.campos["ID_PERIODICIDAD"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+		
+		<!--Cuando el usuario tiene un perfil de COORDINADOR el campo Plazo pueden ser editado hasta antes de la etapa de Autorización de montos por riesgo-->
+		<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] == null)}'>
+				<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='false' obligatorio='true' validadato='numerico'/>
+			</c:if>
+			<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] != null)}'>
+				<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
+			</c:if>
+		<%}%>
+			
+		<!--Cuando el usuario tiene un perfil diferente al de COORDINADOR el campo Plazo pueden ser editado-->
+		<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
+		<%}%>
+		
+		<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<Portal:FormaElemento etiqueta='Periodicidad del Producto' control='selector' controlnombre='IdPeriodicidad' controlvalor='${registro.campos["ID_PERIODICIDAD"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+		<%}%>
+		<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<Portal:FormaElemento etiqueta='Periodicidad del Producto' control='selector' controlnombre='IdPeriodicidad' controlvalor='${registro.campos["ID_PERIODICIDAD"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+		<%}%>
 		
 		<c:if test='${(requestScope.registro.campos["ID_TASA_REFERENCIA"] == null)}'>
-			<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
-			<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
-			<input type='hidden' name='IdTasaReferencia' value='hola'/>	
+			<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+				<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+				<input type='hidden' name='IdTasaReferencia' value='hola'/>	
+			<%}%>
+			<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] == null)}'>
+					<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+					<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+					<input type='hidden' name='IdTasaReferencia' value='hola'/>
+				</c:if>
+				<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] != null)}'>
+					<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+					<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+					<input type='hidden' name='IdTasaReferencia' value='hola'/>
+				</c:if>
+			<%}%>
 		</c:if>
+		
 		<c:if test='${(requestScope.registro.campos["ID_TASA_REFERENCIA"] != null)}'>
-			<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
-			<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
-			<Portal:FormaElemento etiqueta='Tasa de referencia' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+			<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+				<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+				<Portal:FormaElemento etiqueta='Tasa de referencia' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+			<%}%>
+			<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] == null)}'>
+					<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+					<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+					<Portal:FormaElemento etiqueta='Tasa de referencia' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+				</c:if>
+				<c:if test='${(registroVerificarEtapa.campos["ID_ETAPA_PRESTAMO"] != null)}'>
+					<Portal:FormaElemento etiqueta='Valor de la tasa' control='Texto' controlnombre='ValorTasa' controlvalor='${requestScope.registro.campos["VALOR_TASA"]}' controllongitud='9' controllongitudmax='9' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+					<Portal:FormaElemento etiqueta='Periodicidad de la tasa' control='selector' controlnombre='IdPeriodicidadTasa' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>
+					<Portal:FormaElemento etiqueta='Tasa de referencia' control='selector' controlnombre='IdTasaReferencia' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}'/>
+				</c:if>
+			<%}%>
 		</c:if>
-		<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='Texto' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
+		
+		<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='Texto' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
+		<%}%>
+		<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='Texto' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='false' obligatorio='true' validadato='cantidades'/>
+		<%}%>
 		
 		<Portal:FormaSeparador nombre="Recargos"/>
-		<tr>
-			<th>Recargos</th>
-			<td>
-				<select name="TipoRecargo" size="1" onchange="fTipoRecargo();">
-					<option value='null'></option>
-					<option value='3' >Interés moratorio</option>
-					<option value='4' >Monto fijo por periodo</option>
-					<option value='5' >Interés moratorio y Monto fijo por periodo</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<th>Tipo de tasa</th>
-			<td>
-				<select name='TipoTasaRecargo' size='1' onchange='fTipoTasa();'>
-					<option value='null'></option>
-					<option value='1'>Fija independiente</option>
-					<option value='2'>Dependiente de la tasa de credito</option>
-				</select>
-			</td>
-		</tr>
-		
-		<Portal:FormaElemento etiqueta='Tasa de recargo' control='Texto' controlnombre='TasaRecargo' controlvalor='${requestScope.registro.campos["TASA_RECARGO"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades' evento="onchange=fDeshabilita();"/>
-		<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadTasaRecargo' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA_RECARGO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
-		<Portal:FormaElemento etiqueta='Tasa de recargo Papeles' control='selector' controlnombre='IdTasaReferenciaRecargo' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA_RECARGO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}' evento="onchange=fTasaRecargo();"/>	
-		<Portal:FormaElemento etiqueta='Factor sobre la tasa de interes' control='Texto' controlnombre='FactorTasaRecargo' controlvalor='${requestScope.registro.campos["FACTOR_TASA_RECARGO"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
-		<Portal:FormaElemento etiqueta='Monto fijo por periodo' control='Texto' controlnombre='MontoFijoPeriodo' controlvalor='${requestScope.registro.campos["MONTO_FIJO_PERIODO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+		<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<tr>
+				<th>Recargos</th>
+				<td>
+					<select name="TipoRecargo" size="1" onchange="fTipoRecargo();">
+						<option value='null'></option>
+						<option value='3' >Interés moratorio</option>
+						<option value='4' >Monto fijo por periodo</option>
+						<option value='5' >Interés moratorio y Monto fijo por periodo</option>
+					</select>
+				</td>
+			</tr>
+			<c:if test='${(requestScope.registro != null)}'>  
+				<script>BuscaSelectOpcion(document.frmRegistro.TipoRecargo,'<c:out value='${requestScope.registro.campos["ID_TIPO_RECARGO"]}'/>'); </script>
+			</c:if>
+			<tr>
+				<th>Tipo de tasa</th>
+				<td>
+					<select name='TipoTasaRecargo' size='1' onchange='fTipoTasa();'>
+						<option value='null'></option>
+						<option value='1'>Fija independiente</option>
+						<option value='2'>Dependiente de la tasa de credito</option>
+					</select>
+				</td>
+			</tr>
+			<c:if test='${(requestScope.registro != null)}'>  
+				<script>BuscaSelectOpcion(document.frmRegistro.TipoTasaRecargo,'<c:out value='${requestScope.registro.campos["TIPO_TASA_RECARGO"]}'/>');</script>
+			</c:if>
+			<Portal:FormaElemento etiqueta='Tasa de recargo' control='Texto' controlnombre='TasaRecargo' controlvalor='${requestScope.registro.campos["TASA_RECARGO"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades' evento="onchange=fDeshabilita();"/>
+			<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadTasaRecargo' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA_RECARGO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
+			<Portal:FormaElemento etiqueta='Tasa de recargo Papeles' control='selector' controlnombre='IdTasaReferenciaRecargo' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA_RECARGO"]}' editarinicializado='true' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}' evento="onchange=fTasaRecargo();"/>	
+			<Portal:FormaElemento etiqueta='Factor sobre la tasa de interes' control='Texto' controlnombre='FactorTasaRecargo' controlvalor='${requestScope.registro.campos["FACTOR_TASA_RECARGO"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+			<Portal:FormaElemento etiqueta='Monto fijo por periodo' control='Texto' controlnombre='MontoFijoPeriodo' controlvalor='${requestScope.registro.campos["MONTO_FIJO_PERIODO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='true' obligatorio='false' validadato='cantidades'/>
+		<%}%>
+		<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<Portal:FormaElemento etiqueta='Recargos' control='Texto' controlnombre='TipoDeRecargo' controlvalor='${requestScope.registro.campos["TIPO_RECARGO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+			<Portal:FormaElemento etiqueta='Tipo de tasa' control='Texto' controlnombre='TipoTasaDeRecargo' controlvalor='${requestScope.registro.campos["TIPO_TASA_DE_RECARGO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+			<Portal:FormaElemento etiqueta='Tasa de recargo' control='Texto' controlnombre='TasaRecargo' controlvalor='${requestScope.registro.campos["TASA_RECARGO"]}' controllongitud='9' controllongitudmax='9' editarinicializado='true' obligatorio='false' validadato='cantidades' evento="onchange=fDeshabilita();"/>
+			<Portal:FormaElemento etiqueta='Periodicidad' control='selector' controlnombre='IdPeriodicidadTasaRecargo' controlvalor='${requestScope.registro.campos["ID_PERIODICIDAD_TASA_RECARGO"]}' editarinicializado='false' obligatorio='false' campoclave="ID_PERIODICIDAD" campodescripcion="NOM_PERIODICIDAD" datosselector='${requestScope.ListaPeriodicidad}'/>	
+			<Portal:FormaElemento etiqueta='Tasa de recargo Papeles' control='selector' controlnombre='IdTasaReferenciaRecargo' controlvalor='${requestScope.registro.campos["ID_TASA_REFERENCIA_RECARGO"]}' editarinicializado='false' obligatorio='false' campoclave="ID_TASA_REFERENCIA" campodescripcion="NOM_TASA_REFERENCIA" datosselector='${requestScope.ListaPapel}' evento="onchange=fTasaRecargo();"/>	
+			<Portal:FormaElemento etiqueta='Factor sobre la tasa de interes' control='Texto' controlnombre='FactorTasaRecargo' controlvalor='${requestScope.registro.campos["FACTOR_TASA_RECARGO"]}' controllongitud='9' controllongitudmax='9' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+			<Portal:FormaElemento etiqueta='Monto fijo por periodo' control='Texto' controlnombre='MontoFijoPeriodo' controlvalor='${requestScope.registro.campos["MONTO_FIJO_PERIODO"]}' controllongitud='17' controllongitudmax='17' editarinicializado='false' obligatorio='false' validadato='cantidades'/>
+			<input type='hidden' name='TipoRecargo' value='<c:out value='${requestScope.registro.campos["ID_TIPO_RECARGO"]}'/>'/>
+			<input type='hidden' name='TipoTasaRecargo' value='<c:out value='${requestScope.registro.campos["TIPO_TASA_RECARGO"]}'/>'/>
+		<%}%>
 		
 		<Portal:FormaBotones>
 			<c:if test='${requestScope.registro.campos["B_CANCELADO"] == "F"}'>
@@ -256,11 +333,6 @@
 	</Portal:TablaForma>
 	
 	<script>
-		<c:if test='${(requestScope.registro != null)}'>  
-			BuscaSelectOpcion(document.frmRegistro.TipoTasaRecargo,'<c:out value='${requestScope.registro.campos["TIPO_TASA_RECARGO"]}'/>');
-			BuscaSelectOpcion(document.frmRegistro.TipoRecargo,'<c:out value='${requestScope.registro.campos["ID_TIPO_RECARGO"]}'/>'); 
-		</c:if>
-		
 		if (document.frmRegistro.TipoRecargo.value == "3"){
 		
 			document.frmRegistro.MontoFijoPeriodo.value = "";

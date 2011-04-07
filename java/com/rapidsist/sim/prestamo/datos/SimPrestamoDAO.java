@@ -155,7 +155,8 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 				"P.MONTO_MAXIMO, \n"+
 				"PR.MONTO_MINIMO, \n"+
 				"P.PORC_FLUJO_CAJA, \n"+
-				"P.ID_FORMA_DISTRIBUCION \n"+
+				"P.ID_FORMA_DISTRIBUCION, \n"+
+				"DECODE(P.ID_FORMA_DISTRIBUCION,'1','Saldos - Accesorios y capital','2','Saldos - Capital y accesorios') FORMA_APLICACION \n"+
 				"FROM \n"+
 				"SIM_PRESTAMO P, \n"+
 				"RS_GRAL_USUARIO UA, \n"+

@@ -124,6 +124,8 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 				parametros.addDefCampo("ETAPA_DOCUMENTOS","INDIVIDUAL");
 				registroControl.respuesta.addDefCampo("registroEtapaDocumentos", catalogoSL.getRegistro("SimPrestamoDocumentacion", parametros));
 				registroControl.respuesta.addDefCampo("ListaEstatusHistorico", catalogoSL.getRegistros("SimPrestamoEstatusHistorico", parametros));
+				parametros.addDefCampo("PRESTAMO","INDIVIDUAL");
+				registroControl.respuesta.addDefCampo("registroVerificarEtapa", catalogoSL.getRegistro("SimPrestamoVerificaEtapaAnteriorAutMonRie", parametros));
 			}
 			
 			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreReg.jsp";

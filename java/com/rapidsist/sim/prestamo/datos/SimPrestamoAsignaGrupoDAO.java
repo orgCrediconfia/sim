@@ -60,7 +60,8 @@ public class SimPrestamoAsignaGrupoDAO extends Conexion2 implements OperacionCon
 			"RS_GRAL_PERSONA P, \n"+
 			"RS_GRAL_USUARIO U, \n"+
 			"RS_GRAL_PERSONA A, \n"+
-			"SIM_CAT_SUCURSAL S \n"+
+			"SIM_CAT_SUCURSAL S, \n"+
+			"SIM_USUARIO_ACCESO_SUCURSAL UAS \n"+
 			"WHERE G.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+ 
 			"AND G.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
 			"AND G.FECHA_BAJA_LOGICA IS NULL \n";
@@ -87,8 +88,14 @@ public class SimPrestamoAsignaGrupoDAO extends Conexion2 implements OperacionCon
 			"AND A.ID_PERSONA = U.ID_PERSONA \n"+
 			"AND S.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+
 			"AND S.CVE_EMPRESA = G.CVE_EMPRESA \n"+
-			"AND S.ID_SUCURSAL = G.ID_SUCURSAL) \n"+
+			"AND S.ID_SUCURSAL = G.ID_SUCURSAL \n"+
+			"AND UAS.CVE_GPO_EMPRESA = S.CVE_GPO_EMPRESA \n"+
+			"AND UAS.CVE_EMPRESA = S.CVE_EMPRESA \n"+
+			"AND UAS.ID_SUCURSAL = S.ID_SUCURSAL \n"+
+			"AND UAS.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "') \n"+
 			"ORDER BY ID_GRUPO  \n";
+		
+		System.out.println("asigna grupo"+sSql);
 		
 		ejecutaSql();
 		return getConsultaLista();
