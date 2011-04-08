@@ -45,38 +45,39 @@ public class SimReporteBuroCreditoGREP implements ReporteControlIN {
 		System.out.println("sClaveGrupo:"+sClaveGrupo);
 		
         String sSql = "SELECT\n"+
+				        "'@' AS INICIO,\n"+
+				        "GP.RFC,\n"+
+				        "GP.NOMBRE_1,\n"+
+				        "NVL(GP.NOMBRE_2, ' ') AS NOMBRE_2,\n"+
+				        "GP.AP_PATERNO,\n"+
+				        "GP.AP_MATERNO,\n"+
+				        "GD.CALLE ||' '|| GD.NUMERO_EXT AS CALLE_NUMERO,\n"+
+				        "GD.NOM_ASENTAMIENTO,\n"+
+				        "GD.NOM_DELEGACION,\n"+
+				        "GD.CODIGO_POSTAL,\n"+
+				        "SP.ID_GRUPO,\n"+
+				        "SG.NOM_GRUPO,\n"+
 				        "SP.ID_CLIENTE,\n"+
-				        "SP.ID_PRESTAMO,\n"+
-				        "SP.CVE_PRESTAMO,\n"+
-				        "RGP.RFC,\n"+
-				        "RGP.NOMBRE_1,\n"+
-				        "RGP.NOMBRE_2,\n"+
-				        "RGP.AP_PATERNO,\n"+
-				        "RGP.AP_MATERNO,\n"+
-				        "RGD.CALLE,\n"+
-				        "RGD.NUMERO_EXT,\n"+
-				        "RGD.NOM_ASENTAMIENTO,\n"+
-				        "RGD.NOM_DELEGACION,\n"+
-				        "RGD.CODIGO_POSTAL,\n"+
-				        "RGD.NOM_CIUDAD,\n"+
-				        "RGD.NOM_ESTADO\n"+
-				      "FROM\n"+
-				        "RS_GRAL_PERSONA RGP,\n"+
-				        "RS_GRAL_DOMICILIO RGD,\n"+
-				        "SIM_PRESTAMO SP\n"+
-				      "WHERE RGP.CVE_GPO_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
-				        "AND RGP.CVE_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"+
-				        "AND RGP.ID_PERSONA      = SP.ID_CLIENTE\n"+
-				        "AND RGP.ID_PERSONA      = RGD.IDENTIFICADOR\n"+
-				        "AND RGD.IDENTIFICADOR   = SP.ID_CLIENTE\n"+				  
-        				"AND SP.CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamoGrupo") + "'\n";
-							
-                            if (sClaveGrupo != null && !sClaveGrupo.equals("") && !sClaveGrupo.equals("null") ){								
-								sSql = sSql + "AND SP.CVE_PRESTAMO = '" + sClaveGrupo + "' \n";
-							}	
-					
-							 sSql = sSql;
-							 
+				        "SP.NUM_CICLO\n"+
+				      "FROM SIM_PRESTAMO SP,\n"+
+				        "RS_GRAL_PERSONA GP,\n"+
+				        "RS_GRAL_DOMICILIO GD,\n"+
+				        "SIM_GRUPO SG\n"+
+				      "WHERE SP.CVE_GPO_EMPRESA         = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
+				        "AND SP.CVE_EMPRESA             = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"+
+				        "AND SP.CVE_PRESTAMO            = '" + (String)request.getParameter("CvePrestamoGrupo") + "'\n"+
+				        "AND SP.ID_ETAPA_PRESTAMO       = 3\n"+
+				        "AND GP.CVE_GPO_EMPRESA         = SP.CVE_GPO_EMPRESA\n"+
+				        "AND GP.CVE_EMPRESA             = SP.CVE_EMPRESA\n"+
+				        "AND GP.ID_PERSONA              = SP.ID_CLIENTE\n"+
+				        "AND GD.CVE_GPO_EMPRESA         = GP.CVE_GPO_EMPRESA\n"+
+				        "AND GD.CVE_EMPRESA             = GP.CVE_EMPRESA\n"+
+				        "AND GD.IDENTIFICADOR           = GP.ID_PERSONA\n"+
+				        "AND GD.CVE_TIPO_IDENTIFICADOR  = 'CLIENTE'\n"+
+				        "AND SG.CVE_GPO_EMPRESA         = GD.CVE_GPO_EMPRESA\n"+
+				        "AND SG.CVE_EMPRESA             = GD.CVE_EMPRESA\n"+
+				        "AND SG.ID_GRUPO                = SP.ID_GRUPO\n";
+        
 							 System.out.println("*****************Paso por aqui****************:"+sSql);
 		
 	    String sTipoReporte = request.getParameter("TipoReporte");
