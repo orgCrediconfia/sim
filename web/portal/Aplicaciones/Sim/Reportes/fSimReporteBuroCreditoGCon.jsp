@@ -15,32 +15,20 @@
                       <input type="button" name="Imprimir" value="Reporte en Csv" onClick="javascript:fReporteCsv();">
         </Portal:FormaBotones>
 		
-	</Portal:Forma>  
+	</Portal:Forma>       
      
      <script>
-      function fReporteXls(){
-      		  
-      		  if (document.frmRegistro.CvePrestamoGrupo.value == "" ){
-      		    alert ("La clave de prestamo del grupo es obligatoria para generar el reporte");
-      		  }else{
-              
+     	
+         function fReporteXls(){
               url = '/portal/ProcesaReporte?Funcion=SimReporteBuroCreditoG&TipoReporte=Xls&CvePrestamoGrupo='+document.frmRegistro.CvePrestamoGrupo.value;
               MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
-             
-             }
-      }
-     </script>   
-     
-     <script>
-      function fReporteCsv(){
-      		  
-      		  if (document.frmRegistro.CvePrestamoGrupo.value == "" ){
-      		    alert ("La clave de prestamo del grupo es obligatoria para generar el reporte");
-      		  }else{
-              	url = '/portal/ProcesaReporte?Funcion=SimReporteBuroCreditoG&TipoReporte=Csv&CvePrestamoGrupo='+document.frmRegistro.CvePrestamoGrupo.value;
+         }
+       
+      
+         function fReporteCsv(){
+              url = '/portal/ProcesaReporte?Funcion=SimReporteBuroCreditoG&TipoReporte=Csv&CvePrestamoGrupo='+document.frmRegistro.CvePrestamoGrupo.value;
               	MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
-             }
-      }
-     </script>          
+        }
+     </script> 
      
 </Portal:Pagina>     

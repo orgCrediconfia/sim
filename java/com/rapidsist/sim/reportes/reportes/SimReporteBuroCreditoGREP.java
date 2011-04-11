@@ -65,8 +65,8 @@ public class SimReporteBuroCreditoGREP implements ReporteControlIN {
 				        "SIM_GRUPO SG\n"+
 				      "WHERE SP.CVE_GPO_EMPRESA         = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
 				        "AND SP.CVE_EMPRESA             = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"+
-				        "AND SP.CVE_PRESTAMO            = '" + (String)request.getParameter("CvePrestamoGrupo") + "'\n"+
-				        "AND SP.ID_ETAPA_PRESTAMO       = 3\n"+
+				        //"AND SP.CVE_PRESTAMO            = '" + (String)request.getParameter("CvePrestamoGrupo") + "'\n"+
+				        "AND SP.ID_ETAPA_PRESTAMO       = 7 \n"+
 				        "AND GP.CVE_GPO_EMPRESA         = SP.CVE_GPO_EMPRESA\n"+
 				        "AND GP.CVE_EMPRESA             = SP.CVE_EMPRESA\n"+
 				        "AND GP.ID_PERSONA              = SP.ID_CLIENTE\n"+
