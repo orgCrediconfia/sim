@@ -83,6 +83,8 @@ public class SimPrestamoProductoCicloModificacionCON implements CatalogoControlA
 			registro.addDefCampo("ID_PERIODICIDAD_TASA",request.getParameter("IdPeriodicidadTasa"));
 		}
 		
+		registro.addDefCampo("MONTO_MAXIMO", request.getParameter("MontoMaximo") != null ? request.getParameter("MontoMaximo") : "" );
+		
 		//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoProductoCicloModificacion", registro, iTipoOperacion);
 		

@@ -39,11 +39,19 @@
 		
 			<Portal:FormaSeparador nombre="Producto"/>
 			
-			<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+			<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] == null)}'>	
 				<Portal:FormaElemento etiqueta='' control='etiqueta' controlvalor=''>		
 				    	<a id="AsignarProducto" href="javascript:fAsignarProducto();">Asignar Producto</a>			
 				</Portal:FormaElemento>
-			<%}%>
+			</c:if>
+			
+			<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>	
+				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<Portal:FormaElemento etiqueta='' control='etiqueta' controlvalor=''>		
+					    	<a id="AsignarProducto" href="javascript:fAsignarProducto();">Asignar Producto</a>			
+					</Portal:FormaElemento>
+				<%}%>
+			</c:if>
 			
 			<Portal:FormaElemento etiqueta='Clave' control='etiqueta-controlreferencia' controlnombre='IdProducto' controlvalor='${requestScope.registro.campos["ID_PRODUCTO"]}' editarinicializado='false'/>
 			<input type="hidden" name="IdProducto" value='<c:out value='${requestScope.registro.campos["ID_PRODUCTO"]}'/>' />
@@ -83,8 +91,7 @@
 					<Portal:FormaElemento etiqueta='Plazo' control='Texto' controlnombre='Plazo' controlvalor='${requestScope.registro.campos["PLAZO"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='numerico'/>
 				<%}%>
 				
-				
-				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+				<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] == null)}'>	
 					<tr>
 						<th>Forma de distribuci&oacute;n de pago</th>
 						<td>
@@ -95,15 +102,31 @@
 							</select>
 						</td>
 					</tr>
-					<c:if test='${(requestScope.registro != null)}'>
-						<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	 
-							<script> BuscaSelectOpcion(document.frmRegistro.IdFormaDistribucion,'<c:out value='${requestScope.registro.campos["ID_FORMA_DISTRIBUCION"]}'/>'); </script>
-						</c:if> 
-					</c:if>
-				<%}%>
-				<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
-					<Portal:FormaElemento etiqueta='Forma de distribuci&oacute;n de pago' control='etiqueta-controlreferencia' controlnombre='IdFormaDistribucion' controlvalor='${requestScope.registro.campos["FORMA_APLICACION"]}' controllongitud='25' controllongitudmax='30' editarinicializado='true' obligatorio='true'/>
-				<%}%>
+				</c:if>
+				<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>	
+					<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+						<tr>
+							<th>Forma de distribuci&oacute;n de pago</th>
+							<td>
+								<select name='IdFormaDistribucion' size='1'  >
+									<option value='null'></option>
+									<option value='1'  >Saldos - Accesorios y capital</option>
+									<option value='2'   >Saldos - Capital y accesorio</option>
+								</select>
+							</td>
+						</tr>
+						<c:if test='${(requestScope.registro != null)}'>
+							<c:if test='${(requestScope.registro.campos["ID_CLIENTE"] != null)}'>	 
+								<script> BuscaSelectOpcion(document.frmRegistro.IdFormaDistribucion,'<c:out value='${requestScope.registro.campos["ID_FORMA_DISTRIBUCION"]}'/>'); </script>
+							</c:if> 
+						</c:if>
+					<%}%>
+					<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+						<Portal:FormaElemento etiqueta='Forma de distribuci&oacute;n de pago' control='etiqueta-controlreferencia' controlnombre='IdFormaDistribucion' controlvalor='${requestScope.registro.campos["FORMA_APLICACION"]}' controllongitud='25' controllongitudmax='30' editarinicializado='true' obligatorio='true'/>
+					<%}%>
+				</c:if>
+				
+				
 				
 				<!--Cuando el usuario tiene un perfil diferente al COORDINADOR los campos Tipo de la tasa, valor de la tasa, periodicidad de la tasa y papeles pueden ser editados-->
 				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
@@ -157,8 +180,13 @@
 					</c:if>
 				<%}%>
 				
-				<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='etiqueta-controlreferencia' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='15' controllongitudmax='15' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
-				<input type="hidden" name="MontoMaximo" value='<c:out value='${requestScope.registro.campos["MONTO_MAXIMO"]}'/>' />
+				<%if (!usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='Texto' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='15' controllongitudmax='15' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
+				<%}%>
+				<%if (usuario.sCvePerfilActual.equals("COORDINADOR")){%>
+					<Portal:FormaElemento etiqueta='Monto m&aacute;ximo' control='Texto' controlnombre='MontoMaximo' controlvalor='${requestScope.registro.campos["MONTO_MAXIMO"]}' controllongitud='15' controllongitudmax='15' editarinicializado='false' obligatorio='true' validadato='cantidades'/>
+				<%}%>
+				
 				<input type="hidden" name="MontoMinimo" value='<c:out value='${requestScope.registro.campos["MONTO_MINIMO"]}'/>' />
 				<Portal:FormaElemento etiqueta='Porcentaje de flujo de caja a financiar' control='etiqueta-controlreferencia' controlnombre='PorcFlujoCaja' controlvalor='${requestScope.registro.campos["PORC_FLUJO_CAJA"]}' controllongitud='6' controllongitudmax='6' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
 				<input type="hidden" name="PorcFlujoCaja" value='<c:out value='${requestScope.registro.campos["PORC_FLUJO_CAJA"]}'/>' />

@@ -92,6 +92,7 @@ public class SimAsignaProductoCicloDAO extends Conexion2 implements OperacionCon
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND P.ID_PRODUCTO = '" + (String)parametros.getDefCampo("ID_PRODUCTO") + "' \n"+
 				"AND P.ID_CLIENTE = '" + (String)parametros.getDefCampo("ID_CLIENTE") + "' \n"+
+				"AND P.ID_ETAPA_PRESTAMO != '16' \n"+
 				") \n"+
 				"AND P.CVE_GPO_EMPRESA = PC.CVE_GPO_EMPRESA \n"+
 				"AND P.CVE_EMPRESA = PC.CVE_EMPRESA \n"+

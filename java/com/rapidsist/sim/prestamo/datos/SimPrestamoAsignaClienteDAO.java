@@ -47,7 +47,8 @@ public class SimPrestamoAsignaClienteDAO extends Conexion2 implements OperacionC
 				"SIM_TIPO_PERSONA TP, \n"+
 				"RS_GRAL_USUARIO U, \n"+
 				"RS_GRAL_PERSONA NA, \n"+
-				"SIM_CAT_SUCURSAL S \n"+
+				"SIM_CAT_SUCURSAL S, \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL UAS \n"+
 				"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND P.LISTA_NEGRA = 'F' \n"+
@@ -64,7 +65,11 @@ public class SimPrestamoAsignaClienteDAO extends Conexion2 implements OperacionC
 				"AND S.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 				"AND S.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 				"AND S.ID_SUCURSAL = P.ID_SUCURSAL \n"+
-				"AND NA.NOM_COMPLETO IS NOT NULL \n";
+				"AND NA.NOM_COMPLETO IS NOT NULL \n"+
+				"AND UAS.CVE_GPO_EMPRESA = S.CVE_GPO_EMPRESA \n"+
+				"AND UAS.CVE_EMPRESA = S.CVE_EMPRESA \n"+
+				"AND UAS.ID_SUCURSAL = S.ID_SUCURSAL \n"+
+				"AND UAS.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
 			
 		if (parametros.getDefCampo("ID_PERSONA") != null) {
 			sSql = sSql + "AND P.ID_PERSONA = '" + (String) parametros.getDefCampo("ID_PERSONA") + "' \n";
@@ -74,7 +79,6 @@ public class SimPrestamoAsignaClienteDAO extends Conexion2 implements OperacionC
 		}
 		
 		sSql = sSql + "ORDER BY P.ID_PERSONA \n";
-		System.out.println("clientes para asignar a créditos"+sSql);
 		
 		ejecutaSql();
 		return getConsultaLista();

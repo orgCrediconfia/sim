@@ -36,13 +36,14 @@ public class SimPrestamoProductoCicloModificacionDAO extends Conexion2 implement
 		
 		sSql =  " UPDATE SIM_PRESTAMO SET "+
 			" ID_PERIODICIDAD_PRODUCTO	='" + (String)registro.getDefCampo("ID_PERIODICIDAD_PRODUCTO") + "', \n" +
-			" CVE_METODO			='" + (String)registro.getDefCampo("CVE_METODO") + "', \n" +
+			" CVE_METODO				='" + (String)registro.getDefCampo("CVE_METODO") + "', \n" +
 			" ID_FORMA_DISTRIBUCION		='" + (String)registro.getDefCampo("ID_FORMA_DISTRIBUCION") + "', \n" +
-			" PLAZO				='" + (String)registro.getDefCampo("PLAZO") + "', \n" +
-			" TIPO_TASA			='" + (String)registro.getDefCampo("TIPO_TASA") + "', \n" +
-			" VALOR_TASA			='" + (String)registro.getDefCampo("VALOR_TASA") + "', \n" +
+			" PLAZO						='" + (String)registro.getDefCampo("PLAZO") + "', \n" +
+			" TIPO_TASA					='" + (String)registro.getDefCampo("TIPO_TASA") + "', \n" +
+			" VALOR_TASA				='" + (String)registro.getDefCampo("VALOR_TASA") + "', \n" +
 			" ID_PERIODICIDAD_TASA		='" + (String)registro.getDefCampo("ID_PERIODICIDAD_TASA") + "', \n" +
-			" ID_TASA_REFERENCIA		='" + (String)registro.getDefCampo("ID_TASA_REFERENCIA") + "' \n" +
+			" ID_TASA_REFERENCIA		='" + (String)registro.getDefCampo("ID_TASA_REFERENCIA") + "', \n" +
+			" MONTO_MAXIMO		        ='" + (String)registro.getDefCampo("MONTO_MAXIMO") + "' \n" +
 			" WHERE ID_PRESTAMO   		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 			" AND CVE_EMPRESA   		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 			" AND CVE_GPO_EMPRESA   	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";

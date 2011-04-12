@@ -53,7 +53,6 @@
 			padre.document.frmRegistro.ValorTasa.value = ValorTasa;
 			padre.document.frmRegistro.IdPeriodicidadTasa.value = IdPeriodicidadTasa;
 			padre.document.frmRegistro.IdTasaReferencia.value = IdTasaReferencia;
-			padre.document.getElementById('MontoMaximo').innerHTML = MontoMaximo;
 			padre.document.frmRegistro.MontoMaximo.value = MontoMaximo;
 			padre.document.frmRegistro.MontoMinimo.value = MontoMinimo;
 			padre.document.getElementById('PorcFlujoCaja').innerHTML = PorcFlujoCaja;

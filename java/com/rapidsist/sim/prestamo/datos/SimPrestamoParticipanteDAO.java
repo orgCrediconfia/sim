@@ -11,6 +11,7 @@ import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.OperacionModificacion; 
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
+import com.rapidsist.portal.catalogos.OperacionBaja;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
  * Administra los accesos a la base de datos de los roles de las personas.
  */
  
-public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionModificacion, OperacionConsultaRegistro, OperacionConsultaTabla {
+public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionModificacion, OperacionConsultaRegistro, OperacionConsultaTabla, OperacionBaja {
 
 	/**
 	 * Obtiene un conjunto de registros en base ael filtro de búsqueda.
@@ -70,16 +71,21 @@ public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionMo
 				"P.ID_PRESTAMO, \n"+
 				"P.CVE_TIPO_PERSONA, \n"+
 				"C.NOM_TIPO_PERSONA, \n"+
-				"P.ID_PERSONA \n"+
+				"P.ID_PERSONA, \n"+
+				"PE.NOM_COMPLETO \n"+
 				"FROM SIM_PRESTAMO_PARTICIPANTE P, \n"+
-				"     SIM_CAT_TIPO_PERSONA C \n"+
+				"     SIM_CAT_TIPO_PERSONA C, \n"+
+				"	  RS_GRAL_PERSONA PE \n"+
 				"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 				"AND P.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
 				"AND P.CVE_TIPO_PERSONA = '" + (String)parametros.getDefCampo("CVE_TIPO_PERSONA") + "' \n"+
 				"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 				"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND C.CVE_TIPO_PERSONA = P.CVE_TIPO_PERSONA \n";
+				"AND C.CVE_TIPO_PERSONA = P.CVE_TIPO_PERSONA \n"+
+				"AND PE.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
+				"AND PE.CVE_EMPRESA = P.CVE_EMPRESA \n"+
+				"AND PE.ID_PERSONA = P.ID_PERSONA \n";
 				
 				
 			
@@ -106,6 +112,29 @@ public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionMo
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
+		return resultadoCatalogo;
+	}
+	
+	/**
+	 * Borra un registro.
+	 * @param registro Llave primaria.
+	 * @return Objeto que contiene el resultado de la ejecución de este método.
+	 * @throws SQLException Si se genera un error al accesar la base de datos.
+	 */
+	public ResultadoCatalogo baja(Registro registro) throws SQLException{
+		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
+		//BORRA LA FUNCION
+		sSql =  " DELETE FROM SIM_PRESTAMO_PARTICIPANTE " +
+			" WHERE CVE_TIPO_PERSONA	='" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "' \n" +
+			" AND ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+			" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+			" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+
+		//VERIFICA SI DIO DE ALTA EL REGISTRO
+		if (ejecutaUpdate() == 0){
+			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		}
+
 		return resultadoCatalogo;
 	}
 }
