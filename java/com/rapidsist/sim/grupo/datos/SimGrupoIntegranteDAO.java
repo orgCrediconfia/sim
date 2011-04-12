@@ -126,7 +126,7 @@ public class SimGrupoIntegranteDAO extends Conexion2 implements OperacionConsult
 					if (parametros.getDefCampo("NOM_COMPLETO") != null) {
 						sSql = sSql + "AND UPPER(P.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase() + "%' \n";
 					}
-			
+					/*
 					sSql = sSql + " MINUS \n" +
 					 " SELECT \n"+
 					 " GI.CVE_GPO_EMPRESA, \n"+
@@ -173,9 +173,10 @@ public class SimGrupoIntegranteDAO extends Conexion2 implements OperacionConsult
 				if (parametros.getDefCampo("NOM_COMPLETO") != null) {
 					sSql = sSql + "AND UPPER(P.NOM_COMPLETO) LIKE '%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase() + "%' \n";
 				}
-				 
+				 */
 				 sSql = sSql + "ORDER BY ID_PERSONA \n";
 				 
+				 System.out.println("usuarios para alta"+sSql);
 		}else if (parametros.getDefCampo("CONSULTA").equals("ASIGNADOS")) {
 			//Consulta los integrantes asignados al grupo.
 			sSql =	" SELECT \n"+
@@ -266,18 +267,46 @@ public class SimGrupoIntegranteDAO extends Conexion2 implements OperacionConsult
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
 		//Inserta el integrante al grupo
-		sSql = " INSERT INTO SIM_GRUPO_INTEGRANTE ( \n"+
+		//Verifica si ya ha sido parte del grupo
+		sSql = "SELECT \n" +
 			   " CVE_GPO_EMPRESA, \n" +
 			   " CVE_EMPRESA, \n" +
 			   " ID_GRUPO, \n"+
 			   " ID_INTEGRANTE, \n"+
-			   " FECHA_ALTA) \n"+
-			   " VALUES ( \n"+
-			   " '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-			   " '" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-			   " '" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-			   " '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
-			   " SYSDATE) \n" ;
+			   " FECHA_ALTA, \n"+
+			   " FECHA_BAJA_LOGICA \n"+
+			   "FROM \n"+
+			   " SIM_GRUPO_INTEGRANTE \n"+
+			   " WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+			   " AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+			   " AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+			   " AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
+		ejecutaSql();
+		if (rs.next()){
+			//Borra la fecha de baja logica.
+			sSql = " UPDATE SIM_GRUPO_INTEGRANTE SET"+
+		       " FECHA_BAJA_LOGICA 	= '' \n" +
+		       " WHERE ID_GRUPO		='" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+		       " AND ID_INTEGRANTE	='" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n"+
+		       " AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+		       " AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+		}else {
+			//Da de alta el integrante al grupo.
+			sSql = " INSERT INTO SIM_GRUPO_INTEGRANTE ( \n"+
+				   " CVE_GPO_EMPRESA, \n" +
+				   " CVE_EMPRESA, \n" +
+				   " ID_GRUPO, \n"+
+				   " ID_INTEGRANTE, \n"+
+				   " FECHA_ALTA, \n"+
+				   " FECHA_BAJA_LOGICA) \n"+
+				   " VALUES ( \n"+
+				   " '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+				   " '" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+				   " '" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+				   " '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
+				   " SYSDATE, \n" +
+				   " '') \n" ;
+		}
 			  	
 		//VERIFICA SI DIO DE ALTA EL REGISTRO
 		if (ejecutaUpdate() == 0){
