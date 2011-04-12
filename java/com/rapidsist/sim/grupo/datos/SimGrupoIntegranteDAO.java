@@ -285,7 +285,8 @@ public class SimGrupoIntegranteDAO extends Conexion2 implements OperacionConsult
 		if (rs.next()){
 			//Borra la fecha de baja logica.
 			sSql = " UPDATE SIM_GRUPO_INTEGRANTE SET"+
-		       " FECHA_BAJA_LOGICA 	= '' \n" +
+		       " FECHA_BAJA_LOGICA 	= '', \n" +
+		       " FECHA_ALTA			= SYSDATE \n" +
 		       " WHERE ID_GRUPO		='" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 		       " AND ID_INTEGRANTE	='" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n"+
 		       " AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
