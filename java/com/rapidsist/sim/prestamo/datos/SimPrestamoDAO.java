@@ -220,6 +220,8 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 		int iDeuda = 0;
 		String sSaldo = "";
 		float fSaldo = 0;
+		String sSaldoTotal = "";
+		float fSaldoTotal = 0;
 		
 		//Validamos que el cliente tenga un negocio principal y este definido su giro.
 		sSql = " SELECT COUNT(*) NEGOCIO_CLIENTE \n" +
@@ -256,32 +258,25 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 			}
 			
 			if (sCreditosSimultaneos.equals("V")){
-				
+				//No hace ninguna validación.
 				sSql = "Todavia no se da ningún alta";
 				resultadoCatalogo.Resultado.addDefCampo("ID_PERSONA", (String)registro.getDefCampo("ID_PERSONA"));
 				
 			}else {
-				
 				//Consulta si no tiene un crédito vigente.
-				
 				//Busca todos los creditos del cliente.
 				sSql =  "SELECT \n" +
 						"P.ID_PRESTAMO \n" +
-						"FROM SIM_PRESTAMO P, \n" +
-						"SIM_CAT_ETAPA_PRESTAMO E \n" +
+						"FROM SIM_PRESTAMO P \n" +
 						"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 						"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-						"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
-						"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
-						"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
-						"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" +
-						"AND E.B_ENTREGADO = 'V' \n" ;
-				
+						"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" ;
+				System.out.println("Busca todos los creditos del cliente");
 				ejecutaSql();
 				
 				while (rs.next()){
 					registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
-					
+					//Consulta el saldo a la fecha.
 					sSql= "SELECT CVE_GPO_EMPRESA, \n" +
 					  "    CVE_EMPRESA, \n"+
 					  "    Id_Prestamo, \n"+
@@ -290,7 +285,7 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 					  "  WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
 					    "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
 					  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n";
-				
+					System.out.println("Consulta el saldo a la fecha");
 					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 					ps1.execute();
 					ResultSet rs1 = ps1.getResultSet();
@@ -298,29 +293,53 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 					if (rs1.next()){
 						sSaldo = rs1.getString("IMP_SALDO_HOY");
 						fSaldo = (Float.parseFloat(sSaldo));
-						
 					}
 					
+					if (fSaldo >= 0){
+						//Si no tiene saldo a la fecha consulta el saldo total.
+						sSql =	"SELECT \n"+	 
+								"sum(imp_neto) SALDO_TOTAL \n"+ 
+								"FROM  \n"+
+								"V_SIM_TABLA_AMORT_CONCEPTO A, \n"+
+								"PFIN_CAT_CONCEPTO B \n"+
+								"WHERE A.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+								"AND A.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+								"AND A.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+								"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
+								"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
+								"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
+								"AND A.IMP_ORIGINAL     <> 0 \n";
+						
+						PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+						ps2.execute();
+						ResultSet rs2 = ps2.getResultSet();
+						
+						if (rs2.next()){
+							sSaldoTotal = rs2.getString("SALDO_TOTAL");
+							fSaldoTotal = (Float.parseFloat(sSaldoTotal));
+							fSaldo = fSaldoTotal;
+						}
+					}
 					fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
-				
 					System.out.println("fDeudaMinima"+fDeudaMinima);
 					System.out.println("fSaldo"+fSaldo);
+					//Compara si el saldo a la fecha o el saldo total es mayor o igual a la deuda mínima.
 					if (fSaldo >= fDeudaMinima){
 						iDeuda++;
 					}
 				}
-			
+				
 				if (iDeuda != 0){
+					//El cliente ya tiene un crédito vigente por lo que no se puede dar de alta el crédito.
 					resultadoCatalogo.mensaje.setClave("PRESTAMO_VIGENTE");
 				}else {
-					
+					//Se puede dar de alta el crédito.
 					sSql = "Todavia no se da ningún alta";
 					resultadoCatalogo.Resultado.addDefCampo("ID_PERSONA", (String)registro.getDefCampo("ID_PERSONA"));
-				
 				}
-				
 			}
 		}else {
+			//El cliente debe de tener declarado un negocio y su giro.
 			resultadoCatalogo.mensaje.setClave("INTEGRANTE_NO_NEGOCIO_GIRO");
 		}
 				
@@ -335,6 +354,7 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 		 */
 		public ResultadoCatalogo baja(Registro registro) throws SQLException{
 			ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
+			//Pone el préstamo con estatus de cancelado.
 			sSql =  " UPDATE SIM_PRESTAMO SET \n" +
 					" ID_ETAPA_PRESTAMO = '16' \n" +
 					" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +

@@ -221,6 +221,8 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 			int iDeuda = 0;
 			String sSaldo = "";
 			float fSaldo = 0;
+			String sSaldoTotal = "";
+			float fSaldoTotal = 0;
 			String sMinIntFundadores = "";
 			float fMinIntFundadores = 0;
 			float fIntegrante = 0;
@@ -896,15 +898,10 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 							//Busca todos los creditos del cliente.
 							sSql =  "SELECT \n" +
 									"P.ID_PRESTAMO \n" +
-									"FROM SIM_PRESTAMO P, \n" +
-									"SIM_CAT_ETAPA_PRESTAMO E \n" +
+									"FROM SIM_PRESTAMO P \n" +
 									"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 									"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-									"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" +
-									"AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n" +
-									"AND E.CVE_EMPRESA = P.CVE_EMPRESA \n" +
-									"AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n" ;
-									//"AND E.B_ENTREGADO = 'V' \n" ;
+									"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" ;
 						
 							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 							ps2.execute();
@@ -917,12 +914,12 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 								sSql= "SELECT CVE_GPO_EMPRESA, \n" +
 								   "CVE_EMPRESA, \n" +
 								   "Id_Prestamo, \n" +
-								   "SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n" + 
+								   "DECODE(SUM(IMP_SALDO_HOY),null,'NADA',SUM(IMP_SALDO_HOY)) IMP_SALDO_HOY \n" + 
 								   "From V_SIM_PRESTAMO_RES_EDO_CTA  \n" +
 								   "WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
 						           "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
 								   "GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n" ;
-								
+								System.out.println("saldo a la fecha"+sSql);
 								PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 								ps3.execute();
 								ResultSet rs3 = ps3.getResultSet();
@@ -930,8 +927,43 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 								if (rs3.next()){
 									sSaldo = rs3.getString("IMP_SALDO_HOY");
 									fSaldo = (Float.parseFloat(sSaldo));
-									System.out.println("tiene un saldo"+fSaldo);
 								}
+								
+								System.out.println("tiene un saldo"+fSaldo);
+								if (fSaldo >= 0){
+									//Si no tiene saldo a la fecha consulta el saldo total.
+									
+									sSql =	"SELECT \n"+	
+											"DECODE(SUM(IMP_NETO),null,'NADA',SUM(IMP_NETO)) SALDO_TOTAL \n" + 
+											"FROM  \n"+
+											"V_SIM_TABLA_AMORT_CONCEPTO A, \n"+
+											"PFIN_CAT_CONCEPTO B \n"+
+											"WHERE A.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+											"AND A.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+											"AND A.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+											"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
+											"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
+											"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
+											"AND A.IMP_ORIGINAL     <> 0 \n";
+									System.out.println("Si no tiene saldo a la fecha consulta el saldo total."+sSql);
+									PreparedStatement ps15 = this.conn.prepareStatement(sSql);
+									ps15.execute();
+									ResultSet rs15 = ps15.getResultSet();
+									
+									if (rs15.next()){
+										sSaldoTotal = rs15.getString("SALDO_TOTAL");
+										
+										if (sSaldoTotal.equals("NADA")){
+											//El crédito no tiene asignada una fecha de desembolso.
+											iDeuda++;
+										}else{
+											fSaldoTotal = (Float.parseFloat(sSaldoTotal));
+											fSaldo = fSaldoTotal;
+											System.out.println("tiene un saldo total?"+fSaldo);
+										}
+									}
+								}
+								
 								fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;
 								
 								if (fSaldo >= iDeudaMinima){
