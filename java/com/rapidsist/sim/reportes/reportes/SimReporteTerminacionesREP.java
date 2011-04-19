@@ -37,6 +37,12 @@ public class SimReporteTerminacionesREP implements ReporteControlIN {
 	 */
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
+		
+		Registro fecha = new Registro();
+		fecha = catalogoSL.getRegistro("SimPrestamoDiaAnteriorValido", parametrosCatalogo);
+		String sFechaAnteriorValida = (String)fecha.getDefCampo("F_MEDIO_ANTERIOR");
+		
+		System.out.println("fecha anterior valida"+sFechaAnteriorValida);
 
 		String sIdRegional = request.getParameter("IdRegional");
 		String sIdSucursal = request.getParameter("IdSucursal");
@@ -44,8 +50,8 @@ public class SimReporteTerminacionesREP implements ReporteControlIN {
 		
 		String sSql = 	"SELECT  \n"+
 		
-		"V.CVE_GPO_EMPRESA, \n"+ 
-		"V.CVE_EMPRESA, \n"+ 
+		"CVE_GPO_EMPRESA, \n"+ 
+		"CVE_EMPRESA, \n"+ 
 		"ID_PRESTAMO, \n"+ 
 		"CVE_PRESTAMO, \n"+ 
 		"F_MEDIO, \n"+ 
@@ -63,7 +69,7 @@ public class SimReporteTerminacionesREP implements ReporteControlIN {
 		"ID_ETAPA_PRESTAMO, \n"+ 
 		"MONTO_AUTORIZADO, \n"+ 
 		"CARGO_INICIAL, \n"+ 
-		"NVL(MONTO_AUTORIZADO,0) + NVL(CARGO_INICIAL,0) MONTO_PRESTADO, \n"+ 
+		"IFNULL(MONTO_AUTORIZADO,0) + IFNULL(CARGO_INICIAL,0) MONTO_PRESTADO, \n"+ 
 		"NUM_DIAS_ATRASO_ACTUAL, \n"+ 
 		"NUM_DIAS_ATRASO_MAX, \n"+
 		"NUM_DIAS_ANTIGUEDAD, \n"+
@@ -75,18 +81,15 @@ public class SimReporteTerminacionesREP implements ReporteControlIN {
 		"VENCIDO_CAPITAL, \n"+
 		"VENCIDO_SEGURO, \n"+
 		"VENCIDO_RECARGO, \n"+
-		"NVL(VENCIDO_INTERES,0) + NVL(VENCIDO_CAPITAL,0) + NVL(VENCIDO_SEGURO,0) + NVL(VENCIDO_RECARGO,0) VENCIDO_TOTAL, \n"+
+		"IFNULL(VENCIDO_INTERES,0) + IFNULL(VENCIDO_CAPITAL,0) + IFNULL(VENCIDO_SEGURO,0) + IFNULL(VENCIDO_RECARGO,0) VENCIDO_TOTAL, \n"+
 		"SALDO_INTERES, \n"+
 		"SALDO_CAPITAL, \n"+
 		"SALDO_SEGURO, \n"+
 		"SALDO_RECARGO, \n"+
-		"NVL(SALDO_INTERES,0) + NVL(SALDO_CAPITAL,0) + NVL(SALDO_SEGURO,0) + NVL(SALDO_RECARGO,0) SALDO_TOTAL, \n"+
-		"TRUNC((NVL(SALDO_INTERES,0) + NVL(SALDO_CAPITAL,0) + NVL(SALDO_SEGURO,0) + NVL(SALDO_RECARGO,0)) / CUOTA,2) SALDO_CUOTA \n"+
-		"FROM V_TERMINACIONES V, \n"+
-		"PFIN_PARAMETRO P \n"+
-		"WHERE V.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-		"AND V.CVE_EMPRESA = P.CVE_EMPRESA \n";
-	 
+		"IFNULL(SALDO_INTERES,0) + IFNULL(SALDO_CAPITAL,0) + IFNULL(SALDO_SEGURO,0) + IFNULL(SALDO_RECARGO,0) SALDO_TOTAL, \n"+
+		"TRUNCATE((IFNULL(SALDO_INTERES,0) + IFNULL(SALDO_CAPITAL,0) + IFNULL(SALDO_SEGURO,0) + IFNULL(SALDO_RECARGO,0)) / CUOTA,2) SALDO_CUOTA \n"+
+		"FROM SIM_PRESTAMO_TERMINACIONES \n"+
+		"WHERE F_MEDIO = STR_TO_DATE('" + sFechaAnteriorValida + "', '%d/%m/%y') \n";
 		
 		if (!sIdSucursal.equals("null")){
 			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";

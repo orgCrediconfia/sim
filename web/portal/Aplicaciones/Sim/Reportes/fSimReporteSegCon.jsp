@@ -13,7 +13,7 @@
 			<Portal:FormaElemento etiqueta='Sucursal' control='selector' controlnombre='IdSucursal' controlvalor='${param.IdSucursal}' editarinicializado='true' obligatorio='false' campoclave="ID_SUCURSAL" campodescripcion="NOM_SUCURSAL" datosselector='${requestScope.ListaSucursal}' evento="onchange=fSucursal();"/>
 			<Portal:FormaElemento etiqueta='Asesor' control='selector' controlnombre='CveUsuario' controlvalor='${param.CveUsuario}' editarinicializado='true' obligatorio='false' campoclave="ID_PERSONA" campodescripcion="NOM_COMPLETO" datosselector='${requestScope.ListaAsesor}'/>
 	
-              <Portal:Calendario2 etiqueta='Fecha' contenedor='frmRegistro' controlnombre='Fecha' esfechasis='false'/>  
+              <!--Portal:Calendario2 etiqueta='Fecha' contenedor='frmRegistro' controlnombre='Fecha' esfechasis='false'/-->  
 	
 		<Portal:FormaBotones>
                       <input type="button" name="Imprimir" value="Reporte en Excel" onClick="javascript:fReporteXls();">
@@ -35,24 +35,14 @@
 	         }
      
 	         function fReporteXls(){
-	         
-		        if (document.frmRegistro.Fecha.value == ""){
-		     		alert("Ingrese un fecha");
-		     	}else{
-	            url = '/portal/ProcesaReporte?Funcion=SimReporteSeguimiento&TipoReporte=Xls&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value+'&Fecha='+document.frmRegistro.Fecha.value;
+	            url = '/portal/ProcesaReporte?Funcion=SimReporteSeguimiento&TipoReporte=Xls&Bd=MySql&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value;
 	          	MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
-	         	}
 	         }
 	       
 	      
 	         function fReportePdf(){
-	         
-	         	if (document.frmRegistro.Fecha.value == ""){
-		     		alert("Ingrese un fecha");
-		     	}else{
-	              url = '/portal/ProcesaReporte?Funcion=SimReporteSeguimiento&TipoReporte=Pdf&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value+'&Fecha='+document.frmRegistro.Fecha.value;
+	              url = '/portal/ProcesaReporte?Funcion=SimReporteSeguimiento&TipoReporte=Pdf&Bd=MySql&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value;
 	              MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
-	         	}
 	         }
         
      </script>

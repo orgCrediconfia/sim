@@ -52,9 +52,9 @@
 	<field name="MONTO_PRESTADO" class="java.lang.Float"/>
 	<field name="VENCIDO_TOTAL" class="java.lang.Float"/>
 	<field name="SALDO_TOTAL" class="java.lang.Float"/>
-	<field name="F_MEDIO" class="java.util.Date"/>
 	<field name="SALDO_CUOTA" class="java.lang.Float"/>
 	<field name="NUM_DIAS_ANTIGUEDAD" class="java.lang.Integer"/>
+	<field name="F_MEDIO" class="java.util.Date"/>
 
 	<variable name="SumIntegrantes" class="java.lang.Integer" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{NUM_INTEGRANTES}]]></variableExpression>
@@ -222,13 +222,13 @@
 					</textElement>
 				<text><![CDATA[Filtros de búsqueda]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1990"
 						y="15"
 						width="250"
 						height="15"
-						key="textField-6"/>
+						key="textField-21"/>
 					<box></box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>

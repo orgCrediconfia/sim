@@ -54,7 +54,7 @@
 	<field name="SALDO_TOTAL" class="java.lang.Float"/>
 	<field name="F_MEDIO" class="java.util.Date"/>
 	<field name="SALDO_CUOTA" class="java.lang.Float"/>
-	<field name="NOM_COORDINADOR_CLIENTE" class="java.lang.String"/>
+	<field name="NOM_COORDINADOR" class="java.lang.String"/>
 	<field name="TELEFONO" class="java.lang.String"/>
 	<field name="NUM_DIAS_ANTIGUEDAD" class="java.lang.Integer"/>
 
@@ -801,7 +801,7 @@ vs cuota]]></text>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COORDINADOR_CLIENTE}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COORDINADOR}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

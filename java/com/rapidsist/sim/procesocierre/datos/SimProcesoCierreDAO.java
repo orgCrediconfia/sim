@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.rapidsist.mysql.HistoricoMysql;
+import com.rapidsist.prestamo.Reportes;
 
 /**
  * Administra los accesos a la base de datos para el proceso de cierre.
@@ -57,6 +58,17 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		String sTxrespuestaRecorreFecha = "";
 		String sTxrespuestaActualiza = "";
 		String sFMedio = "";
+		String sFValor = "";
+	
+		//COPIA INFORMACION HISTORICA A MYSQL
+		Reportes reportes = new Reportes();
+		try{
+			reportes.doReportes(conn);
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+			System.out.println("E R R O R");
+		}
+		
 		
 		sSql = "SELECT TO_CHAR(TO_DATE(F_LIQUIDACION,'DD-MM-YYYY'),'DD-MON-YY') AS F_MEDIO \n"+
         "FROM PFIN_DIA_LIQUIDACION \n"+
@@ -96,7 +108,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		sto.execute();
 		sTxrespuestaRecorreFecha  = sto.getString(3);
 		sto.close();
-		
+	
 		//COPIA INFORMACION HISTORICA A MYSQL
 		HistoricoMysql historicoMysql = new HistoricoMysql();
 		try{
@@ -105,7 +117,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 			System.out.println(ex.getMessage());
 			System.out.println("YA EXISTEN REGISTROS EN EL HISTORICO");
 		}
-		
+	
 		return resultadoCatalogo;
 	}
 }
