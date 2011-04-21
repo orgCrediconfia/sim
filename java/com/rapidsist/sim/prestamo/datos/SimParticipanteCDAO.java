@@ -60,10 +60,12 @@ public class SimParticipanteCDAO extends Conexion2 implements OperacionConsultaT
 	  "AND GP.CVE_GPO_EMPRESA        = PP.CVE_GPO_EMPRESA\n"+
 	  "AND GP.CVE_EMPRESA            = PP.CVE_EMPRESA\n"+
 	  "AND GP.ID_PERSONA             = PP.ID_PERSONA\n"+
-	  "AND GD.CVE_GPO_EMPRESA        = GP.CVE_GPO_EMPRESA\n"+
-	  "AND GD.CVE_EMPRESA            = GP.CVE_EMPRESA\n"+
-	  "AND GD.IDENTIFICADOR          = GP.ID_PERSONA\n"+
-	  "AND GD.CVE_TIPO_IDENTIFICADOR = 'CLIENTE'\n";
+	  "AND GD.CVE_GPO_EMPRESA(+)        = GP.CVE_GPO_EMPRESA\n"+
+	  "AND GD.CVE_EMPRESA(+)            = GP.CVE_EMPRESA\n"+
+	  "AND GD.IDENTIFICADOR(+)          = GP.ID_PERSONA\n"+
+	  "AND GD.CVE_TIPO_IDENTIFICADOR(+) = 'CLIENTE'\n";
+		
+	System.out.println("SQL: ************************************************************ " +sSql);
 		ejecutaSql();
 		return getConsultaLista();
 	}
