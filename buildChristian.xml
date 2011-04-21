@@ -11,7 +11,10 @@
 	<property name="out-files"			    value="${project.root}/out" />
 	<property name="out-compiledclasses"	value="${out-files}/classes" />	
 	<property name="reportes-fuente"		value="${project.root}/reportes" />	
-	<property name="instalacion_jboss"		value="/home/christian/Rapidsist/Servidores/jboss/Portal/deploy/Portal" />
+	
+	<!-- De esta manera se corre en windows -->
+	<property name="instalacion_jboss"		value="C:\Rapidsist\Servidores\jboss\Portal\deploy\Portal" />
+	
 	<property name="descriptores"			value="${project.root}/descriptores" />
 	<property name="webapp_portal"			value="${project.root}/web/portal" />
 	<property name="ejb-descriptores-"		value="${project.root}/descriptores/ejb" />
