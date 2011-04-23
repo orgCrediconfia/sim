@@ -213,12 +213,16 @@
 					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] == null)}'>
 						<input type='button' name='Aceptar' value='Aceptar' onClick='fAceptar()'/>
 					</c:if>
-					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
-						<input type='button' name='Aceptar' value='Aceptar' onClick='fModificar()'/>
-					</c:if>
+						<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
+							<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
+								<input type='button' name='Aceptar' value='Aceptar' onClick='fModificar()'/>
+							</c:if>
+						</c:if>
 				</c:if>
-				<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
-					<input type='button' name='Baja' value='Baja' onClick='fBaja()'/>
+				<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
+					<c:if test='${(requestScope.registro.campos["ID_PRODUCTO"] != null)}'>
+						<input type='button' name='Baja' value='Baja' onClick='fBaja()'/>
+					</c:if>
 				</c:if>
 			</c:if>
 		</Portal:FormaBotones>
@@ -307,7 +311,9 @@
 			</c:forEach>
 			<Portal:FormaBotones>
 				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
-					<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+					<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
+						<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+					</c:if>	
 				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
@@ -334,7 +340,9 @@
 			</c:forEach>
 			<Portal:FormaBotones>
 				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
-					<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+					<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
+						<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+					</c:if>
 				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>
@@ -357,7 +365,9 @@
 			</c:forEach>
 			<Portal:FormaBotones>
 				<c:if test='${(requestScope.registro.campos["ID_ETAPA_PRESTAMO"] != "16")}'>
-					<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+					<c:if test='${(requestScope.registro.campos["ID_GRUPO"] == null)}'>
+						<Portal:Boton tipo='submit' etiqueta='Aceptar' />
+					</c:if>
 				</c:if>
 			</Portal:FormaBotones>		
 		</Portal:TablaForma>

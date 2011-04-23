@@ -101,7 +101,6 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 				registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
 			}
 			if (request.getParameter("Alta").equals("No")){
-				System.out.println("que jais***********************************");
 				parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
 				registroControl.respuesta.addDefCampo("ListaParticipante", catalogoSL.getRegistros("SimPrestamoParticipante", parametros));
@@ -127,7 +126,6 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 				registroControl.respuesta.addDefCampo("ListaEstatusHistorico", catalogoSL.getRegistros("SimPrestamoEstatusHistorico", parametros));
 				parametros.addDefCampo("PRESTAMO","INDIVIDUAL");
 				registroControl.respuesta.addDefCampo("registroVerificarEtapa", catalogoSL.getRegistro("SimPrestamoVerificaEtapaAnteriorAutMonRie", parametros));
-				System.out.println("que jais**************9999999999999999************");
 			}
 			
 			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreReg.jsp";

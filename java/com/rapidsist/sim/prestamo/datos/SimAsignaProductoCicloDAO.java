@@ -47,9 +47,8 @@ public class SimAsignaProductoCicloDAO extends Conexion2 implements OperacionCon
 			"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND P.ID_CLIENTE = '" + (String)parametros.getDefCampo("ID_CLIENTE") + "' \n"+
 			"AND P.ID_GRUPO IS NULL \n"+
-			"AND P.ID_PRODUCTO IS NOT NULL \n";
-		
-			
+			"AND P.ID_PRODUCTO IS NOT NULL \n"+
+			"AND P.ID_ETAPA_PRESTAMO != '16' \n";
 		ejecutaSql();
 		
 		if (rs.next()){

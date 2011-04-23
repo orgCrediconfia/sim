@@ -194,9 +194,7 @@ public class SimPrestamoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 			
 			//ACTUALIZA EL REGISTRO EN LA BASE DE DATOS
 			registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoGrupal", registro, iTipoOperacion);
-			
 			sNumCiclo = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("NUM_CICLO");
-			System.out.println("sNumCiclo"+sNumCiclo);
 			sBExisteCicloSig = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("B_EXISTE_CICLO_SIG");
 			
 			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamoGrupal&OperacionCatalogo=CR&BExisteCicloSig="+sBExisteCicloSig+"&IdProducto="+request.getParameter("IdProducto")+"&IdGrupo="+request.getParameter("IdGrupo")+"&NumCiclo="+sNumCiclo+"&Filtro=Alta";

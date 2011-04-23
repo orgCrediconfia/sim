@@ -878,7 +878,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						
 						
 					}else{
-						
+						//No acepta créditos simultáneos.
 						sSql =  "SELECT \n"+
 								"ID_INTEGRANTE \n"+
 								"FROM SIM_GRUPO_INTEGRANTE \n"+
@@ -890,7 +890,6 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 						ps1.execute();
 						ResultSet rs1 = ps1.getResultSet();
-						
 						while (rs1.next()){
 							
 							registro.addDefCampo("ID_PERSONA",rs1.getString("ID_INTEGRANTE")== null ? "": rs1.getString("ID_INTEGRANTE"));
@@ -902,7 +901,6 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 									"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 									"AND P.ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n" ;
-						
 							PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 							ps2.execute();
 							ResultSet rs2 = ps2.getResultSet();
@@ -911,15 +909,19 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 							
 								registro.addDefCampo("ID_PRESTAMO",rs2.getString("ID_PRESTAMO")== null ? "": rs2.getString("ID_PRESTAMO"));
 								
-								sSql= "SELECT CVE_GPO_EMPRESA, \n" +
-								   "CVE_EMPRESA, \n" +
-								   "Id_Prestamo, \n" +
-								   "DECODE(SUM(IMP_SALDO_HOY),null,'NADA',SUM(IMP_SALDO_HOY)) IMP_SALDO_HOY \n" + 
-								   "From V_SIM_PRESTAMO_RES_EDO_CTA  \n" +
-								   "WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
-						           "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-								   "GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n" ;
-								System.out.println("saldo a la fecha"+sSql);
+								sSql= "SELECT V.CVE_GPO_EMPRESA, \n" +
+								   "V.CVE_EMPRESA, \n" +
+								   "V.Id_Prestamo, \n" +
+								   "DECODE(SUM(V.IMP_SALDO_HOY),null,'NADA',SUM(V.IMP_SALDO_HOY)) IMP_SALDO_HOY \n" + 
+								   "From V_SIM_PRESTAMO_RES_EDO_CTA V, \n" +
+								   "SIM_PRESTAMO P \n" +
+								   "WHERE V.DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
+						           "AND V.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+						           "AND P.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n" +
+					               "AND P.CVE_EMPRESA = V.CVE_EMPRESA \n" +
+					               "AND P.ID_PRESTAMO = V.ID_PRESTAMO \n" + 
+					               "AND P.ID_ETAPA_PRESTAMO != '16' \n" +
+								   "GROUP BY V.CVE_GPO_EMPRESA, V.CVE_EMPRESA, V.Id_Prestamo \n" ;
 								PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 								ps3.execute();
 								ResultSet rs3 = ps3.getResultSet();
@@ -929,37 +931,58 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 									fSaldo = (Float.parseFloat(sSaldo));
 								}
 								
-								System.out.println("tiene un saldo"+fSaldo);
 								if (fSaldo >= 0){
+									
 									//Si no tiene saldo a la fecha consulta el saldo total.
 									
-									sSql =	"SELECT \n"+	
+									sSql =	"SELECT \n"+
+											"A.CVE_GPO_EMPRESA, \n"+
+											"A.CVE_EMPRESA, \n"+
+											"A.Id_Prestamo, \n"+
 											"DECODE(SUM(IMP_NETO),null,'NADA',SUM(IMP_NETO)) SALDO_TOTAL \n" + 
 											"FROM  \n"+
 											"V_SIM_TABLA_AMORT_CONCEPTO A, \n"+
-											"PFIN_CAT_CONCEPTO B \n"+
+											"PFIN_CAT_CONCEPTO B, \n"+
+											"SIM_PRESTAMO P \n"+
 											"WHERE A.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 											"AND A.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 											"AND A.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 											"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
 											"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
 											"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
-											"AND A.IMP_ORIGINAL     <> 0 \n";
-									System.out.println("Si no tiene saldo a la fecha consulta el saldo total."+sSql);
+											"AND A.IMP_ORIGINAL     <> 0 \n"+
+											"AND P.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
+								            "AND P.CVE_EMPRESA = A.CVE_EMPRESA \n"+
+								            "AND P.ID_PRESTAMO = A.ID_PRESTAMO \n"+
+								            "AND P.ID_ETAPA_PRESTAMO != '16' \n"+
+								            "GROUP BY A.CVE_GPO_EMPRESA, A.CVE_EMPRESA, A.Id_Prestamo \n";
+									
 									PreparedStatement ps15 = this.conn.prepareStatement(sSql);
 									ps15.execute();
 									ResultSet rs15 = ps15.getResultSet();
 									
 									if (rs15.next()){
 										sSaldoTotal = rs15.getString("SALDO_TOTAL");
+										fSaldoTotal = (Float.parseFloat(sSaldoTotal));
+										fSaldo = fSaldoTotal;
+									}else{
+										sSql =	"SELECT \n"+
+												"CVE_GPO_EMPRESA, \n"+
+												"CVE_EMPRESA, \n"+
+												"Id_Prestamo, \n"+
+												"FECHA_ENTREGA \n"+
+												"FROM SIM_PRESTAMO \n"+
+												"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+												"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+												"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+												"AND FECHA_ENTREGA IS NULL \n"+
+												"AND ID_ETAPA_PRESTAMO != '16' \n";
+										PreparedStatement ps16 = this.conn.prepareStatement(sSql);
+										ps16.execute();
+										ResultSet rs16 = ps16.getResultSet();
 										
-										if (sSaldoTotal.equals("NADA")){
-											//El crédito no tiene asignada una fecha de desembolso.
+										if (rs16.next()){
 											iDeuda++;
-										}else{
-											fSaldoTotal = (Float.parseFloat(sSaldoTotal));
-											fSaldo = fSaldoTotal;
-											System.out.println("tiene un saldo total?"+fSaldo);
 										}
 									}
 								}
