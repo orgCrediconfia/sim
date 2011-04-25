@@ -2299,14 +2299,20 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					if (sCreditosSimultaneos.equals("F")){
 						//No se permite dar de alta créditos simultáneos.
 						//Consulta el saldo actual del grupo.
-						sSql= "SELECT CVE_GPO_EMPRESA, \n" +
-							   "CVE_EMPRESA, \n" +
-							   "Id_Prestamo, \n" +
-							   "SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n" + 
-							   "From V_SIM_PRESTAMO_GPO_RES_EDO_CTA  \n" +
-							   "WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
-					           "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
-							   "GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n" ;
+						sSql= "SELECT V.CVE_GPO_EMPRESA, \n" +
+							   "V.CVE_EMPRESA, \n" +
+							   "V.Id_Prestamo, \n" +
+							   "SUM(V.IMP_SALDO_HOY) IMP_SALDO_HOY \n" + 
+							   "From V_SIM_PRESTAMO_GPO_RES_EDO_CTA V, \n" +
+							   "SIM_PRESTAMO_GRUPO P \n" +
+							   "WHERE V.DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n" + 
+					           "AND V.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
+					           "AND P.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n" +
+					           "AND P.CVE_EMPRESA = V.CVE_EMPRESA \n" +
+					           "AND P.ID_PRESTAMO_GRUPO = V.ID_PRESTAMO \n" +
+					           "AND P.ID_ETAPA_PRESTAMO != '16' \n" +
+							   "GROUP BY V.CVE_GPO_EMPRESA, V.CVE_EMPRESA, V.Id_Prestamo \n" ;
+						
 						System.out.println("SimPrestamoGrupoCreditoIndividual saldo actual"+sSql);
 						System.out.println("fDeudaMinima"+fDeudaMinima);
 						ejecutaSql();	

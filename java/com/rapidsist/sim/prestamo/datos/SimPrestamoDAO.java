@@ -263,6 +263,7 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 				resultadoCatalogo.Resultado.addDefCampo("ID_PERSONA", (String)registro.getDefCampo("ID_PERSONA"));
 				
 			}else {
+				//No acepta créditos simultáneos.
 				//Consulta si no tiene un crédito vigente.
 				//Busca todos los creditos del cliente.
 				sSql =  "SELECT \n" +
@@ -277,14 +278,20 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 				while (rs.next()){
 					registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
 					//Consulta el saldo a la fecha.
-					sSql= "SELECT CVE_GPO_EMPRESA, \n" +
-					  "    CVE_EMPRESA, \n"+
-					  "    Id_Prestamo, \n"+
-					  "    SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n"+
-					  "  From V_SIM_PRESTAMO_RES_EDO_CTA \n"+
-					  "  WHERE DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
-					    "AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-					  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n";
+					sSql= "SELECT V.CVE_GPO_EMPRESA, \n" +
+					  "    V.CVE_EMPRESA, \n"+
+					  "    V.Id_Prestamo, \n"+
+					  "    DECODE(SUM(V.IMP_SALDO_HOY),null,'NADA',SUM(V.IMP_SALDO_HOY)) IMP_SALDO_HOY \n" + 
+					  "  From V_SIM_PRESTAMO_RES_EDO_CTA V, \n"+
+					  "  SIM_PRESTAMO P \n"+
+					  "  WHERE V.DESC_MOVIMIENTO IN ('Pago Tardío','Pago Pago Tardío','Seguro Deudor','Pago Seguro Deudor','Capital','Pago Capital','Interés', 'Interés Extra', 'Iva De Intereses', 'Iva Interes Extra', 'Pago Interés', 'Pago Interés Extra', 'Pago Iva De Intereses', 'Pago Iva Interes Extra') \n"+
+					  "  AND V.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+					  "  AND P.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n" +
+				      "  AND P.CVE_EMPRESA = V.CVE_EMPRESA \n" +
+				      "  AND P.ID_PRESTAMO = V.ID_PRESTAMO \n" +
+				      "  AND P.ID_ETAPA_PRESTAMO != '16' \n" +
+					  "  GROUP BY V.CVE_GPO_EMPRESA, V.CVE_EMPRESA, V.Id_Prestamo \n";
+					
 					System.out.println("Consulta el saldo a la fecha");
 					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
 					ps1.execute();
@@ -297,18 +304,27 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 					
 					if (fSaldo >= 0){
 						//Si no tiene saldo a la fecha consulta el saldo total.
-						sSql =	"SELECT \n"+	 
-								"sum(imp_neto) SALDO_TOTAL \n"+ 
+						sSql =	"SELECT \n"+
+								"A.CVE_GPO_EMPRESA, \n"+
+								"A.CVE_EMPRESA, \n"+
+								"A.Id_Prestamo, \n"+
+								"DECODE(SUM(IMP_NETO),null,'NADA',SUM(IMP_NETO)) SALDO_TOTAL \n" + 
 								"FROM  \n"+
 								"V_SIM_TABLA_AMORT_CONCEPTO A, \n"+
-								"PFIN_CAT_CONCEPTO B \n"+
+								"PFIN_CAT_CONCEPTO B, \n"+
+								"SIM_PRESTAMO P \n"+
 								"WHERE A.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 								"AND A.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND A.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 								"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
 								"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
 								"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
-								"AND A.IMP_ORIGINAL     <> 0 \n";
+								"AND A.IMP_ORIGINAL     <> 0 \n"+
+								"AND P.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
+						        "AND P.CVE_EMPRESA = A.CVE_EMPRESA \n"+
+						        "AND P.ID_PRESTAMO = A.ID_PRESTAMO \n"+
+						        "AND P.ID_ETAPA_PRESTAMO != '16' \n"+
+						        "GROUP BY A.CVE_GPO_EMPRESA, A.CVE_EMPRESA, A.Id_Prestamo \n";
 						
 						PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 						ps2.execute();
@@ -318,6 +334,25 @@ public class SimPrestamoDAO extends Conexion2 implements OperacionAlta, Operacio
 							sSaldoTotal = rs2.getString("SALDO_TOTAL");
 							fSaldoTotal = (Float.parseFloat(sSaldoTotal));
 							fSaldo = fSaldoTotal;
+						}else{
+							sSql =	"SELECT \n"+
+									"CVE_GPO_EMPRESA, \n"+
+									"CVE_EMPRESA, \n"+
+									"Id_Prestamo, \n"+
+									"FECHA_ENTREGA \n"+
+									"FROM SIM_PRESTAMO \n"+
+									"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+									"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+									"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+									"AND FECHA_ENTREGA IS NULL \n"+
+									"AND ID_ETAPA_PRESTAMO != '16' \n";
+							PreparedStatement ps16 = this.conn.prepareStatement(sSql);
+							ps16.execute();
+							ResultSet rs16 = ps16.getResultSet();
+							
+							if (rs16.next()){
+								iDeuda++;
+							}
 						}
 					}
 					fSaldo = fSaldo < 0 ? -fSaldo : fSaldo;

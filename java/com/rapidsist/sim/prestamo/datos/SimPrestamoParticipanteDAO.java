@@ -8,7 +8,7 @@ package com.rapidsist.sim.prestamo.datos;
 
 import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.comun.bd.Registro;
-import com.rapidsist.portal.catalogos.OperacionModificacion; 
+import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
 import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.portal.catalogos.OperacionBaja;
@@ -20,7 +20,7 @@ import java.sql.SQLException;
  * Administra los accesos a la base de datos de los roles de las personas.
  */
  
-public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionModificacion, OperacionConsultaRegistro, OperacionConsultaTabla, OperacionBaja {
+public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionConsultaRegistro, OperacionAlta, OperacionConsultaTabla, OperacionBaja {
 
 	/**
 	 * Obtiene un conjunto de registros en base ael filtro de búsqueda.
@@ -86,35 +86,35 @@ public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionMo
 				"AND PE.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 				"AND PE.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 				"AND PE.ID_PERSONA = P.ID_PERSONA \n";
-				
-				
 			
 		ejecutaSql();
 		return this.getConsultaRegistro();
 	}
 
-
 	/**
-	 * Modifica un registro.
-	 * @param registro Campos del registro a modificar.
+	 * Inserta un registro.
+	 * @param registro Campos del nuevo registro.
 	 * @return Objeto que contiene el resultado de la ejecución de este método.
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
-	public ResultadoCatalogo modificacion(Registro registro) throws SQLException{
+	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
+		
 		sSql = " UPDATE SIM_PRESTAMO_PARTICIPANTE SET "+
-			   " ID_PERSONA    	 = '" + (String)registro.getDefCampo("ID_PERSONA")  + "' \n" +
-			   " WHERE ID_PRESTAMO    	 = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-			   " AND CVE_TIPO_PERSONA   	 = '" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "' \n"+
-			   " AND CVE_EMPRESA   	 = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			   " AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
+		   " ID_PERSONA    	 = '" + (String)registro.getDefCampo("ID_PERSONA")  + "' \n" +
+		   " WHERE ID_PRESTAMO    	 = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+		   " AND CVE_TIPO_PERSONA   	 = '" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "' \n"+
+		   " AND CVE_EMPRESA   	 = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+		   " AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+	
+			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+			if (ejecutaUpdate() == 0){
+				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+			}
+		
 		return resultadoCatalogo;
 	}
-	
+
 	/**
 	 * Borra un registro.
 	 * @param registro Llave primaria.
@@ -124,12 +124,12 @@ public class SimPrestamoParticipanteDAO extends Conexion2 implements OperacionMo
 	public ResultadoCatalogo baja(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		//BORRA LA FUNCION
-		sSql =  " DELETE FROM SIM_PRESTAMO_PARTICIPANTE " +
-			" WHERE CVE_TIPO_PERSONA	='" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "' \n" +
-			" AND ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-			" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-
+		sSql = " UPDATE SIM_PRESTAMO_PARTICIPANTE SET "+
+			   " ID_PERSONA    	 = '' \n" +
+			   " WHERE ID_PRESTAMO    	 = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+			   " AND CVE_TIPO_PERSONA   	 = '" + (String)registro.getDefCampo("CVE_TIPO_PERSONA") + "' \n"+
+			   " AND CVE_EMPRESA   	 = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+			   " AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
 		//VERIFICA SI DIO DE ALTA EL REGISTRO
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");

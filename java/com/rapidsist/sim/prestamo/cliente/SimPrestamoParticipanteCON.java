@@ -59,18 +59,7 @@ public class SimPrestamoParticipanteCON implements CatalogoControlConsultaIN, Ca
 			//VERIFICA SI SOLO CONSULTA LOS DATOS DEL REGISTRO
 			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPrePar.jsp?CveTipoPersona="+request.getParameter("CveTipoPersona");
 		}
-		else if (iTipoOperacion == CON_INICIALIZACION){
-			if (request.getParameter("Filtro").equals("Alta")){
-				registroControl.respuesta.addDefCampo("ListaComite", catalogoSL.getRegistros("SimComite", parametros));
-				registroControl.respuesta.addDefCampo("ListaVerificacionPrestamo", catalogoSL.getRegistros("SimCatalogoEstatusPrestamo", parametros));
-				registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
-				registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
-				registroControl.respuesta.addDefCampo("ListaMetodo", catalogoSL.getRegistros("SimCatalogoMetodoCalculo", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreReg.jsp";
-			}else if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCon.jsp";
-			}
-		}
+		
 		return registroControl;
 	}
 
