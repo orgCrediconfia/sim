@@ -27,7 +27,7 @@
 			<Portal:TablaListaRenglon>
 				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] == "7")}'>
 					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
-						<input type="button" name="Liquidacion"  value="Liquidación por defunsión" onclick='javascript:fLiquidacionDefuncion(<c:out value='${registro.campos["ID_PRESTAMO"]}'/>)'>
+						<input type="button" name="Liquidacion"  value="Liquidación por defunción" onclick='javascript:fLiquidacionDefuncion(<c:out value='${registro.campos["ID_PRESTAMO"]}'/>)'>
 					</Portal:Columna>
 				</c:if>
 				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] != "7")}'>
