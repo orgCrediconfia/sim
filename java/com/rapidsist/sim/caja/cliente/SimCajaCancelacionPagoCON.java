@@ -66,14 +66,17 @@ public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, Cat
 			parametros.addDefCampo("ID_CAJA", sIdCaja);
 			parametros.addDefCampo("ID_SUCURSAL", sIdSucursal);
 			
-			if (request.getParameter("IdPrestamo") != null && !request.getParameter("IdPrestamo").equals("")){
-				parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
+			if (request.getParameter("CvePrestamo") != null && !request.getParameter("CvePrestamo").equals("")){
+				parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 			}
-			if (request.getParameter("IdGrupo") != null && !request.getParameter("IdGrupo").equals("")){
-				parametros.addDefCampo("ID_GRUPO", request.getParameter("IdGrupo"));
+			if (request.getParameter("NomGrupo") != null && !request.getParameter("NomGrupo").equals("")){
+				parametros.addDefCampo("NOM_GRUPO", request.getParameter("NomGrupo"));
 			}
-			if (request.getParameter("IdProducto") != null && !request.getParameter("IdProducto").equals("")){
-				parametros.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
+			if (request.getParameter("NomCliente") != null && !request.getParameter("NomCliente").equals("")){
+				parametros.addDefCampo("NOM_CLIENTE", request.getParameter("NomCliente"));
+			}
+			if (request.getParameter("NomProducto") != null && !request.getParameter("NomProducto").equals("")){
+				parametros.addDefCampo("NOM_PRODUCTO", request.getParameter("NomProducto"));
 			}
 			if (request.getParameter("NumCiclo") != null && !request.getParameter("NumCiclo").equals("")){
 				parametros.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
@@ -121,9 +124,21 @@ public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, Cat
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 
+		
 		String sIdCaja = "";
 		String sIdCajaSucursal = "";
 		String sIdSucursal = "";
+		
+		sIdCajaSucursal = request.getParameter("IdCaja");
+		
+		sIdSucursal = sIdCajaSucursal.substring(0, sIdCajaSucursal.indexOf("-"));
+		sIdCaja = sIdCajaSucursal.substring(sIdCajaSucursal.indexOf("-")+1, sIdCajaSucursal.length());
+		
+		registro.addDefCampo("ID_CAJA", sIdCaja);
+		registro.addDefCampo("ID_SUCURSAL", sIdSucursal);
+		
+		
+		String sRespuesta = "";
 		
 		//RECUPERA LA SESION DEL USUARIO
 		HttpSession session = request.getSession();
@@ -131,12 +146,22 @@ public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, Cat
 		//AGREGA LA CLAVE DEL PORTAL Y DEL USUARIO DE LA SESION DEL USUARIO
 		registro.addDefCampo("CVE_USUARIO", usuario.sCveUsuario);
 		
-		registro.addDefCampo("ID_TRANSACCION", request.getParameter("IdTransaccion"));
+		//registro.addDefCampo("ID_TRANSACCION", request.getParameter("IdTransaccion"));
 		registro.addDefCampo("CVE_MOVIMIENTO_CAJA","CANPAGO");
 		registro.addDefCampo("CVE_MOVIMIENTO_PAGO",request.getParameter("CveMovimientoCaja"));
+		registro.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
+		registro.addDefCampo("APLICA_A",request.getParameter("AplicaA"));
+		registro.addDefCampo("NUM_CICLO",request.getParameter("NumCiclo"));
+		registro.addDefCampo("F_APLICACION",request.getParameter("FAplicacion"));
+		registro.addDefCampo("NUM_PAGO_AMORTIZACION",request.getParameter("NumPagoAmortizacion"));
+		registro.addDefCampo("F_OPERACION",request.getParameter("FechaOperacion"));
+		registro.addDefCampo("FECHA_AMORTIZACION",request.getParameter("FechaAmortizacion"));
+		registro.addDefCampo("MONTO",request.getParameter("Monto"));
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaCancelacionPago", registro, iTipoOperacion);
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+request.getParameter("IdCaja");
+		sRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("RESPUESTA");
+		
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+request.getParameter("IdCaja")+"&Respuesta="+sRespuesta;
 		return registroControl;
 	}
 }

@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Administra los accesos a la base de datos para generar las tablas de amortizaciòn.
  */
  
-public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta,  OperacionConsultaRegistro {
+public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta, OperacionConsultaRegistro {
 
 
 	/**
@@ -37,41 +37,39 @@ public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements
 		//PREPARA LA CONSULTA QUE VA A HACER EN LA BD, PARA TRAER LOS REGISTROS QUE COINCIDAN CON LAS CONDICIONES
 		
 		sSql = "SELECT \n"+
-				" P.CVE_GPO_EMPRESA, \n"+
-				" P.CVE_EMPRESA, \n"+
-				" P.CVE_PRESTAMO, \n"+
-				" P.ID_PRESTAMO, \n"+
-				" P.CVE_PRESTAMO, \n"+
-				" P.ID_CLIENTE, \n"+
-				" N.NOM_COMPLETO \n"+
-				" FROM SIM_PRESTAMO P, \n"+
-				" RS_GRAL_PERSONA N, \n"+
-				" SIM_CAT_ETAPA_PRESTAMO E, \n"+
-				" SIM_USUARIO_ACCESO_SUCURSAL US \n"+
-				" WHERE P.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				" AND P.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				" AND N.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				" AND N.ID_PERSONA = P.ID_CLIENTE \n"+
-				" AND E.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				" AND E.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				" AND E.ID_ETAPA_PRESTAMO = P.ID_ETAPA_PRESTAMO \n"+
-				" AND E.B_ENTREGADO = 'V' \n" +
-				" AND US.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-                " AND US.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-                " AND US.ID_SUCURSAL = P.ID_SUCURSAL \n"+
-                " AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n";
+				"V.CVE_GPO_EMPRESA, \n"+
+				"V.CVE_EMPRESA, \n"+
+				"V.ID_PRESTAMO, \n"+
+				"V.CVE_PRESTAMO, \n"+ 
+				"V.NOMBRE, \n"+
+				"V.NOM_PRODUCTO, \n"+
+				"V.NUM_CICLO, \n"+
+				"V.ID_ETAPA_PRESTAMO, \n"+
+				"E.NOM_ESTATUS_PRESTAMO \n"+
+				"FROM V_CREDITO V, \n"+
+				"SIM_CAT_ETAPA_PRESTAMO E, \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US  \n"+
+				"WHERE V.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				"AND V.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND E.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n"+
+				"AND E.CVE_EMPRESA = V.CVE_EMPRESA \n"+
+				"AND E.ID_ETAPA_PRESTAMO = V.ID_ETAPA_PRESTAMO \n"+
+				"AND US.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n"+
+				"AND US.CVE_EMPRESA = V.CVE_EMPRESA \n"+
+				"AND US.ID_SUCURSAL = V.ID_SUCURSAL \n"+
+				"AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
+				"AND V.APLICA_A != 'INDIVIDUAL_GRUPO' \n";
 				
 		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
-			sSql = sSql + " AND P.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+			sSql = sSql + " AND V.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 		}
 		
 		if (parametros.getDefCampo("NOM_COMPLETO") != null) {
-			sSql = sSql + " AND UPPER(N.NOM_COMPLETO) LIKE'%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase()  + "%' \n";
+			sSql = sSql + " AND UPPER(V.NOMBRE) LIKE'%" + ((String) parametros.getDefCampo("NOM_COMPLETO")).toUpperCase()  + "%' \n";
 		}
 		
-		sSql = sSql + " ORDER BY P.ID_PRESTAMO \n";
-				
+		sSql = sSql + " ORDER BY V.CVE_PRESTAMO \n";
+			
 		ejecutaSql();
 		return getConsultaLista();
 	}
@@ -85,20 +83,29 @@ public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements
 	 */
 	public Registro getRegistro(Registro parametros) throws SQLException{
 		sSql = "SELECT \n"+
-				" P.CVE_GPO_EMPRESA, \n"+
-				" P.CVE_EMPRESA, \n"+
-				" P.ID_PRESTAMO, \n"+
-				" P.CVE_PRESTAMO, \n"+
-				" P.ID_CLIENTE, \n"+
-				" N.NOM_COMPLETO \n"+
-				" FROM SIM_PRESTAMO P, \n"+
-				" RS_GRAL_PERSONA N \n"+
-				" WHERE P.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				" AND P.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				" AND P.ID_PRESTAMO ='" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
-				" AND N.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				" AND N.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				" AND N.ID_PERSONA = P.ID_CLIENTE \n";
+				"V.CVE_GPO_EMPRESA, \n"+
+				"V.CVE_EMPRESA, \n"+
+				"V.ID_PRESTAMO, \n"+
+				"V.CVE_PRESTAMO, \n"+ 
+				"V.NOMBRE, \n"+
+				"V.NOM_PRODUCTO, \n"+
+				"V.NUM_CICLO, \n"+
+				"V.ID_ETAPA_PRESTAMO, \n"+
+				"E.NOM_ESTATUS_PRESTAMO \n"+
+				"FROM V_CREDITO V, \n"+
+				"SIM_CAT_ETAPA_PRESTAMO E, \n"+
+				"SIM_USUARIO_ACCESO_SUCURSAL US  \n"+
+				"WHERE V.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				"AND V.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND V.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
+				"AND E.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n"+
+				"AND E.CVE_EMPRESA = V.CVE_EMPRESA \n"+
+				"AND E.ID_ETAPA_PRESTAMO = V.ID_ETAPA_PRESTAMO \n"+
+				"AND US.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n"+
+				"AND US.CVE_EMPRESA = V.CVE_EMPRESA \n"+
+				"AND US.ID_SUCURSAL = V.ID_SUCURSAL \n"+
+				"AND US.CVE_USUARIO = '" + (String)parametros.getDefCampo("CVE_USUARIO") + "' \n"+
+				"AND V.APLICA_A != 'INDIVIDUAL_GRUPO' \n";
 			   
 		ejecutaSql();
 		return this.getConsultaRegistro();

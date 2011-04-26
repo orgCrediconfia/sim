@@ -75,24 +75,18 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 			parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
 			
 			if (request.getParameter("Consulta").equals("Registro")){
+				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinario", parametros));
 				parametros.addDefCampo("OPERACION", "EXTRAORDINARIO");
 				registroControl.respuesta.addDefCampo("ListaOperaciones", catalogoSL.getRegistros("SimPrestamoCatalogoOperacion", parametros));
-				
+				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&Consulta=Registro";
+			}else if (request.getParameter("Consulta").equals("Pantalla")){
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinario", parametros));
-				
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo");
-			}else if (request.getParameter("Consulta").equals("Concepto")){
-				
-				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinario", parametros));
-				parametros.addDefCampo("CVE_OPERACION", request.getParameter("CveOperacion"));
-				parametros.addDefCampo("FECHA_MOVIMIENTO", request.getParameter("FechaMovimiento"));
-				registroControl.respuesta.addDefCampo("ListaConcepto", catalogoSL.getRegistros("SimPrestamoCatalogoOperacionConcepto", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtConcep.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&NumAmort="+request.getParameter("NumAmort")+"&CveOperacion="+request.getParameter("CveOperacion");
-				
+				parametros.addDefCampo("OPERACION", "EXTRAORDINARIO");
+				registroControl.respuesta.addDefCampo("ListaOperaciones", catalogoSL.getRegistros("SimPrestamoCatalogoOperacion", parametros));
+				//Obtiene los saldos actuales.
+				registroControl.respuesta.addDefCampo("ListaSaldos", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioSaldos", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&Consulta=Pantalla";
 			}
-				
-				
-			
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){

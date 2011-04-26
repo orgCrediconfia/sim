@@ -6,10 +6,12 @@
 	<Portal:Forma tipo='busqueda' funcion='SimPrestamoCreditosPersonales' operacion='CT' filtro='Todos'>
 		<Portal:FormaElemento etiqueta='Clave del Cliente' control='Texto' controlnombre='CveNombre' controllongitud='6' controllongitudmax='18' editarinicializado='true'/>
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='Nombre' controllongitud='40' controllongitudmax='60' editarinicializado='true'/>
+		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.Respuesta}'/>' />
 	</Portal:Forma>
 	
-	<Portal:TablaLista tipo="consulta" nombre="Consulta de Créditos del cliente" botontipo="url" url='/ProcesaCatalogo?Funcion=SimPrestamoCatalogoConcepto&OperacionCatalogo=IN&Filtro=Alta'>
+	<Portal:TablaForma nombre="Consulta de Créditos del cliente" funcion="SimPrestamoCreditosPersonales" operacion="AL">
 		<Portal:TablaListaTitulos> 
+			<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='80' valor='Producto'/>	
 			<Portal:Columna tipovalor='texto' ancho='50' valor='Ciclo'/>	
@@ -19,9 +21,19 @@
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Estatus del pr&eacute;stamo'/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave del Asesor'/>	
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Clave de la Sucursal'/>
+			
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
+				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] == "7")}'>
+					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
+						<input type="button" name="Liquidacion"  value="Liquidación por defunsión" onclick='javascript:fLiquidacionDefuncion(<c:out value='${registro.campos["ID_PRESTAMO"]}'/>)'>
+					</Portal:Columna>
+				</c:if>
+				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] != "7")}'>
+					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
+					</Portal:Columna>
+				</c:if>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["CVE_PRESTAMO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["ID_PRODUCTO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='50' valor='${registro.campos["NUM_CICLO"]}'/>
@@ -33,5 +45,24 @@
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["ID_SUCURSAL"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>	
-	</Portal:TablaLista>	
+	</Portal:TablaForma>
+	
+	<script>
+	
+		if(document.frmRegistro.TxRespuesta.value != ''){
+			alert(document.frmRegistro.TxRespuesta.value);
+		} 
+	
+		function fLiquidacionDefuncion(sIdPrestamo){
+			var answer;
+			answer = confirm('¿Esta seguro que desea liquidar el préstamo?');
+		
+			if (answer){
+				document.frmTablaForma.action="ProcesaCatalogo?Funcion=SimPrestamoLiquidacionDefuncion&OperacionCatalogo=AL&IdPrestamo="+sIdPrestamo;
+				document.frmTablaForma.submit();
+			}	
+		}
+		
+	</script>
+		
 </Portal:Pagina>

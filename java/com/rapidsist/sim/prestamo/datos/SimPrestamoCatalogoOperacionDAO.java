@@ -70,7 +70,7 @@ public class SimPrestamoCatalogoOperacionDAO extends Conexion2 implements Operac
 				"FROM PFIN_CAT_OPERACION \n"+
 				"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND CVE_OPERACION != 'CRPAGOPRES' \n";
+				"AND B_MOVTO_EXTRAORDINARIO = 'V' \n";
 		}
 		
 		sSql = sSql + "ORDER BY CVE_OPERACION \n";

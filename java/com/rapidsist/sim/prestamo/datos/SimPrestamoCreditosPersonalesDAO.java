@@ -51,6 +51,7 @@ public class SimPrestamoCreditosPersonalesDAO extends Conexion2 implements Opera
 				"V.ID_ETAPA_PRESTAMO, \n"+
 				"V.CVE_ASESOR_CREDITO, \n"+
 				"V.ID_SUCURSAL, \n"+
+				"V.ID_ETAPA_PRESTAMO, \n"+
 				"E.NOM_ESTATUS_PRESTAMO \n"+
 			"FROM V_CREDITO V, \n"+
 			"     SIM_CAT_ETAPA_PRESTAMO E \n"+
