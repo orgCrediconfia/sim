@@ -73,6 +73,7 @@ public class SimReporteBuroCreditoGREP implements ReporteControlIN {
         sSql = sSql + "AND SP.CVE_PRESTAMO            = '" + (String)request.getParameter("CvePrestamoGrupo") + "'\n";
       
         sSql = sSql + "AND GP.CVE_GPO_EMPRESA         = SP.CVE_GPO_EMPRESA\n"+
+        "AND SP.ID_ETAPA_PRESTAMO       = 14\n"+
         "AND GP.CVE_EMPRESA             = SP.CVE_EMPRESA\n"+
         "AND GP.ID_PERSONA              = SP.ID_CLIENTE\n"+
         "AND GD.CVE_GPO_EMPRESA         = GP.CVE_GPO_EMPRESA\n"+
