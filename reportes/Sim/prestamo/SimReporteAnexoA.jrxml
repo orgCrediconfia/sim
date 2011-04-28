@@ -335,12 +335,16 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="75"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="72"  isSplitAllowed="true" >
 				<rectangle>
 					<reportElement
 						mode="Transparent"
 						x="0"
-						y="21"
+						y="18"
 						width="506"
 						height="54"
 						key="rectangle-1"/>
@@ -349,7 +353,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 				<staticText>
 					<reportElement
 						x="2"
-						y="40"
+						y="37"
 						width="496"
 						height="35"
 						key="staticText-5"/>
@@ -364,7 +368,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 				<staticText>
 					<reportElement
 						x="2"
-						y="26"
+						y="23"
 						width="496"
 						height="14"
 						key="staticText-6"/>
@@ -375,7 +379,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 				<text><![CDATA[*ADVERTENCIAS:]]></text>
 				</staticText>
 			</band>
-		</pageFooter>
+		</lastPageFooter>
 		<summary>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
