@@ -70,7 +70,7 @@ public class SimReporteBuroCreditoIREP implements ReporteControlIN {
 				            sSql = sSql + "AND SP.CVE_PRESTAMO            = '" + (String)request.getParameter("CvePrestamoGrupo") + "'\n";
         
 				        sSql = sSql + "AND GP.CVE_GPO_EMPRESA         = SP.CVE_GPO_EMPRESA\n"+
-				        "AND SP.ID_ETAPA_PRESTAMO       = 14\n"+
+				        "AND SP.ID_ETAPA_PRESTAMO       = 14\n"+ //14 EQUIVALE A LOS PRESTAMOS QUE ESTAN EN ETAPA DE BURO DE CREDITO
 				        "AND SP.APLICA_A                = 'Individual'\n"+
 				        "AND GP.CVE_GPO_EMPRESA         = SP.CVE_GPO_EMPRESA\n"+
 				        "AND GP.CVE_EMPRESA             = SP.CVE_EMPRESA\n"+

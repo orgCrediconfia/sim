@@ -52,7 +52,7 @@ public class MensajeSistema {
 				sMensaje = "No se definio el tipo de reporte que se deberá imprimir, p.e. Pdf, Excel, etc.";
 				break;
 			case 109:
-				sMensaje = "El reporte no pudo ser generado.";
+				sMensaje = "No existe información suficiente para generar el Reporte.";
 				break;
 			case 110:
 				sMensaje = "Se produjo un error en la clase controladora del reporte.";
