@@ -8,17 +8,14 @@ package com.rapidsist.sim.prestamo.cliente;
 
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.CatalogoSL;
-import com.rapidsist.portal.cliente.CatalogoControl;
 import com.rapidsist.portal.cliente.CatalogoControlConsultaIN;
 import com.rapidsist.portal.cliente.CatalogoControlActualizaIN;
 import com.rapidsist.portal.cliente.RegistroControl;
 import javax.naming.Context;
-import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import java.rmi.RemoteException;
-import java.util.Enumeration;
 
 /**
  * Esta clase se encarga de administrar los servicios de operaci�n (alta, baja,

@@ -243,6 +243,7 @@ public class TagFormaElemento extends TagSupport {
 					    !sControl.equals("etiqueta-horizontal") && 
 						!sControl.equals("etiqueta-horizontal-titulo")&& 
 						!sControl.equals("Texto-horizontal-titulo")&& 
+						!sControl.equals("variableoculta-horizontal")&& 
 						!sControl.equals("selector-horizontal-titulo")){
 						out.println("\t\t\t\t\t\t\t\t\t\t<tr>");
 						out.println("\t\t\t\t\t\t\t\t\t\t\t<th>" + sEtiqueta + "</th>");
@@ -252,7 +253,7 @@ public class TagFormaElemento extends TagSupport {
 						out.println("\t\t\t\t\t\t\t\t\t\t\t<th>" + sEtiqueta + "</th>");
 						out.println("\t\t\t\t\t\t\t\t\t\t\t<td>");
 					}
-					else{
+					else if(!sControl.equals("variableoculta-horizontal")){
 						out.println("\t\t\t\t\t\t\t\t\t\t\t<td>");
 					}
 				}
@@ -270,6 +271,9 @@ public class TagFormaElemento extends TagSupport {
 				if (sObligatorio.equals("true")){
 					out.println("\t\t\t\t\t\t\t\t\t\t\t\t<script>fAgregaCampo('" + sControlNombre + "', '" + sEtiqueta + "');</script>");
 				}
+			}
+			else if(sControl.equals("variableoculta-horizontal")) {
+				out.println("\t\t\t\t\t\t\t\t\t\t\t\t<input type='hidden' name='" + sControlNombre + "' value=\"" + sControlValor + "\">" );
 			}
 			else if(sControl.equals("TextoArea")) {
 				if(!sControlTextAreaMaxLong.equals("")){
@@ -647,6 +651,7 @@ public class TagFormaElemento extends TagSupport {
 					}
 				}
 			}
+			
 			else if (sControl.equals("File")) {
 				//VERIFICA SI NO SE DEBE EDITAR EL CONTROL
 				if(this.sEditarInicializado.equals("false") && !sControlValor.equals("") && !sOperacionCatalogo.equals("AL") && !sOperacionCatalogo.equals("IN")){
@@ -689,6 +694,7 @@ public class TagFormaElemento extends TagSupport {
 			    !sControl.equals("Texto-horizontal-titulo")&&
 			    !sControl.equals("etiqueta-horizontal")&& 
 				!sControl.equals("etiqueta-horizontal-titulo")&& 
+				!sControl.equals("variableoculta-horizontal")&& 
 				!sControl.equals("selector-horizontal-titulo")){
 				out.println("\t\t\t\t\t\t\t\t\t\t</tr>");
 			}

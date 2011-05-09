@@ -66,9 +66,9 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 			reportes.doReportes(conn);
 		}catch(Exception ex){
 			System.out.println(ex.getMessage());
-			System.out.println("E R R O R");
+			System.out.println("YA EXISTEN REGISTROS");
 		}
-		
+	
 		
 		sSql = "SELECT TO_CHAR(TO_DATE(F_LIQUIDACION,'DD-MM-YYYY'),'DD-MON-YY') AS F_MEDIO \n"+
         "FROM PFIN_DIA_LIQUIDACION \n"+

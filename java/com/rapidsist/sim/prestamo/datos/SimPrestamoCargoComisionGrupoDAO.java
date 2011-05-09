@@ -15,8 +15,6 @@ import com.rapidsist.portal.catalogos.OperacionBaja;
 import com.rapidsist.portal.catalogos.OperacionModificacion;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 

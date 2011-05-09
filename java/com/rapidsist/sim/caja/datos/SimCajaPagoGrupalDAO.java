@@ -10,28 +10,8 @@ import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
-import java.util.LinkedList;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-
-import javax.servlet.http.HttpServletRequest;
-import com.rapidsist.comun.bd.Registro;
-import com.rapidsist.portal.catalogos.CatalogoSL;
-import com.rapidsist.portal.cliente.CatalogoControlConsultaIN;
-import com.rapidsist.portal.cliente.CatalogoControlActualizaIN;
-import com.rapidsist.portal.cliente.RegistroControl;
-import javax.naming.Context;
-import javax.servlet.ServletConfig;
-import java.rmi.RemoteException;
-import java.util.Enumeration;
-import com.rapidsist.portal.configuracion.Usuario;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 
 
 /**

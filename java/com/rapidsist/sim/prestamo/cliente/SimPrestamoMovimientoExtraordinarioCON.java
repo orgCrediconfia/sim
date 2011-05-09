@@ -7,18 +7,21 @@
 package com.rapidsist.sim.prestamo.cliente;
 
 import com.rapidsist.comun.bd.Registro;
+import com.rapidsist.comun.util.Fecha2;
 import com.rapidsist.portal.catalogos.CatalogoSL;
 import com.rapidsist.portal.cliente.CatalogoControlConsultaIN;
 import com.rapidsist.portal.cliente.CatalogoControlActualizaIN;
 import com.rapidsist.portal.cliente.RegistroControl;
+
 import javax.naming.Context;
 import javax.servlet.ServletConfig;
 import java.rmi.RemoteException;
-import java.util.Enumeration;
-import com.rapidsist.portal.configuracion.Usuario;
+import java.util.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+
 
 /**
  * Esta clase se encarga de administrar las operaciones (alta, baja,
@@ -79,13 +82,62 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 				parametros.addDefCampo("OPERACION", "EXTRAORDINARIO");
 				registroControl.respuesta.addDefCampo("ListaOperaciones", catalogoSL.getRegistros("SimPrestamoCatalogoOperacion", parametros));
 				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&Consulta=Registro";
-			}else if (request.getParameter("Consulta").equals("Pantalla")){
+			}else if (request.getParameter("Consulta").equals("Pantalla") || request.getParameter("Consulta").equals("PantallaFinal")){
+				String sAccesorios = "";
+				String sConceptos = "";
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinario", parametros));
 				parametros.addDefCampo("OPERACION", "EXTRAORDINARIO");
 				registroControl.respuesta.addDefCampo("ListaOperaciones", catalogoSL.getRegistros("SimPrestamoCatalogoOperacion", parametros));
+				
+				if(request.getParameter("AplicaA").equals("GRUPO")){
+					//Obtiene los accesorios del prestamo.
+					parametros.addDefCampo("ID_PRESTAMO",request.getParameter("CvePrestamo"));
+					Registro idprestamo = new Registro ();
+					idprestamo = catalogoSL.getRegistro("SimPrestamoGrupoObtieneIdentificador", parametros);
+					String sIdPrestamoGrupo = (String)idprestamo.getDefCampo("ID_PRESTAMO_GRUPO");
+					parametros.addDefCampo("ID_PRESTAMO_GRUPO",sIdPrestamoGrupo);
+					registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorioGrupo", parametros));
+					Registro accesorios = new Registro ();
+					accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorioGrupo", parametros);
+					sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
+					parametros.addDefCampo("APLICA_A","GRUPO");
+					//Obtiene los concepto que conforma el movimiento extraordinario.
+					parametros.addDefCampo("CVE_OPERACION",request.getParameter("MovimientoExtraordinario"));
+					registroControl.respuesta.addDefCampo("ListaTituloMontoAplicados", catalogoSL.getRegistros("SimPrestamoCatalogoOperacionConcepto", parametros));
+					//Cuenta los Conceptos de la operación.
+					Registro conceptos = new Registro ();
+					conceptos = catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinarioMontosAplicados", parametros);
+					sConceptos = (String)conceptos.getDefCampo("CONCEPTOS");
+					
+				}else if (request.getParameter("AplicaA").equals("INDIVIDUAL")){
+					//Obtiene los accesorios del prestamo.
+					parametros.addDefCampo("CVE_PRESTAMO",request.getParameter("CvePrestamo"));
+					Registro idprestamo = new Registro ();
+					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
+					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
+					parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);
+					registroControl.respuesta.addDefCampo("ListaTituloAccesorio", catalogoSL.getRegistros("SimConsultaListaAccesorio", parametros));
+					Registro accesorios = new Registro ();
+					accesorios = catalogoSL.getRegistro("SimConsultaListaAccesorio", parametros);
+					sAccesorios = (String)accesorios.getDefCampo("ACCESORIOS");
+					parametros.addDefCampo("APLICA_A","INDIVIDUAL");
+					//Obtiene los concepto que conforma el movimiento extraordinario.
+					parametros.addDefCampo("CVE_OPERACION",request.getParameter("MovimientoExtraordinario"));
+					registroControl.respuesta.addDefCampo("ListaTituloMontoAplicados", catalogoSL.getRegistros("SimPrestamoCatalogoOperacionConcepto", parametros));
+					//Cuenta los Conceptos de la operación.
+					Registro conceptos = new Registro ();
+					conceptos = catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinarioMontosAplicados", parametros);
+					sConceptos = (String)conceptos.getDefCampo("CONCEPTOS");
+				}
 				//Obtiene los saldos actuales.
+				parametros.addDefCampo("CONSULTA","SALDOS");
 				registroControl.respuesta.addDefCampo("ListaSaldos", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioSaldos", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&Consulta=Pantalla";
+				//Obtiene los saldos totales actuales.
+				parametros.addDefCampo("CONSULTA","SALDOS_TOTALES");
+				registroControl.respuesta.addDefCampo("TotalSaldos", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioSaldos", parametros));
+				//Obtiene los rubros del movimiento extraordinario.
+				registroControl.respuesta.addDefCampo("ListaMontoAplicados", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioMontosAplicados", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&CveOperacion="+request.getParameter("MovimientoExtraordinario")+"&AplicaA="+request.getParameter("AplicaA")+"&Accesorio="+sAccesorios+"&Conceptos="+sConceptos+"&Consulta="+request.getParameter("Consulta");
 			}
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
@@ -127,72 +179,42 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 
-		//RECUPERA LA SESION DEL USUARIO
-		HttpSession session = request.getSession();
-		Usuario usuario = (Usuario) session.getAttribute("Usuario");
-		//AGREGA LA CLAVE DEL PORTAL Y DEL USUARIO DE LA SESION DEL USUARIO
-		registro.addDefCampo("CVE_USUARIO", usuario.sCveUsuario);
-		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
+		//Clave del movimento extraordinario.
+		registro.addDefCampo("CVE_OPERACION",request.getParameter("CveOperacion"));
 		
-		registro.addDefCampo("CVE_OPERACION", request.getParameter("CveOperacion"));
-		registro.addDefCampo("FECHA_MOVIMIENTO", request.getParameter("FechaMovimiento"));
-		registro.addDefCampo("NUM_AMORT", request.getParameter("NumAmort"));
+		//Obtiene los IdPrestamos.
+		String[] IdPrestamo = request.getParameterValues("IdPrestamo");
+
+		String sNumConceptos = request.getParameter("Conceptos");
+		int iNumConceptos = Integer.parseInt(sNumConceptos);
 		
-		float fSuma = 0;
+		System.out.println("Conceptos: "+iNumConceptos);
+		System.out.println("Prestamos: "+(IdPrestamo.length - 1));
 		
-		Enumeration suma = request.getParameterNames();
-		while (suma.hasMoreElements()){
+		int iNumeroElementos = iNumConceptos*(IdPrestamo.length - 1);
+		System.out.println("Elementos: "+iNumeroElementos);
+
+		Object[] objetos = new Object[iNumeroElementos];
+		
+		int k = 0;
+		//OBTIENE LOS CONCEPTOS DEL MOVIMIENTO EXTRAORDINARIO
+		for (int i = 0; i < iNumConceptos; i++) {
 			
-			String sNombre = (String)suma.nextElement();
-			//VERIFICA SI EL PARAMETRO TIENE EL PREFIJO "FuncionAlta"
-			if (sNombre.startsWith("CveConcepto")){
-				//VERIFICA SI LA LISTA DE FUNCIONES ESTA INICIALIZADA
-				String sConcepto = sNombre.substring(11, sNombre.length());
-				float fSumaConcepto = Float.parseFloat((String)request.getParameter("Importe" + sConcepto));
-				fSuma = fSuma + fSumaConcepto;
+			String[] Conceptos = request.getParameterValues("CVE_CONCEPTO_"+i);
+			String[] Importes = request.getParameterValues("IMPORTE_"+i);			
+			
+			for (int j = 0; j < (IdPrestamo.length - 1) ; j++) {
+				Object[] objeto = {IdPrestamo[j],Conceptos[0],Importes[j]};
+				objetos[k] = objeto;
+				k++;
 			}
 		}
 		
-		String sSuma= String.valueOf(fSuma);
-		registro.addDefCampo("IMP_NETO", sSuma);
-		
-		registro.addDefCampo("OPERACION", "PREMOVTO");
-		
+		registro.addDefCampo("MovExtraObjetos", objetos);
+
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoMovimientoExtraordinario", registro, iTipoOperacion);
-	
-		String sIdPreMovto = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_PRE_MOVTO");
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamoMovimientoExtraordinario&OperacionCatalogo=CR&Consulta=PantallaFinal&IdPrestamo="+request.getParameter("IdPrestamo")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&MovimientoExtraordinario="+request.getParameter("CveOperacion")+"&AplicaA="+request.getParameter("AplicaA");
 		
-		registro.addDefCampo("ID_PREMOVTO", sIdPreMovto);
-		
-		//RECUPERA LA LISTA DE LAS FUNCIONES QUE SE VAN A PROCESAR
-		String sCveConcepto;
-		Enumeration lista = request.getParameterNames();
-		//RECORRE LA LISTA DE PARAMETROS QUE VIENEN EN EL REQUEST
-		while (lista.hasMoreElements()){
-			
-			String sNombre = (String)lista.nextElement();
-			//VERIFICA SI EL PARAMETRO TIENE EL PREFIJO "FuncionAlta"
-			if (sNombre.startsWith("CveConcepto")){
-				
-				//VERIFICA SI LA LISTA DE FUNCIONES ESTA INICIALIZADA
-				sCveConcepto = sNombre.substring(11, sNombre.length());
-				//registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-				//registro.addDefCampo("CVE_OPERACION", request.getParameter("CveOperacion"));
-				registro.addDefCampo("CVE_CONCEPTO", sCveConcepto);
-				registro.addDefCampo("IMPORTE_CONCEPTO", request.getParameter("Importe" + sCveConcepto));
-				
-				registro.addDefCampo("OPERACION", "PREMOVTO_DET");
-				//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoMovimientoExtraordinario", registro, iTipoOperacion);
-				
-			}
-		}
-		
-		registro.addDefCampo("OPERACION", "PROCESA_MOVTO");
-		//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
-		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoMovimientoExtraordinario", registro, iTipoOperacion);
-		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamoMovimientoExtraordinario&OperacionCatalogo=IN&Filtro=Inicio";
 		return registroControl;
 	}
 }
