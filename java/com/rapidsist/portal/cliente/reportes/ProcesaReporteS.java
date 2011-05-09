@@ -257,8 +257,7 @@ public class ProcesaReporteS extends HttpServlet{
 							ouputStream.close();
 						}
 						else{
-						
-							response.sendRedirect( request.getContextPath() + "/comun/FormasInfraestructura/fGralMen.jsp?Mensaje=" + MensajeSistema.getMensajeSistema(109));
+							response.sendRedirect( request.getContextPath() + "/comun/FormasInfraestructura/fGralMen.jsp?Ventana=Si&Mensaje=" + MensajeSistema.getMensajeSistema(109));
 							return;
 						}
 					}

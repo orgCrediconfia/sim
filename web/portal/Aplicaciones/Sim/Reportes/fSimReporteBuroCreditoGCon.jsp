@@ -3,7 +3,7 @@
 
 <Portal:Pagina funcion="SimReporteBuroCreditoG">
 
-	<Portal:PaginaNombre titulo="Reporte de buro de credito" subtitulo="Consulta del reporte"/>
+	<Portal:PaginaNombre titulo="Reporte de buro de credito individual y grupal" subtitulo="Consulta del reporte"/>
 	
 	<Portal:Forma tipo='url' funcion='SimReporteBuroCreditoG' url="ProcesaReporte?Funcion=SimReporteBuroCreditoG&TipoReporte=Xls" agregaentorno="false">
 		<Portal:FormaSeparador nombre="Filtros"/>

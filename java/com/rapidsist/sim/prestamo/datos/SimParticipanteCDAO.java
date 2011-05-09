@@ -22,7 +22,7 @@ import java.sql.SQLException;
  */
 
 public class SimParticipanteCDAO extends Conexion2 implements
-		OperacionConsultaTabla {
+		OperacionConsultaTabla, OperacionConsultaRegistro {
 
 	/**
 	 * Obtiene un conjunto de registros en base ael filtro de b�squeda.
@@ -78,5 +78,16 @@ public class SimParticipanteCDAO extends Conexion2 implements
 		ejecutaSql();
 		return getConsultaLista();
 	}
+	
+	public Registro getRegistro(Registro parametros) throws SQLException{
+		
+		//EJEMPLO PARA GENERAR UN COUNT
+		//ESTE METODO ES LLAMADO DE LA REP SimReporteAnexoAREP
+		//sSql =  "SELECT COUNT(CVE_ESTADO)TOTAL_ESTADOS FROM RS_GRAL_ESTADO \n";
+		
+		ejecutaSql();
+		return this.getConsultaRegistro();
+	}
+		
 
 }
