@@ -175,7 +175,10 @@
 			</Portal:FormaBotones>
 		</Portal:TablaForma>
 			
-		<Portal:TablaLista tipo="consulta" nombre="Saldos Actuales después de agregar el Movimiento Extraordinario">
+			
+		<h3>Saldos después de ingresar el Movimiento Extraordinario de <c:out value='${param.NomMovtoExtra}'/></h3>
+		<table border='0'>
+      		<tr>
 			<Portal:TablaListaTitulos> 
 			    <Portal:Columna tipovalor='texto' ancho='50' valor='Clave del cliente'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Nombre'/>
@@ -222,7 +225,7 @@
 					<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["SALDOS_TOTALES"]}'/>
 				</Portal:TablaListaRenglon>
 			</c:forEach>
-		</Portal:TablaLista>
+		</table>
 	</c:if>
 	
 	<script>

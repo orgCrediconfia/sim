@@ -85,6 +85,7 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 			}else if (request.getParameter("Consulta").equals("Pantalla") || request.getParameter("Consulta").equals("PantallaFinal")){
 				String sAccesorios = "";
 				String sConceptos = "";
+				String sNomMovtoExtra = "";
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinario", parametros));
 				parametros.addDefCampo("OPERACION", "EXTRAORDINARIO");
 				registroControl.respuesta.addDefCampo("ListaOperaciones", catalogoSL.getRegistros("SimPrestamoCatalogoOperacion", parametros));
@@ -129,6 +130,12 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 					conceptos = catalogoSL.getRegistro("SimPrestamoMovimientoExtraordinarioMontosAplicados", parametros);
 					sConceptos = (String)conceptos.getDefCampo("CONCEPTOS");
 				}
+				
+				//Obtiene el nombre del movimiento extraordinario
+				Registro movtoExtra = new Registro ();
+				movtoExtra = catalogoSL.getRegistro("SimPrestamoCatalogoOperacion", parametros);
+				sNomMovtoExtra = (String)movtoExtra.getDefCampo("DESC_LARGA");
+				
 				//Obtiene los saldos actuales.
 				parametros.addDefCampo("CONSULTA","SALDOS");
 				registroControl.respuesta.addDefCampo("ListaSaldos", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioSaldos", parametros));
@@ -137,7 +144,7 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 				registroControl.respuesta.addDefCampo("TotalSaldos", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioSaldos", parametros));
 				//Obtiene los rubros del movimiento extraordinario.
 				registroControl.respuesta.addDefCampo("ListaMontoAplicados", catalogoSL.getRegistros("SimPrestamoMovimientoExtraordinarioMontosAplicados", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&CveOperacion="+request.getParameter("MovimientoExtraordinario")+"&AplicaA="+request.getParameter("AplicaA")+"&Accesorio="+sAccesorios+"&Conceptos="+sConceptos+"&Consulta="+request.getParameter("Consulta");
+				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&CveOperacion="+request.getParameter("MovimientoExtraordinario")+"&NomMovtoExtra="+sNomMovtoExtra+"&AplicaA="+request.getParameter("AplicaA")+"&Accesorio="+sAccesorios+"&Conceptos="+sConceptos+"&Consulta="+request.getParameter("Consulta");
 			}
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
