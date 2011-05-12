@@ -49,7 +49,7 @@
 	
 	<script>
 	
-		if(document.frmRegistro.TxRespuesta.value != ''){
+		if(document.frmRegistro.TxRespuesta.value != 'null' && document.frmRegistro.TxRespuesta.value != ''){
 			alert(document.frmRegistro.TxRespuesta.value);
 		} 
 	
