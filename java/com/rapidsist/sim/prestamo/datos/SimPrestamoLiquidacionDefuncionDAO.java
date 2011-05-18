@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  * Copyright (c) 2008 Rapidisist S.A de C.V. Todos los derechos reservados
  */
@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Administra los accesos a la base para la liquidación de préstamos por defunción.
+ * Administra los accesos a la base para la liquidaciï¿½n de prï¿½stamos por defunciï¿½n.
  */
  
 public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements OperacionAlta {
@@ -25,7 +25,7 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 	/**
 	 * Inserta un registro.
 	 * @param registro Campos del nuevo registro.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
+	 * @return Objeto que contiene el resultado de la ejecuciï¿½n de este mï¿½todo.
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
@@ -56,6 +56,8 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 		
 		resultadoCatalogo.Resultado.addDefCampo("RESPUESTA", sTxRespuesta);
 		
+		//CODIGO COMENTADO YA QUE EL PL ACTUALIZA LA ETAPA DEL PRESTAMO
+		/*
 		if (sTxRespuesta == null){
 			sSql =  " UPDATE SIM_PRESTAMO SET "+
 					" ID_ETAPA_PRESTAMO		='8' \n" +
@@ -88,7 +90,7 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 						}
 				}
 		}
-		
+		*/
 		return resultadoCatalogo;
 	}
 
