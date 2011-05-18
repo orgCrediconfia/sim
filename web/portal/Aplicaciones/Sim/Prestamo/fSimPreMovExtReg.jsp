@@ -30,7 +30,7 @@
 			<Portal:TablaListaTitulos> 
 			    <Portal:Columna tipovalor='texto' ancho='50' valor='Clave del cliente'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Nombre'/>
-			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto préstado'/>
+			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto prestado'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Capital'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Inter&eacute;s'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='I.V.A.'/>
@@ -79,7 +79,7 @@
 			<Portal:TablaListaTitulos> 
 			    <Portal:Columna tipovalor='texto' ancho='50' valor='Clave del cliente'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Nombre'/>
-			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto préstado'/>
+			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto prestado'/>
 			    <c:forEach var="registro" items="${requestScope.ListaTituloMontoAplicados}">
 					<th  width='100' align='left'  nowrap  ><c:out value='${registro.campos["DESC_LARGA"]}'/>
 					</th>
@@ -90,7 +90,7 @@
 			<c:forEach var="registro" items="${requestScope.ListaMontoAplicados}">
 				<Portal:TablaListaRenglon>
 					<Portal:Columna tipovalor='texto' ancho='50' valor='${registro.campos["ID_PERSONA"]}'/>
-					<input type='hidden' name='IdPrestamo' 	value='<c:out value='${registro.campos["ID_PRESTAMO"]}'/>'>
+					<input type='hidden' name='IdPrestamoIndGpo' 	value='<c:out value='${registro.campos["ID_PRESTAMO"]}'/>'>
 					<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_COMPLETO"]}'/>
 					<Portal:Columna tipovalor='moneda' ancho='100' valor='$ ${registro.campos["MONTO_AUTORIZADO"]}'/>
 					
@@ -132,7 +132,7 @@
 			<Portal:TablaListaTitulos> 
 			    <Portal:Columna tipovalor='texto' ancho='50' valor='Clave del cliente'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Nombre'/>
-			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto préstado'/>
+			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto prestado'/>
 			    <c:forEach var="registro" items="${requestScope.ListaTituloMontoAplicados}">
 					<th  width='100' align='left'  nowrap  ><c:out value='${registro.campos["DESC_LARGA"]}'/>
 					</th>
@@ -176,13 +176,13 @@
 		</Portal:TablaForma>
 			
 			
-		<h3>Saldos después de ingresar el Movimiento Extraordinario de <c:out value='${param.NomMovtoExtra}'/></h3>
+		<h3>Saldos despuï¿½s de ingresar el Movimiento Extraordinario de <c:out value='${param.NomMovtoExtra}'/></h3>
 		<table border='0'>
       		<tr>
 			<Portal:TablaListaTitulos> 
 			    <Portal:Columna tipovalor='texto' ancho='50' valor='Clave del cliente'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Nombre'/>
-			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto préstado'/>
+			    <Portal:Columna tipovalor='texto' ancho='100' valor='Monto prestado'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Capital'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='Inter&eacute;s'/>
 			    <Portal:Columna tipovalor='texto' ancho='100' valor='I.V.A.'/>
