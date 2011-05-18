@@ -11,20 +11,14 @@
 	<Portal:TablaLista tipo="consulta" nombre="Consulta">
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave del prestamo'/>
-			<Portal:Columna tipovalor='texto' ancho='100' valor='Nombre'/>
-			<Portal:Columna tipovalor='texto' ancho='100' valor='Producto'/>
-			<Portal:Columna tipovalor='texto' ancho='100' valor='Ciclo'/>
-			<Portal:Columna tipovalor='texto' ancho='100%' valor='Estatus del préstamo'/>
+			<Portal:Columna tipovalor='texto' ancho='100%' valor='Nombre'/>
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
 				<Portal:Columna tipovalor='texto' ancho='100' valor=''>
 					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CVE_PRESTAMO"]}' funcion='SimPrestamoMovimientoExtraordinario' operacion='CR' parametros='Consulta=Registro&IdPrestamo=${registro.campos["ID_PRESTAMO"]}'/>
 				</Portal:Columna>	
-				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOMBRE"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_PRODUCTO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NUM_CICLO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOM_ESTATUS_PRESTAMO"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOMBRE"]}'/>
 				
 			</Portal:TablaListaRenglon>	
 		</c:forEach>
