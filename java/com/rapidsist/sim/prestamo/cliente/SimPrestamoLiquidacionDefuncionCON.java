@@ -21,7 +21,7 @@ import java.util.Enumeration;
 
 /**
  * Esta clase se encarga de administrar los servicios de operaciï¿½n (alta, baja,
- * modificaciï¿½n y consulta) de la liquidación de prestamos por defunción. Esta clase es llamada por
+ * modificaciï¿½n y consulta) de la liquidaciï¿½n de prestamos por defunciï¿½n. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
 public class SimPrestamoLiquidacionDefuncionCON implements CatalogoControlActualizaIN{
@@ -52,6 +52,8 @@ public class SimPrestamoLiquidacionDefuncionCON implements CatalogoControlActual
 	 */
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
+		
+		registro.addDefCampo("DobleSubmit","Desabilitado");
 		
 		String sRespuesta = "";
 		
