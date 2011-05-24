@@ -176,7 +176,7 @@
 		</Portal:TablaForma>
 			
 			
-		<h3>Saldos despuï¿½s de ingresar el Movimiento Extraordinario de <c:out value='${param.NomMovtoExtra}'/></h3>
+		<h3>Saldos después de ingresar el Movimiento Extraordinario de <c:out value='${param.NomMovtoExtra}'/></h3>
 		<table border='0'>
       		<tr>
 			<Portal:TablaListaTitulos> 

@@ -15,6 +15,7 @@
 	
 	<script>
 		function fCierreDia(){
+			document.frmRegistro.Aceptar.disabled = true; 
 			MM_openBrWindow('/portal/ProcesaCatalogo?Funcion=SimGeneralesFirmaElectronica&OperacionCatalogo=CR&Modulo=Cierre&Ventana=Si','VentanaCp','scrollbars=yes,resizable=yes,width=500,height=300');
 		}	
 	</script>

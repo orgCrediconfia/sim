@@ -145,7 +145,8 @@ public class SimPrestamoMovimientoExtraordinarioSaldosDAO extends Conexion2 impl
 						    "P.ID_PRESTAMO, \n"+
 						    "P.ID_CLIENTE, \n"+
 						    "PE.NOM_COMPLETO, \n"+
-						    "M.MONTO_AUTORIZADO \n";
+						    "M.MONTO_AUTORIZADO \n"+
+							"ORDER BY NOM_COMPLETO \n";
 					
 				}else if (parametros.getDefCampo("APLICA_A").equals("GRUPO")){
 					
@@ -247,8 +248,10 @@ public class SimPrestamoMovimientoExtraordinarioSaldosDAO extends Conexion2 impl
 									  "PG.ID_PRESTAMO, \n"+
 									  "PG.ID_INTEGRANTE, \n"+
 									  "PE.NOM_COMPLETO, \n"+
-									  "PG.MONTO_AUTORIZADO \n";
+									  "PG.MONTO_AUTORIZADO \n"+
+									  "ORDER BY NOM_COMPLETO \n";
 				}
+			
 			}else if (parametros.getDefCampo("CONSULTA").equals("SALDOS_TOTALES")){
 				if (parametros.getDefCampo("APLICA_A").equals("INDIVIDUAL")){
 					
@@ -505,8 +508,6 @@ public class SimPrestamoMovimientoExtraordinarioSaldosDAO extends Conexion2 impl
 			}
 			
 			sSql = sVista;
-				
-			
 			
 		ejecutaSql();
 		return getConsultaLista();
