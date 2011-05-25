@@ -54,7 +54,26 @@ public class SimReporteInteresDevengadoGrupoCON implements CatalogoControlConsul
 		
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
+				registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+				parametros.addDefCampo("ID_REGIONAL","");
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
+				parametros.addDefCampo("ID_SUCURSAL","");
+				registroControl.respuesta.addDefCampo("ListaAsesor", catalogoSL.getRegistros("SimUsuarioAsesorSucursal", parametros));
 				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteIntDevGpoCon.jsp";	
+			}else if (request.getParameter("Filtro").equals("Sucursal")){
+				registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+				parametros.addDefCampo("ID_REGIONAL",request.getParameter("IdRegional"));
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
+				parametros.addDefCampo("ID_SUCURSAL","");
+				registroControl.respuesta.addDefCampo("ListaAsesor", catalogoSL.getRegistros("SimUsuarioAsesorSucursal", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteIntDevGpoCon.jsp?IdRegional="+request.getParameter("IdRegional");	
+			}else if (request.getParameter("Filtro").equals("Asesor")){
+				registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+				parametros.addDefCampo("ID_REGIONAL",request.getParameter("IdRegional"));
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
+				parametros.addDefCampo("ID_SUCURSAL",request.getParameter("IdSucursal"));
+				registroControl.respuesta.addDefCampo("ListaAsesor", catalogoSL.getRegistros("SimUsuarioAsesorSucursal", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteIntDevGpoCon.jsp?IdRegional="+request.getParameter("IdRegional")+"&IdSucursal="+request.getParameter("IdSucursal")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&FechaInicio="+request.getParameter("FechaInicio")+"&FechaFin="+request.getParameter("FechaFin");
 			}
 		}
 		
