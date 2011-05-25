@@ -65,6 +65,7 @@ public class SimPrestamoActividadRequisitoCON implements CatalogoControlConsulta
 			registroControl.respuesta.addDefCampo("ListaEstatusPrestamo", catalogoSL.getRegistros("SimCatalogoEstatusPrestamo", parametros));
 			registroControl.respuesta.addDefCampo("ListaActividadRequisito", catalogoSL.getRegistros("SimCatalogoActividadRequisito", parametros));
 			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoActividadRequisito", parametros));
+			registroControl.respuesta.addDefCampo("registroValidacionIndividual", catalogoSL.getRegistro("SimPrestamoValidacionIndividual", parametros));
 			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreActReqReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&IdProducto="+request.getParameter("IdProducto");
 		}
 		else if (iTipoOperacion == CatalogoControl.CON_INICIALIZACION){

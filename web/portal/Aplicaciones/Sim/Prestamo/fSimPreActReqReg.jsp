@@ -25,7 +25,18 @@
 			<c:if test='${requestScope.registro.campos["B_AUTORIZAR_COMITE"] != "V"}'>
 				<c:if test='${requestScope.registro.campos["B_LINEA_FONDEO"] != "V"}'>
 					<c:if test='${requestScope.registro.campos["B_DESEMBOLSO"] != "V"}'>
-						<Portal:FormaBotonAltaModificacion/>
+						<c:if test='${requestScope.registro.campos["ID_PRODUCTO"] == "11"}'>
+								<Portal:FormaBotonAltaModificacion/>
+						</c:if>
+						<c:if test='${requestScope.registro.campos["ID_PRODUCTO"] != "11"}'>
+							<c:if test='${requestScope.registroValidacionIndividual.campos["GARANTE"] != null}'>
+								<c:if test='${requestScope.registroValidacionIndividual.campos["OBLIGADO"] != null}'>
+									<c:if test='${requestScope.registroValidacionIndividual.campos["GARANTIA"] != null}'>
+										<Portal:FormaBotonAltaModificacion/>
+									</c:if>
+								</c:if>
+							</c:if>
+						</c:if>
 					</c:if>
 				</c:if>
 			</c:if>

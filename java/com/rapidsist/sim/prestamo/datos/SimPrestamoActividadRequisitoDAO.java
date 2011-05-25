@@ -95,6 +95,7 @@ public class SimPrestamoActividadRequisitoDAO extends Conexion2 implements Opera
 			" 	PAR.FECHA_REGISTRO, \n"+
 			" 	PAR.FECHA_REALIZADA, \n"+
 			" 	P.APLICA_A, \n"+
+			" 	P.ID_PRODUCTO, \n"+
 			" 	PAR.ESTATUS, \n"+
 			" 	PAR.COMENTARIO, \n"+
 			"E.B_ENTREGADO, \n"+
