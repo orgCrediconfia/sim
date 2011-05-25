@@ -26,16 +26,21 @@
 	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
-	<field name="IMP_INTERES_DEV_X_DIA" class="java.lang.Float"/>
+	<field name="ID_REGIONAL" class="java.math.BigDecimal"/>
+	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
+	<field name="CVE_ASESOR_CREDITO" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
 	<field name="CVE_PRESTAMO" class="java.lang.String"/>
-	<field name="FECHA_HISTORICO" class="java.lang.String"/>
-	<field name="IMP_INTERES_PAGADO" class="java.lang.Float"/>
+	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="FECHA_DIA" class="java.sql.Timestamp"/>
+	<field name="IMP_INTERES_DEV_X_DIA" class="java.math.BigDecimal"/>
+	<field name="IMP_INTERES_DEV_PAGADO" class="java.math.BigDecimal"/>
 
-	<variable name="SumIntDeb" class="java.lang.Float" resetType="Group" resetGroup="CVE_PRESTAMO" calculation="Sum">
+	<variable name="SumIntDeb" class="java.math.BigDecimal" resetType="Group" resetGroup="CVE_PRESTAMO" calculation="Sum">
 		<variableExpression><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></variableExpression>
 	</variable>
-	<variable name="SumIntPag" class="java.lang.Float" resetType="Group" resetGroup="CVE_PRESTAMO" calculation="Sum">
-		<variableExpression><![CDATA[$F{IMP_INTERES_PAGADO}]]></variableExpression>
+	<variable name="SumIntPag" class="java.math.BigDecimal" resetType="Group" resetGroup="CVE_PRESTAMO" calculation="Sum">
+		<variableExpression><![CDATA[$F{IMP_INTERES_DEV_PAGADO}]]></variableExpression>
 	</variable>
 
 		<group  name="CVE_PRESTAMO" >
@@ -163,7 +168,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -176,7 +181,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_HISTORICO}]]></textFieldExpression>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA_DIA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -189,7 +194,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{IMP_INTERES_PAGADO}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_DEV_PAGADO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -202,7 +207,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumIntDeb}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SumIntDeb}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -215,7 +220,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$V{SumIntPag}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SumIntPag}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
