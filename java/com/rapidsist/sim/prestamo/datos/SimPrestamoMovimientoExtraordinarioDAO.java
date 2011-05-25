@@ -130,7 +130,7 @@ public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements
 		
 		MovimientosExtraordinarios movto = new MovimientosExtraordinarios();
 		try{
-			movto.doMovimientosExtraordinarios((String)registro.getDefCampo("CVE_GPO_EMPRESA"), (String)registro.getDefCampo("CVE_EMPRESA"), (String)registro.getDefCampo("CVE_OPERACION"), MovtosExtraObjetos, conn);
+			movto.doMovimientosExtraordinarios((String)registro.getDefCampo("CVE_GPO_EMPRESA"), (String)registro.getDefCampo("CVE_EMPRESA"), (String)registro.getDefCampo("CVE_OPERACION"), (String)registro.getDefCampo("CVE_USUARIO"), MovtosExtraObjetos, conn);
 		}catch(Exception ex){
 			System.out.println(ex.getMessage());
 			System.out.println(":'(");

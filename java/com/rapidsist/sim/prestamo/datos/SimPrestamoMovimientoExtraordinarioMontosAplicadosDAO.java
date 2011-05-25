@@ -148,6 +148,8 @@ public class SimPrestamoMovimientoExtraordinarioMontosAplicadosDAO extends Conex
 					iRelacion++;
 				}
 				
+				sVista = sVista + "ORDER BY NOM_COMPLETO \n";
+				
 			}else if (parametros.getDefCampo("APLICA_A").equals("GRUPO")){
 				
 				
@@ -250,6 +252,8 @@ public class SimPrestamoMovimientoExtraordinarioMontosAplicadosDAO extends Conex
 					
 					iRelacion++;
 				}
+				
+				sVista = sVista + "ORDER BY NOM_COMPLETO \n";
 			}
 			
 			sSql = sVista;
