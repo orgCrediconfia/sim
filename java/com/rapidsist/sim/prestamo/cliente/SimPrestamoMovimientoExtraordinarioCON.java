@@ -199,26 +199,49 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 		System.out.println("Conceptos: "+iNumConceptos);
 		System.out.println("Prestamos: "+(IdPrestamo.length));
 		
-		int iNumeroElementos = iNumConceptos*(IdPrestamo.length);
-		System.out.println("Elementos: "+iNumeroElementos);
-
-		Object[] objetos = new Object[iNumeroElementos];
-		int k = 0;
-		//OBTIENE LOS CONCEPTOS DEL MOVIMIENTO EXTRAORDINARIO
-		for (int i = 0; i < iNumConceptos; i++) {
-			String[] Conceptos = request.getParameterValues("CVE_CONCEPTO_"+i);
-			String[] Importes = request.getParameterValues("IMPORTE_"+i);			
-			for (int j = 0; j < (IdPrestamo.length) ; j++) {
-				//ASIGNA LA CANTIDAD DE CERO SI EL USUARIO NO ENVIO UN IMPORTE
-				if(Importes[j].equals("")){
-					Importes[j]="0";
+		//Verifica si la operación es Ajuste de Movimiento.
+		if (request.getParameter("CveOperacion").equals("AJUMOV")){
+			registro.addDefCampo("NUM_CONCEPTOS",sNumConceptos);
+			
+			//Prepara los IdPrestamos a la DAO.
+			registro.addDefCampo("DAO_ID_PRESTAMO",IdPrestamo);
+			
+			//Obtiene los CveConceptos.
+	        for (int i = 0; i < iNumConceptos; i++) {
+	            String[] Concepto = null;
+	            Concepto = request.getParameterValues("CVE_CONCEPTO_"+i+"");
+	            registro.addDefCampo("DAO_CONCEPTO_"+i+"",Concepto);
+	        }
+	        //Obtiene los Importes.
+	        for (int j = 0; j < iNumConceptos; j++) {
+	            String[] Importe = null;
+	            Importe = request.getParameterValues("IMPORTE_"+j+"");
+	            registro.addDefCampo("DAO_IMPORTE_"+j+"",Importe);
+	        }
+			
+		}else{
+			//Se trata de movimientos diferentes a Ajuste de Movimiento.
+			int iNumeroElementos = iNumConceptos*(IdPrestamo.length);
+			System.out.println("Elementos: "+iNumeroElementos);
+	
+			Object[] objetos = new Object[iNumeroElementos];
+			int k = 0;
+			//OBTIENE LOS CONCEPTOS DEL MOVIMIENTO EXTRAORDINARIO
+			for (int i = 0; i < iNumConceptos; i++) {
+				String[] Conceptos = request.getParameterValues("CVE_CONCEPTO_"+i);
+				String[] Importes = request.getParameterValues("IMPORTE_"+i);			
+				for (int j = 0; j < (IdPrestamo.length) ; j++) {
+					//ASIGNA LA CANTIDAD DE CERO SI EL USUARIO NO ENVIO UN IMPORTE
+					if(Importes[j].equals("")){
+						Importes[j]="0";
+					}
+					Object[] objeto = {IdPrestamo[j],Conceptos[0],Importes[j]};
+					objetos[k] = objeto;
+					k++;
 				}
-				Object[] objeto = {IdPrestamo[j],Conceptos[0],Importes[j]};
-				objetos[k] = objeto;
-				k++;
 			}
+			registro.addDefCampo("MovExtraObjetos", objetos);
 		}
-		registro.addDefCampo("MovExtraObjetos", objetos);
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoMovimientoExtraordinario", registro, iTipoOperacion);
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamoMovimientoExtraordinario&OperacionCatalogo=CR&Consulta=PantallaFinal&IdPrestamo="+request.getParameter("IdPrestamo")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&MovimientoExtraordinario="+request.getParameter("CveOperacion")+"&AplicaA="+request.getParameter("AplicaA");
 		
