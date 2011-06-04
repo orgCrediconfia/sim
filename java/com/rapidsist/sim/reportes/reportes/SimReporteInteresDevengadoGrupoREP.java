@@ -38,45 +38,59 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 	public  Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
 
+		String sIdRegional = request.getParameter("IdRegional");
+		String sIdSucursal = request.getParameter("IdSucursal");
+		String sCveUsuario = request.getParameter("CveUsuario");
 		
-		String sSql = 	"SELECT DISTINCT \n"+
-		"G.CVE_GPO_EMPRESA, \n"+
-		"G.CVE_EMPRESA, \n"+
-		"G.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+ 
-		"G.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n"+
-		"T.FECHA_HISTORICO, \n"+
-		"SUM(T.IMP_INTERES_DEV_X_DIA) IMP_INTERES_DEV_X_DIA, \n"+
-		"SUM(IFNULL(T.Imp_Interes_Pagado,0)+ \n"+
-		"IFNULL(T.Imp_Iva_Interes_Pagado,0)+ \n"+
-		"IFNULL(T.Imp_Interes_Extra_Pagado,0)+ \n"+
-		"IFNULL(T.Imp_Iva_Interes_Extra_Pagado,0)+ \n"+
-		"IFNULL(T.Imp_Interes_Mora_Pagado,0)+ \n"+
-		"IFNULL(T.IMP_IVA_INTERES_MORA_PAGADO,0)) IMP_INTERES_PAGADO \n"+
-		"FROM \n"+ 
-		"SIM_PRESTAMO P, \n"+
-		"SIM_PRESTAMO_GRUPO G, \n"+
-		"SIM_TABLA_AMORTIZACION T \n"+
-		"WHERE P.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+
-		"AND P.CVE_EMPRESA = G.CVE_EMPRESA \n"+
-		"AND P.ID_PRESTAMO_GRUPO = G.ID_PRESTAMO_GRUPO \n"+
-		"AND T.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-		"AND T.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-		"AND T.ID_PRESTAMO = P.ID_PRESTAMO \n"+
-		"AND T.FECHA_HISTORICO BETWEEN STR_TO_DATE('" + (String) request.getParameter("FechaInicio") + "', '%d/%m/%Y') AND STR_TO_DATE('" + (String) request.getParameter("FechaFin") + "', '%d/%m/%Y') \n"+
-		"GROUP BY \n"+
-		"G.CVE_GPO_EMPRESA, \n"+
-		"G.CVE_EMPRESA, \n"+
-		"G.ID_PRESTAMO_GRUPO, \n"+ 
-		"G.CVE_PRESTAMO_GRUPO, \n"+
-		"T.FECHA_HISTORICO \n"+
-		"ORDER BY P.CVE_PRESTAMO, T.FECHA_HISTORICO \n";
+		String sSql = 	"SELECT\n"+
+						  "ID_REGIONAL,\n"+
+						  "ID_SUCURSAL,\n"+
+						  "CVE_ASESOR_CREDITO,\n"+
+						  "ID_PRESTAMO_GPO AS ID_PRESTAMO,\n"+
+						  "CVE_PRESTAMO_GPO AS CVE_PRESTAMO,\n"+
+						  "NOM_CLIENTE AS NOM_GRUPO,\n"+
+						  "FECHA_DIA,\n"+
+						  "IMP_INTERES_DEV_X_DIA,\n"+
+						  "IMP_INTERES_DEV_PAGADO\n"+
+						"FROM\n"+
+						  "SIM_PRESTAMO_INT_DEV_GPO\n"+
+						"WHERE CVE_GPO_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
+						  "AND CVE_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"+
+						  
+						"UNION ALL\n"+
+				
+						"SELECT\n"+
+						  "ID_REGIONAL,\n"+
+						  "ID_SUCURSAL,\n"+
+						  "CVE_ASESOR_CREDITO,\n"+
+						  "ID_PRESTAMO,\n"+
+						  "CVE_PRESTAMO,\n"+
+						  "NOM_CLIENTE,\n"+
+						  "FECHA_DIA,\n"+
+						  "IMP_INTERES_DEV_X_DIA,\n"+
+						  "IMP_INTERES_DEV_PAGADO\n"+
+						"FROM SIM_PRESTAMO_INTERES_DEVENGADO\n"+
+						"WHERE CVE_GPO_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"+
+						  "AND CVE_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n";
+		
+		if (!sIdSucursal.equals("null")){
+			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
+		}
 	
+		if (!sIdRegional.equals("null")){
+			sSql = sSql + "AND ID_REGIONAL = '" + (String)request.getParameter("IdRegional") + "'\n";
+		}
+		
+		if (!sCveUsuario.equals("null")){
+			sSql = sSql + "AND CVE_ASESOR_CREDITO = '" + (String)request.getParameter("CveUsuario") + "'\n";
+		}
+		
 		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
 		
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengado.jasper");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoGrupo.jasper");
 		parametros.put("NombreReporte", "Intereses devengados");
 		                             
 		
