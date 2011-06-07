@@ -43,37 +43,84 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		String sCveUsuario = request.getParameter("CveUsuario");
 		String sCvePrestamo = request.getParameter("CvePrestamo");
 		
-		String sSql = 	"SELECT FECHA, SUM(IMP_INTERES_DEV_X_DIA) AS IMP_INTERES_DEV_X_DIA, SUM(IMP_INTERES_PAGADO) AS IMP_INTERES_PAGADO\n"+
-		"FROM (\n"+
-				"SELECT B.FECHA, A.ID_PRESTAMO, A.NUM_PAGO_AMORTIZACION, A.IMP_INTERES_DEV_X_DIA, 0 AS IMP_INTERES_PAGADO\n"+
-				  "FROM SIM_TABLA_AMORTIZACION A, PFIN_FECHA B\n"+
-				 "WHERE A.CVE_GPO_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' AND\n"+
-				       "A.CVE_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' AND\n"+
-				       "A.F_INI_AMORTIZACION <= '31-03-2011' AND\n"+
-				       "A.FECHA_AMORTIZACION >= '01-01-2011' AND\n"+
-				       "B.FECHA BETWEEN CASE WHEN F_INI_AMORTIZACION <= TO_DATE('01-01-2011')\n"+ 
-				                            "THEN TO_DATE('01-01-2011')\n"+
-				                            "ELSE F_INI_AMORTIZACION \n"+
-				                       "END AND\n"+
-				                       "CASE WHEN FECHA_AMORTIZACION <= TO_DATE('31-03-2011')\n"+ 
-				                            "THEN FECHA_AMORTIZACION \n"+
-				                            "ELSE TO_DATE('31-03-2011') \n"+
-				                       "END\n"+
-				 "UNION ALL \n"+
-				"SELECT A.F_OPERACION, A.ID_PRESTAMO, A.NUM_PAGO_AMORTIZACION, 0 AS IMP_INTERES_DEV_X_DIA,\n"+ 
-				       "B.IMP_CONCEPTO AS IMP_INTERES_PAGADO\n"+
-				  "FROM PFIN_MOVIMIENTO A, PFIN_MOVIMIENTO_DET B\n"+
-				 "WHERE A.CVE_GPO_EMPRESA = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' AND\n"+
-				       "A.CVE_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' AND\n"+
-				       "A.F_OPERACION BETWEEN '01-01-2011' AND '31-03-2011' AND\n"+
-				       "A.SIT_MOVIMIENTO <> 'CA' AND\n"+
-				       "A.CVE_OPERACION = 'CRPAGOPRES' AND\n"+
-				       "A.CVE_GPO_EMPRESA = B.CVE_GPO_EMPRESA AND\n"+
-				       "A.CVE_EMPRESA = B.CVE_EMPRESA AND\n"+
-				       "A.ID_MOVIMIENTO = B.ID_MOVIMIENTO AND\n"+
-				       "B.CVE_CONCEPTO IN ('INTERE','IVAINT') )\n"+ 
-				 "GROUP BY FECHA\n"+
-				 "ORDER BY FECHA\n";
+		String sSql = 	"SELECT\n"+
+		  "FECHA, \n"+
+		  "SUM(IMP_INTERES_DEV_X_DIA) AS IMP_INTERES_DEV_X_DIA,\n"+
+		  "SUM(IMP_INTERES_PAGADO) AS IMP_INTERES_PAGADO\n"+
+		"FROM\n"+
+		  "(SELECT\n"+
+		    "B.FECHA,\n"+
+		    "A.ID_PRESTAMO,\n"+
+		    "A.NUM_PAGO_AMORTIZACION,\n"+
+		    "A.IMP_INTERES_DEV_X_DIA,\n"+
+		    "0 AS IMP_INTERES_PAGADO,\n"+
+		    "P.CVE_PRESTAMO,\n"+
+		    "P.CVE_ASESOR_CREDITO,\n"+
+		    "S.ID_SUCURSAL,\n"+
+		    "R.ID_REGIONAL\n"+
+		  "FROM\n"+
+		    "SIM_TABLA_AMORTIZACION A,\n"+
+		    "PFIN_FECHA B,\n"+
+		    "SIM_PRESTAMO P,\n"+
+		    "SIM_CAT_SUCURSAL S,\n"+
+		    "SIM_CAT_REGIONAL R \n"+
+		  "WHERE\n"+
+		    "A.CVE_GPO_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' AND\n"+
+		    "A.CVE_EMPRESA         = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' AND\n"+
+		    "A.F_INI_AMORTIZACION  <= '31-MAR-2011' AND\n"+
+		    "A.FECHA_AMORTIZACION  >= '01-ENE-2011' AND\n"+
+		    "P.CVE_GPO_EMPRESA     = A.CVE_GPO_EMPRESA AND\n"+
+		    "P.CVE_EMPRESA         = A.CVE_EMPRESA AND\n"+
+		    "P.ID_PRESTAMO         = A.ID_PRESTAMO AND\n"+
+		    "S.CVE_GPO_EMPRESA     = P.CVE_GPO_EMPRESA AND\n"+
+		    "S.CVE_EMPRESA         = P.CVE_EMPRESA AND\n"+
+		    "S.ID_SUCURSAL         = P.ID_SUCURSAL AND\n"+
+		    "R.CVE_GPO_EMPRESA     = S.CVE_GPO_EMPRESA AND\n"+
+		    "R.CVE_EMPRESA         = S.CVE_EMPRESA AND\n"+
+		    "R.ID_REGIONAL         = S.ID_REGIONAL AND\n"+
+		    "B.FECHA BETWEEN CASE WHEN F_INI_AMORTIZACION <= TO_DATE('01-ENE-2011') THEN TO_DATE('01-ENE-2011') ELSE F_INI_AMORTIZACION END AND\n"+ 
+		                    "CASE WHEN FECHA_AMORTIZACION <= TO_DATE('31-MAR-2011') THEN FECHA_AMORTIZACION ELSE TO_DATE('31-MAR-2011') END\n"+
+		  "UNION ALL\n"+
+		  "SELECT \n"+
+		    "A.F_OPERACION,\n"+
+		    "A.ID_PRESTAMO,\n"+
+		    "A.NUM_PAGO_AMORTIZACION,\n"+
+		    "0 AS IMP_INTERES_DEV_X_DIA,\n"+
+		    "B.IMP_CONCEPTO AS IMP_INTERES_PAGADO,\n"+
+		    "P.CVE_PRESTAMO,\n"+
+		    "P.CVE_ASESOR_CREDITO,\n"+
+		    "S.ID_SUCURSAL,\n"+
+		    "R.ID_REGIONAL\n"+
+		  "FROM\n"+
+		    "PFIN_MOVIMIENTO A,\n"+
+		    "PFIN_MOVIMIENTO_DET B,\n"+
+		    "SIM_PRESTAMO P,\n"+
+		    "SIM_CAT_SUCURSAL S,\n"+
+		    "SIM_CAT_REGIONAL R  \n"+
+		  "WHERE\n"+
+		    "A.CVE_GPO_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' AND\n"+
+		    "A.CVE_EMPRESA         = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' AND\n"+ 
+		    "A.F_OPERACION BETWEEN '01-ENE-2011' AND '31-MAR-2011' AND\n"+
+		    "A.SIT_MOVIMIENTO      <> 'CA' AND\n"+
+		    "A.CVE_OPERACION       = 'CRPAGOPRES' AND\n"+
+		    "B.CVE_GPO_EMPRESA     = A.CVE_GPO_EMPRESA AND\n"+
+		    "B.CVE_EMPRESA         = A.CVE_EMPRESA AND\n"+
+		    "B.ID_MOVIMIENTO       = A.ID_MOVIMIENTO AND\n"+
+		    "B.CVE_CONCEPTO IN ('INTERE', 'IVAINT') AND\n"+
+		    "P.CVE_GPO_EMPRESA     = A.CVE_GPO_EMPRESA AND\n"+
+		    "P.CVE_EMPRESA         = A.CVE_EMPRESA AND\n"+
+		    "P.ID_PRESTAMO         = A.ID_PRESTAMO AND\n"+
+		    "S.CVE_GPO_EMPRESA     = P.CVE_GPO_EMPRESA AND\n"+
+		    "S.CVE_EMPRESA         = P.CVE_EMPRESA AND\n"+
+		    "S.ID_SUCURSAL         = P.ID_SUCURSAL AND\n"+
+		    "R.CVE_GPO_EMPRESA     = S.CVE_GPO_EMPRESA AND\n"+
+		    "R.CVE_EMPRESA         = S.CVE_EMPRESA AND\n"+
+		    "R.ID_REGIONAL         = S.ID_REGIONAL)\n"+
+		"WHERE CVE_PRESTAMO        = CVE_PRESTAMO AND\n"+
+		  "ID_SUCURSAL             = ID_SUCURSAL AND\n"+
+		  "ID_REGIONAL             = ID_REGIONAL \n"+
+		"GROUP BY FECHA\n"+
+		"ORDER BY FECHA\n";
 					
 		if (!sIdSucursal.equals("null")){
 			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
