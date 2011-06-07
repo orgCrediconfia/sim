@@ -73,7 +73,7 @@ public class SimReporteInteresDevengadoGrupoCON implements CatalogoControlConsul
 				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
 				parametros.addDefCampo("ID_SUCURSAL",request.getParameter("IdSucursal"));
 				registroControl.respuesta.addDefCampo("ListaAsesor", catalogoSL.getRegistros("SimUsuarioAsesorSucursal", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteIntDevGpoCon.jsp?IdRegional="+request.getParameter("IdRegional")+"&IdSucursal="+request.getParameter("IdSucursal")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&FechaInicio="+request.getParameter("FechaInicio");
+				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReporteIntDevGpoCon.jsp?IdRegional="+request.getParameter("IdRegional")+"&NomRegional="+request.getParameter("NomRegional")+"&IdSucursal="+request.getParameter("IdSucursal")+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&FechaInicio="+request.getParameter("FechaInicio")+"&FechaFin="+request.getParameter("FechaFin");
 			}
 		}
 		

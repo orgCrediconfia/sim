@@ -20,7 +20,7 @@ import com.rapidsist.portal.configuracion.Usuario;
 /**
  * Realiza la consulta para obtener los datos que serï¿½n utilizados para generar el reporte de los int. devengados en créditos grupales.
  */
-public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
+public class SimReporteInteresDevengadoGrupoXlsREP implements ReporteControlIN {
 
 	/**
 	 * Obtiene la consulta en la base de datos y parï¿½metros que serï¿½n utilizados por el reporte.
@@ -39,7 +39,6 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		Map parametros = new HashMap();
 
 		String sIdRegional = request.getParameter("IdRegional");
-		String sNomRegional = request.getParameter("NomRegional");
 		String sIdSucursal = request.getParameter("IdSucursal");
 		String sCveUsuario = request.getParameter("CveUsuario");
 		String sCvePrestamo = request.getParameter("CvePrestamo");
@@ -117,7 +116,8 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		    "R.CVE_GPO_EMPRESA     = S.CVE_GPO_EMPRESA AND\n"+
 		    "R.CVE_EMPRESA         = S.CVE_EMPRESA AND\n"+
 		    "R.ID_REGIONAL         = S.ID_REGIONAL)\n"+
-		"WHERE 1	               = 1\n";
+		"WHERE 1                   = 1\n";
+		
 		
 		    if (!sIdSucursal.equals("null")){
 				sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
@@ -134,22 +134,19 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 			if (!sCveUsuario.equals("null")){
 				sSql = sSql + "AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "'\n";
 			}
-			
+		  
 			sSql = sSql + "GROUP BY FECHA\n"+
 			"ORDER BY FECHA\n";
-		  
-		
 		
 		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
-		parametros.put("IdRegional", sIdRegional);
-		parametros.put("NomRegional", sNomRegional);
+		parametros.put("NomRegional", sIdRegional);
 		parametros.put("NomSucursal", sIdSucursal);
 		parametros.put("CveUsuario", sCveUsuario);
 		parametros.put("CvePrestamo", sCvePrestamo);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoGrupo.jasper");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoGrupoXls.jasper");
 		parametros.put("NombreReporte", "Intereses devengados");
 		                             
 		
