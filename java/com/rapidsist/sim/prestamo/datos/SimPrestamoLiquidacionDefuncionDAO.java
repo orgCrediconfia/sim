@@ -65,8 +65,10 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 		
 		resultadoCatalogo.Resultado.addDefCampo("RESPUESTA", sTxRespuesta);
 		
+		System.out.println("sTxRespuesta:"+sTxRespuesta);
+		
 		//CODIGO COMENTADO YA QUE EL PL ACTUALIZA LA ETAPA DEL PRESTAMO
-		/*
+		
 		if (sTxRespuesta == null){
 			sSql =  " UPDATE SIM_PRESTAMO SET "+
 					" ID_ETAPA_PRESTAMO		='8' \n" +
@@ -99,7 +101,7 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 						}
 				}
 		}
-		*/
+		
 		return resultadoCatalogo;
 	}
 
