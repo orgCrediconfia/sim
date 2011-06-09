@@ -54,6 +54,7 @@ public class SimPrestamoMovimientoExtraordinarioDAO extends Conexion2 implements
 				"SIM_USUARIO_ACCESO_SUCURSAL US  \n"+
 				"WHERE V.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND V.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND V.ID_ETAPA_PRESTAMO = '7' \n"+
 				"AND E.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n"+
 				"AND E.CVE_EMPRESA = V.CVE_EMPRESA \n"+
 				"AND E.ID_ETAPA_PRESTAMO = V.ID_ETAPA_PRESTAMO \n"+
