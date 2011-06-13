@@ -32,7 +32,14 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 		
-		String sFMedio = "";
+		String sFecha = "";
+
+		sSql = "SELECT TO_CHAR(TO_DATE('"+(String)registro.getDefCampo("FECHA")+"','DD-MM-YYYY'),'DD-MON-YY') AS F_APLICA FROM DUAL \n";
+        
+		ejecutaSql();
+		if (rs.next()){
+			sFecha = rs.getString("F_APLICA");
+		}
 		
 		String sTxRespuesta = "";
 		CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fRegistraMovtoDefuncion(?,?,?,?,?,?)); end;");
@@ -40,14 +47,14 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 		sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 		sto1.setString(3, (String)registro.getDefCampo("ID_PRESTAMO"));
 		sto1.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
-		sto1.setString(5, (String)registro.getDefCampo("FECHA"));
+		sto1.setString(5, sFecha);
 		sto1.registerOutParameter(6, java.sql.Types.VARCHAR);
 		
 		System.out.println("CVE_GPO_EMPRESA:"+(String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 		System.out.println("CVE_EMPRESA:"+(String)registro.getDefCampo("CVE_EMPRESA"));
 		System.out.println("ID_PRESTAMO:"+(String)registro.getDefCampo("ID_PRESTAMO"));
 		System.out.println("CVE_USUARIO:"+(String)registro.getDefCampo("CVE_USUARIO"));
-		System.out.println("FECHA:"+(String)registro.getDefCampo("FECHA"));
+		System.out.println("FECHA:"+sFecha);
 	
 		//EJECUTA EL PROCEDIMIENTO ALMACENADO
 		sto1.execute();
