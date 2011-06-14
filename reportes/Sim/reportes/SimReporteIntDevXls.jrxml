@@ -28,6 +28,8 @@
 	<parameter name="NomSucursal" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CveUsuario" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CvePrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaInicio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaFin" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="FECHA" class="java.sql.Timestamp"/>
