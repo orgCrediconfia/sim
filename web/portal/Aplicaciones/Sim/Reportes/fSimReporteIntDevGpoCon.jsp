@@ -35,7 +35,7 @@
       		if (document.frmRegistro.FechaInicio.value == "" || document.frmRegistro.FechaFin.value == ""){
                   alert ("Ingrese las fecha de búsqueda");  
       		}else{
-              url = '/portal/ProcesaReporte?Funcion=SimReporteInteresDevengadoGrupo&TipoReporte=Xls&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value+'&CvePrestamo='+document.frmRegistro.CvePrestamo.value+'&FechaInicio='+document.frmRegistro.FechaInicio.value+'&FechaFin='+document.frmRegistro.FechaFin.value;
+              url = '/portal/ProcesaReporte?Funcion=SimReporteInteresDevengadoGrupoXls&TipoReporte=Xls&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value+'&CvePrestamo='+document.frmRegistro.CvePrestamo.value+'&FechaInicio='+document.frmRegistro.FechaInicio.value+'&FechaFin='+document.frmRegistro.FechaFin.value;
               MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
            }
         }
@@ -44,7 +44,7 @@
   		if (document.frmRegistro.FechaInicio.value == "" || document.frmRegistro.FechaFin.value == ""){
               alert ("Ingrese las fecha de búsqueda");  
   		}else{
-          url = '/portal/ProcesaReporte?Funcion=SimReporteInteresDevengadoGrupo&TipoReporte=Pdf&Bd=MySql&FechaInicio='+document.frmRegistro.FechaInicio.value+'&FechaFin='+document.frmRegistro.FechaFin.value;
+          url = '/portal/ProcesaReporte?Funcion=SimReporteInteresDevengadoGrupo&TipoReporte=Pdf&IdRegional='+document.frmRegistro.IdRegional.value+'&IdSucursal='+document.frmRegistro.IdSucursal.value+'&CveUsuario='+document.frmRegistro.CveUsuario.value+'&CvePrestamo='+document.frmRegistro.CvePrestamo.value+'&FechaInicio='+document.frmRegistro.FechaInicio.value+'&FechaFin='+document.frmRegistro.FechaFin.value;
           MM_openBrWindow(url,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
         }
   }
