@@ -9,7 +9,7 @@
 		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.Respuesta}'/>' />
 	</Portal:Forma>
 	
-	<Portal:TablaForma nombre="Consulta de Créditos del cliente" funcion="SimPrestamoCreditosPersonales" operacion="AL">
+	<Portal:TablaForma nombre="Consulta de Créditos del cliente" funcion="SimPrestamoCreditosPersonales" operacion="CT" parametros="&Filtro=Todos">
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
@@ -49,18 +49,8 @@
 	
 	<script>
 	
-		if(document.frmRegistro.TxRespuesta.value != 'null' && document.frmRegistro.TxRespuesta.value != ''){
-			alert(document.frmRegistro.TxRespuesta.value);
-		} 
-	
 		function fLiquidacionDefuncion(sIdPrestamo){
-			var answer;
-			answer = confirm('¿Esta seguro que desea liquidar el préstamo?');
-		
-			if (answer){
-				document.frmTablaForma.action="ProcesaCatalogo?Funcion=SimPrestamoLiquidacionDefuncion&OperacionCatalogo=AL&IdPrestamo="+sIdPrestamo;
-				document.frmTablaForma.submit();
-			}	
+			MM_openBrWindow('/portal/ProcesaCatalogo?Funcion=SimPrestamoLiquidacionDefuncion&OperacionCatalogo=IN&Filtro=Alta&Ventana=Si&GoBackPl=No&IdPrestamo='+sIdPrestamo,'VentanaLp','scrollbars=yes,resizable=yes,width=500,height=300');
 		}
 		
 	</script>

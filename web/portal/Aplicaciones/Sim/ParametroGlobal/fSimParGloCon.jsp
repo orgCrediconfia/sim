@@ -37,6 +37,7 @@
 			</tr>
 		</c:if>
 		
+		<!--
 		<c:if test='${(requestScope.registro == null)}'>
 			<Portal:FormaElemento etiqueta='Opera Sábados' control='checkbox' controlnombre='OperaSabados' controlvalor='${requestScope.registro.campos["B_OPERA_SABADO"]}' />
 		</c:if>
@@ -96,7 +97,7 @@
 				</td>
 			</tr>
 		</c:if>
-		
+		-->
 		<Portal:FormaBotones>
 			<Portal:FormaBotonAltaModificacion/>
 		</Portal:FormaBotones>

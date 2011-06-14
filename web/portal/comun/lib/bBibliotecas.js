@@ -140,7 +140,7 @@ LLAMADA: ESTA FUNCION SE DEBERA COLOCAR EN EL EVENTO onKeydown
 *******************************************************************************************/
 function CantidadesMonetarias(){
 	//VERIFICA SI SE HA INTRODUCIDO UN CARACTER DISTINTO A UN NUMERO
-	if (event.keyCode != 189 && event.keyCode != 190 && (event.keyCode < 48 || event.keyCode > 57)){
+	if (event.keyCode != 190 && (event.keyCode < 48 || event.keyCode > 57)){
 		//alert(event.keyCode);
 		//VERIFICA SI SE HA INTRODUCIDO UN CARACTER DISTINTO A UN NUMERO
 		if (event.keyCode < 96 || event.keyCode > 105){
