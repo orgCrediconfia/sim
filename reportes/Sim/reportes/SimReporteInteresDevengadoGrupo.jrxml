@@ -29,6 +29,8 @@
 	<parameter name="CveUsuario" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CvePrestamo" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="IdRegional" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaInicio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaFin" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="FECHA" class="java.sql.Timestamp"/>
@@ -275,7 +277,7 @@
 						height="15"
 						key="textField-7"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></textFieldExpression>
@@ -288,7 +290,7 @@
 						height="15"
 						key="textField-8"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SumIntDev}]]></textFieldExpression>
@@ -301,7 +303,7 @@
 						height="15"
 						key="textField-9"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_PAGADO}]]></textFieldExpression>
@@ -314,7 +316,7 @@
 						height="15"
 						key="textField-10"/>
 					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SumIntPag}]]></textFieldExpression>
