@@ -75,7 +75,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Regional :]]></text>
+				<text><![CDATA[Id Regional :]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -101,7 +101,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Sucursal :]]></text>
+				<text><![CDATA[Id Sucursal :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -114,7 +114,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Asesor :]]></text>
+				<text><![CDATA[Clave Asesor :]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -179,8 +179,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{CvePrestamo}  == "" ? "Todos los prestamos" : $P{CvePrestamo}
-]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{CvePrestamo}  == "" ? "Todos los prestamos" : $P{CvePrestamo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>

@@ -146,7 +146,7 @@ public class SimReporteInteresDevengadoGrupoXlsREP implements ReporteControlIN {
 		parametros.put("CveUsuario", sCveUsuario);
 		parametros.put("CvePrestamo", sCvePrestamo);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoGrupoXls.jasper");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteIntDevXls.jasper");
 		parametros.put("NombreReporte", "Intereses devengados");
 		                             
 		
