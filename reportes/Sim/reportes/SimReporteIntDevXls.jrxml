@@ -2,13 +2,13 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimReporteInteresDevengadoGrupo"
+		 name="SimReporteIntDevXls"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="810"
+		 pageWidth="800"
 		 pageHeight="792"
-		 columnWidth="750"
+		 columnWidth="740"
 		 columnSpacing="28"
 		 leftMargin="30"
 		 rightMargin="30"
@@ -28,7 +28,6 @@
 	<parameter name="NomSucursal" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CveUsuario" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CvePrestamo" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="IdRegional" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="FechaInicio" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="FechaFin" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
@@ -48,29 +47,25 @@
 			</band>
 		</background>
 		<title>
-			<band height="20"  isSplitAllowed="true" >
+			<band height="125"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
-						y="1"
-						width="748"
-						height="19"
+						y="2"
+						width="739"
+						height="20"
 						key="staticText-1"/>
 					<box></box>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Intereses Devengados]]></text>
 				</staticText>
-			</band>
-		</title>
-		<pageHeader>
-			<band height="87"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
-						y="15"
-						width="190"
+						y="37"
+						width="111"
 						height="15"
 						key="staticText-2"/>
 					<box></box>
@@ -81,9 +76,9 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="190"
-						y="15"
-						width="120"
+						x="111"
+						y="37"
+						width="125"
 						height="15"
 						key="textField-1"/>
 					<box></box>
@@ -95,8 +90,8 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="30"
-						width="190"
+						y="52"
+						width="111"
 						height="15"
 						key="staticText-3"/>
 					<box></box>
@@ -108,8 +103,8 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="45"
-						width="190"
+						y="67"
+						width="111"
 						height="15"
 						key="staticText-4"/>
 					<box></box>
@@ -120,9 +115,9 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="190"
-						y="30"
-						width="120"
+						x="111"
+						y="52"
+						width="125"
 						height="15"
 						key="textField-2"/>
 					<box></box>
@@ -133,9 +128,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="190"
-						y="45"
-						width="120"
+						x="111"
+						y="67"
+						width="125"
 						height="15"
 						key="textField-3"/>
 					<box></box>
@@ -147,8 +142,8 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="0"
-						width="190"
+						y="22"
+						width="111"
 						height="15"
 						key="staticText-5"/>
 					<box></box>
@@ -160,8 +155,8 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="60"
-						width="190"
+						y="82"
+						width="111"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
@@ -172,9 +167,9 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="190"
-						y="60"
-						width="120"
+						x="111"
+						y="82"
+						width="125"
 						height="15"
 						key="textField-4"/>
 					<box></box>
@@ -183,16 +178,12 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{CvePrestamo}  == "" ? "Todos los prestamos" : $P{CvePrestamo}]]></textFieldExpression>
 				</textField>
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="15"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
-						y="0"
+						y="99"
 						width="112"
-						height="15"
+						height="24"
 						key="staticText-7"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -203,9 +194,9 @@
 				<staticText>
 					<reportElement
 						x="112"
-						y="0"
-						width="165"
-						height="15"
+						y="99"
+						width="154"
+						height="24"
 						key="staticText-8"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -215,108 +206,125 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="277"
-						y="0"
-						width="166"
-						height="15"
+						x="266"
+						y="99"
+						width="158"
+						height="24"
 						key="staticText-9"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Interés Acumulado Por Día]]></text>
+				<text><![CDATA[Interés Acumulado]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="443"
-						y="0"
-						width="150"
-						height="15"
-						key="staticText-10"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Interés Pagado]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="593"
-						y="0"
-						width="156"
-						height="15"
+						x="424"
+						y="99"
+						width="158"
+						height="24"
 						key="staticText-11"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Interés Pagado Acumulado]]></text>
+				<text><![CDATA[Interés Pagado Por Día]]></text>
 				</staticText>
+				<staticText>
+					<reportElement
+						x="582"
+						y="99"
+						width="157"
+						height="24"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Interés Acumulado Pagado]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="124"
+						width="740"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="15"  isSplitAllowed="true" >
+			<band height="16"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
 						y="0"
 						width="112"
-						height="15"
-						key="textField-6"/>
+						height="16"
+						key="textField"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{FECHA}]]></textFieldExpression>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{FECHA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="112"
 						y="0"
-						width="165"
-						height="15"
-						key="textField-7"/>
+						width="154"
+						height="16"
+						key="textField-5"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_DEV_X_DIA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="277"
+						x="266"
 						y="0"
-						width="166"
-						height="15"
-						key="textField-8"/>
+						width="158"
+						height="16"
+						key="textField-6"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SumIntDev}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="443"
+						x="424"
 						y="0"
-						width="150"
-						height="15"
-						key="textField-9"/>
+						width="158"
+						height="16"
+						key="textField-7"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{IMP_INTERES_PAGADO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="593"
+						x="582"
 						y="0"
-						width="156"
-						height="15"
-						key="textField-10"/>
+						width="157"
+						height="16"
+						key="textField-8"/>
 					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{SumIntPag}]]></textFieldExpression>

@@ -20,7 +20,7 @@ import com.rapidsist.portal.configuracion.Usuario;
 /**
  * Realiza la consulta para obtener los datos que serï¿½n utilizados para generar el reporte de los int. devengados en créditos grupales.
  */
-public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
+public class SimReporteInteresDevengadoGrupoXlsREP implements ReporteControlIN {
 
 	/**
 	 * Obtiene la consulta en la base de datos y parï¿½metros que serï¿½n utilizados por el reporte.
@@ -39,12 +39,9 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		Map parametros = new HashMap();
 
 		String sIdRegional = request.getParameter("IdRegional");
-		String sNomRegional = request.getParameter("NomRegional");
 		String sIdSucursal = request.getParameter("IdSucursal");
 		String sCveUsuario = request.getParameter("CveUsuario");
 		String sCvePrestamo = request.getParameter("CvePrestamo");
-		String sFechaInicial = request.getParameter("FechaInicio");
-		String sFechaFinal = request.getParameter("FechaFin");
 		
 		String sSql = 	"SELECT\n"+
 		  "FECHA, \n"+
@@ -70,8 +67,8 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		  "WHERE\n"+
 		    "A.CVE_GPO_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' AND\n"+
 		    "A.CVE_EMPRESA         = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' AND\n"+
-		    "A.F_INI_AMORTIZACION  <= TO_DATE('" + request.getParameter("FechaInicio") + "','DD-MM-YY') AND\n"+
-		    "A.FECHA_AMORTIZACION  >= TO_DATE('" + request.getParameter("FechaFin") + "','DD-MM-YY') AND\n"+
+		    "A.F_INI_AMORTIZACION  <= '31-MAR-2011' AND\n"+
+		    "A.FECHA_AMORTIZACION  >= '01-ENE-2011' AND\n"+
 		    "P.CVE_GPO_EMPRESA     = A.CVE_GPO_EMPRESA AND\n"+
 		    "P.CVE_EMPRESA         = A.CVE_EMPRESA AND\n"+
 		    "P.ID_PRESTAMO         = A.ID_PRESTAMO AND\n"+
@@ -81,8 +78,8 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		    "R.CVE_GPO_EMPRESA     = S.CVE_GPO_EMPRESA AND\n"+
 		    "R.CVE_EMPRESA         = S.CVE_EMPRESA AND\n"+
 		    "R.ID_REGIONAL         = S.ID_REGIONAL AND\n"+
-		    "B.FECHA BETWEEN CASE WHEN F_INI_AMORTIZACION <= TO_DATE('" + request.getParameter("FechaInicio") + "','DD-MM-YY') THEN TO_DATE('" + request.getParameter("FechaInicio") + "','DD-MM-YY') ELSE F_INI_AMORTIZACION END AND\n"+ 
-		                    "CASE WHEN FECHA_AMORTIZACION <= TO_DATE('" + request.getParameter("FechaFin") + "','DD-MM-YY') THEN FECHA_AMORTIZACION ELSE TO_DATE('" + request.getParameter("FechaFin") + "','DD-MM-YY') END\n"+
+		    "B.FECHA BETWEEN CASE WHEN F_INI_AMORTIZACION <= TO_DATE('01-ENE-2011') THEN TO_DATE('01-ENE-2011') ELSE F_INI_AMORTIZACION END AND\n"+ 
+		                    "CASE WHEN FECHA_AMORTIZACION <= TO_DATE('31-MAR-2011') THEN FECHA_AMORTIZACION ELSE TO_DATE('31-MAR-2011') END\n"+
 		  "UNION ALL\n"+
 		  "SELECT \n"+
 		    "A.F_OPERACION,\n"+
@@ -103,7 +100,7 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		  "WHERE\n"+
 		    "A.CVE_GPO_EMPRESA     = '" + parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' AND\n"+
 		    "A.CVE_EMPRESA         = '" + parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' AND\n"+ 
-		    "A.F_OPERACION BETWEEN TO_DATE('" + request.getParameter("FechaInicio") + "','DD-MM-YY') AND TO_DATE('" + request.getParameter("FechaFin") + "','DD-MM-YY') AND\n"+
+		    "A.F_OPERACION BETWEEN '01-ENE-2011' AND '31-MAR-2011' AND\n"+
 		    "A.SIT_MOVIMIENTO      <> 'CA' AND\n"+
 		    "A.CVE_OPERACION       = 'CRPAGOPRES' AND\n"+
 		    "B.CVE_GPO_EMPRESA     = A.CVE_GPO_EMPRESA AND\n"+
@@ -119,7 +116,8 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 		    "R.CVE_GPO_EMPRESA     = S.CVE_GPO_EMPRESA AND\n"+
 		    "R.CVE_EMPRESA         = S.CVE_EMPRESA AND\n"+
 		    "R.ID_REGIONAL         = S.ID_REGIONAL)\n"+
-		"WHERE 1	               = 1\n";
+		"WHERE 1                   = 1\n";
+		
 		
 		    if (!sIdSucursal.equals("null")){
 				sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
@@ -136,24 +134,19 @@ public class SimReporteInteresDevengadoGrupoREP implements ReporteControlIN {
 			if (!sCveUsuario.equals("null")){
 				sSql = sSql + "AND CVE_PRESTAMO = '" + (String)request.getParameter("CvePrestamo") + "'\n";
 			}
-			
+		  
 			sSql = sSql + "GROUP BY FECHA\n"+
 			"ORDER BY FECHA\n";
-		  
-		
 		
 		System.out.println(sSql);
 	    String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
-		parametros.put("IdRegional", sIdRegional);
-		parametros.put("NomRegional", sNomRegional);
+		parametros.put("NomRegional", sIdRegional);
 		parametros.put("NomSucursal", sIdSucursal);
 		parametros.put("CveUsuario", sCveUsuario);
 		parametros.put("CvePrestamo", sCvePrestamo);
-		parametros.put("FechaInicio", sFechaInicial);
-		parametros.put("FechaFin", sFechaFinal);
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteInteresDevengadoGrupo.jasper");
+		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteIntDevXls.jasper");
 		parametros.put("NombreReporte", "Intereses devengados");
 		                             
 		
