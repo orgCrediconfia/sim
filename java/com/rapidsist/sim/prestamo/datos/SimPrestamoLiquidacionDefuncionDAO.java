@@ -65,6 +65,39 @@ public class SimPrestamoLiquidacionDefuncionDAO extends Conexion2 implements Ope
 		
 		System.out.println("sTxRespuesta:"+sTxRespuesta);
 		
+		if (sTxRespuesta == null){
+			sSql = " UPDATE SIM_PRESTAMO SET "+
+			" ID_ETAPA_PRESTAMO ='8' \n" +
+			" WHERE ID_PRESTAMO ='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+			" AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+			" AND CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+			//VERIFICA SI DIO DE ALTA EL REGISTRO
+			if (ejecutaUpdate() == 0){
+				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+			}
+
+			sSql = "SELECT \n"+
+			"CVE_GPO_EMPRESA, \n"+
+			"CVE_EMPRESA, \n"+
+			"ID_PRESTAMO \n"+
+			"FROM SIM_PRESTAMO_GPO_DET \n"+
+			"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+			"AND ID_PRESTAMO = '" + (String) registro.getDefCampo("ID_PRESTAMO") + "' \n";
+			ejecutaSql();
+			if (rs.next()){
+				sSql = " UPDATE SIM_PRESTAMO_GPO_DET SET "+
+				" ID_ETAPA_PRESTAMO ='8' \n" +
+				" WHERE ID_PRESTAMO ='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
+				" AND CVE_EMPRESA ='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+				" AND CVE_GPO_EMPRESA ='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+			}
+		}
+		
 		return resultadoCatalogo;
 	}
 
