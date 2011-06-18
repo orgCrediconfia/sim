@@ -25,7 +25,6 @@
 			<Portal:Columna tipovalor='texto' ancho='150' valor='Grupo'/>
 			<Portal:Columna tipovalor='texto' ancho='150' valor='Producto'/>
 			<Portal:Columna tipovalor='texto' ancho='45' valor='Ciclo'/>
-			<Portal:Columna tipovalor='texto' ancho='45' valor='Número de pago de amortización'/>
 			<Portal:Columna tipovalor='texto' ancho='80' valor='Fecha de aplicación'/>
 			<Portal:Columna tipovalor='moneda' ancho='100%' valor='Monto pagado'/>
 		</Portal:TablaListaTitulos>
@@ -33,7 +32,7 @@
 			<Portal:TablaListaRenglon>
 				<c:if test='${(registro.campos["FECHA_CANCELACION"] == null)}'>
 					<Portal:Columna tipovalor='texto' ancho='100' valor=''>		
-						<a id="CancelarPago" href="javascript:fCancelarPago('<c:out value='${registro.campos["ID_PRESTAMO"]}'/>','<c:out value='${registro.campos["APLICA_A"]}'/>','<c:out value='${registro.campos["NUM_CICLO"]}'/>','<c:out value='${registro.campos["F_APLICACION"]}'/>','<c:out value='${registro.campos["NUM_PAGO_AMORTIZACION"]}'/>','<c:out value='${registro.campos["FECHA_OPERACION"]}'/>','<c:out value='${registro.campos["FECHA_AMORTIZACION"]}'/>','<c:out value='${registro.campos["MONTO"]}'/>');">Cancelar pago</a>
+						<a id="CancelarPago" href="javascript:fCancelarPago('<c:out value='${registro.campos["ID_PRESTAMO"]}'/>','<c:out value='${registro.campos["APLICA_A"]}'/>','<c:out value='${registro.campos["NUM_CICLO"]}'/>','<c:out value='${registro.campos["F_APLICACION"]}'/>','<c:out value='${registro.campos["MONTO"]}'/>','<c:out value='${registro.campos["ID_GRUPO"]}'/>');">Cancelar pago</a>
 					</Portal:Columna>	
 				</c:if>
 				<c:if test='${(registro.campos["FECHA_CANCELACION"] != null)}'>
@@ -45,7 +44,6 @@
 				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["NOM_GRUPO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["NOM_PRODUCTO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='45' valor='${registro.campos["NUM_CICLO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='45' valor='${registro.campos["NUM_PAGO_AMORTIZACION"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='45' valor='${registro.campos["F_APLICACION"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["IMPORTE"]}'/>
 			</Portal:TablaListaRenglon>
@@ -59,16 +57,16 @@
 		} 
 	
 		function fAceptar(){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=CT&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&NomGrupo="+document.frmRegistro.NomGrupo.value+"&NomProducto="+document.frmRegistro.NomProducto.value+"&NumCiclo="+document.frmRegistro.NumCiclo.value+"&CvePrestamo="+document.frmRegistro.CvePrestamo.value+"&NomCliente="+document.frmRegistro.NomCliente.value;
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+document.frmRegistro.IdCaja.value+"&NomGrupo="+document.frmRegistro.NomGrupo.value+"&NomProducto="+document.frmRegistro.NomProducto.value+"&NumCiclo="+document.frmRegistro.NumCiclo.value+"&CvePrestamo="+document.frmRegistro.CvePrestamo.value+"&NomCliente="+document.frmRegistro.NomCliente.value;
 				document.frmRegistro.submit();
 		}
 		
-		function fCancelarPago(sIdPrestamo,sAplicaA,sNumCiclo,sFAplicacion,sNumPagoAmortizacion,sFechaOperacion,sFechaAmortizacion,sMonto){
+		function fCancelarPago(sIdPrestamo,sAplicaA,sNumCiclo,sFAplicacion,sMonto,sIdTransaccionGrupo){
 			var answer;
 			answer = confirm('¿Esta seguro que desea cancelar el pago del día '+sFAplicacion+ ' por el importe de $'+ sMonto);
 		
 			if (answer){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=AL&IdPrestamo="+sIdPrestamo+"&AplicaA="+sAplicaA+"&NumCiclo="+sNumCiclo+"&FAplicacion="+sFAplicacion+"&NumPagoAmortizacion="+sNumPagoAmortizacion+"&FechaOperacion="+sFechaOperacion+"&FechaAmortizacion="+sFechaAmortizacion+"&Monto="+sMonto;
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=AL&IdPrestamo="+sIdPrestamo+"&AplicaA="+sAplicaA+"&NumCiclo="+sNumCiclo+"&FAplicacion="+sFAplicacion+"&Monto="+sMonto+"&IdTransaccionGrupo="+sIdTransaccionGrupo;
 				document.frmRegistro.submit();
 			}	
 		}

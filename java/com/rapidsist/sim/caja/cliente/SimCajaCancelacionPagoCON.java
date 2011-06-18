@@ -153,10 +153,8 @@ public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, Cat
 		registro.addDefCampo("APLICA_A",request.getParameter("AplicaA"));
 		registro.addDefCampo("NUM_CICLO",request.getParameter("NumCiclo"));
 		registro.addDefCampo("F_APLICACION",request.getParameter("FAplicacion"));
-		registro.addDefCampo("NUM_PAGO_AMORTIZACION",request.getParameter("NumPagoAmortizacion"));
-		registro.addDefCampo("F_OPERACION",request.getParameter("FechaOperacion"));
-		registro.addDefCampo("FECHA_AMORTIZACION",request.getParameter("FechaAmortizacion"));
 		registro.addDefCampo("MONTO",request.getParameter("Monto"));
+		registro.addDefCampo("ID_TRANSACCION_GRUPO",request.getParameter("IdTransaccionGrupo"));
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaCancelacionPago", registro, iTipoOperacion);
 		sRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("RESPUESTA");
