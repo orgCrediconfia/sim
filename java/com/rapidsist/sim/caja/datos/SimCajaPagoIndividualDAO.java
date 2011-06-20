@@ -46,6 +46,7 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 		String sFLiquidacion = "";
 		String sFechaMovmiento = "";
 		String sIdCuentaVista = "";
+		String vgFolioGrupo = "";
 		
 		boolean bBuscaFechaRangoInf = true;
 		String sDiasAplicaPago = "";
@@ -318,18 +319,27 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 			// SE AGREGA LA RESPUESTA
 			System.out.println("sTxrespuestaProcesaMovimiento"+sTxrespuesta2);
 			
-			CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?); end;");
+			//OBTENEMOS EL SEQUENCE
+			sSql = "SELECT SQ02_PFIN_PRE_MOVIMIENTO.NEXTVAL as vgFolioGrupo FROM DUAL";
+			ejecutaSql();
+			
+			if (rs.next()){
+				vgFolioGrupo = rs.getString("vgFolioGrupo");
+			}
+			
+			CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?,?); end;");
 			
 			sto2.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 			sto2.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 			sto2.setString(3, (String)registro.getDefCampo("ID_PRESTAMO"));
-			sto2.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
-			sto2.setString(5, sFechaAplicacion);
-			sto2.registerOutParameter(6, java.sql.Types.VARCHAR);
-			System.out.println("menosInividual");
+			sto2.setString(4, vgFolioGrupo);
+			sto2.setString(5, (String)registro.getDefCampo("CVE_USUARIO"));
+			sto2.setString(6, sFechaAplicacion);
+			sto2.registerOutParameter(7, java.sql.Types.VARCHAR);
+			
 			//EJECUTA EL PROCEDIMIENTO ALMACENADO
 			sto2.execute();
-			sTxrespuesta3 = sto2.getString(6);
+			sTxrespuesta3 = sto2.getString(7);
 			sto2.close();
 			
 			// SE AGREGA LA RESPUESTA
