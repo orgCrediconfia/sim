@@ -371,33 +371,6 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 			
 		}else if (registro.getDefCampo("APLICA_A").equals("GRUPAL")){
 			//Cancela un pr�stamo grupal.
-			
-			String sIdPrestamo = "";
-			String sNumIntegrantes = "";
-			int iNumIntegrantes = 0;
-			int iNumIntegrantesCancelados = 0;
-			
-			sSql = "SELECT \n"+
-					"P.CVE_GPO_EMPRESA, \n"+
-					"P.CVE_EMPRESA, \n"+
-					"P.ID_PRESTAMO_GRUPO, \n"+
-					"P.ID_GRUPO, \n"+
-					"G.NUM_INTEGRANTES \n"+
-					"FROM \n"+
-					"SIM_PRESTAMO_GRUPO P, \n"+
-					"SIM_GRUPO G \n"+
-					"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND P.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-					"AND G.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND G.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND G.ID_GRUPO = P.ID_GRUPO \n";
-			ejecutaSql();
-			if (rs.next()){
-				sNumIntegrantes = rs.getString("NUM_INTEGRANTES");
-				iNumIntegrantes = (Integer.parseInt(sNumIntegrantes));
-			}
-			
 			String fAplicacion = "";
 
 			sSql = "SELECT TO_CHAR(TO_DATE('"+(String)registro.getDefCampo("F_APLICACION")+"','DD-MM-YYYY'),'DD-MON-YY') AS F_APLICA FROM DUAL \n";
@@ -452,7 +425,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION \n";
 			 
 				ejecutaSql();
-				while (rs.next()){
+				if (rs.next()){
 					sIdMovimiento = rs.getString("ID_MOVIMIENTO");
 					
 					CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?)); end;");
@@ -466,17 +439,9 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					sto1.execute();
 					sTxrespuesta = sto1.getString(5);
 					sto1.close();
-					System.out.println("sTxrespuesta**********"+sTxrespuesta);
-					if (sTxrespuesta.equals("Movimiento aplicado con exito")){
-						iNumIntegrantesCancelados++;
-					}
 				}
 				
-				System.out.println("iNumIntegrantesCancelados**********"+iNumIntegrantesCancelados);
-				System.out.println("iNumIntegrantes**********"+iNumIntegrantes);
-				if (iNumIntegrantesCancelados == iNumIntegrantes){
-					
-					sTxrespuesta = "Movimiento aplicado con exito";
+				if (sTxrespuesta.equals("Movimiento aplicado con exito")){
 					
 					String sIdTransaccion = "";
 					int iIdTransaccion = 0;
