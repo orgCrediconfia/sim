@@ -1,5 +1,5 @@
 /**
- * Sistema de administración de portales.
+ * Sistema de administraciï¿½n de portales.
  *
  * Copyright (c) 2008 Rapidisist S.A de C.V. Todos los derechos reservados
  */
@@ -24,8 +24,8 @@ import java.sql.ResultSet;
 public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta {
 	
 	/**
-	 * Obtiene un conjunto de registros en base a el filtro de búsqueda.
-	 * @param parametros Parámetros que se le envían a la consulta para obtener el conjunto
+	 * Obtiene un conjunto de registros en base a el filtro de bï¿½squeda.
+	 * @param parametros Parï¿½metros que se le envï¿½an a la consulta para obtener el conjunto
 	 * de registros deseados.
 	 * @return Lista de registros.
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
@@ -241,7 +241,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 	/**
 	 * Inserta un registro.
 	 * @param registro Campos del nuevo registro.
-	 * @return Objeto que contiene el resultado de la ejecución de este método.
+	 * @return Objeto que contiene el resultado de la ejecuciï¿½n de este mï¿½todo.
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
@@ -252,7 +252,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 		String sTxrespuesta = "";
 		
 		if (registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")){
-			//Cancela un préstamo indiviudal.
+			//Cancela un prï¿½stamo indiviudal.
 			
 			sSql = "SELECT \n"+
 					"M.ID_PRESTAMO, \n"+
@@ -370,7 +370,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 			}
 			
 		}else if (registro.getDefCampo("APLICA_A").equals("GRUPAL")){
-			//Cancela un préstamo grupal.
+			//Cancela un prï¿½stamo grupal.
 			
 			String sIdPrestamo = "";
 			String sNumIntegrantes = "";
@@ -397,6 +397,16 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 				sNumIntegrantes = rs.getString("NUM_INTEGRANTES");
 				iNumIntegrantes = (Integer.parseInt(sNumIntegrantes));
 			}
+			
+			String fAplicacion = "";
+
+			sSql = "SELECT TO_CHAR(TO_DATE('"+(String)registro.getDefCampo("F_APLICACION")+"','DD-MM-YYYY'),'DD-MON-YY') AS F_APLICA FROM DUAL \n";
+	        
+			ejecutaSql();
+			if (rs.next()){
+				fAplicacion = rs.getString("F_APLICA");
+			}
+
 			
 			sSql = "SELECT \n"+
 					"GD.ID_PRESTAMO_GRUPO, \n"+ 
@@ -438,7 +448,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"AND M.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
 					"AND M.CVE_OPERACION = 'CRPAGOPRES' \n"+
 					"AND PG.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-					"AND M.F_APLICACION = '" + (String)registro.getDefCampo("F_APLICACION") + "' \n"+
+					"AND M.F_APLICACION = '" + fAplicacion + "' \n"+
 					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION \n";
 			 
 				ejecutaSql();
