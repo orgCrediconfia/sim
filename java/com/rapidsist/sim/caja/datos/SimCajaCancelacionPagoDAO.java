@@ -392,7 +392,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"PRO.NOM_PRODUCTO, \n"+
 					"PG.NUM_CICLO, \n"+
 					"M.F_APLICACION, \n"+
-					"0 ID_GRUPO, \n"+
+					"M.ID_GRUPO, \n"+
 				    "SUM(NVL(ROUND(M.IMP_NETO,2),0)) MONTO, \n"+
 				    "TO_CHAR(SUM(NVL(ROUND(M.IMP_NETO,2),0)),'999,999,999.99') IMPORTE \n"+
 					"FROM \n"+
@@ -422,7 +422,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"AND M.CVE_OPERACION = 'CRPAGOPRES' \n"+
 					"AND PG.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 					"AND M.F_APLICACION = '" + fAplicacion + "' \n"+
-					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION \n";
+					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
 			 
 				ejecutaSql();
 				if (rs.next()){
