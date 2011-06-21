@@ -41,9 +41,9 @@ FROM
 		 P.CVE_GPO_EMPRESA, 
 		 P.Cve_Empresa, 
 		 P.Id_Prestamo,
-     Sum(T.Imp_Capital_Amort*-1) As Cargo_Capital,
-     Sum(T.Imp_Interes*-1) + Sum(T.Imp_Iva_Interes*-1) + Sum(T.Imp_Interes_Extra*-1) + Sum(T.Imp_Iva_Interes_Extra*-1) As Cargo_Interes,
-    SUM(T.IMP_PAGO_TARDIO*-1) + SUM(T.IMP_INTERES_MORA*-1) + SUM(T.IMP_IVA_INTERES_MORA*-1) AS CARGO_RECARGO
+                 Sum(NVL(T.Imp_Capital_Amort,0) + NVL(T.IMP_EXT_CAPITAL_AMORT,0))*-1 As Cargo_Capital,
+                 (Sum(NVL(T.Imp_Interes,0) + NVL(T.Imp_EXT_Interes,0))*-1) + (Sum(NVL(T.Imp_Iva_Interes,0) + NVL(T.Imp_EXT_Iva_Interes,0))*-1) + (Sum(NVL(T.Imp_Interes_Extra,0) + NVL(T.Imp_EXT_Interes_Extra,0))*-1) + (Sum(NVL(T.Imp_Iva_Interes_Extra,0) + NVL(T.Imp_EXT_Iva_Interes_Extra,0))*-1) As Cargo_Interes,
+                 (Sum(NVL(T.IMP_PAGO_TARDIO,0) + NVL(T.IMP_EXT_PAGO_TARDIO,0))*-1) + (Sum(NVL(T.IMP_INTERES_MORA,0) + NVL(T.IMP_EXT_INTERES_MORA,0))*-1) + (Sum(NVL(T.IMP_IVA_INTERES_MORA,0) + NVL(T.IMP_EXT_IVA_INTERES_MORA,0))*-1) AS CARGO_RECARGO
 FROM   
 		SIM_PRESTAMO P,
 		Sim_Tabla_Amortizacion T
@@ -59,7 +59,7 @@ GROUP BY P.CVE_GPO_EMPRESA, P.Cve_Empresa, P.Id_Prestamo
 		 P.CVE_GPO_EMPRESA, 
 		 P.Cve_Empresa, 
 		 P.Id_Prestamo,
-     -SUM(A.IMP_ACCESORIO) AS CARGO_ACCESORIO
+                 (Sum(NVL(A.IMP_ACCESORIO,0) + NVL(A.IMP_EXT_ACCESORIO,0))*-1) AS CARGO_ACCESORIO
 FROM   
 		SIM_PRESTAMO P,
     SIM_TABLA_AMORT_ACCESORIO A
@@ -91,9 +91,9 @@ FROM
 		 P.CVE_GPO_EMPRESA, 
 		 P.Cve_Empresa, 
 		 P.Id_Prestamo,
-    -Sum(T.Imp_Capital_Amort_Pagado*-1) As Abono_Capital,  
-    -1*(Sum(T.Imp_Interes_Pagado*-1) + Sum(T.Imp_Iva_Interes_Pagado*-1) + Sum(T.Imp_Interes_Extra_Pagado*-1) + Sum(T.Imp_Iva_Interes_Extra_Pagado*-1)) As ABONO_Interes,  
-    SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) AS ABONO_RECARGO
+                 Sum(T.Imp_Capital_Amort_Pagado) As Abono_Capital,  
+                 (Sum(T.Imp_Interes_Pagado) + Sum(T.Imp_Iva_Interes_Pagado) + Sum(T.Imp_Interes_Extra_Pagado) + Sum(T.Imp_Iva_Interes_Extra_Pagado)) As ABONO_Interes,  
+                 SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) AS ABONO_RECARGO
 FROM   
 		SIM_PRESTAMO P,
 		Sim_Tabla_Amortizacion T
@@ -109,7 +109,7 @@ GROUP BY P.CVE_GPO_EMPRESA, P.Cve_Empresa, P.Id_Prestamo
 		 P.CVE_GPO_EMPRESA, 
 		 P.Cve_Empresa, 
 		 P.Id_Prestamo,
-     SUM(A.IMP_ACCESORIO_pagado) AS ABONO_ACCESORIO
+                 SUM(A.IMP_ACCESORIO_pagado) AS ABONO_ACCESORIO
 FROM   
 		SIM_PRESTAMO P,
     SIM_TABLA_AMORT_ACCESORIO A
