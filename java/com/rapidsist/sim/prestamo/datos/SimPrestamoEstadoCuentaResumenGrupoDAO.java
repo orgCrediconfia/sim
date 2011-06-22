@@ -43,7 +43,7 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 			sSql =	 "SELECT \n"+	
 			"A.cve_concepto, \n"+
 			"sum(imp_neto) SALDO, \n"+ 
-			"sum(imp_original) IMPORTE, \n"+ 
+			"sum(imp_original) + sum(imp_extraordinario) IMPORTE, \n"+ 
 			"sum(imp_pagado) PAGADO, \n"+
 			"'Total De ' || INITCAP(B.DESC_CORTA) DESCRIPCION \n"+
 			"FROM \n"+
@@ -71,8 +71,8 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 					"  TO_CHAR(SUM(PAGADO),'999,999,999.99') PAGO_TOTAL \n"+
 					"FROM ( \n"+
 					"  SELECT  \n"+
-					"    sum(imp_neto) SALDO, \n"+ 
-					"    sum(imp_original) IMPORTE, \n"+ 
+					"    sum(imp_neto) SALDO, \n"+
+					"    sum(imp_original) + sum(imp_extraordinario) IMPORTE, \n"+ 
 					"    sum(imp_pagado) PAGADO \n"+
 					"  FROM  \n"+
 					"  SIM_PRESTAMO_GPO_DET G, \n"+

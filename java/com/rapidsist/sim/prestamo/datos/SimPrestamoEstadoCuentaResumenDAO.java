@@ -40,7 +40,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 		sSql =	"SELECT \n"+	 
 				"A.cve_concepto, \n"+
 				"sum(imp_neto) SALDO, \n"+ 
-				"sum(imp_original) IMPORTE, \n"+ 
+				"sum(imp_original) + sum(imp_extraordinario) IMPORTE, \n"+ 
 				"sum(imp_pagado) PAGADO, \n"+
 				"'Total De ' || INITCAP(B.DESC_CORTA) DESCRIPCION \n"+
 				"FROM  \n"+
@@ -65,7 +65,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 				"FROM ( \n"+
 				"SELECT \n"+	 
 				"sum(imp_neto) SALDO, \n"+ 
-				"sum(imp_original) IMPORTE, \n"+ 
+				"sum(imp_original) + sum(imp_extraordinario) IMPORTE, \n"+ 
 				"sum(imp_pagado) PAGADO \n"+
 				"FROM  \n"+
 				"V_SIM_TABLA_AMORT_CONCEPTO A, \n"+
