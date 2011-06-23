@@ -81,11 +81,11 @@ public class SimReporteEstadoCuentaIndividualREP implements ReporteControlIN {
 		"AB.CUOTA_CAPITAL, \n"+
 		"AC.CUOTA_ACCESORIO, \n"+
 	    "Ad.Imp_Pago_Hoy Pago_Recargo, \n"+
-	    "-(AE.IMP_SALDO_HOY) IMP_SALDO_HOY, \n"+
+	    "AE.IMP_SALDO_HOY, \n"+
 		"  CASE \n"+
-		"    WHEN -(AE.IMP_SALDO_HOY) > 0 \n"+
+		"    WHEN AE.IMP_SALDO_HOY > 0 \n"+
 		"    THEN 0 \n"+
-		"    ELSE -(AE.IMP_SALDO_HOY) \n"+
+		"    ELSE AE.IMP_SALDO_HOY \n"+
 		"  END As SALDO_VENCIDO, \n"+
 		"AF.PAGOS \n"+
 		  "From V_CREDITO C, \n"+
@@ -125,14 +125,25 @@ public class SimReporteEstadoCuentaIndividualREP implements ReporteControlIN {
 		  "    ID_PRESTAMO \n"+
 		  "  Order By Id_Prestamo \n"+
 		  "  ) AD, \n"+
-		  "  (SELECT CVE_GPO_EMPRESA, \n"+
-		  "    CVE_EMPRESA, \n"+
-		  "    Id_Prestamo, \n"+
-		  "    SUM(IMP_SALDO_HOY) IMP_SALDO_HOY \n"+
-		  "  From V_SIM_PRESTAMO_RES_EDO_CTA \n"+
-		  "  WHERE DESC_MOVIMIENTO NOT IN ('Pago prestamo') \n"+
-		  "  GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, Id_Prestamo \n"+
-		  "  Order By Id_Prestamo \n"+ 
+		  "  (Select \n"+
+		  "M.Cve_Gpo_Empresa, \n"+
+		  "M.Cve_Empresa, \n"+
+		  "M.Id_Prestamo, \n"+
+		  "CASE \n"+
+		  "      When Sum(Nvl(Round(M.Imp_Pago,2),0)) = '0' \n"+
+		  "      Then Sum(Nvl(Round(M.Imp_Concepto,2),0)) \n"+
+		  "      WHEN SUM(NVL(ROUND(M.Imp_Concepto,2),0)) = '0' \n"+
+		  "     Then Sum(Nvl(Round(M.Imp_Pago,2),0)) \n"+
+		  "    End As IMP_SALDO_HOY \n"+
+		  "From V_Mov_Edo_Cta_Ind M \n"+
+		  "WHERE M.F_OPERACION <= (SELECT  F_MEDIO  \n"+
+		  "					                    FROM    PFIN_PARAMETRO  \n"+
+		  "					                    WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
+		  "					                    And Cve_Empresa     = 'CREDICONFIA' \n"+ 
+		  "					                    AND CVE_MEDIO       = 'SYSTEM') \n"+
+		  "And M.Num_Pago_Amortizacion != 0 \n"+
+		  "AND (M.IMP_PAGO = '0' AND M.Desc_Movimiento != 'Pago De Prestamo') \n"+
+		  "GROUP BY M.Cve_Gpo_Empresa, M.Cve_Empresa, M.Id_Prestamo \n"+
 		  "  ) AE, \n"+
 		  "(SELECT CVE_GPO_EMPRESA, \n"+ 
 		  "	       CVE_EMPRESA, \n"+ 
