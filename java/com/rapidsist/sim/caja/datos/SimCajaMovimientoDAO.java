@@ -39,7 +39,8 @@ public class SimCajaMovimientoDAO extends Conexion2 implements OperacionConsulta
 				"NOM_MOVIMIENTO_CAJA \n"+
 				"FROM SIM_CAT_MOVIMIENTO_CAJA \n"+
 				"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n";
+				"AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND CVE_MOVIMIENTO_CAJA != 'CORTE' \n";
 		
 		ejecutaSql();
 		return getConsultaLista();

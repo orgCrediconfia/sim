@@ -83,7 +83,7 @@ AND VG.ID_PRESTAMO_GRUPO = M.Id_Prestamo
 AND VG.NUM_PAGO_AMORTIZACION = M.NUM_PAGO_AMORTIZACION
 AND (M.ID_ACCESORIO != '0' OR M.ID_ACCESORIO IS NULL  OR M.Desc_Movimiento = 'Cancelacion De Pago' OR M.Desc_Movimiento = 'Pago De Prestamo' OR M.Desc_Movimiento = 'Liquidacion Por Defuncion')
 GROUP BY M.Cve_Gpo_Empresa, M.Cve_Empresa, P.F_Medio, M.Id_Prestamo, M.NUM_PAGO_AMORTIZACION, M.F_Operacion, M.F_Aplicacion, M.ID_MOVIMIENTO, VG.FECHA_AMORTIZACION, M.Desc_Movimiento, M.ID_ACCESORIO 
-ORDER BY M.F_APLICACION, M.F_OPERACION, M.ID_MOVIMIENTO, M.NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(M.IMP_CONCEPTO,2),0))]]></queryString>
+ORDER BY M.F_APLICACION, M.F_OPERACION, M.ID_MOVIMIENTO, M.NUM_PAGO_AMORTIZACION, SUM(NVL(ROUND(M.IMP_CONCEPTO,2),0)) ASC]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>

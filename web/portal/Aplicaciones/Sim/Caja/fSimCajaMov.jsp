@@ -37,9 +37,6 @@
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RETCAJ"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiro&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
 				document.frmRegistro.submit();
-			}else if (document.frmRegistro.CveMovimientoCaja.value == "CORTE"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCorte&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimiento="+document.frmRegistro.CveMovimientoCaja.value;
-				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RETSUC"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiroSucursal&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
 				document.frmRegistro.submit();
