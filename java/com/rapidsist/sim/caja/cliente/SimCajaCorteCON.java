@@ -52,21 +52,14 @@ public class SimCajaCorteCON implements CatalogoControlConsultaIN {
 		RegistroControl registroControl = new RegistroControl();
 		//VERIFICA SI BUSCA TODOS LOS REGISTROS
 		if (iTipoOperacion == CON_CONSULTA_TABLA){
+			registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+			parametros.addDefCampo("ID_REGIONAL","");
+			registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
+			
+			parametros.addDefCampo("ID_REGIONAL", request.getParameter("IdRegional"));
+			parametros.addDefCampo("ID_SUCURSAL", request.getParameter("IdSucursal"));
 			parametros.addDefCampo("FECHA_INICIAL", request.getParameter("FechaInicial"));
 			parametros.addDefCampo("FECHA_FINAL", request.getParameter("FechaFinal"));
-			parametros.addDefCampo("ID_CAJA", request.getParameter("IdCaja"));
-			
-			String sIdCaja = "";
-			String sIdCajaSucursal = "";
-			String sIdSucursal = "";
-			
-			sIdCajaSucursal = request.getParameter("IdCaja");
-			
-			sIdSucursal = sIdCajaSucursal.substring(0, sIdCajaSucursal.indexOf("-"));
-			sIdCaja = sIdCajaSucursal.substring(sIdCajaSucursal.indexOf("-")+1, sIdCajaSucursal.length());
-			
-			parametros.addDefCampo("ID_CAJA", sIdCaja);
-			parametros.addDefCampo("ID_SUCURSAL", sIdSucursal);
 			
 			registroControl.respuesta.addDefCampo("ListaMovimiento", catalogoSL.getRegistros("SimCajaCorte", parametros));
 			parametros.addDefCampo("SALDO","INICIAL");
@@ -77,9 +70,15 @@ public class SimCajaCorteCON implements CatalogoControlConsultaIN {
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
+				registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+				parametros.addDefCampo("ID_REGIONAL","");
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaCor.jsp?IdCaja="+request.getParameter("IdCaja")+"&IdMovimiento="+request.getParameter("IdMovimiento");
-			}else if (request.getParameter("Filtro").equals("Alta")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaMov.jsp?IdCaja="+request.getParameter("IdCaja");
+			}else if (request.getParameter("Filtro").equals("Sucursal")){
+				registroControl.respuesta.addDefCampo("ListaRegional", catalogoSL.getRegistros("SimCatalogoRegional", parametros));
+				parametros.addDefCampo("ID_REGIONAL",request.getParameter("IdRegional"));
+				registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimRegionalSucursal", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaCor.jsp";	
 			}
 		}
 		return registroControl;
