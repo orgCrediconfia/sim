@@ -52,7 +52,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 				"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
 				"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
 				"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
-				"AND A.IMP_ORIGINAL     <> 0 \n"+
+				"AND (A.IMP_ORIGINAL + A.IMP_EXTRAORDINARIO) <> 0 \n"+
 				"GROUP BY A.cve_concepto, 'Total De ' || INITCAP(B.DESC_CORTA) \n"+
 				"Order by cve_concepto \n";
 		
@@ -76,7 +76,7 @@ public class SimPrestamoEstadoCuentaResumenDAO extends Conexion2 implements Oper
 				"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
 				"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
 				"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
-				"AND A.IMP_ORIGINAL     <> 0 \n"+
+				"AND (A.IMP_ORIGINAL + A.IMP_EXTRAORDINARIO) <> 0 \n"+
 				") \n";
 	}
 		 	

@@ -62,7 +62,8 @@ end as Accesorios,
 Case
       When M.Desc_Movimiento Like ('%Pago Tardío%')
         Then Sum(Nvl(Round(M.Imp_Concepto,2),0))
-        
+      When M.Desc_Movimiento Like ('%Gestión Cobranza%')
+        Then SUM(NVL(ROUND(M.Imp_Concepto,2),0))  
 End As Recargo,
   	Sum(Nvl(Round(M.Imp_Concepto,2),0)) 
 From V_Mov_Edo_Cta_Gpo M,
