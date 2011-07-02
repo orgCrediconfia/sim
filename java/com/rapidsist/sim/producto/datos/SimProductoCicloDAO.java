@@ -351,6 +351,24 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
 		
+		sSql =  "INSERT INTO SIM_PRODUCTO_CICLO_ACCESORIO ( \n"+
+				"CVE_GPO_EMPRESA, \n" +
+				"CVE_EMPRESA, \n" +
+				"ID_PRODUCTO, \n"+
+				"NUM_CICLO, \n" +
+				"ID_ACCESORIO) \n" +
+				"VALUES ( \n"+
+				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+				"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
+				"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
+				"'13') \n" ;
+				
+		//VERIFICA SI DIO DE ALTA EL REGISTRO
+		if (ejecutaUpdate() == 0){
+			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+		}
+		
 		sSql =  "SELECT  \n"+
 				"C.CVE_GPO_EMPRESA, \n"+
 				"C.CVE_EMPRESA, \n"+
