@@ -56,11 +56,7 @@
 			</band>
 		</background>
 		<title>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</title>
-		<pageHeader>
-			<band height="63"  isSplitAllowed="true" >
+			<band height="78"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1"
@@ -129,7 +125,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="48"
+						y="46"
 						width="79"
 						height="15"
 						key="staticText-4"/>
@@ -142,7 +138,7 @@
 				<staticText>
 					<reportElement
 						x="85"
-						y="48"
+						y="46"
 						width="107"
 						height="15"
 						key="staticText-5"/>
@@ -155,7 +151,7 @@
 				<staticText>
 					<reportElement
 						x="195"
-						y="48"
+						y="46"
 						width="86"
 						height="15"
 						key="staticText-6"/>
@@ -168,7 +164,7 @@
 				<staticText>
 					<reportElement
 						x="284"
-						y="48"
+						y="46"
 						width="137"
 						height="15"
 						key="staticText-7"/>
@@ -181,7 +177,7 @@
 				<staticText>
 					<reportElement
 						x="424"
-						y="48"
+						y="46"
 						width="57"
 						height="15"
 						key="staticText-8"/>
@@ -194,7 +190,7 @@
 				<staticText>
 					<reportElement
 						x="484"
-						y="48"
+						y="46"
 						width="94"
 						height="15"
 						key="staticText-9"/>
@@ -207,7 +203,7 @@
 				<staticText>
 					<reportElement
 						x="580"
-						y="48"
+						y="46"
 						width="346"
 						height="15"
 						key="staticText-10"/>
@@ -220,7 +216,7 @@
 				<staticText>
 					<reportElement
 						x="929"
-						y="48"
+						y="46"
 						width="107"
 						height="15"
 						key="staticText-11"/>
@@ -233,7 +229,7 @@
 				<staticText>
 					<reportElement
 						x="1037"
-						y="48"
+						y="46"
 						width="286"
 						height="15"
 						key="staticText-12"/>
@@ -246,7 +242,7 @@
 				<staticText>
 					<reportElement
 						x="1324"
-						y="48"
+						y="46"
 						width="93"
 						height="15"
 						key="staticText-13"/>
@@ -259,7 +255,7 @@
 				<staticText>
 					<reportElement
 						x="1418"
-						y="48"
+						y="46"
 						width="279"
 						height="15"
 						key="staticText-14"/>
@@ -272,7 +268,7 @@
 				<staticText>
 					<reportElement
 						x="1698"
-						y="48"
+						y="46"
 						width="67"
 						height="15"
 						key="staticText-15"/>
@@ -285,7 +281,7 @@
 				<staticText>
 					<reportElement
 						x="1767"
-						y="48"
+						y="46"
 						width="112"
 						height="15"
 						key="staticText-16"/>
@@ -298,7 +294,7 @@
 				<staticText>
 					<reportElement
 						x="1884"
-						y="48"
+						y="46"
 						width="116"
 						height="15"
 						key="staticText-17"/>
@@ -311,7 +307,7 @@
 				<staticText>
 					<reportElement
 						x="2003"
-						y="48"
+						y="46"
 						width="110"
 						height="15"
 						key="staticText-18"/>
@@ -321,14 +317,10 @@
 					</textElement>
 				<text><![CDATA[Monto Acumulado]]></text>
 				</staticText>
-			</band>
-		</pageHeader>
-		<columnHeader>
-			<band height="18"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="580"
-						y="0"
+						y="62"
 						width="346"
 						height="15"
 						key="textField-9"/>
@@ -341,7 +333,7 @@
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="2003"
-						y="0"
+						y="62"
 						width="110"
 						height="15"
 						key="textField-10"/>
@@ -354,7 +346,7 @@
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="1884"
-						y="0"
+						y="62"
 						width="116"
 						height="15"
 						key="textField-22"/>
@@ -367,7 +359,7 @@
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="484"
-						y="0"
+						y="62"
 						width="94"
 						height="15"
 						key="textField-23"/>
@@ -377,6 +369,14 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{FechaInicial}]]></textFieldExpression>
 				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</columnHeader>
 		<detail>

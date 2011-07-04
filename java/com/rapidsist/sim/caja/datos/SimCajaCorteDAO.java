@@ -143,7 +143,7 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 					"AND S.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
 					"AND S.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
 					"AND S.ID_SUCURSAL (+)= C.ID_SUCURSAL \n"+
-					"AND C.FECHA_TRANSACCION >= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n";
+					"AND C.FECHA_TRANSACCION <= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n";
 					
 			if (!parametros.getDefCampo("ID_REGIONAL").equals("null")) {
 				sSql = sSql + " AND S.ID_REGIONAL = '" + (String) parametros.getDefCampo("ID_REGIONAL") + "' \n";
@@ -170,7 +170,7 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 					"AND S.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
 					"AND S.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
 					"AND S.ID_SUCURSAL (+)= C.ID_SUCURSAL \n"+
-					"AND C.FECHA_TRANSACCION >= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n";
+					"AND C.FECHA_TRANSACCION <= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n";
 					
 					if (!parametros.getDefCampo("ID_REGIONAL").equals("null")) {
 						sSql = sSql + " AND S.ID_REGIONAL = '" + (String) parametros.getDefCampo("ID_REGIONAL") + "' \n";
@@ -194,7 +194,7 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 					"AND S.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
 					"AND S.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
 					"AND S.ID_SUCURSAL (+)= C.ID_SUCURSAL \n"+
-					"AND C.FECHA_TRANSACCION >= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n"+
+					"AND C.FECHA_TRANSACCION <= TO_DATE('" + (String)parametros.getDefCampo("FECHA_INICIAL") + "','DD/MM/YYYY') \n"+
 					"AND TO_DATE('" + (String)parametros.getDefCampo("FECHA_FINAL") + "','DD/MM/YYYY')+1 > C.FECHA_TRANSACCION \n";
 					
 					if (!parametros.getDefCampo("ID_REGIONAL").equals("null")) {
