@@ -63,7 +63,7 @@ public class SimCajaReporteCorteCajaREP implements ReporteControlIN {
 						"C.NUM_CICLO, \n"+
 						"C.ID_TRANSACCION, \n"+
 						"TO_CHAR(C.MONTO,'999,999,999.99') MONTO, \n"+
-						"TO_CHAR(sum(C.MONTO) over (order by C.FECHA_TRANSACCION ROWS UNBOUNDED PRECEDING) + A.SALDO_INICIAL,'999,999,999.99') MONTO_ACUMULADO \n"+
+						"TO_CHAR(sum(C.MONTO) over (order by C.FECHA_TRANSACCION ROWS UNBOUNDED PRECEDING) + NVL(A.SALDO_INICIAL,0),'999,999,999.99') MONTO_ACUMULADO \n"+
 						"FROM SIM_CAJA_TRANSACCION C, \n"+
 						"SIM_CAT_MOVIMIENTO_CAJA M, \n"+
 						"SIM_GRUPO G, \n"+
@@ -81,7 +81,7 @@ public class SimCajaReporteCorteCajaREP implements ReporteControlIN {
 						"					AND S.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
 						"					AND S.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
 						"					AND S.ID_SUCURSAL (+)= C.ID_SUCURSAL \n"+
-						"					AND C.FECHA_TRANSACCION >= TO_DATE('" + request.getParameter("FechaInicial") + "','DD/MM/YYYY') \n";
+						"					AND C.FECHA_TRANSACCION < TO_DATE('" + request.getParameter("FechaInicial") + "','DD/MM/YYYY') \n";
 				
 						if (!request.getParameter("IdRegional").equals("null")) {
 							sSql = sSql + " AND S.ID_REGIONAL = '" + request.getParameter("IdRegional") + "' \n";
@@ -114,7 +114,7 @@ public class SimCajaReporteCorteCajaREP implements ReporteControlIN {
 										"AND A.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA \n"+
 										"AND A.CVE_EMPRESA (+)= C.CVE_EMPRESA \n"+
 										"AND C.FECHA_TRANSACCION >= TO_DATE('" + request.getParameter("FechaInicial") + "','DD/MM/YYYY') \n"+
-										"AND TO_DATE('" + request.getParameter("FechaFinal") + "','DD/MM/YYYY')+1 > C.FECHA_TRANSACCION \n";
+										"AND TO_DATE('" + request.getParameter("FechaFinal") + "','DD/MM/YYYY')+1 >= C.FECHA_TRANSACCION \n";
 		
 						if (!request.getParameter("IdRegional").equals("null")) {
 							sSql = sSql + " AND S.ID_REGIONAL = '" + request.getParameter("IdRegional") + "' \n";
@@ -125,6 +125,8 @@ public class SimCajaReporteCorteCajaREP implements ReporteControlIN {
 						}
 						
 						sSql = sSql + "ORDER BY FECHA \n";
+						
+						System.out.println("movimientos reporte"+sSql);
 		
 		parametros.put("Sql", sSql);
 		parametros.put("FechaInicial", request.getParameter("FechaInicial"));

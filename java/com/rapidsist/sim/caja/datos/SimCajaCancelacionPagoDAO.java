@@ -198,8 +198,8 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"PG.NUM_CICLO, \n"+
 					"C.FECHA_APLICACION, \n"+
 					"ID_TRANSACCION_GRUPO ID_GRUPO, \n"+
-					"NVL(ROUND(C.MONTO,2),0) MONTO,  \n"+
-					"TO_CHAR(NVL(ROUND(C.MONTO,2),0),'999,999,999.99') IMPORTE \n"+
+					"NVL(ROUND(-C.MONTO,2),0) MONTO,  \n"+
+					"TO_CHAR(NVL(ROUND(-C.MONTO,2),0),'999,999,999.99') IMPORTE \n"+
 					"FROM \n"+
 					"SIM_CAJA_TRANSACCION C, \n"+
 					"SIM_PRESTAMO_GRUPO PG, \n"+
@@ -346,6 +346,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 						"MONTO, \n"+
 						"CVE_USUARIO_CAJERO, \n" +
 						"FECHA_APLICACION, \n" +
+						"FECHA_TRANSACCION, \n" +
 						"ID_TRANSACCION_GRUPO, \n" +
 						"FECHA_CANCELACION) \n" +
 				        "VALUES ( \n"+
@@ -357,8 +358,9 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 						"'CANPAGO', \n" +
 						"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
 						"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
-						"'" + (String)registro.getDefCampo("MONTO") + "', \n" +
+						"-'" + (String)registro.getDefCampo("MONTO") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+						"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
 						"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
 						"'" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "', \n" +
 						"SYSDATE) \n" ;
@@ -481,6 +483,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 							"MONTO, \n"+
 							"CVE_USUARIO_CAJERO, \n" +
 							"FECHA_APLICACION, \n" +
+							"FECHA_TRANSACCION, \n" +
 							"ID_TRANSACCION_GRUPO, \n" +
 							"FECHA_CANCELACION) \n" +
 					        "VALUES ( \n"+
@@ -492,8 +495,9 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 							"'CANPAGO', \n" +
 							"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
 							"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
-							"'" + (String)registro.getDefCampo("MONTO") + "', \n" +
+							"-'" + (String)registro.getDefCampo("MONTO") + "', \n" +
 							"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+							"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
 							"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
 							"'" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "', \n" +
 							"SYSDATE) \n" ;
