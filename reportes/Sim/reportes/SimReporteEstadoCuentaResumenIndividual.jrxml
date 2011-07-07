@@ -81,7 +81,7 @@ A.CVE_EMPRESA,
 A.ID_PRESTAMO,
 '2',
 'Total abono',
-NVL(A.ABONO_CAPITAL + A.ABONO_INTERES + B.ABONO_ACCESORIO + A.ABONO_RECARGO,0) TOTAL,
+NVL(A.ABONO_CAPITAL,0) + NVL(A.ABONO_INTERES,0) + NVL(B.ABONO_ACCESORIO,0) + NVL(A.ABONO_RECARGO,0) TOTAL,
 NVL(A.ABONO_CAPITAL,0) ABONO_CAPITAL,
 NVL(A.ABONO_INTERES,0) ABONO_INTERES,
 NVL(B.ABONO_ACCESORIO,0) ABONO_ACCESORIO,
@@ -91,9 +91,9 @@ FROM
 		 P.CVE_GPO_EMPRESA, 
 		 P.Cve_Empresa, 
 		 P.Id_Prestamo,
-                 Sum(T.Imp_Capital_Amort_Pagado) As Abono_Capital,  
-                 (Sum(T.Imp_Interes_Pagado) + Sum(T.Imp_Iva_Interes_Pagado) + Sum(T.Imp_Interes_Extra_Pagado) + Sum(T.Imp_Iva_Interes_Extra_Pagado)) As ABONO_Interes,  
-                 SUM(T.IMP_PAGO_TARDIO_PAGADO) + SUM(T.IMP_GESTION_COBRANZA_PAGADO) + SUM(T.IMP_INTERES_MORA_PAGADO) + SUM(T.IMP_IVA_INTERES_MORA_PAGADO) AS ABONO_RECARGO
+                 Sum(NVL(T.Imp_Capital_Amort_Pagado,0)) As Abono_Capital,  
+                 (Sum(NVL(T.Imp_Interes_Pagado,0)) + Sum(NVL(T.Imp_Iva_Interes_Pagado,0)) + Sum(NVL(T.Imp_Interes_Extra_Pagado,0)) + Sum(NVL(T.Imp_Iva_Interes_Extra_Pagado,0))) As ABONO_Interes,  
+                 SUM(NVL(T.IMP_PAGO_TARDIO_PAGADO,0)) + SUM(NVL(T.IMP_GESTION_COBRANZA_PAGADO,0)) + SUM(NVL(T.IMP_INTERES_MORA_PAGADO,0)) + SUM(NVL(T.IMP_IVA_INTERES_MORA_PAGADO,0)) AS ABONO_RECARGO
 FROM   
 		SIM_PRESTAMO P,
 		Sim_Tabla_Amortizacion T
