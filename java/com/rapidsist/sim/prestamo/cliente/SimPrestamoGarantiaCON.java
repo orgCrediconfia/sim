@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import java.rmi.RemoteException;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Esta clase se encarga de administrar los servicios de detalle operación (alta, baja,
@@ -56,7 +58,17 @@ public class SimPrestamoGarantiaCON implements CatalogoControlConsultaIN, Catalo
 			parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
 			parametros.addDefCampo("ID_PERSONA",request.getParameter("IdPersona"));
 			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimPrestamoGarantia", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreGarReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&IdPersona="+request.getParameter("IdPersona");	
+			
+			LinkedList lista = new LinkedList();
+			String sLista = "";
+			lista = catalogoSL.getRegistros("SimPrestamoGarantia", parametros);
+			
+			if(lista.isEmpty()){
+				sLista = "no";
+			}else{
+				sLista = "si";
+			}
+			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreGarReg.jsp?IdPrestamo="+request.getParameter("IdPrestamo")+"&IdPersona="+request.getParameter("IdPersona")+"&Lista="+sLista;	
 		}
 		return registroControl;
 	}

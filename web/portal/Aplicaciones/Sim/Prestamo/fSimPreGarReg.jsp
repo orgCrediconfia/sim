@@ -16,7 +16,9 @@
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 		<Portal:FormaBotones>
-			<Portal:Boton tipo='submit' etiqueta='Alta' />
+			<c:if test='${param.Lista == "si"}'>
+				<Portal:Boton tipo='submit' etiqueta='Alta' />
+			</c:if>
 		</Portal:FormaBotones>				
 	</Portal:TablaForma>
 </Portal:Pagina>	
