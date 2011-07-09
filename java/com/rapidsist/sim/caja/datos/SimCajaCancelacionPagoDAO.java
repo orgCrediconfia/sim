@@ -259,6 +259,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"M.ID_MOVIMIENTO, \n"+
 					"P.CVE_PRESTAMO, \n"+
 					"'INDIVIDUAL' APLICA_A, \n"+
+					"PE.ID_PERSONA, \n"+
 					"PE.NOM_COMPLETO, \n"+
 					"'' NOM_GRUPO, \n"+
 					"P.ID_PRODUCTO, \n"+
@@ -287,11 +288,12 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"AND PRO.ID_PRODUCTO = P.ID_PRODUCTO \n"+
 					"AND M.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 					"AND M.ID_GRUPO = '" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "' \n"+
-					"GROUP BY M.ID_PRESTAMO, M.ID_MOVIMIENTO, P.CVE_PRESTAMO, 'INDIVIDUAL',  PE.NOM_COMPLETO, '', P.ID_PRODUCTO, PRO.NOM_PRODUCTO, P.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
+					"GROUP BY M.ID_PRESTAMO, M.ID_MOVIMIENTO, P.CVE_PRESTAMO, 'INDIVIDUAL', PE.ID_PERSONA, PE.NOM_COMPLETO, '', P.ID_PRODUCTO, PRO.NOM_PRODUCTO, P.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
 					
 			ejecutaSql();
 			if (rs.next()){
 				sIdMovimiento = rs.getString("ID_MOVIMIENTO");
+				registro.addDefCampo("ID_CLIENTE",rs.getString("ID_PERSONA"));
 			}
 			
 			CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?)); end;");
@@ -342,6 +344,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 						"ID_CAJA, \n" +
 						"CVE_MOVIMIENTO_CAJA, \n" +
 						"ID_PRESTAMO, \n"+
+						"ID_CLIENTE, \n"+
 						"NUM_CICLO, \n"+
 						"MONTO, \n"+
 						"CVE_USUARIO_CAJERO, \n" +
@@ -357,6 +360,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 						"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
 						"'CANPAGO', \n" +
 						"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "', \n" +
 						"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
 						"-'" + (String)registro.getDefCampo("MONTO") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
@@ -388,6 +392,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"M.ID_MOVIMIENTO, \n"+
 					"PG.CVE_PRESTAMO_GRUPO, \n"+
 					"'GRUPAL' APLICA_A, \n"+
+					"G.ID_GRUPO, \n"+
 					"'' NOM_COMPLETO, \n"+
 					"G.NOM_GRUPO, \n"+
 					"PG.ID_PRODUCTO, \n"+
@@ -424,24 +429,25 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"AND M.CVE_OPERACION = 'CRPAGOPRES' \n"+
 					"AND PG.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 					"AND M.F_APLICACION = '" + fAplicacion + "' \n"+
-					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
+					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', G.ID_GRUPO, '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
 			 
 				ejecutaSql();
 				if (rs.next()){
 					sIdMovimiento = rs.getString("ID_MOVIMIENTO");
+					registro.addDefCampo("ID_GRUPO",rs.getString("ID_GRUPO"));
+				}	
 					
-					CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?)); end;");
-					sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
-					sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
-					sto1.setString(3, sIdMovimiento);
-					sto1.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
-					sto1.registerOutParameter(5, java.sql.Types.VARCHAR);
+				CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?)); end;");
+				sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
+				sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
+				sto1.setString(3, sIdMovimiento);
+				sto1.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
+				sto1.registerOutParameter(5, java.sql.Types.VARCHAR);
 					
-					//EJECUTA EL PROCEDIMIENTO ALMACENADO
-					sto1.execute();
-					sTxrespuesta = sto1.getString(5);
-					sto1.close();
-				}
+				//EJECUTA EL PROCEDIMIENTO ALMACENADO
+				sto1.execute();
+				sTxrespuesta = sto1.getString(5);
+				sto1.close();
 				
 				if (sTxrespuesta.equals("Movimiento aplicado con exito")){
 					
@@ -479,6 +485,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 							"ID_CAJA, \n" +
 							"CVE_MOVIMIENTO_CAJA, \n" +
 							"ID_PRESTAMO, \n"+
+							"ID_GRUPO, \n"+
 							"NUM_CICLO, \n"+
 							"MONTO, \n"+
 							"CVE_USUARIO_CAJERO, \n" +
@@ -494,6 +501,7 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 							"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
 							"'CANPAGO', \n" +
 							"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+							"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
 							"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
 							"-'" + (String)registro.getDefCampo("MONTO") + "', \n" +
 							"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
