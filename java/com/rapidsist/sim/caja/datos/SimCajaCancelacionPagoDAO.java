@@ -93,8 +93,8 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					"P.NUM_CICLO, \n"+
 					"C.FECHA_APLICACION F_APLICACION, \n"+
 					"ID_TRANSACCION_GRUPO ID_GRUPO, \n"+
-					"NVL(ROUND(C.MONTO,2),0) MONTO,  \n"+
-					"TO_CHAR(NVL(ROUND(C.MONTO,2),0),'999,999,999.99') IMPORTE \n"+
+					"NVL(ROUND(-C.MONTO,2),0) MONTO,  \n"+
+					"TO_CHAR(NVL(ROUND(-C.MONTO,2),0),'999,999,999.99') IMPORTE \n"+
 					"FROM \n"+
 					"SIM_CAJA_TRANSACCION C, \n"+
 					"SIM_PRESTAMO P, \n"+
