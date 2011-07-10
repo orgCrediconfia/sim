@@ -3,12 +3,6 @@
 <Portal:Pagina funcion="SimPrestamoCreditosPersonales">
 	<Portal:PaginaNombre titulo="Créditos del cliente" subtitulo="Consulta de datos"/>
 	
-	<Portal:Forma tipo='busqueda' funcion='SimPrestamoCreditosPersonales' operacion='CT' filtro='Todos'>
-		<Portal:FormaElemento etiqueta='Clave del Cliente' control='Texto' controlnombre='CveNombre' controllongitud='6' controllongitudmax='18' editarinicializado='true'/>
-		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='Nombre' controllongitud='40' controllongitudmax='60' editarinicializado='true'/>
-		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.Respuesta}'/>' />
-	</Portal:Forma>
-	
 	<Portal:TablaForma nombre="Consulta de Créditos del cliente" funcion="SimPrestamoCreditosPersonales" operacion="CT" parametros="&Filtro=Todos">
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
@@ -23,7 +17,7 @@
 			<Portal:Columna tipovalor='texto' ancho='100%' valor='Clave de la Sucursal'/>
 			
 		</Portal:TablaListaTitulos>
-		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
+		<c:forEach var="registro" items="${requestScope.ListaPrestamoCreditosPersonalesPaginacion}">		
 			<Portal:TablaListaRenglon>
 				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] == "7")}'>
 					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
@@ -45,13 +39,12 @@
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["ID_SUCURSAL"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>	
-		<c:if test='${(requestScope.ListaBusqueda != null)}'>
-			<Portal:FormaBotones>
-				<c:if test='${(param.Paginas != 0)}'>
-					<input type="button" name="Siguiente" value="Siguiente" onclick="javascript:MM_goToURL('parent','/portal/ProcesaCatalogo?Funcion=SimPrestamoCreditosPersonalesPaginacion&OperacionCatalogo=CT&Filtro=Todos&Paginas=<c:out value='${param.Paginas}'/>&Superior=<c:out value='${param.Superior}'/>&CveNombre=<c:out value='${param.CveNombre}'/>&Nombre=<c:out value='${param.Nombre}'/>');" >
-				</c:if>
-			</Portal:FormaBotones>
-		</c:if>		
+		<Portal:FormaBotones>
+			<c:if test='${(param.Paginas != 0)}'>
+				<input type="button" name="Siguiente" value="Siguiente" onclick="javascript:MM_goToURL('parent','/portal/ProcesaCatalogo?Funcion=SimPrestamoCreditosPersonalesPaginacion&OperacionCatalogo=CT&Filtro=Todos&Paginas=<c:out value='${param.Paginas}'/>&Superior=<c:out value='${param.Superior}'/>&CveNombre=<c:out value='${param.CveNombre}'/>&Nombre=<c:out value='${param.Nombre}'/>');" >
+			</c:if>	
+			<input type="button" name="Regresar" value="Regresar" onClick="MM_goToURL('parent','/portal/ProcesaCatalogo?Funcion=SimPrestamoCreditosPersonales&OperacionCatalogo=IN&Filtro=Inicio')" >
+		</Portal:FormaBotones>		
 	</Portal:TablaForma>
 	
 	<script>

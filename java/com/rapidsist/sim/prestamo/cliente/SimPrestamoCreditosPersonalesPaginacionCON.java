@@ -20,10 +20,10 @@ import java.rmi.RemoteException;
 
 /**
  * Esta clase se encarga de administrar las operaciones (alta, baja,
- * modificación y consulta) para consultar los créditos de un cliente. Esta clase es llamada por
+ * modificación y consulta) de la paginación en la consulta de los créditos personales. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
-public class SimPrestamoCreditosPersonalesCON implements CatalogoControlConsultaIN {
+public class SimPrestamoCreditosPersonalesPaginacionCON implements CatalogoControlConsultaIN {
 
 	/**
 	 * Ejecuta los servicios de consulta del catálogo.
@@ -51,32 +51,34 @@ public class SimPrestamoCreditosPersonalesCON implements CatalogoControlConsulta
 		RegistroControl registroControl = new RegistroControl();
 		//VERIFICA SI BUSCA TODOS LOS REGISTROS
 		if (iTipoOperacion == CON_CONSULTA_TABLA){
-			//VERIFICA SI SE ENVIO EL PARAMETRO NOMBRE
 			
+			//VERIFICA SI SE ENVIO EL PARAMETRO NOMBRE
 			if (request.getParameter("CveNombre") != null && !request.getParameter("CveNombre").equals("")){
 				parametros.addDefCampo("CVE_NOMBRE", request.getParameter("CveNombre"));
 			}
 			if (request.getParameter("Nombre") != null && !request.getParameter("Nombre").equals("")){
 				parametros.addDefCampo("NOMBRE", request.getParameter("Nombre"));
 			}
-					
-			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimPrestamoCreditosPersonales", parametros));
 			
-			//CUENTA CUANTAS PAGINAS SERÁN
-			Registro paginas = new Registro ();
-			paginas = catalogoSL.getRegistro("SimPrestamoCreditosPersonalesPaginacion", parametros);
-			String sPaginas = (String)paginas.getDefCampo("PAGINAS");
+			String sPagina = request.getParameter("Paginas");
+			int iPagina = Integer.parseInt(sPagina);
+			iPagina --;
+			String sPaginas = String.valueOf(iPagina);
+			String sSuperior = request.getParameter("Superior");
+			int iSuperior = Integer.parseInt(sSuperior);
+			int iInferior = iSuperior;
+			iSuperior = iSuperior + 100;
+			String sInferior = String.valueOf(iInferior);
+			sSuperior = String.valueOf(iSuperior);
 			
-			System.out.println("sPaginas*******"+sPaginas);
+			parametros.addDefCampo("SUPERIOR", sSuperior);
+			parametros.addDefCampo("INFERIOR", sInferior);
 			
-			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCrePer.jsp?Paginas="+sPaginas+"&Superior="+100+"&CveNombre="+request.getParameter("CveNombre")+"&Nombre="+request.getParameter("Nombre");
+			registroControl.respuesta.addDefCampo("ListaPrestamoCreditosPersonalesPaginacion", catalogoSL.getRegistros("SimPrestamoCreditosPersonalesPaginacion", parametros));
+			
+			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCrePerPag.jsp?Paginas="+sPaginas+"&Superior="+sSuperior+"&CveNombre="+request.getParameter("CveNombre")+"&Nombre="+request.getParameter("Nombre");
 		}
 			
-		else if (iTipoOperacion == CON_INICIALIZACION){
-			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCrePer.jsp";
-			}
-		}
 		return registroControl;
 	}
 }

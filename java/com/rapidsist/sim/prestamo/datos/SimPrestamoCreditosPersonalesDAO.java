@@ -53,14 +53,16 @@ public class SimPrestamoCreditosPersonalesDAO extends Conexion2 implements Opera
 				"V.ID_SUCURSAL, \n"+
 				"V.ID_ETAPA_PRESTAMO, \n"+
 				"E.NOM_ESTATUS_PRESTAMO \n"+
-			"FROM V_CREDITO V, \n"+
+			"FROM \n"+
+			"(SELECT * FROM V_CREDITO ORDER BY CVE_PRESTAMO) V, \n"+
 			"     SIM_CAT_ETAPA_PRESTAMO E \n"+
 			"WHERE V.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 			"AND V.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			"AND APLICA_A != 'GRUPO' \n"+
 			"AND E.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n"+
 			"AND E.CVE_EMPRESA = V.CVE_EMPRESA \n"+
-			"AND E.ID_ETAPA_PRESTAMO = V.ID_ETAPA_PRESTAMO \n";
+			"AND E.ID_ETAPA_PRESTAMO = V.ID_ETAPA_PRESTAMO \n"+
+			"AND ROWNUM <= 100 \n";
 		
 		if (parametros.getDefCampo("CVE_NOMBRE") != null) {
 			sSql = sSql + "AND CVE_NOMBRE = '" + (String) parametros.getDefCampo("CVE_NOMBRE") + "' \n";
