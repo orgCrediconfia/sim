@@ -22,13 +22,21 @@
 	
      <script>
      	function fRegional(){
-            document.frmRegistro.action="ProcesaCatalogo?Funcion=SimReporteInteresDevengadoGrupo&OperacionCatalogo=IN&Filtro=Sucursal&IdRegional="+document.frmRegistro.IdRegional.value;
-			document.frmRegistro.submit();
+     		if (document.frmRegistro.IdRegional.value == "null"){
+		 		alert("Seleccione una Regional para mostrar sus Sucursales");
+		 	}else {
+	            document.frmRegistro.action="ProcesaCatalogo?Funcion=SimReporteInteresDevengadoGrupo&OperacionCatalogo=IN&Filtro=Sucursal&IdRegional="+document.frmRegistro.IdRegional.value;
+				document.frmRegistro.submit();
+			}
          }
      
      	function fSucursal(){
-            document.frmRegistro.action="ProcesaCatalogo?Funcion=SimReporteInteresDevengadoGrupo&OperacionCatalogo=IN&Filtro=Asesor&IdRegional="+document.frmRegistro.IdRegional.value+"&IdSucursal="+document.frmRegistro.IdSucursal.value;
-			document.frmRegistro.submit();
+     		if (document.frmRegistro.IdSucursal.value == "null"){
+		 		alert("Seleccione una Sucursal para mostrar sus Asesores");
+		 	}else {
+	            document.frmRegistro.action="ProcesaCatalogo?Funcion=SimReporteInteresDevengadoGrupo&OperacionCatalogo=IN&Filtro=Asesor&IdRegional="+document.frmRegistro.IdRegional.value+"&IdSucursal="+document.frmRegistro.IdSucursal.value;
+				document.frmRegistro.submit();
+			}
          }
      
          function fReporteXls(){
