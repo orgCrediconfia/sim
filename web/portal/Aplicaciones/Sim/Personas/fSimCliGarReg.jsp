@@ -20,7 +20,7 @@
 		</Portal:FormaElemento>
 		<Portal:FormaElemento etiqueta='Garante Depositario' control='etiqueta-controlreferencia' controlnombre='NomCompletoGarante' controlvalor='${requestScope.registro.campos["NOM_GARANTE"]}' />
 		<input type="hidden" name="IdPersonaGarante" value='<c:out value='${requestScope.registro.campos["ID_GARANTE_DEPOSITARIO"]}'/>' />
-		<Portal:FormaElemento etiqueta='Porcentaje que cubre la garant&iacute;a' control='Texto' controlnombre='PorcCubreGarantia' controlvalor='${requestScope.registro.campos["PORC_CUBRE_GARANTIA"]}' controllongitud='7' controllongitudmax='9' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
+		<Portal:FormaElemento etiqueta='Porcentaje que cubre la garant&iacute;a' control='Texto' controlnombre='PorcCubreGarantia' controlvalor='${requestScope.registro.campos["PORC_CUBRE_GARANTIA"]}' controllongitud='3' controllongitudmax='3' editarinicializado='true' obligatorio='true' validadato='cantidades'/>
 		
 		<Portal:FormaBotones>
 			<Portal:FormaBotonAltaModificacion/>
