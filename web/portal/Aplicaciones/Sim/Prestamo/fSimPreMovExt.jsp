@@ -16,15 +16,9 @@
 		</Portal:TablaListaTitulos>
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
-				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] == "7")}'>
-					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
-						<input type="button" name="CuentaIncobrable"  value="Cuenta Incobrable" onclick="javascript:fLiquidacionCuentaIncobrable('<c:out value='${registro.campos["ID_PRESTAMO"]}'/>','<c:out value='${registro.campos["APLICA_A"]}'/>')">
-					</Portal:Columna>
-				</c:if>
-				<c:if test='${(registro.campos["ID_ETAPA_PRESTAMO"] != "7")}'>
-					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
-					</Portal:Columna>
-				</c:if>
+				<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
+					<input type="button" name="CuentaIncobrable"  value="Cuenta Incobrable" onclick="javascript:fLiquidacionCuentaIncobrable('<c:out value='${registro.campos["ID_PRESTAMO"]}'/>','<c:out value='${registro.campos["APLICA_A"]}'/>')">
+				</Portal:Columna>
 				<Portal:Columna tipovalor='texto' ancho='100' valor=''>
 					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CVE_PRESTAMO"]}' funcion='SimPrestamoMovimientoExtraordinario' operacion='CR' parametros='Consulta=Registro&IdPrestamo=${registro.campos["ID_PRESTAMO"]}'/>
 				</Portal:Columna>	
