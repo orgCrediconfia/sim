@@ -1,0 +1,355 @@
+<?xml version="1.0"?> 
+<!--
+	Este es el script que nos permite copiar las clases generadas del proyecto a la aplicacion web
+-->
+<project name="Portal" default="default" basedir=".">
+	 
+	<!-- GLOBAL PROPERTIES -->
+	<property name="project.root"			value="${basedir}"/>
+	<property name="java_fuentes"			value="${project.root}/java" />	
+	<property name="bibliotecas"			value="${project.root}/lib" />
+	<property name="out-files"			    value="${project.root}/out" />
+	<property name="out-compiledclasses"	value="${out-files}/classes" />	
+	<property name="reportes-fuente"		value="${project.root}/reportes" />	
+	
+	<!-- De esta manera se corre en windows -->
+	<property name="instalacion_jboss"		value="C:\Rapidsist\Servidores\jboss\Portal\deploy\Portal" />
+	
+	<property name="descriptores"			value="${project.root}/descriptores" />
+	<property name="webapp_portal"			value="${project.root}/web/portal" />
+	<property name="ejb-descriptores-"		value="${project.root}/descriptores/ejb" />
+	<property name="ejb-nombre-jar"			value="PortalEJB.jar" />
+	<property name="ear-nombre-archivo"		value="PortalEAR.ear" />
+	<property name="webapp-nombre-war"		value="PortalWAR.war" />
+
+    <path id="library.dotcomplete"> 
+    	<fileset dir="${bibliotecas}">
+        	<include name="**/*.jar"/>
+		</fileset>
+		<pathelement path="${out-compiledclasses}"/>
+    </path>
+
+	<target name="default" />
+
+	<!-- INICIALIZA EL DIRECTORIO DE LAS CLASES COMPILADAS DE LA APLICACION WEB-->
+	<target name="inicializa-dir-salida">
+		<delete dir="${out-compiledclasses}/com"/>
+	</target>
+
+	<!--COMPILA LOS ARCHIVOS FUENTE DE LAS CLASES JAVA Y LOS REPORTES DEL JASPER-->
+	<target name="compila-clases">
+		<!--COMPILA LAS CLASES JAVA-->
+		<mkdir dir="${out-compiledclasses}" />		
+		<javac compiler="modern"
+				srcdir="${java_fuentes}"
+				destdir="${out-compiledclasses}"
+				includes="**/*.java"
+				debug="true"
+				debuglevel="lines,vars,source"
+			    encoding ="ISO-8859-1">
+			<classpath>
+				<fileset dir="${bibliotecas}">
+					<include name="**/*.jar"/>
+				</fileset>
+				<fileset dir="${bibliotecas}/FckEditor">
+					<include name="**/commons-fileupload.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+		
+		<!--COMPILA LOS REPORTES-->		
+		<mkdir dir="${out-files}/Reportes" />
+		<taskdef name="jasper-compiler" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+			<classpath>
+				<dirset dir="${out-compiledclasses}"/>
+				<fileset dir="${bibliotecas}/iReport3">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</taskdef>
+		
+		<jasper-compiler 
+			srcdir="${reportes-fuente}"
+			destdir="${out-files}/Reportes">
+			<classpath>
+				<fileset dir="${bibliotecas}/iReport3">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>			
+		</jasper-compiler>		
+	</target>
+	
+	<!-- VERIFICA SI ES NECESARIO GENERAR LOS COMPONENTES EN BASE A SU FECHA DE ULTIMA MODIFICACION-->
+	<target name="verifica-generacion-componentes">
+		<!-- VERIFICA SI ES NECESARIO GENERAR LOS EJB'S-->
+		<uptodate property="ejb.no-necesita-compilacion" targetfile="${out-files}/${ejb-nombre-jar}">
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/catalogos/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/caja/datos"					includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/comite/datos"				    includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/generales/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/personas/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/parametroglobal/datos"			includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/grupo/datos"					includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/prestamo/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/procesocierre/datos"			includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/producto/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/sim/usuarios/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/generales/datos"					includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/herramientasconfiguracion/datos"	includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/portal/bitacora/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/portal/catalogos"					includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/portal/configuracion"				includes="**/*.class"/>
+			<srcfiles dir= "${out-compiledclasses}/com/rapidsist/publicaciones/datos"				includes="**/*.class"/>
+			<srcfiles dir= "${ejb-descriptores-}" 													includes="**/*" />
+			<srcfiles dir= "${bibliotecas}"															includes="RapidsistComunes.jar " />
+		</uptodate>
+		<antcall target="genera-ejb"></antcall>
+	</target>
+	
+	<target name="genera-ejb" unless="ejb.no-necesita-compilacion">
+		<mkdir dir="${out-files}" />
+		<delete  file="${out-files}/${ejb-nombre-jar}" quiet="true"/>
+		<jar destfile="${out-files}/${ejb-nombre-jar}" basedir="${out-compiledclasses}" 
+			update="true"
+			includes="log4j.properties
+					com/rapidsist/sim/catalogos/datos/*,
+					com/rapidsist/sim/caja/datos/*,
+				        com/rapidsist/sim/comite/datos/*,
+						com/rapidsist/sim/generales/datos/*,
+				        com/rapidsist/sim/personas/datos/*,
+				        com/rapidsist/sim/parametroglobal/datos/*,
+				        com/rapidsist/sim/grupo/datos/*,
+				        com/rapidsist/sim/prestamo/datos/*,
+						com/rapidsist/sim/procesocierre/datos/*,
+				        com/rapidsist/sim/producto/datos/*,
+				        com/rapidsist/sim/usuarios/datos/*,
+					com/rapidsist/generales/datos/*,
+					com/rapidsist/herramientasconfiguracion/datos/*,
+					com/rapidsist/portal/bitacora/datos/*,
+					com/rapidsist/portal/catalogos/**,
+					com/rapidsist/portal/configuracion/**,
+					com/rapidsist/publicaciones/datos/*,
+			        
+					meta-inf/*"
+		>
+			<metainf dir="${ejb-descriptores-}"/>
+			<manifest>
+				<attribute name="Built-By"	value="Rapidsist" />
+				<attribute name="Created-By"	value="Rapidsist" />
+			</manifest>
+			<zipgroupfileset dir="${bibliotecas}">
+				<include name="bsh-2.0b1.jar"/>
+				<include name="jdom.jar"/>
+				<include name="log4j-1.2.7.jar"/>
+				<include name="RapidsistComunes.jar"/>
+				<include name="webmacro.jar"/>
+			</zipgroupfileset>			
+		</jar>
+	</target>
+	
+	<target name="genera-war">
+		<mkdir dir="${out-files}" />
+		<delete  file="${out-files}/${webapp-nombre-war}" quiet="true"/>
+		
+		<war warfile="${out-files}/${webapp-nombre-war}" webxml="${webapp_portal}/WEB-INF/web.xml">
+			<webinf dir="${webapp_portal}/WEB-INF/" includes="*.*" excludes="web.xml" defaultexcludes="no"/>
+			<classes dir="${out-compiledclasses}"
+				includes="**/cliente/*
+		    				 **/vo/*
+							**/reportes/*
+				        	**/editor/*
+						"
+				defaultexcludes="no" />
+			<lib dir="${bibliotecas}" includes="bsh-2.0b1.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}" includes="jspsmart.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}" includes="log4j-1.2.7.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}" includes="standard.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}" includes="jstl.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}" includes="simpleusermanager.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}/iReport3" includes="*.*" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}/FckEditor" includes="*.*" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}/jaxrpc" includes="dom.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}/webservices" includes="jaxp-api.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}/webservices" includes="sax.jar" defaultexcludes="no"/>
+			<lib dir="${bibliotecas}/webservices" includes="xalan.jar" defaultexcludes="no"/>
+			<lib dir="${out-files}" includes="PortalInterfaces.jar" defaultexcludes="no"/>
+			<zipfileset dir="${webapp_portal}" 
+					includes="**/Aplicaciones/HerramientasConfiguracion/**
+						**/Aplicaciones/Generales/**
+						**/comun/**" 	
+				excludes="**/WEB-INF/*"/>
+			<zipfileset dir="${out-files}" includes="**/Reportes/**" />
+		</war>		
+	</target>
+
+	<target name="genera-ear">
+	    <!-- 
+	            Estructura del ear
+	            
+	            /META-INF/application.xml
+	            /META-INF/orion-application.xml
+	            /META-INF/data-sources.xml
+				/META-INF/principals.xml
+	            /PortalEJB.jar  ( módulo EJB )
+	            /PortalWEB.war  ( módulo Web )
+				/lib/simpleusermanager.jar
+	    -->
+				
+		<mkdir dir="${out-files}" />
+		<copy todir="${out-files}/META-INF">
+			<fileset dir="${descriptores}/ear" includes="*.*"/>
+		</copy>
+		
+		<!--GENERA JAR QUE CONTIENE LAS CLASES PARA LA AUTENTIFICACION DE USUARIOS-->
+		<mkdir dir="${out-files}/lib" />
+		<jar destfile="${out-files}/lib/simpleusermanager.jar" basedir="${out-compiledclasses}" 
+			update="true"
+			includes="com/orionsupport/security/*"
+		>
+			<manifest>
+				<attribute name="Built-By"		value="Rapidsist" />
+				<attribute name="Created-By"	value="Rapidsist" />
+			</manifest>
+		</jar>
+		
+		<jar jarfile="${out-files}/${ear-nombre-archivo}">
+			<fileset dir="${out-files}" includes="${ejb-nombre-jar}" />
+			<fileset dir="${out-files}" includes="${webapp-nombre-war}" />
+			<fileset dir="${out-files}" includes="META-INF/*.*" />
+			<fileset dir="${out-files}" includes="lib/*.*" />
+		</jar>
+	</target>
+	
+	<target name="instala-jboss" depends="compila-clases, verifica-generacion-componentes" description="Instala la aplicacion en JBoss">
+		<!--COPIA EL EJB -->
+		<copy preservelastmodified="true" todir="${instalacion_jboss}" file="${out-files}/${ejb-nombre-jar}"/>
+				
+		<!--COPIA LA APLICACION WEB -->
+		<copy preservelastmodified="true" todir="${instalacion_jboss}/portal.war">
+			<fileset dir="${webapp_portal}" includes="**/*" />
+		</copy>
+		<copy preservelastmodified="true" todir="${instalacion_jboss}/portal.war/WEB-INF/classes">
+			<fileset dir="${out-compiledclasses}"
+				includes="**/cliente/*,
+				        **/configuracion/*,
+				        **/editor/*,
+						**/reportes/*"
+			/>
+		</copy>	
+		<copy preservelastmodified="true" todir="${instalacion_jboss}/portal.war/WEB-INF/lib">
+			<fileset dir="${bibliotecas}" 
+				includes="bsh-2.0b1.jar,
+						  jspsmart.jar,
+						  log4j-1.2.7.jar,
+						  standard.jar,
+						  jstl.jar,
+				          mysql-connector-java-3.1.11-bin.jar,
+						  rapidsistGroovy.jar,
+						  groovy-all-1.7.3.jar				
+										  "
+			/>
+			<fileset dir="${bibliotecas}/iReport3" 
+				includes="commons-beanutils-1.7.jar,
+						  commons-collections-2.1.jar,
+						  commons-digester-1.7.jar,
+						  commons-logging-1.0.2,
+						  commons-logging-api-1.0.2.jar,
+						  itext-1.3.1.jar,
+						  jasperreports-3.0.0.jar,
+						  poi-3.0.1-FINAL-20070705.jar,
+						  xercesImpl.jar,
+						  jdt-compiler-3.1.1.jar,
+						  iReport.jar,
+						  barbecue-1.5-beta1.jar
+						  "
+			/>
+			<fileset dir="${bibliotecas}/FckEditor" 
+				includes="commons-fileupload.jar"
+			/>
+			
+			<fileset dir="${bibliotecas}/jaxrpc" 
+				includes="dom.jar			
+						  "
+			/>
+			<fileset dir="${bibliotecas}/webservices" 
+				includes="jaxp-api.jar,
+						  sax.jar,
+						  xalan.jar
+						  "
+			/>
+			<fileset dir="${out-files}" 
+				includes="PortalInterfaces.jar,
+						  "
+			/>						
+		</copy>
+
+		<!--COPIA LOS REPORTES A LA APLICACION WEB -->
+		<copy preservelastmodified="true" todir="${instalacion_jboss}/portal.war/Reportes">
+			<fileset dir="${out-files}/Reportes"
+				includes="**/*"
+			/>
+		</copy>
+	</target>
+		
+	<!--GENERA LAS INTERFACES LOCAL, HOME Y REMOTAS DE LOS EJB -->
+	<target name="genera-ejb-interfaces" description="genera-ejb-interfaces">
+		<taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
+			<classpath>
+				<fileset dir="${bibliotecas}/xdoclet">
+					<include name="**/*.jar"/>
+				</fileset>
+				<fileset dir="${bibliotecas}">
+					<include name="**/*.jar"/>
+				</fileset>				
+			</classpath>
+		</taskdef>
+
+		<tstamp>
+			<format property="TODAY" pattern="d-MMMM-yy hh:mm aa" locale="sp"/>
+		</tstamp>
+		
+		<!-- GENERA EL LAS CLASES JAVA DE LOS EJB'S DEL PROYECTO-->				
+		<ejbdoclet destdir="${java_fuentes}"
+			excludedtags="@version,@author"
+			addedtags="@xdoclet-generated at ${TODAY}"
+			ejbspec="2.0"
+		>
+			<fileset dir="${java_fuentes}">
+				<include name="**/*Bean.java"/>
+			</fileset>
+			<remoteinterface pattern="{0}"/>
+			<homeinterface />			
+			<localinterface pattern="{0}Local"/>
+			<localhomeinterface/>
+			<deploymentdescriptor destdir="${ejb-descriptores-}"/>
+			<jboss version="4.0" destdir="${ejb-descriptores-}"/>
+			<weblogic version="7.0"	destdir="${ejb-descriptores-}"	/>	
+			<jrun version="4.0" destdir="${ejb-descriptores-}"/>
+			<oc4j version="9.0.4.0.0" destdir="${ejb-descriptores-}"/>
+		</ejbdoclet>
+
+		<!-- GENERA EL .JAR QUE CONTIENE LAS INTERFACES DE LOS EJB'S Y LAS CLASES DEL SERVIDOR
+			 DE LOGICA DE NEGOCIO UTILIZADAS POR LOS COMPONENETES WEB-->		
+		<delete file="${out-files}/PortalInterfaces.jar" quiet="true"/>
+		<jar destfile="${out-files}/PortalInterfaces.jar" basedir="${out-compiledclasses}" update="true"
+			includes="com/rapidsist/portal/bitacora/datos/BitacoraSL.class,
+					com/rapidsist/portal/bitacora/datos/BitacoraSLHome.class,
+					com/rapidsist/portal/catalogos/CatalogoSL.class,
+					com/rapidsist/portal/catalogos/CatalogoSLHome.class,
+					com/rapidsist/portal/catalogos/ResultadoCatalogo.class,
+					com/rapidsist/portal/catalogos/LogicaNegocioException.class,
+					com/rapidsist/portal/configuracion/AplicacionUsuario.class,
+					com/rapidsist/portal/configuracion/Funcion.class,
+					com/rapidsist/portal/configuracion/Mensaje.class,
+					com/rapidsist/portal/configuracion/Pagina.class,
+					com/rapidsist/portal/configuracion/Perfil.class,
+					com/rapidsist/portal/configuracion/Permisos.class,
+					com/rapidsist/portal/configuracion/PortalSL.class,
+					com/rapidsist/portal/configuracion/PortalSLHome.class,
+					com/rapidsist/portal/configuracion/Usuario.class,				
+					com/rapidsist/publicaciones/datos/PublicacionSL.class,
+					com/rapidsist/publicaciones/datos/PublicacionSLHome.class,
+					"
+		/>
+	</target>
+</project>
