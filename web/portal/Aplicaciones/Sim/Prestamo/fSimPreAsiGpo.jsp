@@ -4,7 +4,7 @@
 	<Portal:PaginaNombre titulo="Grupos" subtitulo="Consulta de datos"/>
 	
 	<Portal:Forma tipo='busqueda' funcion='SimPrestamoAsignaGrupo' operacion='CT' filtro='Todos'>
-		<Portal:FormaElemento etiqueta='Clave del Grupo' control='Texto' controlnombre='IdGrupo' controllongitud='30' controllongitudmax='100' editarinicializado='true'/>
+		<Portal:FormaElemento etiqueta='Clave del Grupo' control='Texto' controlnombre='IdGrupo' controllongitud='5' controllongitudmax='10' editarinicializado='true' validadato='cantidades'/>
 		<Portal:FormaElemento etiqueta='Nombre del Grupo' control='Texto' controlnombre='NomGrupo' controllongitud='30' controllongitudmax='100' editarinicializado='true'/>
 	</Portal:Forma>
 	

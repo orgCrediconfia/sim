@@ -591,29 +591,16 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 				ps16.execute();
 				ResultSet rs16 = ps16.getResultSet();
 			}
+			//Obtiene la cuenta vista (id_cuenta_referencia).
+			sSql = "SELECT SQ01_PFIN_CUENTA.nextval AS ID_CUENTA FROM DUAL";
 			
-			sSql =  "SELECT \n"+
-				"CVE_GPO_EMPRESA, \n"+
-				"CVE_EMPRESA, \n"+
-				"ID_CUENTA \n"+
-				"FROM \n"+
-				"PFIN_CUENTA \n"+
-				"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND ID_TITULAR = '" + (String)registro.getDefCampo("ID_CLIENTE") + "' \n"+
-				"AND CVE_TIP_CUENTA = 'VISTA' \n";
-				
-			ejecutaSql();
-			if (!rs.next()){
-				sSql = "SELECT SQ01_PFIN_CUENTA.nextval AS ID_CUENTA FROM DUAL";
-				System.out.println("SQ01_PFIN_CUENTA.nextval");
-				PreparedStatement ps17 = this.conn.prepareStatement(sSql);
-				ps17.execute();
-				ResultSet rs17 = ps17.getResultSet();	
-				if (rs17.next()){
-					registro.addDefCampo("ID_CUENTA",rs17.getString("ID_CUENTA"));
-					
-					sSql = "INSERT INTO PFIN_CUENTA ( \n"+
+			PreparedStatement ps17 = this.conn.prepareStatement(sSql);
+			ps17.execute();
+			ResultSet rs17 = ps17.getResultSet();	
+			if (rs17.next()){
+				registro.addDefCampo("ID_CUENTA",rs17.getString("ID_CUENTA"));
+				//A) Agrega la cuenta vista (id_cuenta_referencia) al integrante en la tabla PFIN_CUENTA.
+				sSql = "INSERT INTO PFIN_CUENTA ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
 						"ID_CUENTA, \n" +
@@ -630,37 +617,22 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 						"'V', \n" +
 						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
 					
-					PreparedStatement ps18 = this.conn.prepareStatement(sSql);
-					ps18.execute();
-					ResultSet rs18 = ps18.getResultSet();
-					
-					sSql =  " UPDATE SIM_PRESTAMO SET "+
+				PreparedStatement ps18 = this.conn.prepareStatement(sSql);
+				ps18.execute();
+				ResultSet rs18 = ps18.getResultSet();
+				//B) Agrega la cuenta vista (id_cuenta_referencia) al credito en la tabla SIM_PRESTAMO.
+				sSql =  " UPDATE SIM_PRESTAMO SET "+
 						" ID_CUENTA_REFERENCIA		='" + (String)registro.getDefCampo("ID_CUENTA") + "' \n"+
 						" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
 						" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 						" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
 					
-					//VERIFICA SI DIO DE ALTA EL REGISTRO
-					PreparedStatement ps19 = this.conn.prepareStatement(sSql);
-					ps19.execute();
-					ResultSet rs19 = ps19.getResultSet();
-				}
-			}else{
-				registro.addDefCampo("ID_CUENTA",rs.getString("ID_CUENTA")== null ? "": rs.getString("ID_CUENTA"));
-				
-				sSql =  " UPDATE SIM_PRESTAMO SET "+
-						" ID_CUENTA_REFERENCIA 		='" + (String)registro.getDefCampo("ID_CUENTA") + "' \n"+
-						" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
-						" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-						" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-			
-					//VERIFICA SI DIO DE ALTA EL REGISTRO
-					PreparedStatement ps25 = this.conn.prepareStatement(sSql);
-					ps25.execute();
-					ResultSet rs25 = ps25.getResultSet();
-			
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				PreparedStatement ps19 = this.conn.prepareStatement(sSql);
+				ps19.execute();
+				ResultSet rs19 = ps19.getResultSet();
 			}
-			
+			//Obtiene la cuenta crédito (id_cuenta).
 			sSql = "SELECT SQ01_PFIN_CUENTA.nextval AS ID_CUENTA FROM DUAL";
 				
 			PreparedStatement ps20 = this.conn.prepareStatement(sSql);
@@ -668,7 +640,7 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 			ResultSet rs20 = ps20.getResultSet();	
 			if (rs20.next()){
 				registro.addDefCampo("ID_CUENTA",rs20.getString("ID_CUENTA"));
-				
+				//A) Agrega la cuenta crédito (id_cuenta) al integrante en la tabla PFIN_CUENTA.
 				sSql = "INSERT INTO PFIN_CUENTA ( \n"+
 					"CVE_GPO_EMPRESA, \n" +
 					"CVE_EMPRESA, \n" +
@@ -689,7 +661,7 @@ public class SimPrestamoProductoCicloDAO extends Conexion2 implements OperacionA
 				PreparedStatement ps21 = this.conn.prepareStatement(sSql);
 				ps21.execute();
 				ResultSet rs21 = ps21.getResultSet();
-				
+				//B) Agrega la cuenta crédito (id_cuenta) al credito en la tabla SIM_PRESTAMO.
 				sSql =  " UPDATE SIM_PRESTAMO SET "+
 					" ID_CUENTA			='" + (String)registro.getDefCampo("ID_CUENTA") + "' \n"+
 					" WHERE ID_PRESTAMO		='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +

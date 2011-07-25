@@ -52,6 +52,12 @@
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "TRABAN"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaTranspasoBanco&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
 				document.frmRegistro.submit();
+			}else if (document.frmRegistro.CveMovimientoCaja.value == "INGCAJDES"){
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaIngresoCajaDesembolsar&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.submit();
+			}else if (document.frmRegistro.CveMovimientoCaja.value == "SALCAJDES"){
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaSalidaCajaDesembolso&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.submit();
 			}
 		}
 	</script>

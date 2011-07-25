@@ -54,6 +54,7 @@ public class SimPrestamoCargoComisionClienteDAO extends Conexion2 implements Ope
 			" WHERE CC.CVE_GPO_EMPRESA ='" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 			" AND CC.CVE_EMPRESA ='" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
 			" AND CC.ID_PRESTAMO ='" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
+			" AND CC.ID_FORMA_APLICACION IS NOT NULL \n"+
 			" AND A.CVE_GPO_EMPRESA = CC.CVE_GPO_EMPRESA \n" +
 			" AND A.CVE_EMPRESA = CC.CVE_EMPRESA \n"+
 			" AND A.ID_ACCESORIO = CC.ID_CARGO_COMISION \n";

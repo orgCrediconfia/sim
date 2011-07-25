@@ -71,7 +71,7 @@ public class SimProductoCargoComisionDAO extends Conexion2 implements OperacionC
 			" AND P.CVE_GPO_EMPRESA (+)= PC.CVE_GPO_EMPRESA \n"+
 			" AND P.CVE_EMPRESA (+)= PC.CVE_EMPRESA \n"+
 			" AND P.ID_PERIODICIDAD (+)= PC.ID_PERIODICIDAD \n";
-			
+		
 		ejecutaSql();
 		return getConsultaLista();
 	}

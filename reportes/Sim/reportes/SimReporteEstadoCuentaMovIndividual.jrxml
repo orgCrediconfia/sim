@@ -56,7 +56,7 @@ Case
 end as interes,
 
 Case
-      When M.ID_ACCESORIO IN (select id_accesorio from sim_cat_accesorio where cve_tipo_accesorio = 'CARGO_COMISION') 
+      When M.ID_ACCESORIO IN (select id_accesorio from sim_cat_accesorio where cve_tipo_accesorio = 'CARGO_COMISION' and id_accesorio != '13') 
         Then M.Imp_Concepto
 end as Accesorios,
 Case

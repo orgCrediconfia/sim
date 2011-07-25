@@ -23,7 +23,7 @@ import com.rapidsist.portal.configuracion.Usuario;
  * Esta clase es llamada por el servlet ProcesaReporteS.
  */
 
-public class SimCajaPagoGrupalREP implements ReporteControlIN {
+public class SimCajaSalidaCajaDesembolsoREP implements ReporteControlIN {
 
 	public Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet)  throws Exception{
 		Map parametros = new HashMap();
@@ -38,55 +38,55 @@ public class SimCajaPagoGrupalREP implements ReporteControlIN {
 						"T.CVE_GPO_EMPRESA, \n"+
 						"T.CVE_EMPRESA, \n"+
 						"T.ID_TRANSACCION, \n"+
-						"T.ID_GRUPO, \n"+
-						"G.NOM_GRUPO, \n"+
-						"T.NUM_CICLO, \n"+ 
-						"T.ID_PRESTAMO, \n"+
-						"'$'||''||TO_CHAR(" + request.getParameter("Importe")+",'999,999,999.00') IMPORTE, \n"+
-						"CANTIDADES_LETRAS(" + request.getParameter("Importe")+") PAGO_LETRAS, \n"+
-						"B.NOM_COMPLETO, \n"+
-						"NVL(P.FECHA_ENTREGA,P.FECHA_REAL) FECHA, \n"+
+						"-T.MONTO MONTO, \n"+
+						"T.CVE_USUARIO_CAJERO, \n"+ 
+						"T.USUARIO_RECIBE,  \n"+
+						"I.NOM_COMPLETO INTEGRANTE_RECIBE, \n"+ 
+						"T.FECHA_TRANSACCION FECHA, \n"+ 
+						"PC.NOM_COMPLETO NOM_USUARIO_CAJERO, \n"+
+						"CANTIDADES_LETRAS(MONTO) MONTO_LETRAS, \n"+
 						"T.ID_SUCURSAL, \n"+
 						"A.NOM_SUCURSAL, \n"+
-						"T.ID_CAJA, \n"+
-						"D.CALLE||' '||D.NUMERO_INT||' '||'COL.'||' '||D.NOM_ASENTAMIENTO||' '||'C.P.'||' '||D.CODIGO_POSTAL||','||' '||D.NOM_DELEGACION||','||' '||D.NOM_ESTADO DOMICILIO \n"+
+						"T.ID_CAJA \n"+
 						"FROM SIM_CAJA_TRANSACCION T, \n"+
-						"SIM_PRESTAMO P, \n"+
 						"SIM_SUCURSAL_CAJA S, \n"+
-						"RS_GRAL_PERSONA B, \n"+
-						"SIM_CAT_SUCURSAL A, \n"+
-						"RS_GRAL_DOMICILIO D, \n"+
-						"SIM_GRUPO G \n"+
+						"RS_GRAL_USUARIO UC, \n"+
+			            "RS_GRAL_PERSONA PC,  \n"+
+			            "RS_GRAL_PERSONA I,  \n"+
+						"SIM_CAT_SUCURSAL A \n"+
 						"WHERE T.CVE_GPO_EMPRESA = 'SIM' \n"+
 						"AND T.CVE_EMPRESA = 'CREDICONFIA' \n"+
-						"AND T.ID_TRANSACCION = '" + request.getParameter("IdTransaccion")+"' \n"+
-						"AND T.CVE_MOVIMIENTO_CAJA = 'PAGOGPO' \n"+
-						"AND S.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+
+						"AND T.ID_TRANSACCION = '" + request.getParameter("IdTransaccion")+"' \n"+ 
+						"AND T.CVE_MOVIMIENTO_CAJA = 'SALCAJDES' \n"+
+						"AND S.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+ 
 						"AND S.CVE_EMPRESA = T.CVE_EMPRESA \n"+
 						"AND S.ID_SUCURSAL = T.ID_SUCURSAL \n"+
 						"AND S.ID_SUCURSAL||'-'||S.ID_CAJA = '" + request.getParameter("IdCaja")+"' \n"+
-						"AND P.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
-						"AND P.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
-						"AND P.ID_PRESTAMO (+)= T.ID_PRESTAMO \n"+
-						"AND B.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
-						"AND B.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
-						"AND B.ID_PERSONA (+)= T.ID_CLIENTE \n"+
-						"AND A.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+
+						"AND UC.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+ 
+						"AND UC.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
+						"AND UC.CVE_USUARIO (+)= T.CVE_USUARIO_CAJERO \n"+ 
+			            "AND PC.CVE_GPO_EMPRESA (+)= UC.CVE_GPO_EMPRESA \n"+
+						"AND PC.CVE_EMPRESA (+)= UC.CVE_EMPRESA \n"+
+						"AND PC.ID_PERSONA (+)= UC.ID_PERSONA \n"+
+						"AND I.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
+						"AND I.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
+						"AND I.ID_PERSONA (+)= T.USUARIO_RECIBE \n"+
+						"AND A.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+ 
 						"AND A.CVE_EMPRESA = T.CVE_EMPRESA \n"+
-						"AND A.ID_SUCURSAL = T.ID_SUCURSAL \n"+
-						"AND D.CVE_GPO_EMPRESA (+)= A.CVE_GPO_EMPRESA \n"+
-						"AND D.CVE_EMPRESA (+)= A.CVE_EMPRESA \n"+
-						"AND D.ID_DOMICILIO (+)= A.ID_DIRECCION \n"+
-						"AND G.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA \n"+
-						"AND G.CVE_EMPRESA (+)= T.CVE_EMPRESA \n"+
-						"AND G.ID_GRUPO (+)= T.ID_GRUPO \n";
-
-		String sReimpresion = request.getParameter("Reimpresion");
+						"AND A.ID_SUCURSAL = T.ID_SUCURSAL \n";
 		
+		System.out.println("REPORTE DE SALIDA POR DESEMBOLSO DE CAJA"+sSql);
+					
+		String sReimpresion = request.getParameter("Reimpresion");
+		                
 		parametros.put("Sql", sSql);
+		
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
+		
 		parametros.put("FechaReporte", Fecha2.formatoTiempo24(new Date()));
-		parametros.put("NomReporte", "/Reportes/Sim/caja/SimCajaPagoGrupal.jasper");
+		
+		parametros.put("NomReporte", "/Reportes/Sim/caja/SimCajaSalidaCajaDesembolso.jasper");
+		
 		parametros.put("Reimpresion", sReimpresion);
 		return parametros;		
 	}

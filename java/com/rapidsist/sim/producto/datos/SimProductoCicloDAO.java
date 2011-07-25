@@ -222,7 +222,6 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 				"ID_PERIODICIDAD_TASA_RECARGO, \n" +
 				"TASA_RECARGO, \n"+
 				"ID_TASA_REFERENCIA_RECARGO, \n" +
-				
 				"FACTOR_TASA_RECARGO, \n"+
 				"MONTO_FIJO_PERIODO ) \n" +
 				"VALUES ( \n"+
@@ -243,7 +242,6 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 				"'" + (String)registro.getDefCampo("ID_PERIODICIDAD_TASA_RECARGO") + "', \n" +
 				"'" + (String)registro.getDefCampo("TASA_RECARGO") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_TASA_REFERENCIA_RECARGO") + "', \n" +
-				
 				"'" + (String)registro.getDefCampo("FACTOR_TASA_RECARGO") + "', \n" +
 				"'" + (String)registro.getDefCampo("MONTO_FIJO_PERIODO") + "') \n";
 		} else {
@@ -267,7 +265,6 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 				"ID_PERIODICIDAD_TASA_RECARGO, \n" +
 				"TASA_RECARGO, \n"+
 				"ID_TASA_REFERENCIA_RECARGO, \n" +
-				
 				"FACTOR_TASA_RECARGO, \n"+
 				"MONTO_FIJO_PERIODO ) \n" +
 				"VALUES ( \n"+
@@ -297,6 +294,7 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
 		
+		//Da de alta el recargo en la tabla SIM_PRODUCTO_CICLO_ACCESORIO para poderle asignar el orden del accesorio.
 		sSql =  "INSERT INTO SIM_PRODUCTO_CICLO_ACCESORIO ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
@@ -315,6 +313,7 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
 		
+		//Da de alta el accesorio INTERES en la tabla SIM_PRODUCTO_CICLO_ACCESORIO para poderle asignar el orden del accesorio.
 		sSql =  "INSERT INTO SIM_PRODUCTO_CICLO_ACCESORIO ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
@@ -333,6 +332,7 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
 		
+		//Da de alta el accesorio I.V.A. en la tabla SIM_PRODUCTO_CICLO_ACCESORIO para poderle asignar el orden del accesorio.
 		sSql =  "INSERT INTO SIM_PRODUCTO_CICLO_ACCESORIO ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
@@ -351,6 +351,7 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
 		
+		//Da de alta el accesorio GESTIÓN DE COBRANZA en la tabla SIM_PRODUCTO_CICLO_ACCESORIO para poderle asignar el orden del accesorio.
 		sSql =  "INSERT INTO SIM_PRODUCTO_CICLO_ACCESORIO ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
@@ -369,6 +370,19 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
 		
+		//Da de alta el accesorio GESTION DE COBRANZA en SIM_PRODUCTO_CARGO_COMISION para que se lleve la foto del producto al dar de alta un préstamo.
+		sSql =  "INSERT INTO SIM_PRODUCTO_CARGO_COMISION ( \n"+
+				"	CVE_GPO_EMPRESA, \n" +
+				"	CVE_EMPRESA, \n" +
+				"	ID_CARGO_COMISION, \n"+
+				"	ID_PRODUCTO) \n"+
+				"VALUES ( \n"+
+				"'SIM', \n" +
+				"'CREDICONFIA', \n" +
+				"'13', \n" +
+				"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "') \n" ;
+		
+		//Da de alta los cargos y comisiones en la tabla SIM_PRODUCTO_CICLO_ACCESORIO para poderle asignar el orden de accesorio.
 		sSql =  "SELECT  \n"+
 				"C.CVE_GPO_EMPRESA, \n"+
 				"C.CVE_EMPRESA, \n"+
@@ -384,8 +398,6 @@ public class SimProductoCicloDAO extends Conexion2 implements OperacionConsultaT
 			"AND A.CVE_EMPRESA = C.CVE_EMPRESA \n"+
 			"AND A.ID_ACCESORIO = C.ID_CARGO_COMISION \n"+
 			"AND A.B_ACCESORIO = 'V' \n";
-			
-		
 		ejecutaSql();		
 		while (rs.next()){
 			

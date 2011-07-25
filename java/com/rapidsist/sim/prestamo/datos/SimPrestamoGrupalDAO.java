@@ -258,7 +258,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 				   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 				   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" ;
-			System.out.println("Verificamos si existen los fundadores del grupo");
+			System.out.println("a.Verificamos si existen los fundadores del grupo");
 			ejecutaSql();
 			if (rs.next()){
 				//Preguntamos por el par�metro % m�nimo de fundadores del grupo.
@@ -282,7 +282,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 					   "AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
 					   "AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
 					   "))) \n" ;
-				System.out.println("Preguntamos por el par�metro % m�nimo de fundadores del grupo.");
+				System.out.println("b*********************.Preguntamos por el par�metro % m�nimo de fundadores del grupo.");
 				ejecutaSql();
 				if (rs.next()){
 					sMinIntFundadores = rs.getString("MIN_INT_FUNDADORES");

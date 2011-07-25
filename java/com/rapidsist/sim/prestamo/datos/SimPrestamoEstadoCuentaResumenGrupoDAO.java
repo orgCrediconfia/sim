@@ -42,8 +42,8 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 		if (parametros.getDefCampo("CONSULTA").equals("RESUMEN")){
 			sSql =	 "SELECT \n"+	
 			"A.cve_concepto, \n"+
-			"sum(imp_neto) SALDO, \n"+ 
-			"sum(imp_original) + sum(imp_extraordinario) IMPORTE, \n"+ 
+			"sum(nvl(imp_neto,0)) SALDO, \n"+ 
+			"sum(nvl(imp_original,0)) + sum(imp_extraordinario) IMPORTE, \n"+ 
 			"sum(imp_pagado) PAGADO, \n"+
 			"'Total De ' || INITCAP(B.DESC_CORTA) DESCRIPCION \n"+
 			"FROM \n"+
@@ -59,7 +59,7 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 			"AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
 			"AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
 			"AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
-			"AND (A.IMP_ORIGINAL + A.IMP_EXTRAORDINARIO) <> 0 \n"+
+			"AND (NVL(A.IMP_ORIGINAL,0) + A.IMP_EXTRAORDINARIO) <> 0 \n"+
 			"GROUP BY A.cve_concepto, 'Total De ' || INITCAP(B.DESC_CORTA) \n"+
 			"Order by cve_concepto \n";
 			
@@ -71,8 +71,8 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 					"  TO_CHAR(SUM(PAGADO),'999,999,999.99') PAGO_TOTAL \n"+
 					"FROM ( \n"+
 					"  SELECT  \n"+
-					"    sum(imp_neto) SALDO, \n"+
-					"    sum(imp_original) + sum(imp_extraordinario) IMPORTE, \n"+ 
+					"    sum(nvl(imp_neto,0)) SALDO, \n"+
+					"    sum(nvl(imp_original,0)) + sum(imp_extraordinario) IMPORTE, \n"+ 
 					"    sum(imp_pagado) PAGADO \n"+
 					"  FROM  \n"+
 					"  SIM_PRESTAMO_GPO_DET G, \n"+
@@ -87,7 +87,7 @@ public class SimPrestamoEstadoCuentaResumenGrupoDAO extends Conexion2 implements
 					 "AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
 					 "AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
 					 "AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
-					 "AND (A.IMP_ORIGINAL + A.IMP_EXTRAORDINARIO) <> 0 \n"+
+					 "AND (NVL(A.IMP_ORIGINAL,0) + A.IMP_EXTRAORDINARIO) <> 0 \n"+
 					") \n";
 			
 		}
