@@ -99,30 +99,29 @@ public class SimPrestamoEstadoCuentaGrupoDAO extends Conexion2 implements Operac
 					"VR.F_APLICACION, \n"+
 					"VR.NUM_PAGO_AMORTIZACION, \n"+
 					"VR.F_OPERACION FECHA_OPERACION, \n"+
-					"VR.ID_MOVIMIENTO, \n"+
 					"VG.FECHA_AMORTIZACION, \n"+
 					"VR.DESC_MOVIMIENTO DESCRIPCION, \n"+
 					"TO_CHAR(SUM(NVL(ROUND(VR.IMP_PAGO,2),0)),'999,999,999.99') IMPORTE, \n"+
-		         	"TO_CHAR(SUM(NVL(ROUND(VR.IMP_CONCEPTO,2),0)),'999,999,999.99') IMP_DESGLOSE, \n"+
-		         	"SUM(NVL(ROUND(VR.IMP_CONCEPTO,2),0)) \n"+
-		    		"FROM V_MOV_EDO_CTA_GPO VR, \n"+
-		    		"V_TABLA_AMORTIZACION_GRUPAL VG \n"+
-		   			"WHERE VR.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
+					"TO_CHAR(SUM(NVL(ROUND(VR.IMP_CONCEPTO,2),0)),'999,999,999.99') IMP_DESGLOSE \n"+
+					"FROM V_MOV_EDO_CTA_GPO VR, \n"+
+					"V_TABLA_AMORTIZACION_GRUPAL VG \n"+
+					"WHERE VR.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' AND \n"+
 		         	"VR.CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "'  AND \n"+
 		         	"VR.ID_PRESTAMO     = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-		            "AND VR.F_OPERACION <= (SELECT  F_MEDIO \n"+ 
-					"                    FROM    PFIN_PARAMETRO \n"+ 
-					"                    WHERE   CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					"                    AND CVE_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+ 
+					"AND VR.F_OPERACION <= (SELECT  F_MEDIO \n"+
+					"                    FROM    PFIN_PARAMETRO \n"+
+					"                    WHERE   CVE_GPO_EMPRESA = 'SIM' \n"+
+					"                    AND CVE_EMPRESA     = 'CREDICONFIA' \n"+
 					"                    AND CVE_MEDIO       = 'SYSTEM') \n"+
-					"AND VR.NUM_PAGO_AMORTIZACION != 0 \n"+
-					//"AND DESC_MOVIMIENTO != ' ' \n"+
+					"AND VR.NUM_PAGO_AMORTIZACION != 0  \n"+
 					"AND VG.CVE_GPO_EMPRESA = VR.CVE_GPO_EMPRESA \n"+
 					"AND VG.CVE_EMPRESA = VR.CVE_EMPRESA \n"+
 					"AND VG.ID_PRESTAMO_GRUPO = VR.ID_PRESTAMO \n"+
 					"AND VG.NUM_PAGO_AMORTIZACION = VR.NUM_PAGO_AMORTIZACION \n"+
-					"GROUP BY VR.CVE_GPO_EMPRESA, VR.CVE_EMPRESA, VR.ID_PRESTAMO, VR.F_APLICACION, VR.NUM_PAGO_AMORTIZACION, VR.F_OPERACION, VR.ID_MOVIMIENTO, VG.FECHA_AMORTIZACION, VR.DESC_MOVIMIENTO, NVL(ROUND(VR.IMP_PAGO,2),0) \n"+ 
-					"ORDER BY VR.F_OPERACION, VG.FECHA_AMORTIZACION, VR.ID_MOVIMIENTO, VR.NUM_PAGO_AMORTIZACION, ABS(NVL(ROUND(VR.IMP_PAGO,2),0)) DESC, SUM(NVL(ROUND(VR.IMP_CONCEPTO,2),0)) \n";
+					"GROUP BY VR.CVE_GPO_EMPRESA, VR.CVE_EMPRESA, VR.ID_PRESTAMO, VR.F_APLICACION, VR.NUM_PAGO_AMORTIZACION, VR.F_OPERACION, VG.FECHA_AMORTIZACION, VR.DESC_MOVIMIENTO \n"+
+					"ORDER BY VR.F_OPERACION, VG.FECHA_AMORTIZACION, VR.NUM_PAGO_AMORTIZACION, ABS(SUM(NVL(ROUND(VR.IMP_PAGO,2),0))) DESC, SUM(NVL(ROUND(VR.IMP_CONCEPTO,2),0)) \n";
+
+			System.out.println("movmientos grupales"+sSql);
 			
 		}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_FECHA")){	
 		 
