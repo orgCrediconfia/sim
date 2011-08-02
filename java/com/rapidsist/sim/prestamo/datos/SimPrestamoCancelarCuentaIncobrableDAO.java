@@ -88,7 +88,7 @@ public class SimPrestamoCancelarCuentaIncobrableDAO extends Conexion2 implements
 		if(registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")){
 			
 			sSql = "SELECT \n"+
-				   "ID_MOVIMIENTO \n"+
+				   "MAX(ID_MOVIMIENTO) ID_MOVIMIENTO \n"+
 				   "FROM \n"+
 				   "PFIN_MOVIMIENTO \n"+
 				   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -117,7 +117,7 @@ public class SimPrestamoCancelarCuentaIncobrableDAO extends Conexion2 implements
 			
 			System.out.println("sTxRespuesta:"+sTxRespuesta);
 			
-			if (sTxRespuesta == null){
+			if (sTxRespuesta.equals("Movimiento aplicado con exito")){
 				sSql = " UPDATE SIM_PRESTAMO SET "+
 						" ID_ETAPA_PRESTAMO ='7' \n" +
 						" WHERE ID_PRESTAMO ='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
@@ -147,7 +147,7 @@ public class SimPrestamoCancelarCuentaIncobrableDAO extends Conexion2 implements
 			}
 			
 			sSql = "SELECT \n"+
-				   "ID_MOVIMIENTO \n"+
+				   "MAX(ID_MOVIMIENTO) ID_MOVIMIENTO \n"+
 				   "FROM \n"+
 				   "PFIN_MOVIMIENTO \n"+
 				   "WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -176,7 +176,7 @@ public class SimPrestamoCancelarCuentaIncobrableDAO extends Conexion2 implements
 			
 			System.out.println("sTxRespuesta:"+sTxRespuesta);
 			
-			if (sTxRespuesta == null){
+			if (sTxRespuesta.equals("Movimiento aplicado con exito")){
 				
 				//Acutaliza el estado de cuenta del prestamo en la tabla SIM_PRESTAMO_GPO_DET
 				sSql = " UPDATE SIM_PRESTAMO_GPO_DET SET "+
