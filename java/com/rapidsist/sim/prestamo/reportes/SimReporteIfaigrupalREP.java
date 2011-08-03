@@ -30,16 +30,11 @@ public class SimReporteIfaigrupalREP implements ReporteControlIN {
 			throws Exception {
 		Map parametros = new HashMap();
 
-		String sIdPrestamo = request.getParameter("IdPrestamo");
-		System.out.println("Id Prestamo:" + sIdPrestamo);
-
-		parametrosCatalogo.addDefCampo("ID_PRESTAMO", sIdPrestamo);
-
 		String sSql = "SELECT\n"
 				+ "TO_CHAR(SYSDATE, 'DD') ||' de '|| RTRIM(TO_CHAR(SYSDATE, 'MONTH')) ||' del '||TO_CHAR(SYSDATE, 'YYYY') FECHA_HOY,\n"
 				+ "P.NOM_COMPLETO\n" + "FROM\n" + "SIM_PRESTAMO_GPO_DET G,\n"
 				+ "RS_GRAL_PERSONA P\n" + "WHERE G.ID_PRESTAMO_GRUPO = '"
-				+ request.getParameter("IdPrestamo") + "'\n"
+				+ request.getParameter("IdPrestamoGrupo") + "'\n"
 				+ "AND P.CVE_GPO_EMPRESA =  G.CVE_GPO_EMPRESA\n"
 				+ "AND P.CVE_EMPRESA =  G.CVE_EMPRESA\n"
 				+ "AND P.ID_PERSONA =  G.ID_INTEGRANTE\n";
@@ -52,7 +47,7 @@ public class SimReporteIfaigrupalREP implements ReporteControlIN {
 		parametros.put("FechaReporte", Fecha2
 				.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte",
-				"/Reportes/Sim/prestamo/SimReporteIfaigrupal.jasper");
+				"/Reportes/Sim/prestamo/Consentimiento_IFAI_Grupo.jasper");
 		return parametros;
 
 	}
