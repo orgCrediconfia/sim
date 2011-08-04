@@ -86,9 +86,9 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOMBRE}+ ", con fundamento en el artículo 8 de la ley Federal de Datos Personales Múltiple, Entidad No Regulada, mis datos personales a efecto de que sean tratados conforme a lo consignado en el aviso de privacidad que fue puesto a mi dispocición.\n" +
 
-"\nAsimismo, con fundamentos en el segundo párrafo del artículo 35 del ordenamiento señalado, aceptó la transferencia de mis datos personales a los terceros que resulten necesarios conforme el numeral V del aviso de privacidad.\n" +
+"\nAsimismo, con fundamento en el segundo párrafo del artículo 35 del ordenamiento señalado, aceptó la transferencia de mis datos personales a los terceros que resulten necesarios conforme el numeral V del aviso de privacidad.\n" +
 
-"\nFinalmente manifiesto que ninguno de los datos personales que en este acto consiento sean tratados, los considero como datos que me pudieren afectar en aspectos íntimo o que puedan dar lugar a que se me discrimine."]]></textFieldExpression>
+"\nFinalmente manifiesto que ninguno de los datos personales que en este acto consiento sean tratados, los considero como datos que me pudieren afectar en aspectos íntimos o que puedan dar lugar a que se me discrimine."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
