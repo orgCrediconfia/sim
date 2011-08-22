@@ -30,14 +30,16 @@ public class SimPrestamoSaldoCuentaDAO extends Conexion2 implements OperacionCon
 		if (parametros.getDefCampo("CONSULTA").equals("SALDO_INDIVIDUAL")) {
 
 			sSql =  "SELECT \n"+
-					"TO_CHAR(sdo_efectivo,'999,999,999.99') SALDO_CUENTA \n"+
-					"from pfin_saldo \n"+
-					"where id_cuenta = \n"+
-					"(select id_cuenta_referencia \n"+
-					"from sim_prestamo \n"+
-					"WHERE CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-					"AND CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "') \n";
+			"p.id_prestamo, TO_CHAR(s.sdo_efectivo,'999,999,999.99') SALDO_CUENTA \n"+
+			"from  \n"+
+			"sim_prestamo p, \n"+
+			"pfin_saldo s \n"+
+			"where s.cve_gpo_empresa = p.cve_gpo_empresa \n"+
+			"and s.cve_empresa = p.cve_empresa \n"+
+			"and s.id_cuenta = p.id_cuenta_referencia \n"+
+			"and p.id_prestamo = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+			
+			System.out.println("saldo de la cuenta individual¨****************************************"+sSql);
 				
 		}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_GRUPAL")) {
 			sSql =  "SELECT \n"+
@@ -52,6 +54,8 @@ public class SimPrestamoSaldoCuentaDAO extends Conexion2 implements OperacionCon
 					"and s.cve_gpo_empresa = p.cve_gpo_empresa \n"+
 					"and s.cve_empresa = p.cve_empresa \n"+
 					"and s.id_cuenta = p.id_cuenta_referencia group by pg.id_prestamo_grupo \n";
+			
+			System.out.println("saldo de la cuenta grupal¨****************************************"+sSql);
 			
 		}
 		ejecutaSql();

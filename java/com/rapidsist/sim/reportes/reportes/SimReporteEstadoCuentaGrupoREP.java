@@ -87,7 +87,8 @@ public class SimReporteEstadoCuentaGrupoREP implements ReporteControlIN {
 		"    THEN 0 \n"+
 		"    ELSE AE.IMP_SALDO_HOY \n"+
 		"  END As SALDO_VENCIDO, \n"+
-		"AF.PAGOS \n"+
+		"AF.PAGOS, \n"+
+		"NVL(AG.SALDO_CUENTA,0) SALDO_CUENTA \n"+
 		  "From V_CREDITO C, \n"+
 		"PFIN_PARAMETRO P, \n"+
 		 " (SELECT CVE_GPO_EMPRESA, \n"+
@@ -152,7 +153,20 @@ public class SimReporteEstadoCuentaGrupoREP implements ReporteControlIN {
 		  "	FROM V_TABLA_AMORTIZACION_GRUPAL \n"+
 		  "	WHERE FECHA_AMORTIZACION <= (SELECT F_MEDIO FROM PFIN_PARAMETRO WHERE CVE_GPO_EMPRESA = 'SIM' AND CVE_EMPRESA = 'CREDICONFIA') \n"+
 		  "	GROUP BY CVE_GPO_EMPRESA, CVE_EMPRESA, ID_PRESTAMO_GRUPO \n"+
-		  "	ORDER BY ID_PRESTAMO_GRUPO) AF \n"+
+		  "	ORDER BY ID_PRESTAMO_GRUPO) AF, \n"+
+		  "(SELECT \n"+
+		  "			 PG.CVE_GPO_EMPRESA, \n"+
+	      "   PG.CVE_EMPRESA, \n"+
+	      "   PG.ID_PRESTAMO_GRUPO, TO_CHAR(sum(s.sdo_efectivo),'999,999,999.99') SALDO_CUENTA  \n"+
+		  "				from sim_prestamo_gpo_det pg,  \n"+
+		  "				sim_prestamo p, \n"+
+		  "				pfin_saldo s \n"+
+		  "				where pg.cve_gpo_empresa =  p.cve_gpo_empresa \n"+
+		  "				and pg.cve_empresa =  p.cve_empresa  \n"+
+		  "				and pg.id_prestamo = p.id_prestamo \n"+
+		  "				and s.cve_gpo_empresa = p.cve_gpo_empresa \n"+
+		  "				and s.cve_empresa = p.cve_empresa \n"+
+		  "				and s.id_cuenta = p.id_cuenta_referencia GROUP BY PG.CVE_GPO_EMPRESA, PG.CVE_EMPRESA, PG.ID_PRESTAMO_GRUPO)AG \n"+
 		  "Where  Aplica_A = 'GRUPO' \n"+
 		  "AND P.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
 		  "AND P.CVE_EMPRESA = P.CVE_EMPRESA \n"+
@@ -173,7 +187,10 @@ public class SimReporteEstadoCuentaGrupoREP implements ReporteControlIN {
 		  "And AE.Id_Prestamo (+)       = C.Id_Prestamo \n"+
 		  "AND AF.CVE_GPO_EMPRESA (+)   = C.CVE_GPO_EMPRESA \n"+
 		  "And AF.Cve_Empresa (+)       = C.Cve_Empresa \n"+
-		  "And AF.ID_PRESTAMO_GRUPO (+) = C.Id_Prestamo \n";
+		  "And AF.ID_PRESTAMO_GRUPO (+) = C.Id_Prestamo \n"+
+		  "AND AG.CVE_GPO_EMPRESA (+)   = C.CVE_GPO_EMPRESA \n"+
+		  "And AG.Cve_Empresa (+)       = C.Cve_Empresa \n"+
+		  "And AG.ID_PRESTAMO_GRUPO (+) = C.Id_Prestamo \n";
 	 
 		
 		if (!sCvePrestamo.equals("")){

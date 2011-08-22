@@ -27,6 +27,7 @@
 	<parameter name="Subreporte1" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="Subreporte2" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="PathLogotipo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte3" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="MONTO_PRESTADO" class="java.lang.Float"/>
@@ -56,6 +57,7 @@
 	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
 	<field name="TASA_ANUAL" class="java.lang.Float"/>
 	<field name="PAGOS" class="java.lang.String"/>
+	<field name="SALDO_CUENTA" class="java.lang.Float"/>
 
 	<variable name="SumImportePrestado" class="java.lang.Float" resetType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$F{MONTO_PRESTADO}]]></variableExpression>
@@ -847,11 +849,11 @@ Le recomendamos realizar su pago puntual para evitar generar recargos.]]></text>
 			</band>
 		</lastPageFooter>
 		<summary>
-			<band height="55"  isSplitAllowed="true" >
+			<band height="65"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="5"
+						y="15"
 						width="790"
 						height="50"
 						key="subreport-2"/>
@@ -861,6 +863,32 @@ Le recomendamos realizar su pago puntual para evitar generar recargos.]]></text>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
 				</subreport>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="681"
+						y="0"
+						width="87"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{SALDO_CUENTA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="13"
+						y="0"
+						width="443"
+						height="15"
+						key="staticText-36"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Saldo de la cuenta del cliente]]></text>
+				</staticText>
 			</band>
 		</summary>
 </jasperReport>
