@@ -87,6 +87,8 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 					registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
 					registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
 					registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
+					parametros.addDefCampo("CONSULTA","SALDO_INDIVIDUAL");
+					registroControl.respuesta.addDefCampo("registroSaldoCuenta", catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros));
 					registroControl.respuesta.addDefCampo("registroFechaPago", catalogoSL.getRegistro("SimPrestamoConsultaFechaPrimerPago", parametros));
 					registroControl.respuesta.addDefCampo("registroMontoAutorizado", catalogoSL.getRegistro("SimPrestamoMontoCliente", parametros));
 					parametros.addDefCampo("CONSULTA","MOVIMIENTOS");
@@ -113,6 +115,8 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 						registroControl.respuesta.addDefCampo("ListaAccesorios", catalogoSL.getRegistros("SimPrestamoAccesorioDatosTAGrupo", parametros));
 						registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
 						registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamoGrupal", parametros));
+						parametros.addDefCampo("CONSULTA","SALDO_GRUPAL");
+						registroControl.respuesta.addDefCampo("registroSaldoCuenta", catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros));
 						parametros.addDefCampo("CONSULTA","MOVIMIENTOS");
 						registroControl.respuesta.addDefCampo("ListaEstadoCuenta", catalogoSL.getRegistros("SimPrestamoEstadoCuentaGrupo", parametros));
 						parametros.addDefCampo("CONSULTA","SALDO_FECHA");
@@ -135,6 +139,8 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 						registroControl.respuesta.addDefCampo("ListaPeriodicidad", catalogoSL.getRegistros("SimCatalogoPeriodicidad", parametros));
 						registroControl.respuesta.addDefCampo("ListaSucursal", catalogoSL.getRegistros("SimCatalogoSucursal", parametros));
 						registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
+						parametros.addDefCampo("CONSULTA","SALDO_INDIVIDUAL");
+						registroControl.respuesta.addDefCampo("registroSaldoCuenta", catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros));
 						registroControl.respuesta.addDefCampo("registroFechaPago", catalogoSL.getRegistro("SimPrestamoConsultaFechaPrimerPago", parametros));
 						registroControl.respuesta.addDefCampo("registroMontoAutorizado", catalogoSL.getRegistro("SimPrestamoMontoCliente", parametros));
 						parametros.addDefCampo("CONSULTA","MOVIMIENTOS");

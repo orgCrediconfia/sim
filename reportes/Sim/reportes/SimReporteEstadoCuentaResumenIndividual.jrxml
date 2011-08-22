@@ -228,7 +228,7 @@ AND C.ID_PRESTAMO (+)= A.ID_PRESTAMO]]></queryString>
 					<textElement>
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Resumen"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Resumen "]]></textFieldExpression>
 				</textField>
 			</band>
 		</columnHeader>

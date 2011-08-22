@@ -48,6 +48,16 @@
 		</c:forEach>
 	</Portal:TablaLista>
 	
+	<Portal:TablaLista tipo="consulta" nombre="">
+		<Portal:TablaListaRenglon>
+			<Portal:Columna tipovalor='texto' ancho='120' valor='SALDO DE LA CUENTA DEL CLIENTE'/>
+			<Portal:Columna tipovalor='texto' ancho='150' valor=''/>
+			<Portal:Columna tipovalor='texto' ancho='200' valor=''/>
+			<Portal:Columna tipovalor='moneda' ancho='150' valor=''/>
+			<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registroSaldoCuenta.campos["SALDO_CUENTA"]}'/>
+		</Portal:TablaListaRenglon>
+	</Portal:TablaLista>
+	
 	<Portal:TablaForma maestrodetallefuncion="SimPrestamoEstadoCuentaResumen" nombre="Resumen" funcion="SimPrestamoEstadoCuentaResumen" operacion="BA" >
 		<Portal:TablaListaTitulos> 
 			<Portal:Columna tipovalor='texto' ancho='200' valor='Descripci&oacute;n'/>

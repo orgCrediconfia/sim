@@ -185,39 +185,40 @@ public class SimPrestamoFlujoEfectivoCON implements CatalogoControlConsultaIN, C
 		while (e.hasMoreElements()) {
 			String name = (String) e.nextElement();
 			String value = mySmartUpload.getRequest().getParameter(name);
-			
+			System.out.println("name"+name);
+			System.out.println("value"+value);
 			if (name.startsWith("UrlAnterior")){
 				
 				sIdArchivoFlujo = name.substring(11, name.length());
 				registro.addDefCampo("ID_ARCHIVO_FLUJO", sIdArchivoFlujo);
-				
+				System.out.println("cual archvio esta seleccionando"+sIdArchivoFlujo);
 				//SE INICIALIZA LA VARIABLE DEL NOMBRE DEL ARCHIVO QUE CONTIENE LA FOTO
-				String sFotoPerfilIzq = null;
+				String sFotoArchivoFlujo = null;
 				
 				//SE OBTIENE EL PRIMER ARCHIVO
-				
-				com.jspsmart.upload.File archivo_perfilizq = archivos.getFile(iArchivo);
+				System.out.println("archivo no."+iArchivo);
+				com.jspsmart.upload.File archivo_flujo = archivos.getFile(iArchivo);
 				iArchivo++;
 				
 				//SE OBTIENE EL NOMBRE DEL PRIMER ARCHIVO QUE SE ENVIA EN EL FORMULARIO
-				sFotoPerfilIzq = archivo_perfilizq.getFileName();
+				sFotoArchivoFlujo = archivo_flujo.getFileName();
 				
-				if (sFotoPerfilIzq.equals("")){
-					
+				if (sFotoArchivoFlujo.equals("")){
+					System.out.println("no inserta");
 					registro.addDefCampo("URL_ARCHIVO", value);
 				}else{
-					registro.addDefCampo("URL_ARCHIVO", sFotoPerfilIzq);
+					registro.addDefCampo("URL_ARCHIVO", sFotoArchivoFlujo);
+					System.out.println("selecciono la foto"+sFotoArchivoFlujo);
 				}
-				
 				//DA DE ALTA O BAJA LAS FUNCIONES EN LA BASE DE DATOS
-				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoFlujoEfectivo", registro, 3);
+				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimPrestamoFlujoEfectivo", registro, 1);
 			}
+			//INDICA A DONDE IRA AL TERMINAR LA ACTUALIZACION
 			
 		}
-
+	
 		//INDICA A DONDE IRA AL TERMINAR LA ACTUALIZACION
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimPrestamo&OperacionCatalogo=CR&IdPrestamo="+request.getParameter("IdPrestamo")+"&Alta=No";
-		
 		return registroControl;
 	}
 	

@@ -91,7 +91,6 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreCon.jsp?Paginas="+sPaginas+"&Superior="+100+"&CvePrestamo="+request.getParameter("CvePrestamo")+"&IdProducto="+request.getParameter("IdProducto")+"&NumCiclo="+request.getParameter("NumCiclo")+"&FechaInicioSolicitud="+request.getParameter("FechaInicioSolicitud")+"&FechaFinEntrega="+request.getParameter("FechaFinEntrega")+"&NomCompleto="+request.getParameter("NomCompleto")+"&IdEstatusPrestamo="+request.getParameter("IdEstatusPrestamo");
 		}
 		else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
-			
 			if (request.getParameter("Alta").equals("Si")){
 				parametros.addDefCampo("ID_PERSONA",request.getParameter("IdPersona"));
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimClientes", parametros));
@@ -101,6 +100,7 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 				registroControl.respuesta.addDefCampo("ListaPapel", catalogoSL.getRegistros("SimCatalogoPapel", parametros));
 			}
 			if (request.getParameter("Alta").equals("No")){
+				System.out.println("el filtro alta es no");
 				parametros.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimPrestamo", parametros));
 				registroControl.respuesta.addDefCampo("ListaParticipante", catalogoSL.getRegistros("SimPrestamoParticipante", parametros));
@@ -119,13 +119,13 @@ public class SimPrestamoCON implements CatalogoControlConsultaIN, CatalogoContro
 				registroControl.respuesta.addDefCampo("ListaDocumentacion", catalogoSL.getRegistros("SimPrestamoDocumentacion", parametros));
 				parametros.addDefCampo("FILTRO","ASIGNADOS");
 				registroControl.respuesta.addDefCampo("ListaGarantia", catalogoSL.getRegistros("SimPrestamoGarantia", parametros));
-				parametros.addDefCampo("CONSULTA","ARCHIVOS");
 				registroControl.respuesta.addDefCampo("ListaArchivo", catalogoSL.getRegistros("SimPrestamoFlujoEfectivo", parametros));
 				parametros.addDefCampo("ETAPA_DOCUMENTOS","INDIVIDUAL");
 				registroControl.respuesta.addDefCampo("registroEtapaDocumentos", catalogoSL.getRegistro("SimPrestamoDocumentacion", parametros));
 				registroControl.respuesta.addDefCampo("ListaEstatusHistorico", catalogoSL.getRegistros("SimPrestamoEstatusHistorico", parametros));
 				parametros.addDefCampo("PRESTAMO","INDIVIDUAL");
 				registroControl.respuesta.addDefCampo("registroVerificarEtapa", catalogoSL.getRegistro("SimPrestamoVerificaEtapaAnteriorAutMonRie", parametros));
+				
 			}
 			
 			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreReg.jsp";
