@@ -37,7 +37,7 @@ public class SimCajaPagoIndividualREP implements ReporteControlIN {
 		String sSql =   "SELECT \n"+
 						"T.CVE_GPO_EMPRESA, \n"+
 						"T.CVE_EMPRESA, \n"+
-						"T.ID_TRANSACCION, \n"+
+						"T.ID_MOVIMIENTO_OPERACION, \n"+
 						"T.ID_CLIENTE, \n"+
 						"T.NUM_CICLO, \n"+
 						"T.ID_PRESTAMO, \n"+
@@ -53,7 +53,7 @@ public class SimCajaPagoIndividualREP implements ReporteControlIN {
 						"V_CREDITO C \n"+
 						"WHERE T.CVE_GPO_EMPRESA = 'SIM' \n"+
 						"AND T.CVE_EMPRESA = 'CREDICONFIA' \n"+
-						"AND T.ID_TRANSACCION = '" + request.getParameter("IdTransaccion")+"' \n"+
+						"AND T.ID_MOVIMIENTO_OPERACION = '" + request.getParameter("IdMovimientoOperacion")+"' \n"+
 						"AND S.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA \n"+ 
 						"AND S.CVE_EMPRESA = T.CVE_EMPRESA \n"+
 						"AND S.ID_SUCURSAL = T.ID_SUCURSAL \n"+

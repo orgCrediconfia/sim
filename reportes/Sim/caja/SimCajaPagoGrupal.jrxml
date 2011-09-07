@@ -36,7 +36,7 @@
 	<field name="NUM_CICLO" class="java.lang.String"/>
 	<field name="ID_GRUPO" class="java.lang.String"/>
 	<field name="NOM_GRUPO" class="java.lang.String"/>
-	<field name="ID_TRANSACCION" class="java.lang.String"/>
+	<field name="ID_MOVIMIENTO_OPERACION" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.lang.String"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
 	<field name="PAGO_LETRAS" class="java.lang.String"/>
@@ -307,7 +307,7 @@ crédito total del grupo.]]></text>
 					<textElement>
 						<font fontName="Courier 10 Pitch" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_TRANSACCION}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_MOVIMIENTO_OPERACION}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement

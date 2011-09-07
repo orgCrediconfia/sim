@@ -67,7 +67,7 @@
 				<Portal:Columna tipovalor='texto' ancho='20' valor='${registro.campos["ID_CLIENTE"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["NOM_COMPLETO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='10' valor='${registro.campos["NUM_CICLO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["ID_TRANSACCION"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='80' valor='${registro.campos["ID_MOVIMIENTO_OPERACION"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100' valor='$ ${registro.campos["MONTO"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["MONTO_ACUMULADO"]}'/>
 			</Portal:TablaListaRenglon>

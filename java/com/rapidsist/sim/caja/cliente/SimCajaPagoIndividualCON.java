@@ -51,16 +51,8 @@ public class SimCajaPagoIndividualCON implements CatalogoControlConsultaIN, Cata
 	 */
 	public RegistroControl consulta(Registro parametros, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
-		//VERIFICA SI BUSCA TODOS LOS REGISTROS
-		if (iTipoOperacion == CON_CONSULTA_TABLA){
-			
-			parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-			parametros.addDefCampo("CVE_OPERACION", request.getParameter("CveOperacion"));
-			parametros.addDefCampo("FECHA_MOVIMIENTO", request.getParameter("FechaMovimiento"));
-			registroControl.respuesta.addDefCampo("ListaConcepto", catalogoSL.getRegistros("SimPrestamoCatalogoOperacionConcepto", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/Prestamo/fSimPreMovExtReg.jsp?IdPrestamo"+request.getParameter("IdPrestamo")+"&CveOperacion="+request.getParameter("CveOperacion")+"&FechaMovimiento="+request.getParameter("FechaMovimiento");
-		}
-		else if (iTipoOperacion == CON_INICIALIZACION){
+	
+		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagoIndCon.jsp";
 			}else if (request.getParameter("Filtro").equals("Alta")){
@@ -119,7 +111,7 @@ public class SimCajaPagoIndividualCON implements CatalogoControlConsultaIN, Cata
 		String sIdCaja = "";
 		String sIdCajaSucursal = "";
 		String sIdSucursal = "";
-		String sIdTransaccion = "";
+		String sIdMovimientoOperacion = "";
 		String sRespuesta = "";
 
 		//RECUPERA LA SESION DEL USUARIO
@@ -143,10 +135,10 @@ public class SimCajaPagoIndividualCON implements CatalogoControlConsultaIN, Cata
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaPagoIndividual", registro, iTipoOperacion);
 
-		sIdTransaccion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_TRANSACCION");
+		sIdMovimientoOperacion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_MOVIMIENTO_OPERACION");
 		sRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("RESPUESTA");
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=INDIVIDUAL&TxRespuesta=0&TxPregunta=0&IdCaja="+request.getParameter("IdCaja")+"&IdPrestamo="+request.getParameter("IdPrestamo")+"&IdTransaccion="+sIdTransaccion+"&Importe="+request.getParameter("Importe")+"&Respuesta="+sRespuesta;;
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=INDIVIDUAL&TxRespuesta=0&TxPregunta=0&IdCaja="+request.getParameter("IdCaja")+"&IdPrestamo="+request.getParameter("IdPrestamo")+"&IdMovimientoOperacion="+sIdMovimientoOperacion+"&Importe="+request.getParameter("Importe")+"&Respuesta="+sRespuesta;;
 		return registroControl;
 	}
 }

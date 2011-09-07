@@ -146,7 +146,6 @@ public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, Cat
 		//AGREGA LA CLAVE DEL PORTAL Y DEL USUARIO DE LA SESION DEL USUARIO
 		registro.addDefCampo("CVE_USUARIO", usuario.sCveUsuario);
 		
-		//registro.addDefCampo("ID_TRANSACCION", request.getParameter("IdTransaccion"));
 		registro.addDefCampo("CVE_MOVIMIENTO_CAJA","CANPAGO");
 		registro.addDefCampo("CVE_MOVIMIENTO_PAGO",request.getParameter("CveMovimientoCaja"));
 		registro.addDefCampo("ID_PRESTAMO",request.getParameter("IdPrestamo"));
@@ -154,7 +153,8 @@ public class SimCajaCancelacionPagoCON implements CatalogoControlConsultaIN, Cat
 		registro.addDefCampo("NUM_CICLO",request.getParameter("NumCiclo"));
 		registro.addDefCampo("F_APLICACION",request.getParameter("FAplicacion"));
 		registro.addDefCampo("MONTO",request.getParameter("Monto"));
-		registro.addDefCampo("ID_TRANSACCION_GRUPO",request.getParameter("IdTransaccionGrupo"));
+		registro.addDefCampo("CVE_NOMBRE",request.getParameter("CveNombre"));
+		registro.addDefCampo("ID_TRANSACCION",request.getParameter("IdTransaccion"));
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaCancelacionPago", registro, iTipoOperacion);
 		sRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("RESPUESTA");

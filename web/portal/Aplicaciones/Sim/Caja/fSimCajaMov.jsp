@@ -17,7 +17,7 @@
 	<script>
 		function fAceptar(){
 			if (document.frmRegistro.CveMovimientoCaja.value == "DESIND"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaDesembolsoIndividual&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaDesembolsoIndividual&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "DESGPO"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaDesembolsoGrupal&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccionGrupo=null";
@@ -26,37 +26,40 @@
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&AplicaA=INDIVIDUAL";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "PAGOGPO"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&AplicaA=GRUPO&IdTransaccion=null&TxRespuesta=0&TxPregunta=0&PagoTotal=0";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&AplicaA=GRUPO&IdMovimientoOperacion=null&TxRespuesta=0&TxPregunta=0&PagoTotal=0";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "DOTCAJ"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaDotacion&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaDotacion&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "CANPAGO"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value;
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RETCAJ"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiro&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiro&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RETSUC"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiroSucursal&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiroSucursal&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RECSUC"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRecepcionSucursal&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRecepcionSucursal&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RETCAJCEN"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiroCentral&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRetiroCentral&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RECCAJCEN"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRecepcionCentral&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRecepcionCentral&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "TRABAN"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaTranspasoBanco&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaTranspasoBanco&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "INGCAJDES"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaIngresoCajaDesembolsar&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaIngresoCajaDesembolsar&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "SALCAJDES"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaSalidaCajaDesembolso&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion=null";
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaSalidaCajaDesembolso&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
+				document.frmRegistro.submit();
+			}else if (document.frmRegistro.CveMovimientoCaja.value == "RECCTAINC"){
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRecuperacionCuentaIncobrable&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}
 		}

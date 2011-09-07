@@ -1,7 +1,7 @@
 <%@ taglib uri="Portal" prefix="Portal" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 <Portal:Pagina funcion="SimCajaRetiro">
-	<Portal:PaginaNombre titulo="Retiro de efectivo" subtitulo=""/>
+	<Portal:PaginaNombre titulo="Retiro de efectivo borrame" subtitulo=""/>
 	
 	<Portal:Forma tipo='catalogo' funcion='SimCajaRetiro' parametros='IdCaja=${param.IdCaja}'>
 		<Portal:FormaSeparador nombre="Retiro de efectivo"/>

@@ -20,7 +20,7 @@
 		
 		
 		<input type="hidden" name="IdPrestamo" value='<c:out value='${param.IdPrestamo}'/>' />
-		<input type="hidden" name="IdTransaccion" value='<c:out value='${param.IdTransaccion}'/>' />
+		<input type="hidden" name="IdMovimientoOperacion" value='<c:out value='${param.IdMovimientoOperacion}'/>' />
 		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.TxRespuesta}'/>' />
 		<input type="hidden" name="TxPregunta" value='<c:out value='${param.TxPregunta}'/>' />
 		<input type="hidden" name="Respuesta" value='<c:out value='${param.Respuesta}'/>' />
@@ -75,8 +75,8 @@
 			 
 		 }  
 		
-		if (document.frmRegistro.IdTransaccion.value != "null"){
-			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaPagoGrupal&TipoReporte=Pdf&Reimpresion=0&IdCaja='+document.frmRegistro.IdCaja.value+'&IdTransaccion='+document.frmRegistro.IdTransaccion.value+'&Importe='+document.frmRegistro.Importe.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+		if (document.frmRegistro.IdMovimientoOperacion.value != "null"){
+			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaPagoGrupal&TipoReporte=Pdf&Reimpresion=0&IdCaja='+document.frmRegistro.IdCaja.value+'&IdMovimientoOperacion='+document.frmRegistro.IdMovimientoOperacion.value+'&Importe='+document.frmRegistro.Importe.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
 		}
 		
 		

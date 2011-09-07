@@ -39,7 +39,7 @@
 	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.lang.String"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
-	<field name="ID_TRANSACCION" class="java.lang.String"/>
+	<field name="ID_MOVIMIENTO_OPERACION" class="java.lang.String"/>
 	<field name="ID_GRUPO" class="java.lang.String"/>
 	<field name="NOM_GRUPO" class="java.lang.String"/>
 
@@ -354,7 +354,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="11"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_TRANSACCION}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_MOVIMIENTO_OPERACION}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement

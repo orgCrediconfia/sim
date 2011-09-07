@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  * modificación y consulta) para mostrar movimientos de Caja. Esta clase es llamada por
  * el servlet {@link CatalogoS CatalogoS}.
  */
-public class SimCajaRetiroCentralCON implements CatalogoControlConsultaIN, CatalogoControlActualizaIN{
+public class SimCajaRecuperacionCuentaIncobrableCON implements CatalogoControlConsultaIN, CatalogoControlActualizaIN{
 
 	/**
 	 * Ejecuta los servicios de consulta del catálogo.
@@ -66,21 +66,24 @@ public class SimCajaRetiroCentralCON implements CatalogoControlConsultaIN, Catal
 			parametros.addDefCampo("ID_CAJA", sIdCaja);
 			parametros.addDefCampo("ID_SUCURSAL", sIdSucursal);
 			
-			if (request.getParameter("Fecha") != "" && !request.getParameter("Fecha").equals("")){	
-				parametros.addDefCampo("FECHA", request.getParameter("Fecha"));
+			if (request.getParameter("CvePrestamo") != "" && !request.getParameter("CvePrestamo").equals("")){	
+				parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 			}
-			if (request.getParameter("Monto") != "" && !request.getParameter("Monto").equals("")){	
-				parametros.addDefCampo("MONTO", request.getParameter("Monto"));
+			if (request.getParameter("NomCompleto") != "" && !request.getParameter("NomCompleto").equals("")){	
+				parametros.addDefCampo("NOM_COMPLETO", request.getParameter("NomCompleto"));
 			}
 			
-			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimCajaRetiroCentral", parametros));
-			registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRetCenCon.jsp?IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion=null";
+			registroControl.respuesta.addDefCampo("ListaBusqueda", catalogoSL.getRegistros("SimCajaRecuperacionCuentaIncobrable", parametros));
+			registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRecCtaIncCon.jsp?IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion=null";
 		}	
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRetCenCon.jsp?IdCaja="+request.getParameter("IdCaja");
+				System.out.println("what happen hard house");
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRecCtaIncCon.jsp?IdCaja="+request.getParameter("IdCaja");
 			}else if (request.getParameter("Filtro").equals("Alta")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRetCenReg.jsp?IdCaja="+request.getParameter("IdCaja");
+				parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
+				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCajaRecuperacionCuentaIncobrable", parametros));
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRecCtaIncReg.jsp?IdCaja="+request.getParameter("IdCaja");
 			}
 		}
 		return registroControl;
@@ -123,23 +126,31 @@ public class SimCajaRetiroCentralCON implements CatalogoControlConsultaIN, Catal
 		Usuario usuario = (Usuario) session.getAttribute("Usuario");
 		//AGREGA LA CLAVE DEL PORTAL Y DEL USUARIO DE LA SESION DEL USUARIO
 		registro.addDefCampo("CVE_USUARIO_CAJERO", usuario.sCveUsuario);
-		registro.addDefCampo("MONTO", request.getParameter("Cantidad"));
-		registro.addDefCampo("USUARIO_RECIBE", request.getParameter("UsuarioRecibe"));
+		
+		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
+		registro.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
+		registro.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
+		registro.addDefCampo("IMPORTE", request.getParameter("Importe"));
+		
+		registro.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
+		registro.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
+		registro.addDefCampo("ID_GRUPO", request.getParameter("IdGrupo"));
+		registro.addDefCampo("ID_CLIENTE", request.getParameter("IdCliente"));
 		
 		sIdCajaSucursal = request.getParameter("IdCaja");
-	
+		
 		sIdSucursal = sIdCajaSucursal.substring(0, sIdCajaSucursal.indexOf("-"));
 		sIdCaja = sIdCajaSucursal.substring(sIdCajaSucursal.indexOf("-")+1, sIdCajaSucursal.length());
 		
 		registro.addDefCampo("ID_CAJA", sIdCaja);
 		registro.addDefCampo("ID_SUCURSAL", sIdSucursal);
-		registro.addDefCampo("CVE_MOVIMIENTO_CAJA", "RETCAJCEN");
+		registro.addDefCampo("CVE_MOVIMIENTO_CAJA", "RECCTAINC");
 		
-		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaRetiroCentral", registro, iTipoOperacion);
+		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaRecuperacionCuentaIncobrable", registro, iTipoOperacion);
+		System.out.println("what happen 6");
 		sIdMovimientoOperacion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_MOVIMIENTO_OPERACION");
-		
-		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaRetiroCentral&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+sIdMovimientoOperacion;
+		System.out.println("what happen 7");
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaRecuperacionCuentaIncobrable&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+sIdMovimientoOperacion;
 		return registroControl;
 	}
 }

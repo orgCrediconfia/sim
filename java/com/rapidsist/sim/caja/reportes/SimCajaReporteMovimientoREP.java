@@ -37,7 +37,7 @@ public class SimCajaReporteMovimientoREP implements ReporteControlIN {
 		String sSql =   "SELECT \n"+
 						"T.CVE_GPO_EMPRESA, \n"+
 						"T.CVE_EMPRESA, \n"+
-						"T.ID_TRANSACCION, \n"+
+						"T.ID_MOVIMIENTO_OPERACION, \n"+
 						"T.CVE_MOVIMIENTO_CAJA, \n"+
 						"M.NOM_MOVIMIENTO_CAJA, \n"+
 						"R.ID_REGIONAL, \n"+

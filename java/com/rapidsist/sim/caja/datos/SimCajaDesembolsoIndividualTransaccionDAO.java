@@ -35,7 +35,7 @@ public class SimCajaDesembolsoIndividualTransaccionDAO extends Conexion2 impleme
 		sSql =  "SELECT \n"+
 				"T.CVE_GPO_EMPRESA, \n"+
 				"T.CVE_EMPRESA, \n"+
-				"T.ID_TRANSACCION, \n"+
+				"T.ID_MOVIMIENTO_OPERACION, \n"+
 				"T.ID_CLIENTE, \n"+
 				"T.NUM_CICLO, \n"+ 
 				"T.ID_PRESTAMO, \n"+

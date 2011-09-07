@@ -14,7 +14,7 @@
 		
 	<script>
 		function fAceptar(){
-			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoIndividual&OperacionCatalogo=IN&Filtro=Alta&TxRespuesta=0&TxPregunta=0&CvePrestamo="+document.frmRegistro.CvePrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&IdTransaccion="+null;
+			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoIndividual&OperacionCatalogo=IN&Filtro=Alta&TxRespuesta=0&TxPregunta=0&CvePrestamo="+document.frmRegistro.CvePrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion="+null;
 			document.frmRegistro.submit();
 		}
 	</script>		

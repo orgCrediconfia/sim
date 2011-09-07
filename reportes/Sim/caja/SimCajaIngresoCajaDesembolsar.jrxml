@@ -36,7 +36,7 @@
 	<field name="MONTO_LETRAS" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.lang.String"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
-	<field name="ID_TRANSACCION" class="java.lang.String"/>
+	<field name="ID_MOVIMIENTO_OPERACION" class="java.lang.String"/>
 	<field name="MONTO" class="java.lang.String"/>
 	<field name="NOM_USUARIO_CAJERO" class="java.lang.String"/>
 	<field name="INTEGRANTE_ENTREGA" class="java.lang.String"/>

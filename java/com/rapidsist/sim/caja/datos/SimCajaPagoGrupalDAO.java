@@ -10,6 +10,9 @@ import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
 
@@ -50,6 +53,9 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 		String sDia = "";
 		String sFechaAplicacion = "";
 		String vgFolioGrupo = "";
+		
+		//Esta variable mapea los movimientos de caja y las operaciones hechas por pl.
+		String sIdTransaccion = "";
 		
 		//Obtiene el parámetro de DIAS_APLICA_PAGO y lo almacena en un entero para poder operarlo.
 		sSql = " SELECT \n"+
@@ -187,6 +193,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 		}
 		
 		if (bFechaValida){
+			// TODO ********************************La fecha para aplicar el pago es valida, por lo que se empieza el pago************************************.
 			if (registro.getDefCampo("DAO_MONTOS") == null){
 				System.out.println("DAO_MONTOS im goint to resolve the problem");
 			}else{
@@ -198,13 +205,20 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 			String[] sIdPrestamoIndividual = (String[]) registro.getDefCampo("DAO_ID_PRESTAMO_IND");
 			
 			
-			//OBTENEMOS EL SEQUENCE
+			//Obtenemos el sequence vgFolioGrupo (no sé para qué).
 			sSql = "SELECT SQ02_PFIN_PRE_MOVIMIENTO.NEXTVAL as vgFolioGrupo FROM DUAL";
 			ejecutaSql();
-			
 			if (rs.next()){
 				vgFolioGrupo = rs.getString("vgFolioGrupo");
 			}	
+			
+			//Obtenemos el sequence ID_TRANSACCION que relacionará el movimiento de la caja con los movimientos del credito 
+			//en las tablas PFIN_MOVIMIENTO y PFIN_PRE_MOVIMIENTO.
+			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
+			ejecutaSql();
+			if (rs.next()){
+				sIdTransaccion = rs.getString("ID_TRANSACCION");
+			}
 			
 			if (sMontos != null) {
 				for (int iNumParametro = 0; iNumParametro < sMontos.length; iNumParametro++) {
@@ -228,22 +242,19 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				String sFechaMovmiento = "";
 				String sIdCuentaVista = "";
 					
-				//OBTENEMOS EL SEQUENCE
+				//Obtenemos el sequence ID_PRE_MOVIMIENTO para la tabla PFIN_PRE_MOVIMIENTO.
 				sSql = "SELECT SQ01_PFIN_PRE_MOVIMIENTO.nextval as ID_PREMOVIMIENTO FROM DUAL";
 				ejecutaSql();
-					
 				if (rs.next()){
 					sIdPreMovimiento = rs.getString("ID_PREMOVIMIENTO");
-				
 				}
-					
-				sSql =  "SELECT TO_CHAR(TO_DATE(F_MEDIO,'DD-MM-YYYY'),'DD-MON-YYYY') AS F_LIQUIDACION \n"+
+				
+				sSql = "SELECT TO_CHAR(F_MEDIO,'DD-MON-YYYY') AS F_LIQUIDACION \n"+
 						"FROM PFIN_PARAMETRO \n"+
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 						"AND CVE_MEDIO = 'SYSTEM' \n";
 				ejecutaSql();
-					
 				if (rs.next()){
 					sFLiquidacion = rs.getString("F_LIQUIDACION");
 					
@@ -251,10 +262,8 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				
 				sSql = " SELECT TO_CHAR(TO_DATE('" + (String)registro.getDefCampo("FECHA_MOVIMIENTO") + "','DD-MM-YYYY'),'DD-MON-YYYY') F_APLICACION FROM DUAL";
 				ejecutaSql();
-				
 				if (rs.next()){
 					sFechaAplicacion = rs.getString("F_APLICACION");
-						
 				}
 				
 				//OBTENEMOS LA CUENTA
@@ -265,9 +274,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 					"AND CVE_TIP_CUENTA = 'VISTA' \n"+
 					"AND SIT_CUENTA = 'AC' \n"+
 					"AND ID_TITULAR = (SELECT ID_CLIENTE FROM SIM_PRESTAMO WHERE ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "') \n";
-				
 				ejecutaSql();
-					
 				if (rs.next()){
 					sIdCuentaVista = rs.getString("ID_CUENTA");
 				}
@@ -306,7 +313,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				System.out.println("sFValor********************************************"+sFechaAplicacion);
 				System.out.println("sNumPagoAmort"+sNumPagoAmort);
 				
-				CallableStatement sto = conn.prepareCall("begin PKG_PROCESOS.pGeneraPreMovto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
+				CallableStatement sto = conn.prepareCall("begin PKG_PROCESOS.pGeneraPreMovto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
 				sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 				sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 				sto.setString(3, sIdPreMovi);
@@ -323,11 +330,12 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				sto.setString(14, (String)registro.getDefCampo("CVE_USUARIO"));
 				sto.setString(15, sFechaAplicacion);
 				sto.setString(16, sNumPagoAmort);
-				sto.registerOutParameter(17, java.sql.Types.VARCHAR);
+				sto.setString(17, sIdTransaccion);
+				sto.registerOutParameter(18, java.sql.Types.VARCHAR);
 				
 				//EJECUTA EL PROCEDIMIENTO ALMACENADO
 				sto.execute();
-				sTxrespuesta1 = sto.getString(17);
+				sTxrespuesta1 = sto.getString(18);
 				sto.close();
 					
 				CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?)); end;");
@@ -345,7 +353,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				sTxrespuesta2  = sto1.getString(7);
 				sto1.close();
 				
-				CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?,?); end;");
+				CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?,?,?); end;");
 				
 				sto2.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 				sto2.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
@@ -353,22 +361,24 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				sto2.setString(4, vgFolioGrupo);
 				sto2.setString(5, (String)registro.getDefCampo("CVE_USUARIO"));
 				sto2.setString(6, sFechaAplicacion);
-				sto2.registerOutParameter(7, java.sql.Types.VARCHAR);
+				sto2.setString(7, sIdTransaccion);
+				sto2.registerOutParameter(8, java.sql.Types.VARCHAR);
 				//EJECUTA EL PROCEDIMIENTO ALMACENADO
 				sto2.execute();
-				sTxrespuesta3  = sto2.getString(7);
+				sTxrespuesta3  = sto2.getString(8);
 				sto2.close();
 				// SE AGREGA LA RESPUESTA
 				
 				resultadoCatalogo.Resultado.addDefCampo("RESPUESTA", sTxrespuesta3);
+				
 				}
 			}
 				
 			if (sTxrespuesta3 == null){
 						
 				//Ingresa el pago grupal en la caja.
-				String sIdTransaccion = "";
-				int iIdTransaccion = 0;
+				String sIdMovimientoOperacion = "";
+				int iIdMovimientoOperacion = 0;
 				
 				sSql =  "SELECT \n" +
 						"CVE_GPO_EMPRESA, \n" +
@@ -390,7 +400,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				
 				sSql =  "SELECT \n" +
 						"CVE_GPO_EMPRESA, \n" +
-						"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+						"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
 						"FROM \n" +
 						"SIM_CAJA_TRANSACCION \n" +
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -401,18 +411,19 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 					
 				if (rs.next()){
 					
-					sIdTransaccion = rs.getString("ID_TRANSACCION");
-					iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-					iIdTransaccion ++;
-					sIdTransaccion= String.valueOf(iIdTransaccion);
+					sIdMovimientoOperacion = rs.getString("ID_MOVIMIENTO_OPERACION");
+					iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+					iIdMovimientoOperacion ++;
+					sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
 				}else {
 					
-					sIdTransaccion = "1";
+					sIdMovimientoOperacion = "1";
 				}
 				
 				sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
+						"ID_MOVIMIENTO_OPERACION, \n" +
 						"ID_TRANSACCION, \n" +
 						"ID_SUCURSAL, \n" +
 						"ID_CAJA, \n" +
@@ -427,6 +438,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				        "VALUES ( \n"+
 						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						sIdMovimientoOperacion + ", \n "+
 						sIdTransaccion + ", \n "+
 						"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 						"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
@@ -443,7 +455,7 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				if (ejecutaUpdate() == 0){
 					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 				}
-				resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION", sIdTransaccion);		
+				resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);		
 			}	
 		}else{
 			//La fecha de transacción no es valida.

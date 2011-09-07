@@ -120,8 +120,8 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 		
-		String sIdTransaccion = "";
-		int iIdTransaccion = 0;
+		String sIdMovimientoOperacion = "";
+		int iIdMovimientoOperacion = 0;
 		String sMontoCaja = "";
 		float fMontoCaja = 0;
 		String sMonto = "";
@@ -161,7 +161,12 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 		if (fMontoCaja < fMonto){
 			resultadoCatalogo.mensaje.setClave("FONDO_INSUFICIENTE");
 		}else {
-		
+			
+			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
+			ejecutaSql();
+			if (rs.next()){
+				registro.addDefCampo("ID_TRANSACCION", rs.getString("ID_TRANSACCION"));
+			}
 		
 			sSql =  "SELECT \n" +
 					"CVE_GPO_EMPRESA, \n" +
@@ -186,7 +191,7 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 			//OBTENEMOS EL SEQUENCE
 			sSql =  "SELECT \n" +
 					"CVE_GPO_EMPRESA, \n" +
-					"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+					"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
 					"FROM \n" +
 					"SIM_CAJA_TRANSACCION \n" +
 					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -195,17 +200,18 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 					"GROUP BY CVE_GPO_EMPRESA \n";
 			ejecutaSql();
 			if (rs.next()){
-				sIdTransaccion = rs.getString("ID_TRANSACCION");
-				iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-				iIdTransaccion ++;
-				sIdTransaccion= String.valueOf(iIdTransaccion);
+				sIdMovimientoOperacion = rs.getString("ID_MOVIMIENTO_OPERACION");
+				iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+				iIdMovimientoOperacion ++;
+				sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
 			}else {
-				sIdTransaccion = "1";
+				sIdMovimientoOperacion = "1";
 			}
 			
 			sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 					"CVE_GPO_EMPRESA, \n" +
 					"CVE_EMPRESA, \n" +
+					"ID_MOVIMIENTO_OPERACION, \n" +
 					"ID_TRANSACCION, \n" +
 					"CVE_MOVIMIENTO_CAJA, \n" +
 					"ID_PRESTAMO, \n" +
@@ -220,7 +226,8 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 			        "VALUES ( \n"+
 					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-					sIdTransaccion + ", \n "+
+					sIdMovimientoOperacion + ", \n "+
+					"'" + (String)registro.getDefCampo("ID_TRANSACCION") + "', \n" +
 					"'DESIND', \n" +
 					"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
 					"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
@@ -236,7 +243,7 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 			if (ejecutaUpdate() == 0){
 				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 			}
-			resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION", sIdTransaccion);
+			resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);
 			
 			//
 			sSql =  "SELECT \n"+

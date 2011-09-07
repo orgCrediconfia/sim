@@ -7,7 +7,7 @@
 		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${param.IdPrestamo}' controllongitud='19' controllongitudmax='18' editarinicializado='true' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='Nombre del cliente' control='Texto' controlnombre='NomCompleto' controlvalor='${param.NomCompleto}' controllongitud='80' controllongitudmax='100' editarinicializado='true' obligatorio='true'/>
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
-		<input type="hidden" name="IdTransaccion" value='<c:out value='${param.IdTransaccion}'/>' />
+		<input type="hidden" name="IdMovimientoOperacion" value='<c:out value='${param.IdMovimientoOperacion}'/>' />
 	</Portal:Forma>
 	
 	<Portal:TablaLista tipo="consulta" nombre="Consulta">
@@ -35,7 +35,7 @@
 			<c:forEach var="registro" items="${requestScope.ListaDesembolsoIndividualTransaccion}">		
 				<Portal:TablaListaRenglon>
 					<Portal:Columna tipovalor='texto' ancho='80' valor=''>	
-						<input type="button" name="Aceptar"  value="Reimpresión" onclick='javascript:fReimpresion(<c:out value='${registro.campos["ID_TRANSACCION"]}'/>)'>
+						<input type="button" name="Aceptar"  value="Reimpresión" onclick='javascript:fReimpresion(<c:out value='${registro.campos["ID_MOVIMIENTO_OPERACION"]}'/>)'>
 					</Portal:Columna>		
 					<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["ID_PRESTAMO"]}'/>
 					<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_COMPLETO"]}'/>
@@ -55,12 +55,12 @@
 			document.frmRegistro.submit();
 		}
 		
-		function fReimpresion(sIdTransaccion){
-			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaEntregaPrestamo&TipoReporte=Pdf&Reimpresion=1&IdCaja='+document.frmRegistro.IdCaja.value+'&IdTransaccion='+sIdTransaccion,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+		function fReimpresion(sIdMovimientoOperacion){
+			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaEntregaPrestamo&TipoReporte=Pdf&Reimpresion=1&IdCaja='+document.frmRegistro.IdCaja.value+'&IdMovimientoOperacion='+sIdMovimientoOperacion,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
 		}
 		
-		if (document.frmRegistro.IdTransaccion.value != "null"){
-			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaEntregaPrestamo&TipoReporte=Pdf&Reimpresion=0&IdCaja='+document.frmRegistro.IdCaja.value+'&IdTransaccion='+document.frmRegistro.IdTransaccion.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+		if (document.frmRegistro.IdMovimientoOperacion.value != "null"){
+			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaEntregaPrestamo&TipoReporte=Pdf&Reimpresion=0&IdCaja='+document.frmRegistro.IdCaja.value+'&IdMovimientoOperacion='+document.frmRegistro.IdMovimientoOperacion.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
 		}
 			
 	</script>

@@ -105,7 +105,7 @@ public class SimCajaPagoGrupalSaldoCON implements CatalogoControlActualizaIN{
 			sTxPregunta = "1";
 		}
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=GRUPO&IdCaja="+request.getParameter("IdCaja")+"&IdPrestamo="+request.getParameter("IdPrestamo")+"&Importe="+request.getParameter("Importe")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&TxRespuesta="+sTxRespuesta+"&TxPregunta="+sTxPregunta+"&PagoTotal="+sPagoTotal+"&Saldo="+fSaldo+"&IdTransaccion=null";
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=GRUPO&IdCaja="+request.getParameter("IdCaja")+"&IdPrestamo="+request.getParameter("IdPrestamo")+"&Importe="+request.getParameter("Importe")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&TxRespuesta="+sTxRespuesta+"&TxPregunta="+sTxPregunta+"&PagoTotal="+sPagoTotal+"&Saldo="+fSaldo+"&IdMovimientoOperacion=null";
 		
 		return registroControl;
 	}

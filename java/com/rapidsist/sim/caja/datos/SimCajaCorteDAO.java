@@ -50,7 +50,7 @@ public class SimCajaCorteDAO extends Conexion2 implements OperacionConsultaTabla
 				"P.NOM_COMPLETO, \n"+
 				"DECODE(C.ID_CLIENTE,NULL,' ',C.ID_CLIENTE||' - '||P.NOM_COMPLETO) CLIENTE, \n"+
 				"C.NUM_CICLO, \n"+
-				"C.ID_TRANSACCION, \n"+
+				"C.ID_MOVIMIENTO_OPERACION, \n"+
 				"TO_CHAR(C.MONTO,'999,999,999.99') MONTO, \n"+
 				"TO_CHAR(sum(C.MONTO) over (order by C.FECHA_TRANSACCION ROWS UNBOUNDED PRECEDING) + NVL(A.SALDO_INICIAL,0),'999,999,999.99') MONTO_ACUMULADO \n"+
 				"FROM SIM_CAJA_TRANSACCION C, \n"+

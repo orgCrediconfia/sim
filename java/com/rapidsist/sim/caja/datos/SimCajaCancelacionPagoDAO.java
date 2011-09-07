@@ -33,205 +33,81 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 	public LinkedList getRegistros(Registro parametros) throws SQLException{
 		
 		sSql =  "SELECT \n"+
-				"M.ID_PRESTAMO, \n"+
-				"P.CVE_PRESTAMO, \n"+
+				"T.ID_PRESTAMO, \n"+
+				"T.ID_TRANSACCION, \n"+
 				"'INDIVIDUAL' APLICA_A, \n"+
-				"PE.NOM_COMPLETO, \n"+
-				"'' NOM_GRUPO, \n"+
-				"P.ID_PRODUCTO, \n"+
-				"PRO.NOM_PRODUCTO, \n"+
-				"P.NUM_CICLO, \n"+
-				"M.F_APLICACION, \n"+
-				"M.ID_GRUPO, \n"+
-				"SUM(NVL(ROUND(M.IMP_NETO,2),0)) MONTO, \n"+ 
-				"TO_CHAR(SUM(NVL(ROUND(M.IMP_NETO,2),0)),'999,999,999.99') IMPORTE \n"+
-				"FROM \n"+
-				"PFIN_MOVIMIENTO M, \n"+
-				"SIM_PRESTAMO P, \n"+
-				"RS_GRAL_PERSONA PE, \n"+
-				"SIM_PRODUCTO PRO \n"+ 
-				"WHERE M.CVE_GPO_EMPRESA = 'SIM' \n"+
-				"AND M.CVE_EMPRESA = 'CREDICONFIA' \n"+
-				"AND M.CVE_OPERACION = 'CRPAGOPRES' \n"+
-				"AND P.CVE_GPO_EMPRESA = M.CVE_GPO_EMPRESA \n"+ 
-				"AND P.CVE_EMPRESA = M.CVE_EMPRESA \n"+
-				"AND P.ID_PRESTAMO = M.ID_PRESTAMO \n"+
-				"AND P.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-				"AND P.ID_ETAPA_PRESTAMO != '8' \n"+
-				"AND P.ID_GRUPO IS NULL \n"+
-				"AND PE.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND PE.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND PE.ID_PERSONA = P.ID_CLIENTE \n"+
-				"AND PRO.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-				"AND PRO.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND PRO.ID_PRODUCTO = P.ID_PRODUCTO \n";
+				"V.CVE_PRESTAMO, \n"+
+				"V.CVE_NOMBRE, \n"+
+				"T.NUM_CICLO, \n"+
+				"T.FECHA_TRANSACCION, \n"+
+				"V.NOM_PRODUCTO, \n"+ 
+				"V.NOMBRE, \n"+
+				"NVL(ROUND(T.MONTO,2),0) MONTO, \n"+ 
+				"TO_CHAR(NVL(ROUND(T.MONTO,2),0),'999,999,999.99') IMPORTE \n"+ 
+				"FROM SIM_CAJA_TRANSACCION T, \n"+
+				"V_CREDITO V \n"+
+				"WHERE T.CVE_GPO_EMPRESA = '" + (String) parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				"AND T.CVE_EMPRESA = '" + (String) parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND T.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
+				"AND T.ID_CAJA = '" + (String)parametros.getDefCampo("ID_CAJA") + "' \n"+
+				"AND T.CVE_MOVIMIENTO_CAJA = 'PAGOIND' \n"+
+				"AND T.FECHA_CANCELACION IS NULL \n"+
+				"AND V.CVE_GPO_EMPRESA =  T.CVE_GPO_EMPRESA \n"+
+				"AND V.CVE_EMPRESA =  T.CVE_EMPRESA \n"+
+				"AND V.ID_PRESTAMO =  T.ID_PRESTAMO \n";
 		
 		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
-			sSql = sSql + "AND P.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+			sSql = sSql + "AND V.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 		}
 		if (parametros.getDefCampo("NOM_PRODUCTO") != null) {
-			sSql = sSql + "AND PRO.NOM_PRODUCTO = '" + (String) parametros.getDefCampo("NOM_PRODUCTO") + "' \n";
+			sSql = sSql + "AND V.NOM_PRODUCTO = '" + (String) parametros.getDefCampo("NOM_PRODUCTO") + "' \n";
 		}
 		if (parametros.getDefCampo("NUM_CICLO") != null) {
-			sSql = sSql + "AND P.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
+			sSql = sSql + "AND T.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
 		}
 		if (parametros.getDefCampo("NOM_CLIENTE") != null) {
-			sSql = sSql + "AND PE.NOM_COMPLETO LIKE '%" + (String) parametros.getDefCampo("NOM_CLIENTE") + "%' \n";
-		}
-		
-		sSql = sSql + "GROUP BY M.ID_PRESTAMO, P.CVE_PRESTAMO, 'INDIVIDUAL',  PE.NOM_COMPLETO, '', P.ID_PRODUCTO, PRO.NOM_PRODUCTO, P.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
-		
-		sSql = sSql + "MINUS \n"+
-					"SELECT \n"+
-					"C.ID_PRESTAMO, \n"+
-					"P.CVE_PRESTAMO, \n"+
-					"'INDIVIDUAL' APLICA_A, \n"+
-					"PE.NOM_COMPLETO, \n"+
-					"'' NOM_GRUPO, \n"+
-					"P.ID_PRODUCTO, \n"+
-					"PRO.NOM_PRODUCTO, \n"+
-					"P.NUM_CICLO, \n"+
-					"C.FECHA_APLICACION F_APLICACION, \n"+
-					"ID_TRANSACCION_GRUPO ID_GRUPO, \n"+
-					"NVL(ROUND(-C.MONTO,2),0) MONTO,  \n"+
-					"TO_CHAR(NVL(ROUND(-C.MONTO,2),0),'999,999,999.99') IMPORTE \n"+
-					"FROM \n"+
-					"SIM_CAJA_TRANSACCION C, \n"+
-					"SIM_PRESTAMO P, \n"+
-					"RS_GRAL_PERSONA PE, \n"+
-					"SIM_PRODUCTO PRO \n"+
-					"WHERE C.CVE_GPO_EMPRESA = 'SIM' \n"+
-					"AND C.CVE_EMPRESA = 'CREDICONFIA' \n"+
-					"AND C.CVE_MOVIMIENTO_CAJA = 'CANPAGO' \n"+
-					"AND C.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-					"AND P.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+
-					"AND P.CVE_EMPRESA = C.CVE_EMPRESA \n"+
-					"AND P.ID_PRESTAMO = C.ID_PRESTAMO \n"+
-					"AND P.ID_GRUPO IS NULL \n"+
-					"AND P.ID_ETAPA_PRESTAMO != '8' \n"+
-					"AND PE.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND PE.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND PE.ID_PERSONA = P.ID_CLIENTE \n"+
-					"AND PRO.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND PRO.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND PRO.ID_PRODUCTO = P.ID_PRODUCTO \n";
-		
-		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
-			sSql = sSql + "AND P.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
-		}
-		if (parametros.getDefCampo("NOM_PRODUCTO") != null) {
-			sSql = sSql + "AND PRO.NOM_PRODUCTO = '" + (String) parametros.getDefCampo("NOM_PRODUCTO") + "' \n";
-		}
-		if (parametros.getDefCampo("NUM_CICLO") != null) {
-			sSql = sSql + "AND P.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
-		}
-		if (parametros.getDefCampo("NOM_CLIENTE") != null) {
-			sSql = sSql + "AND PE.NOM_COMPLETO LIKE '%" + (String) parametros.getDefCampo("NOM_CLIENTE") + "%' \n";
+			sSql = sSql + "AND V.NOMBRE LIKE '%" + (String) parametros.getDefCampo("NOM_CLIENTE") + "%' \n";
 		}
 		
 		sSql = sSql + "UNION ALL \n"+
-						"SELECT \n"+
-						"GD.ID_PRESTAMO_GRUPO, \n"+ 
-						"PG.CVE_PRESTAMO_GRUPO, \n"+
-						"'GRUPAL' APLICA_A, \n"+
-						"'' NOM_COMPLETO, \n"+
-						"G.NOM_GRUPO, \n"+
-						"PG.ID_PRODUCTO, \n"+
-						"PRO.NOM_PRODUCTO, \n"+
-						"PG.NUM_CICLO, \n"+
-						"M.F_APLICACION, \n"+
-						"M.ID_GRUPO, \n"+
-					    "SUM(NVL(ROUND(M.IMP_NETO,2),0)) MONTO, \n"+
-					    "TO_CHAR(SUM(NVL(ROUND(M.IMP_NETO,2),0)),'999,999,999.99') IMPORTE \n"+
-						"FROM \n"+
-						"SIM_PRESTAMO_GPO_DET GD, \n"+ 
-						"SIM_PRESTAMO_GRUPO PG, \n"+
-						"SIM_GRUPO G, \n"+
-						"SIM_PRESTAMO P, \n"+
-						"SIM_PRODUCTO PRO, \n"+
-						"PFIN_MOVIMIENTO M \n"+
-						"WHERE GD.CVE_GPO_EMPRESA = 'SIM' \n"+ 
-						"AND GD.CVE_EMPRESA = 'CREDICONFIA' \n"+
-						"AND PG.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+  
-						"AND PG.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-						"AND PG.ID_PRESTAMO_GRUPO = GD.ID_PRESTAMO_GRUPO \n"+  
-						"AND PG.ID_ETAPA_PRESTAMO != '8' \n"+
-						"AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
-						"AND G.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-						"AND G.ID_GRUPO = PG.ID_GRUPO \n"+
-						"AND G.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-						"AND P.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+  
-						"AND P.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-						"AND P.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
-						"AND PRO.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-						"AND PRO.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-						"AND PRO.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-						"AND M.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+  
-						"AND M.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-						"AND M.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
-						"AND M.CVE_OPERACION = 'CRPAGOPRES' \n";
-						
-		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
-			sSql = sSql + "AND PG.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
-		}
-		if (parametros.getDefCampo("NOM_PRODUCTO") != null) {
-			sSql = sSql + "AND PRO.NOM_PRODUCTO = '" + (String) parametros.getDefCampo("NOM_PRODUCTO") + "' \n";
-		}
-		if (parametros.getDefCampo("NUM_CICLO") != null) {
-			sSql = sSql + "AND PG.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
-		}
-		if (parametros.getDefCampo("NOM_GRUPO") != null) {
-			sSql = sSql + "AND G.NOM_GRUPO = '" + (String) parametros.getDefCampo("NOM_GRUPO") + "' \n";
-		}
-
-		sSql = sSql + "GROUP BY GD.ID_PRESTAMO_GRUPO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
-		 
-		sSql = sSql + "MINUS \n"+
 					"SELECT \n"+
-					"C.ID_PRESTAMO, \n"+ 
-					"PG.CVE_PRESTAMO_GRUPO, \n"+
-					"'GRUPAL' APLICA_A, \n"+
-					"'' NOM_COMPLETO, \n"+
-					"G.NOM_GRUPO, \n"+
-					"PG.ID_PRODUCTO, \n"+
-					"PRO.NOM_PRODUCTO, \n"+
-					"PG.NUM_CICLO, \n"+
-					"C.FECHA_APLICACION, \n"+
-					"ID_TRANSACCION_GRUPO ID_GRUPO, \n"+
-					"NVL(ROUND(-C.MONTO,2),0) MONTO,  \n"+
-					"TO_CHAR(NVL(ROUND(-C.MONTO,2),0),'999,999,999.99') IMPORTE \n"+
-					"FROM \n"+
-					"SIM_CAJA_TRANSACCION C, \n"+
-					"SIM_PRESTAMO_GRUPO PG, \n"+
-					"SIM_GRUPO G, \n"+
-					"SIM_PRODUCTO PRO \n"+
-					"WHERE C.CVE_GPO_EMPRESA = 'SIM' \n"+ 
-					"AND C.CVE_EMPRESA = 'CREDICONFIA' \n"+
-					"AND C.CVE_MOVIMIENTO_CAJA = 'CANPAGO' \n"+
-					"AND PG.CVE_GPO_EMPRESA = C.CVE_GPO_EMPRESA \n"+  
-					"AND PG.CVE_EMPRESA = C.CVE_EMPRESA \n"+
-					"AND PG.ID_PRESTAMO_GRUPO = C.ID_PRESTAMO \n"+  
-					"AND PG.ID_ETAPA_PRESTAMO != '8' \n"+
-					"AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
-					"AND G.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-					"AND G.ID_GRUPO = PG.ID_GRUPO \n"+
-					"AND G.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
-					"AND PRO.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+ 
-					"AND PRO.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-					"AND PRO.ID_PRODUCTO = PG.ID_PRODUCTO \n";
+					"T.ID_PRESTAMO_GRUPO, \n"+
+					"T.ID_TRANSACCION, \n"+
+					"'GRUPO' APLICA_A, \n"+
+					"V.CVE_PRESTAMO, \n"+
+					"V.CVE_NOMBRE, \n"+
+					"T.NUM_CICLO, \n"+
+					"T.FECHA_TRANSACCION, \n"+
+					"V.NOM_PRODUCTO, \n"+
+					"V.NOMBRE, \n"+
+					"NVL(ROUND(T.MONTO,2),0) MONTO, \n"+ 
+					"TO_CHAR(NVL(ROUND(T.MONTO,2),0),'999,999,999.99') IMPORTE \n"+ 
+					"FROM SIM_CAJA_TRANSACCION T, \n"+
+					"V_CREDITO V \n"+
+					"WHERE T.CVE_GPO_EMPRESA = '" + (String) parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND T.CVE_EMPRESA = '" + (String) parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND T.ID_SUCURSAL = '" + (String)parametros.getDefCampo("ID_SUCURSAL") + "' \n"+
+					"AND T.ID_CAJA = '" + (String)parametros.getDefCampo("ID_CAJA") + "' \n"+
+					"AND T.CVE_MOVIMIENTO_CAJA = 'PAGOGPO' \n"+
+					"AND T.FECHA_CANCELACION IS NULL \n"+
+					"AND V.CVE_GPO_EMPRESA =  T.CVE_GPO_EMPRESA \n"+
+					"AND V.CVE_EMPRESA =  T.CVE_EMPRESA \n"+
+					"AND V.ID_PRESTAMO =  T.ID_PRESTAMO_GRUPO \n";
 		
 		if (parametros.getDefCampo("CVE_PRESTAMO") != null) {
-			sSql = sSql + "AND PG.CVE_PRESTAMO_GRUPO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+			sSql = sSql + "AND V.CVE_PRESTAMO = '" + (String) parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
 		}
 		if (parametros.getDefCampo("NOM_PRODUCTO") != null) {
-			sSql = sSql + "AND PRO.NOM_PRODUCTO = '" + (String) parametros.getDefCampo("NOM_PRODUCTO") + "' \n";
+			sSql = sSql + "AND V.NOM_PRODUCTO = '" + (String) parametros.getDefCampo("NOM_PRODUCTO") + "' \n";
 		}
 		if (parametros.getDefCampo("NUM_CICLO") != null) {
-			sSql = sSql + "AND PG.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
+			sSql = sSql + "AND T.NUM_CICLO = '" + (String) parametros.getDefCampo("NUM_CICLO") + "' \n";
 		}
-		if (parametros.getDefCampo("NOM_GRUPO") != null) {
-			sSql = sSql + "AND G.NOM_GRUPO = '" + (String) parametros.getDefCampo("NOM_GRUPO") + "' \n";
+		if (parametros.getDefCampo("NOM_CLIENTE") != null) {
+			sSql = sSql + "AND V.NOMBRE LIKE '%" + (String) parametros.getDefCampo("NOM_CLIENTE") + "%' \n";
 		}
+		
+		System.out.println("auxilio"+sSql);
 		
 		ejecutaSql();
 		return getConsultaLista();
@@ -250,6 +126,16 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 		
 		String sIdMovimiento = "";
 		String sTxrespuesta = "";
+		//Esta variable mapea los movimientos de caja y las operaciones hechas por pl.
+		String sIdTransaccion = "";
+		
+		//Obtenemos el sequence ID_TRANSACCION que relacionará el movimiento de la caja con los movimientos del credito 
+		//en las tablas PFIN_MOVIMIENTO y PFIN_PRE_MOVIMIENTO.
+		sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
+		ejecutaSql();
+		if (rs.next()){
+			sIdTransaccion = rs.getString("ID_TRANSACCION");
+		}
 		
 		if (registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")){
 			//Cancela un prï¿½stamo indiviudal.
@@ -257,66 +143,40 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 			sSql = "SELECT \n"+
 					"M.ID_PRESTAMO, \n"+
 					"M.ID_MOVIMIENTO, \n"+
-					"P.CVE_PRESTAMO, \n"+
-					"'INDIVIDUAL' APLICA_A, \n"+
-					"PE.ID_PERSONA, \n"+
-					"PE.NOM_COMPLETO, \n"+
-					"'' NOM_GRUPO, \n"+
-					"P.ID_PRODUCTO, \n"+
-					"PRO.NOM_PRODUCTO, \n"+
-					"P.NUM_CICLO, \n"+
-					"M.F_APLICACION, \n"+
-					"M.ID_GRUPO, \n"+
-					"SUM(M.IMP_NETO) IMPORTE \n"+
+					"M.ID_REFERENCIA \n"+
 					"FROM \n"+
-					"PFIN_MOVIMIENTO M, \n"+
-					"SIM_PRESTAMO P, \n"+
-					"RS_GRAL_PERSONA PE, \n"+
-					"SIM_PRODUCTO PRO \n"+ 
-					"WHERE M.CVE_GPO_EMPRESA = 'SIM' \n"+
-					"AND M.CVE_EMPRESA = 'CREDICONFIA' \n"+
+					"PFIN_MOVIMIENTO M \n"+
+					"WHERE M.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND M.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 					"AND M.CVE_OPERACION = 'CRPAGOPRES' \n"+
-					"AND P.CVE_GPO_EMPRESA = M.CVE_GPO_EMPRESA \n"+ 
-					"AND P.CVE_EMPRESA = M.CVE_EMPRESA \n"+
-					"AND P.ID_PRESTAMO = M.ID_PRESTAMO \n"+
-					"AND P.ID_GRUPO IS NULL \n"+
-					"AND PE.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND PE.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND PE.ID_PERSONA = P.ID_CLIENTE \n"+
-					"AND PRO.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					"AND PRO.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND PRO.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-					"AND M.ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-					"AND M.ID_GRUPO = '" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "' \n"+
-					"GROUP BY M.ID_PRESTAMO, M.ID_MOVIMIENTO, P.CVE_PRESTAMO, 'INDIVIDUAL', PE.ID_PERSONA, PE.NOM_COMPLETO, '', P.ID_PRODUCTO, PRO.NOM_PRODUCTO, P.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
-					
+					"AND M.ID_REFERENCIA = '" + (String)registro.getDefCampo("ID_TRANSACCION") + "' \n";
 			ejecutaSql();
 			if (rs.next()){
 				sIdMovimiento = rs.getString("ID_MOVIMIENTO");
-				registro.addDefCampo("ID_CLIENTE",rs.getString("ID_PERSONA"));
 			}
 			
-			CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?)); end;");
+			CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?,?)); end;");
 			sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 			sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 			sto1.setString(3, sIdMovimiento);
 			sto1.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
-			sto1.registerOutParameter(5, java.sql.Types.VARCHAR);
+			sto1.setString(5, sIdTransaccion);
+			sto1.registerOutParameter(6, java.sql.Types.VARCHAR);
 			
 			//EJECUTA EL PROCEDIMIENTO ALMACENADO
 			sto1.execute();
-			sTxrespuesta = sto1.getString(5);
+			sTxrespuesta = sto1.getString(6);
 			sto1.close();
 			
 			if (sTxrespuesta.equals("Movimiento aplicado con exito")){
-			
-				String sIdTransaccion = "";
-				int iIdTransaccion = 0;
+				
+				String sIdMovimientoOperacion = "";
+				int iIdMovimientoOperacion = 0;
 				
 				//OBTENEMOS EL SEQUENCE
 				sSql =  "SELECT \n" +
 						"CVE_GPO_EMPRESA, \n" +
-						"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+						"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
 						"FROM \n" +
 						"SIM_CAJA_TRANSACCION \n" +
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -327,18 +187,19 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 					
 				if (rs.next()){
 					
-					sIdTransaccion = rs.getString("ID_TRANSACCION");
-					iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-					iIdTransaccion ++;
-					sIdTransaccion= String.valueOf(iIdTransaccion);
+					sIdMovimientoOperacion = rs.getString("ID_MOVIMIENTO_OPERACION");
+					iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+					iIdMovimientoOperacion ++;
+					sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
 				}else {
 				
-					sIdTransaccion = "1";
+					sIdMovimientoOperacion = "1";
 				}
 				
 				sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
+						"ID_MOVIMIENTO_OPERACION, \n" +
 						"ID_TRANSACCION, \n" +
 						"ID_SUCURSAL, \n" +
 						"ID_CAJA, \n" +
@@ -348,34 +209,39 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 						"NUM_CICLO, \n"+
 						"MONTO, \n"+
 						"CVE_USUARIO_CAJERO, \n" +
-						"FECHA_APLICACION, \n" +
-						"FECHA_TRANSACCION, \n" +
-						"ID_TRANSACCION_GRUPO, \n" +
-						"FECHA_CANCELACION) \n" +
+						"FECHA_TRANSACCION) \n" +
 				        "VALUES ( \n"+
 						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						sIdMovimientoOperacion + ", \n "+
 						sIdTransaccion + ", \n "+
 						"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 						"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
 						"'CANPAGO', \n" +
 						"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_NOMBRE") + "', \n" +
 						"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
 						"-'" + (String)registro.getDefCampo("MONTO") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-						"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
-						"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
-						"'" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "', \n" +
-						"SYSDATE) \n" ;
+						"SYSDATE) \n";
 				
 				//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
 				if (ejecutaUpdate() == 0){
 					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 				}
+				
+				sSql = " UPDATE SIM_CAJA_TRANSACCION SET "+
+					   " FECHA_CANCELACION    	 = SYSDATE \n" +
+					   " WHERE ID_TRANSACCION    	 = '" + (String)registro.getDefCampo("ID_TRANSACCION") + "' \n" +
+					   " AND CVE_EMPRESA   	 = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					   " AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+				//VERIFICA SI DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
 			}
 			
-		}else if (registro.getDefCampo("APLICA_A").equals("GRUPAL")){
+		}else if (registro.getDefCampo("APLICA_A").equals("GRUPO")){
 			//Cancela un prï¿½stamo grupal.
 			String fAplicacion = "";
 
@@ -386,78 +252,43 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 				fAplicacion = rs.getString("F_APLICA");
 			}
 
-			
 			sSql = "SELECT \n"+
-					"GD.ID_PRESTAMO_GRUPO, \n"+ 
+					"M.ID_PRESTAMO, \n"+
 					"M.ID_MOVIMIENTO, \n"+
-					"PG.CVE_PRESTAMO_GRUPO, \n"+
-					"'GRUPAL' APLICA_A, \n"+
-					"G.ID_GRUPO, \n"+
-					"'' NOM_COMPLETO, \n"+
-					"G.NOM_GRUPO, \n"+
-					"PG.ID_PRODUCTO, \n"+
-					"PRO.NOM_PRODUCTO, \n"+
-					"PG.NUM_CICLO, \n"+
-					"M.F_APLICACION, \n"+
-					"M.ID_GRUPO, \n"+
-				    "SUM(NVL(ROUND(M.IMP_NETO,2),0)) MONTO, \n"+
-				    "TO_CHAR(SUM(NVL(ROUND(M.IMP_NETO,2),0)),'999,999,999.99') IMPORTE \n"+
+					"M.ID_REFERENCIA \n"+
 					"FROM \n"+
-					"SIM_PRESTAMO_GPO_DET GD, \n"+ 
-					"SIM_PRESTAMO_GRUPO PG, \n"+
-					"SIM_GRUPO G, \n"+
-					"SIM_PRESTAMO P, \n"+
-					"SIM_PRODUCTO PRO, \n"+
 					"PFIN_MOVIMIENTO M \n"+
-					"WHERE GD.CVE_GPO_EMPRESA = 'SIM' \n"+ 
-					"AND GD.CVE_EMPRESA = 'CREDICONFIA' \n"+
-					"AND PG.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+  
-					"AND PG.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-					"AND PG.ID_PRESTAMO_GRUPO = GD.ID_PRESTAMO_GRUPO \n"+  
-					"AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
-					"AND G.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-					"AND G.ID_GRUPO = PG.ID_GRUPO \n"+
-					"AND P.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+  
-					"AND P.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-					"AND P.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
-					"AND PRO.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-					"AND PRO.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					"AND PRO.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-					"AND M.CVE_GPO_EMPRESA = GD.CVE_GPO_EMPRESA \n"+  
-					"AND M.CVE_EMPRESA = GD.CVE_EMPRESA \n"+
-					"AND M.ID_PRESTAMO = GD.ID_PRESTAMO \n"+
+					"WHERE M.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND M.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 					"AND M.CVE_OPERACION = 'CRPAGOPRES' \n"+
-					"AND PG.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
-					"AND M.F_APLICACION = '" + fAplicacion + "' \n"+
-					"GROUP BY GD.ID_PRESTAMO_GRUPO, M.ID_MOVIMIENTO, PG.CVE_PRESTAMO_GRUPO, 'GRUPAL', G.ID_GRUPO, '', G.NOM_GRUPO, PG.ID_PRODUCTO, PRO.NOM_PRODUCTO, PG.NUM_CICLO, M.F_APLICACION, M.ID_GRUPO \n";
-			 
-				ejecutaSql();
-				if (rs.next()){
-					sIdMovimiento = rs.getString("ID_MOVIMIENTO");
-					registro.addDefCampo("ID_GRUPO",rs.getString("ID_GRUPO"));
-				}	
+					"AND M.ID_REFERENCIA = '" + (String)registro.getDefCampo("ID_TRANSACCION") + "' \n";
+			ejecutaSql();
+			if (rs.next()){
+				sIdMovimiento = rs.getString("ID_MOVIMIENTO");
+			}
 					
-				CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?)); end;");
+				CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_CREDITO.fCancelaPago(?,?,?,?,?,?)); end;");
 				sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 				sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 				sto1.setString(3, sIdMovimiento);
 				sto1.setString(4, (String)registro.getDefCampo("CVE_USUARIO"));
-				sto1.registerOutParameter(5, java.sql.Types.VARCHAR);
+				sto1.setString(5, sIdTransaccion);
+				sto1.registerOutParameter(6, java.sql.Types.VARCHAR);
 					
 				//EJECUTA EL PROCEDIMIENTO ALMACENADO
 				sto1.execute();
-				sTxrespuesta = sto1.getString(5);
+				sTxrespuesta = sto1.getString(6);
 				sto1.close();
 				
 				if (sTxrespuesta.equals("Movimiento aplicado con exito")){
 					
-					String sIdTransaccion = "";
-					int iIdTransaccion = 0;
+					String sIdMovimientoOperacion = "";
+					int iIdMovimientoOperacion = 0;
 					
 					//OBTENEMOS EL SEQUENCE
 					sSql =  "SELECT \n" +
 							"CVE_GPO_EMPRESA, \n" +
-							"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+							"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
 							"FROM \n" +
 							"SIM_CAJA_TRANSACCION \n" +
 							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -468,18 +299,19 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 						
 					if (rs.next()){
 						
-						sIdTransaccion = rs.getString("ID_TRANSACCION");
-						iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-						iIdTransaccion ++;
-						sIdTransaccion= String.valueOf(iIdTransaccion);
+						sIdMovimientoOperacion = rs.getString("ID_MOVIMIENTO_OPERACION");
+						iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+						iIdMovimientoOperacion ++;
+						sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
 					}else {
 					
-						sIdTransaccion = "1";
+						sIdMovimientoOperacion = "1";
 					}
 					
 					sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 							"CVE_GPO_EMPRESA, \n" +
 							"CVE_EMPRESA, \n" +
+							"ID_MOVIMIENTO_OPERACION, \n" +
 							"ID_TRANSACCION, \n" +
 							"ID_SUCURSAL, \n" +
 							"ID_CAJA, \n" +
@@ -489,28 +321,33 @@ public class SimCajaCancelacionPagoDAO extends Conexion2 implements OperacionCon
 							"NUM_CICLO, \n"+
 							"MONTO, \n"+
 							"CVE_USUARIO_CAJERO, \n" +
-							"FECHA_APLICACION, \n" +
-							"FECHA_TRANSACCION, \n" +
-							"ID_TRANSACCION_GRUPO, \n" +
-							"FECHA_CANCELACION) \n" +
+							"FECHA_TRANSACCION) \n" +
 					        "VALUES ( \n"+
 							"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 							"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+							sIdMovimientoOperacion + ", \n "+
 							sIdTransaccion + ", \n "+
 							"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 							"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
 							"'CANPAGO', \n" +
 							"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-							"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+							"'" + (String)registro.getDefCampo("CVE_NOMBRE") + "', \n" +
 							"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
 							"-'" + (String)registro.getDefCampo("MONTO") + "', \n" +
 							"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-							"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
-							"'" + (String)registro.getDefCampo("F_APLICACION") + "', \n" +
-							"'" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "', \n" +
 							"SYSDATE) \n" ;
 					
 					//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+					
+					sSql = " UPDATE SIM_CAJA_TRANSACCION SET "+
+						   " FECHA_CANCELACION    	 = SYSDATE \n" +
+						   " WHERE ID_TRANSACCION    	 = '" + (String)registro.getDefCampo("ID_TRANSACCION") + "' \n" +
+						   " AND CVE_EMPRESA   	 = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						   " AND CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+					//VERIFICA SI DIO DE ALTA EL REGISTRO
 					if (ejecutaUpdate() == 0){
 						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 					}

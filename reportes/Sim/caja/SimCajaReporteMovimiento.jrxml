@@ -41,7 +41,7 @@
 	<field name="ID_REGIONAL" class="java.lang.String"/>
 	<field name="ID_SUCURSAL" class="java.lang.String"/>
 	<field name="NOM_SUCURSAL" class="java.lang.String"/>
-	<field name="ID_TRANSACCION" class="java.lang.String"/>
+	<field name="ID_MOVIMIENTO_OPERACION" class="java.lang.String"/>
 	<field name="MONTO" class="java.lang.String"/>
 	<field name="NOM_COMPLETO" class="java.lang.String"/>
 	<field name="ID_CLIENTE" class="java.lang.String"/>
@@ -738,7 +738,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_TRANSACCION}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_MOVIMIENTO_OPERACION}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

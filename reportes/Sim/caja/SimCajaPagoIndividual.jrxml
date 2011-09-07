@@ -32,7 +32,7 @@
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
 	<field name="CVE_EMPRESA" class="java.lang.String"/>
-	<field name="ID_TRANSACCION" class="java.lang.String"/>
+	<field name="ID_MOVIMIENTO_OPERACION" class="java.lang.String"/>
 	<field name="ID_CLIENTE" class="java.lang.String"/>
 	<field name="NUM_CICLO" class="java.lang.String"/>
 	<field name="ID_PRESTAMO" class="java.lang.String"/>
@@ -242,7 +242,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="11"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_TRANSACCION}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Folio: " + $F{ID_MOVIMIENTO_OPERACION}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement

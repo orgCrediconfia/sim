@@ -21,8 +21,7 @@
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor=''/>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave del prestamo'/>
-			<Portal:Columna tipovalor='texto' ancho='150' valor='Cliente'/>
-			<Portal:Columna tipovalor='texto' ancho='150' valor='Grupo'/>
+			<Portal:Columna tipovalor='texto' ancho='150' valor='Nombre'/>
 			<Portal:Columna tipovalor='texto' ancho='150' valor='Producto'/>
 			<Portal:Columna tipovalor='texto' ancho='45' valor='Ciclo'/>
 			<Portal:Columna tipovalor='texto' ancho='80' valor='Fecha de aplicación'/>
@@ -32,7 +31,7 @@
 			<Portal:TablaListaRenglon>
 				<c:if test='${(registro.campos["FECHA_CANCELACION"] == null)}'>
 					<Portal:Columna tipovalor='texto' ancho='100' valor=''>		
-						<a id="CancelarPago" href="javascript:fCancelarPago('<c:out value='${registro.campos["ID_PRESTAMO"]}'/>','<c:out value='${registro.campos["APLICA_A"]}'/>','<c:out value='${registro.campos["NUM_CICLO"]}'/>','<c:out value='${registro.campos["F_APLICACION"]}'/>','<c:out value='${registro.campos["MONTO"]}'/>','<c:out value='${registro.campos["ID_GRUPO"]}'/>');">Cancelar pago</a>
+						<a id="CancelarPago" href="javascript:fCancelarPago('<c:out value='${registro.campos["ID_TRANSACCION"]}'/>','<c:out value='${registro.campos["ID_PRESTAMO"]}'/>','<c:out value='${registro.campos["APLICA_A"]}'/>','<c:out value='${registro.campos["NUM_CICLO"]}'/>','<c:out value='${registro.campos["FECHA_TRANSACCION"]}'/>','<c:out value='${registro.campos["MONTO"]}'/>','<c:out value='${registro.campos["CVE_NOMBRE"]}'/>');">Cancelar pago</a>
 					</Portal:Columna>	
 				</c:if>
 				<c:if test='${(registro.campos["FECHA_CANCELACION"] != null)}'>
@@ -40,11 +39,10 @@
 					</Portal:Columna>	
 				</c:if>
 				<Portal:Columna tipovalor='texto' ancho='100' valor='${registro.campos["CVE_PRESTAMO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["NOM_COMPLETO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["NOM_GRUPO"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["NOMBRE"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='150' valor='${registro.campos["NOM_PRODUCTO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='45' valor='${registro.campos["NUM_CICLO"]}'/>
-				<Portal:Columna tipovalor='texto' ancho='45' valor='${registro.campos["F_APLICACION"]}'/>
+				<Portal:Columna tipovalor='texto' ancho='45' valor='${registro.campos["FECHA_TRANSACCION"]}'/>
 				<Portal:Columna tipovalor='moneda' ancho='100%' valor='$ ${registro.campos["IMPORTE"]}'/>
 			</Portal:TablaListaRenglon>
 		</c:forEach>
@@ -61,12 +59,12 @@
 				document.frmRegistro.submit();
 		}
 		
-		function fCancelarPago(sIdPrestamo,sAplicaA,sNumCiclo,sFAplicacion,sMonto,sIdTransaccionGrupo){
+		function fCancelarPago(sIdTransaccion,sIdPrestamo,sAplicaA,sNumCiclo,sFAplicacion,sMonto,sCveNombre){
 			var answer;
 			answer = confirm('¿Esta seguro que desea cancelar el pago del día '+sFAplicacion+ ' por el importe de $'+ sMonto);
 		
 			if (answer){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=AL&IdPrestamo="+sIdPrestamo+"&AplicaA="+sAplicaA+"&NumCiclo="+sNumCiclo+"&FAplicacion="+sFAplicacion+"&Monto="+sMonto+"&IdTransaccionGrupo="+sIdTransaccionGrupo;
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaCancelacionPago&OperacionCatalogo=AL&IdTransaccion="+sIdTransaccion+"&IdPrestamo="+sIdPrestamo+"&AplicaA="+sAplicaA+"&NumCiclo="+sNumCiclo+"&FAplicacion="+sFAplicacion+"&Monto="+sMonto+"&CveNombre="+sCveNombre;
 				document.frmRegistro.submit();
 			}	
 		}

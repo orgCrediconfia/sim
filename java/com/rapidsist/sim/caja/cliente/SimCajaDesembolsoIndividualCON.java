@@ -78,7 +78,7 @@ public class SimCajaDesembolsoIndividualCON implements CatalogoControlConsultaIN
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaDesInd.jsp?IdCaja="+request.getParameter("IdCaja")+"&IdTransaccion="+request.getParameter("IdTransaccion");
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaDesInd.jsp?IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+request.getParameter("IdMovimientoOperacion");
 			}else if (request.getParameter("Filtro").equals("Alta")){
 			
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaMov.jsp?IdCaja="+request.getParameter("IdCaja");
@@ -120,7 +120,7 @@ public class SimCajaDesembolsoIndividualCON implements CatalogoControlConsultaIN
 		String sIdCaja = "";
 		String sIdCajaSucursal = "";
 		String sIdSucursal = "";
-		String sIdTransaccion = "";
+		String sIdMovimientoOperacion = "";
 		
 		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
 		
@@ -145,9 +145,9 @@ public class SimCajaDesembolsoIndividualCON implements CatalogoControlConsultaIN
 		registro.addDefCampo("CVE_MOVIMIENTO_CAJA","DESIND");
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaDesembolsoIndividual", registro, iTipoOperacion);
-		sIdTransaccion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_TRANSACCION");
+		sIdMovimientoOperacion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_MOVIMIENTO_OPERACION");
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaDesembolsoIndividual&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+request.getParameter("IdCaja")+"&IdTransaccion="+sIdTransaccion;
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaDesembolsoIndividual&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+sIdMovimientoOperacion;
 		return registroControl;
 	}
 }

@@ -16,7 +16,7 @@
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
 				<Portal:Columna tipovalor='texto' ancho='100' valor=''>					
-					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CVE_PRESTAMO"]}' funcion='SimCajaConsultaPagarCredito' operacion='CR' parametros='IdCaja=${param.IdCaja}&AplicaA=${registro.campos["APLICA_A"]}&IdPrestamo=${registro.campos["ID_PRESTAMO"]}&IdTransaccion=null&TxRespuesta=0&TxPregunta=0&FechaMovimiento=null&Respuesta=null'/>
+					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["CVE_PRESTAMO"]}' funcion='SimCajaConsultaPagarCredito' operacion='CR' parametros='IdCaja=${param.IdCaja}&AplicaA=${registro.campos["APLICA_A"]}&IdPrestamo=${registro.campos["ID_PRESTAMO"]}&IdMovimientoOperacion=null&TxRespuesta=0&TxPregunta=0&FechaMovimiento=null&Respuesta=null'/>
 				</Portal:Columna>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["NOMBRE"]}'/>
 			</Portal:TablaListaRenglon>

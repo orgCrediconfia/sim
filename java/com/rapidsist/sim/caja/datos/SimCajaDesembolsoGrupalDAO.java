@@ -9,7 +9,6 @@ package com.rapidsist.sim.caja.datos;
 import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.portal.catalogos.OperacionConsultaTabla;
-import com.rapidsist.portal.catalogos.OperacionConsultaRegistro;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ import java.sql.ResultSet;
  * Administra los accesos a la base de datos para la entrega de prestamos grupales.
  */
  
-public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta, OperacionConsultaRegistro {
+public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionConsultaTabla, OperacionAlta {
 	
 	/**
 	 * Obtiene un conjunto de registros en base a el filtro de búsqueda.
@@ -116,49 +115,6 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		ejecutaSql();
 		return getConsultaLista();
 	}
-	
-
-	/**
-	 * Obtiene un registro en base a una llave primaria.
-	 * @param parametros Parámetros que se le envían a la consulta para obtener el registro
-	 * deseado.
-	 * @return Los campos del registro.
-	 * @throws SQLException Si se genera un error al accesar la base de datos.
-	 */
-	public Registro getRegistro(Registro parametros) throws SQLException{
-		/*
-		sSql =  "SELECT \n"+
-				"SUM(M.MONTO_AUTORIZADO) TOTAL \n"+ 
-				"FROM SIM_PRESTAMO P, \n"+ 
-				"SIM_CLIENTE_MONTO M, \n"+
-				"SIM_PRODUCTO PR, \n"+
-				"RS_GRAL_PERSONA PE, \n"+
-		        "SIM_GRUPO G \n"+
-		    	"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND P.ID_GRUPO = '" + (String)parametros.getDefCampo("ID_GRUPO") + "' \n"+
-		        "AND P.ID_PRODUCTO = '" + (String)parametros.getDefCampo("ID_PRODUCTO") + "' \n"+
-		        "AND P.NUM_CICLO = '" + (String)parametros.getDefCampo("NUM_CICLO") + "' \n"+
-		        "AND P.ID_ETAPA_PRESTAMO = '11' \n"+
-				"AND P.B_ENTREGADO != 'V' \n"+
-				"AND M.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-				"AND M.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND M.ID_PRESTAMO = P.ID_PRESTAMO \n"+
-				"AND PE.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-				"AND PE.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND PE.ID_PERSONA = P.ID_CLIENTE \n"+
-				"AND PR.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-				"AND PR.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND PR.ID_PRODUCTO = P.ID_PRODUCTO \n"+
-		        "AND G.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
-				"AND G.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-				"AND G.ID_GRUPO = P.ID_GRUPO \n"+
-		        "AND P.ID_GRUPO IS NOT NULL \n";
-		        */
-			
-		ejecutaSql();
-		return this.getConsultaRegistro();
-	}
 
 	/**
 	 * Inserta un registro.
@@ -171,8 +127,8 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		
 		resultadoCatalogo.Resultado = new Registro();
 		
-		String sIdTransaccion = "";
-		int iIdTransaccion = 0;
+		String sIdMovimientoOperacion = "";
+		int iIdMovimientoOperacion = 0;
 		String sIdTransaccionGrupo = "";
 		String sMontoCaja = "";
 		float fMontoCaja = 0;
@@ -218,6 +174,12 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 		if (fMontoCaja < fMonto){
 			resultadoCatalogo.mensaje.setClave("FONDO_INSUFICIENTE");
 		}else {
+			
+			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
+			ejecutaSql();
+			if (rs.next()){
+				registro.addDefCampo("ID_TRANSACCION", rs.getString("ID_TRANSACCION"));
+			}
 		
 			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION_GPO.nextval AS ID_TRANSACCION_GRUPO FROM DUAL";
 			
@@ -289,7 +251,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 				//OBTENEMOS EL SEQUENCE
 				sSql =  "SELECT \n" +
 						"CVE_GPO_EMPRESA, \n" +
-						"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+						"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
 						"FROM \n" +
 						"SIM_CAJA_TRANSACCION \n" +
 						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -302,19 +264,20 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 				
 				if (rs2.next()){
 					
-					sIdTransaccion = rs2.getString("ID_TRANSACCION");
-					iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-					iIdTransaccion ++;
-					sIdTransaccion= String.valueOf(iIdTransaccion);
+					sIdMovimientoOperacion = rs2.getString("ID_MOVIMIENTO_OPERACION");
+					iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+					iIdMovimientoOperacion ++;
+					sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
 				}else {
 					
-					sIdTransaccion = "1";
+					sIdMovimientoOperacion = "1";
 				}
 				
 				//Inserta el movimiento del desembolso grupal por cada préstamo individual.
 				sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 						"CVE_GPO_EMPRESA, \n" +
 						"CVE_EMPRESA, \n" +
+						"ID_MOVIMIENTO_OPERACION, \n" +
 						"ID_TRANSACCION, \n" +
 						"ID_TRANSACCION_GRUPO, \n" +
 						"CVE_MOVIMIENTO_CAJA, \n" +
@@ -332,7 +295,8 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 				        "VALUES ( \n"+
 						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-						sIdTransaccion + ", \n "+
+						sIdMovimientoOperacion + ", \n "+
+						"'" + (String)registro.getDefCampo("ID_TRANSACCION") + "', \n" +
 						sIdTransaccionGrupo + ", \n "+
 						"'DESGPO', \n" +
 						"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +

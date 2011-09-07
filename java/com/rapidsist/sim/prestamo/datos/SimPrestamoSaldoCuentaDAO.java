@@ -29,31 +29,45 @@ public class SimPrestamoSaldoCuentaDAO extends Conexion2 implements OperacionCon
 		
 		if (parametros.getDefCampo("CONSULTA").equals("SALDO_INDIVIDUAL")) {
 
+			//  TO_CHAR(SUM(NVL(A.SDO_EFECTIVO,0)),'999,999,999.99') SALDO_CUENTA,
+				
 			sSql =  "SELECT \n"+
-			"p.id_prestamo, TO_CHAR(s.sdo_efectivo,'999,999,999.99') SALDO_CUENTA \n"+
-			"from  \n"+
-			"sim_prestamo p, \n"+
-			"pfin_saldo s \n"+
-			"where s.cve_gpo_empresa = p.cve_gpo_empresa \n"+
-			"and s.cve_empresa = p.cve_empresa \n"+
-			"and s.id_cuenta = p.id_cuenta_referencia \n"+
-			"and p.id_prestamo = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n";
+			      "P.ID_PRESTAMO, \n"+
+			      "TO_CHAR(A.SDO_EFECTIVO,'999,999,999.99') SALDO_CUENTA, \n"+
+			      "MAX (A.F_FOTO) FECHA FROM \n"+
+			      "(SELECT CVE_GPO_EMPRESA, CVE_EMPRESA, ID_CUENTA, F_FOTO, CVE_DIVISA, SDO_EFECTIVO FROM PFIN_SALDO) A, \n"+
+			      "SIM_PRESTAMO P \n"+
+			      "WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			      "AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+			      "AND P.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
+			      "AND A.CVE_GPO_EMPRESA  = P.CVE_GPO_EMPRESA  \n"+
+			      "AND A.CVE_EMPRESA = P.CVE_EMPRESA \n"+
+			      "AND A.ID_CUENTA = P.ID_CUENTA_REFERENCIA \n"+
+			      "AND A.CVE_DIVISA = 'MXP' \n"+
+			      "GROUP BY P.ID_PRESTAMO, TO_CHAR(A.SDO_EFECTIVO,'999,999,999.99') \n";
 			
 			System.out.println("saldo de la cuenta individual¨****************************************"+sSql);
-				
+			
 		}else if (parametros.getDefCampo("CONSULTA").equals("SALDO_GRUPAL")) {
+	
 			sSql =  "SELECT \n"+
-					"pg.id_prestamo_grupo, TO_CHAR(sum(s.sdo_efectivo),'999,999,999.99') SALDO_CUENTA \n"+
-					"from sim_prestamo_gpo_det pg, \n"+
-					"sim_prestamo p, \n"+
-					"pfin_saldo s \n"+
-					"where pg.cve_gpo_empresa =  p.cve_gpo_empresa \n"+
-					"and pg.cve_empresa =  p.cve_empresa \n"+
-					"and pg.id_prestamo = p.id_prestamo \n"+
-					"and pg.id_prestamo_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-					"and s.cve_gpo_empresa = p.cve_gpo_empresa \n"+
-					"and s.cve_empresa = p.cve_empresa \n"+
-					"and s.id_cuenta = p.id_cuenta_referencia group by pg.id_prestamo_grupo \n";
+			      "PG.ID_PRESTAMO_GRUPO, \n"+
+			      "TO_CHAR(SUM(NVL(A.SDO_EFECTIVO,0)),'999,999,999.99') SALDO_CUENTA, \n"+
+			      "MAX (A.F_FOTO) FECHA FROM \n"+
+			      "(SELECT CVE_GPO_EMPRESA, CVE_EMPRESA, ID_CUENTA, F_FOTO, CVE_DIVISA, SDO_EFECTIVO FROM PFIN_SALDO) A, \n"+
+			      "SIM_PRESTAMO_GPO_DET PG, \n"+
+			      "SIM_PRESTAMO P \n"+
+			      "WHERE PG.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+			      "AND PG.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+			      "AND PG.ID_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+			      "AND P.CVE_GPO_EMPRESA  = PG.CVE_GPO_EMPRESA  \n"+
+			      "AND P.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
+			      "AND P.ID_PRESTAMO = PG.ID_PRESTAMO \n"+
+			      "AND A.CVE_GPO_EMPRESA  = P.CVE_GPO_EMPRESA  \n"+
+			      "AND A.CVE_EMPRESA = P.CVE_EMPRESA \n"+
+			      "AND A.ID_CUENTA = P.ID_CUENTA_REFERENCIA \n"+
+			      "AND A.CVE_DIVISA = 'MXP' \n"+
+			      "GROUP BY PG.ID_PRESTAMO_GRUPO \n";
 			
 			System.out.println("saldo de la cuenta grupal¨****************************************"+sSql);
 			

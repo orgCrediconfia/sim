@@ -36,7 +36,7 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 		sSql =  "SELECT \n"+
 				"T.CVE_GPO_EMPRESA, \n" +
 				"T.CVE_EMPRESA, \n" +
-				"T.ID_TRANSACCION, \n" +
+				"T.ID_MOVIMIENTO_OPERACION, \n" +
 				"T.CVE_MOVIMIENTO_CAJA, \n" +
 				"T.ID_SUCURSAL, \n" +
 				"T.ID_CAJA, \n" +
@@ -60,7 +60,7 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 			sSql = sSql + " AND -T.MONTO = '" + (String) parametros.getDefCampo("MONTO") + "' \n";
 		}
 		
-		sSql = sSql + "ORDER BY T.ID_TRANSACCION \n";
+		sSql = sSql + "ORDER BY T.ID_MOVIMIENTO_OPERACION \n";
 				
 		ejecutaSql();
 		return getConsultaLista();
@@ -76,8 +76,8 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 		
-		String sIdTransaccion = "";
-		int iIdTransaccion = 0;
+		String sIdMovimientoOperacion = "";
+		int iIdMovimientoOperacion = 0;
 		String sMontoCaja = "";
 		float fMontoCaja = 0;
 		String sMonto = "";
@@ -108,11 +108,17 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 		if (fMontoCaja < fMonto){
 			resultadoCatalogo.mensaje.setClave("FONDO_INSUFICIENTE");
 		}else {
+			
+			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
+			ejecutaSql();
+			if (rs.next()){
+				registro.addDefCampo("ID_TRANSACCION", rs.getString("ID_TRANSACCION"));
+			}
 		
 		//OBTENEMOS EL SEQUENCE
 		sSql =  "SELECT \n" +
 				"CVE_GPO_EMPRESA, \n" +
-				"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
+				"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
 				"FROM \n" +
 				"SIM_CAJA_TRANSACCION \n" +
 				"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -123,18 +129,19 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 		
 		if (rs.next()){
 			
-			sIdTransaccion = rs.getString("ID_TRANSACCION");
-			iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-			iIdTransaccion ++;
-			sIdTransaccion= String.valueOf(iIdTransaccion);
+			sIdMovimientoOperacion = rs.getString("ID_MOVIMIENTO_OPERACION");
+			iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+			iIdMovimientoOperacion ++;
+			sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
 		}else {
 		
-			sIdTransaccion = "1";
+			sIdMovimientoOperacion = "1";
 		}
 		
 		sSql =  "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
 				"CVE_GPO_EMPRESA, \n" +
 				"CVE_EMPRESA, \n" +
+				"ID_MOVIMIENTO_OPERACION, \n" +
 				"ID_TRANSACCION, \n" +
 				"ID_SUCURSAL, \n" +
 				"ID_CAJA, \n" +
@@ -147,7 +154,8 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 		        "VALUES ( \n"+
 				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				sIdTransaccion + ", \n "+
+				sIdMovimientoOperacion + ", \n "+
+				"'" + (String)registro.getDefCampo("ID_TRANSACCION") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
 				"'" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "', \n" +
@@ -161,7 +169,7 @@ public class SimCajaRetiroCentralDAO extends Conexion2 implements OperacionAlta,
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
-		resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION", sIdTransaccion);
+		resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);
 		}
 		return resultadoCatalogo;
 	}

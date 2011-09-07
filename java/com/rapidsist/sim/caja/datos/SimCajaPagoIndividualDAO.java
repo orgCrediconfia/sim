@@ -10,6 +10,9 @@ import com.rapidsist.comun.bd.Conexion2;
 import com.rapidsist.portal.catalogos.OperacionAlta;
 import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
 
@@ -36,8 +39,8 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		resultadoCatalogo.Resultado = new Registro();
 		
-		String sIdTransaccion = "";
-		int iIdTransaccion = 0;
+		String sIdMovimientoOperacion = "";
+		int iIdMovimientoOperacion = 0;
 		String sTxrespuesta1 = "";
 		String sTxrespuesta2 = "";
 		String sTxrespuesta3 = "";
@@ -56,6 +59,9 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 		String sFRangoInf = "";
 		String sDia = "";
 		boolean bFechaValida = false;
+		
+		//Esta variable mapea los movimientos de caja y las operaciones hechas por pl.
+		String sIdTransaccion = "";
 		
 		//Obtiene el parámetro de DIAS_APLICA_PAGO y lo almacena en un entero para poder operarlo.
 		sSql = " SELECT \n"+
@@ -193,50 +199,54 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 		}
 		
 		if (bFechaValida){
-			//OBTENEMOS EL SEQUENCE
+			//********************************La fecha para aplicar el pago es valida, por lo que se empieza el pago************************************.
+			//Obtenemos el sequence ID_PRE_MOVIMIENTO para la tabla PFIN_PRE_MOVIMIENTO.
 			sSql = "SELECT SQ01_PFIN_PRE_MOVIMIENTO.nextval as ID_PREMOVIMIENTO FROM DUAL";
 			ejecutaSql();
-			
 			if (rs.next()){
-			sIdPreMovimiento = rs.getString("ID_PREMOVIMIENTO");
+				sIdPreMovimiento = rs.getString("ID_PREMOVIMIENTO");
 			}
 			
-			sSql = "SELECT TO_CHAR(TO_DATE(F_MEDIO,'DD-MM-YYYY'),'DD-MON-YYYY') AS F_LIQUIDACION \n"+
-			"FROM PFIN_PARAMETRO \n"+
-			"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND CVE_MEDIO = 'SYSTEM' \n";
+			//Obtenemos el sequence ID_TRANSACCION que relacionará el movimiento de la caja con los movimientos del credito 
+			//en las tablas PFIN_MOVIMIENTO y PFIN_PRE_MOVIMIENTO.
+			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
 			ejecutaSql();
-			
 			if (rs.next()){
-			sFLiquidacion = rs.getString("F_LIQUIDACION");
-			
+				sIdTransaccion = rs.getString("ID_TRANSACCION");
 			}
 			
+			//Obtiene la fecha de liquidación que no es más que la fecha del medio en formato 'DD-MON-YYYY'.
+			sSql = "SELECT TO_CHAR(F_MEDIO,'DD-MON-YYYY') AS F_LIQUIDACION \n"+
+					"FROM PFIN_PARAMETRO \n"+
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND CVE_MEDIO = 'SYSTEM' \n";
+			ejecutaSql();
+			if (rs.next()){
+				sFLiquidacion = rs.getString("F_LIQUIDACION");
+			}
+			
+			//Obtiene la fecha de aplicación del pago que es la fecha del movimiento capturada por el usuario en formato 'DD-MON-YYYY'.
 			sSql = " SELECT TO_CHAR(TO_DATE('" + (String)registro.getDefCampo("FECHA_MOVIMIENTO") + "','DD-MM-YYYY'),'DD-MON-YYYY') F_APLICACION FROM DUAL";
 			ejecutaSql();
-			
 			if (rs.next()){
-			sFechaAplicacion = rs.getString("F_APLICACION");
-			
+				sFechaAplicacion = rs.getString("F_APLICACION");
 			}
 			
-			//OBTENEMOS LA CUENTA
+			//Obtenemos la cuenta referencia.
 			sSql = "SELECT ID_CUENTA \n"+
-			"FROM PFIN_CUENTA \n"+
-			"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND CVE_TIP_CUENTA = 'VISTA' \n"+
-			"AND SIT_CUENTA = 'AC' \n"+
-			"AND ID_TITULAR = (SELECT ID_CLIENTE FROM SIM_PRESTAMO WHERE ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "') \n";
-			
+					"FROM PFIN_CUENTA \n"+
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND CVE_TIP_CUENTA = 'VISTA' \n"+
+					"AND SIT_CUENTA = 'AC' \n"+
+					"AND ID_TITULAR = (SELECT ID_CLIENTE FROM SIM_PRESTAMO WHERE ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "') \n";
 			ejecutaSql();
-			
 			if (rs.next()){
-			sIdCuentaVista = rs.getString("ID_CUENTA");
+				sIdCuentaVista = rs.getString("ID_CUENTA");
 			}
 			
-			
+			//Se preparan los parametros que recibirá el poceso PKG_PROCESOS.pGeneraPreMovto.
 			String sCveGpoEmpresa = (String)registro.getDefCampo("CVE_GPO_EMPRESA");
 			String sCveEmpresa = (String)registro.getDefCampo("CVE_EMPRESA");
 			String sIdPreMovi = sIdPreMovimiento;
@@ -254,7 +264,6 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 			String sFValor = sFechaAplicacion;
 			String sNumPagoAmort = "0";
 			
-			
 			System.out.println("sCveGpoEmpresa"+sCveGpoEmpresa);
 			System.out.println("sCveEmpresa"+sCveEmpresa);
 			System.out.println("sIdPreMovimiento"+sIdPreMovi);
@@ -271,7 +280,8 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 			System.out.println("sFValor"+sFechaAplicacion);
 			System.out.println("sNumPagoAmort"+sNumPagoAmort);
 			
-			CallableStatement sto = conn.prepareCall("begin PKG_PROCESOS.pGeneraPreMovto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
+			//Llama al proceso PKG_PROCESOS.pGeneraPreMovto.
+			CallableStatement sto = conn.prepareCall("begin PKG_PROCESOS.pGeneraPreMovto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
 			sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 			sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 			sto.setString(3, sIdPreMovi);
@@ -288,21 +298,19 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 			sto.setString(14, (String)registro.getDefCampo("CVE_USUARIO"));
 			sto.setString(15, sFechaAplicacion);
 			sto.setString(16, sNumPagoAmort);
-			sto.registerOutParameter(17, java.sql.Types.VARCHAR);
+			sto.setString(17, sIdTransaccion);
+			sto.registerOutParameter(18, java.sql.Types.VARCHAR);
 			
 			//EJECUTA EL PROCEDIMIENTO ALMACENADO
 			sto.execute();
-			sTxrespuesta1 = sto.getString(17);
+			sTxrespuesta1 = sto.getString(18);
 			sto.close();
+			//Termina el proceso PKG_PROCESOS.pGeneraPreMovto.
 			
-			// SE AGREGA LA RESPUESTA
 			System.out.println("sTxrespuestapGeneraPreMovto"+sTxrespuesta1);
-			//registro.addDefCampo("RESPUESTA",sTxrespuesta);
 			
-			//resultadoCatalogo.Resultado = registro;
-			
+			//Llama al proceso PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento.
 			CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?)); end;");
-			
 			sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 			sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 			sto1.setString(3, sIdPreMovi);
@@ -315,119 +323,124 @@ public class SimCajaPagoIndividualDAO extends Conexion2 implements OperacionAlta
 			sto1.execute();
 			sTxrespuesta2 = sto1.getString(7);
 			sto1.close();
+			//Termina el proceso PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento.
 			
-			// SE AGREGA LA RESPUESTA
 			System.out.println("sTxrespuestaProcesaMovimiento"+sTxrespuesta2);
 			
-			//OBTENEMOS EL SEQUENCE
+			//Obtenemos el sequence vgFolioGrupo (no sé para qué).
 			sSql = "SELECT SQ02_PFIN_PRE_MOVIMIENTO.NEXTVAL as vgFolioGrupo FROM DUAL";
 			ejecutaSql();
-			
 			if (rs.next()){
 				vgFolioGrupo = rs.getString("vgFolioGrupo");
 			}
 			
-			CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?,?); end;");
-			
+			//Llama al proceso PKG_CREDITO.paplicapagocredito.
+			CallableStatement sto2 = conn.prepareCall("begin PKG_CREDITO.paplicapagocredito(?,?,?,?,?,?,?,?); end;");
 			sto2.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 			sto2.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 			sto2.setString(3, (String)registro.getDefCampo("ID_PRESTAMO"));
 			sto2.setString(4, vgFolioGrupo);
 			sto2.setString(5, (String)registro.getDefCampo("CVE_USUARIO"));
 			sto2.setString(6, sFechaAplicacion);
-			sto2.registerOutParameter(7, java.sql.Types.VARCHAR);
+			sto2.setString(7, sIdTransaccion);
+			sto2.registerOutParameter(8, java.sql.Types.VARCHAR);
 			
 			//EJECUTA EL PROCEDIMIENTO ALMACENADO
 			sto2.execute();
-			sTxrespuesta3 = sto2.getString(7);
+			sTxrespuesta3 = sto2.getString(8);
 			sto2.close();
+			//Termina el proceso PKG_CREDITO.paplicapagocredito.
 			
-			// SE AGREGA LA RESPUESTA
+			//Se añade la respuesta sTxrespuesta3 a "RESPUESTA".
 			System.out.println("sTxrespuesta paplicapagocredito"+sTxrespuesta3);
 			resultadoCatalogo.Resultado.addDefCampo("RESPUESTA", sTxrespuesta3);
 			
+			//Verifica si se hizo el pago correctamente.
 			if (sTxrespuesta3 == null){
-			sSql = "SELECT \n" +
-			"CVE_GPO_EMPRESA, \n" +
-			"CVE_EMPRESA, \n" +
-			"ID_PRESTAMO, \n" +
-			"ID_PRODUCTO, \n" +
-			"NUM_CICLO, \n" +
-			"ID_CLIENTE \n" +
-			"FROM \n" +
-			"SIM_PRESTAMO \n" +
-			"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
-			ejecutaSql();
-			if (rs.next()){
-			registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
-			registro.addDefCampo("ID_PRODUCTO",rs.getString("ID_PRODUCTO")== null ? "": rs.getString("ID_PRODUCTO"));
-			registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
-			registro.addDefCampo("ID_CLIENTE",rs.getString("ID_CLIENTE")== null ? "": rs.getString("ID_CLIENTE"));
-			}
+				//El pago se hizo correctamente.
+				
+				//Se obtienen los atributos de ID_PRESTAMO, ID_PRODUCTO, NUM_CILO Y ID_CLIENTE del crédito que se paga.
+				sSql = "SELECT \n" +
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_PRESTAMO, \n" +
+						"ID_PRODUCTO, \n" +
+						"NUM_CICLO, \n" +
+						"ID_CLIENTE \n" +
+						"FROM \n" +
+						"SIM_PRESTAMO \n" +
+						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
+				ejecutaSql();
+				if (rs.next()){
+					registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
+					registro.addDefCampo("ID_PRODUCTO",rs.getString("ID_PRODUCTO")== null ? "": rs.getString("ID_PRODUCTO"));
+					registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
+					registro.addDefCampo("ID_CLIENTE",rs.getString("ID_CLIENTE")== null ? "": rs.getString("ID_CLIENTE"));
+				}
 			
-			//OBTENEMOS EL SEQUENCE
-			sSql = "SELECT \n" +
-			"CVE_GPO_EMPRESA, \n" +
-			"MAX(ID_TRANSACCION) ID_TRANSACCION \n" +
-			"FROM \n" +
-			"SIM_CAJA_TRANSACCION \n" +
-			"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-			"AND CVE_MOVIMIENTO_CAJA = '" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "' \n"+
-			"GROUP BY CVE_GPO_EMPRESA \n";
-			ejecutaSql();
-			if (rs.next()){
-			sIdTransaccion = rs.getString("ID_TRANSACCION");
-			iIdTransaccion=Integer.parseInt(sIdTransaccion.trim());
-			iIdTransaccion ++;
-			sIdTransaccion= String.valueOf(iIdTransaccion);
+				//Se obtiene el ID_MOVIMIENTO_OPERACION para la operación de pago individual.
+				sSql = "SELECT \n" +
+						"CVE_GPO_EMPRESA, \n" +
+						"MAX(ID_MOVIMIENTO_OPERACION) ID_MOVIMIENTO_OPERACION \n" +
+						"FROM \n" +
+						"SIM_CAJA_TRANSACCION \n" +
+						"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+						"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						"AND CVE_MOVIMIENTO_CAJA = '" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "' \n"+
+						"GROUP BY CVE_GPO_EMPRESA \n";
+				ejecutaSql();
+				if (rs.next()){
+					sIdMovimientoOperacion = rs.getString("ID_MOVIMIENTO_OPERACION");
+					iIdMovimientoOperacion=Integer.parseInt(sIdMovimientoOperacion.trim());
+					iIdMovimientoOperacion ++;
+					sIdMovimientoOperacion= String.valueOf(iIdMovimientoOperacion);
+				}else {
+					sIdMovimientoOperacion = "1";
+				}
+			
+				sSql = "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
+						"CVE_GPO_EMPRESA, \n" +
+						"CVE_EMPRESA, \n" +
+						"ID_MOVIMIENTO_OPERACION, \n" +
+						"ID_TRANSACCION, \n" +
+						"ID_SUCURSAL, \n" +
+						"ID_CAJA, \n" +
+						"CVE_MOVIMIENTO_CAJA, \n" +
+						"MONTO, \n" +
+						"FECHA_TRANSACCION, \n" +
+						"CVE_USUARIO_CAJERO, \n" +
+						"ID_PRESTAMO, \n" +
+						"ID_PRODUCTO, \n" +
+						"NUM_CICLO, \n" +
+						"ID_CLIENTE) \n" +
+						"VALUES ( \n"+
+						"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+						"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+						sIdMovimientoOperacion + ", \n "+
+						sIdTransaccion + ", \n "+
+						"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
+						"'PAGOIND', \n" +
+						"'" + (String)registro.getDefCampo("IMP_NETO") + "', \n" +
+						"SYSDATE, \n" +
+						"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
+						"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
+						"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
+				
+				//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
+				if (ejecutaUpdate() == 0){
+					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+				}
+				resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);
 			}else {
-			sIdTransaccion = "1";
+				resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION","null");
 			}
-			
-			sSql = "INSERT INTO SIM_CAJA_TRANSACCION ( \n"+
-			"CVE_GPO_EMPRESA, \n" +
-			"CVE_EMPRESA, \n" +
-			"ID_TRANSACCION, \n" +
-			"ID_SUCURSAL, \n" +
-			"ID_CAJA, \n" +
-			"CVE_MOVIMIENTO_CAJA, \n" +
-			"MONTO, \n" +
-			"FECHA_TRANSACCION, \n" +
-			"CVE_USUARIO_CAJERO, \n" +
-			"ID_PRESTAMO, \n" +
-			"ID_PRODUCTO, \n" +
-			"NUM_CICLO, \n" +
-			"ID_CLIENTE) \n" +
-			"VALUES ( \n"+
-			"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-			"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-			sIdTransaccion + ", \n "+
-			"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
-			"'PAGOIND', \n" +
-			"'" + (String)registro.getDefCampo("IMP_NETO") + "', \n" +
-			"SYSDATE, \n" +
-			"'" + (String)registro.getDefCampo("CVE_USUARIO") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
-			"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
-			"'" + (String)registro.getDefCampo("ID_CLIENTE") + "') \n" ;
-			
-			//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
-			if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-			}
-			resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION", sIdTransaccion);
-			}else {
-			resultadoCatalogo.Resultado.addDefCampo("ID_TRANSACCION","null");
-			}
-
-
 		}else{
-			//La fecha de transacción no es valida.
+			//La fecha de transacción no es valida, no se realiza ningún pago.
 			resultadoCatalogo.mensaje.setClave("FECHA_PAGO_NO_VALIDA");
 		}
 	
