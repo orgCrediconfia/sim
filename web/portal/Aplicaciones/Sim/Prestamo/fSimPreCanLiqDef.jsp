@@ -30,9 +30,7 @@
 	
 		if(document.frmRegistro.TxRespuesta.value != 'null' && document.frmRegistro.TxRespuesta.value != ''){
 			alert(document.frmRegistro.TxRespuesta.value);
-		}else {
-			alert("El movimiento no fue aplicado con éxito");
-		} 
+		}
 	
 		function fCancelarLiquidacionDefuncion(sIdPrestamo,sAplicaA){
 			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimPrestamoCancelacionLiquidacionDefuncion&OperacionCatalogo=AL&IdPrestamo="+sIdPrestamo+"&AplicaA="+sAplicaA;
