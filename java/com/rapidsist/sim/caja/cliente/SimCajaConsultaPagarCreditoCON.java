@@ -89,11 +89,27 @@ public class SimCajaConsultaPagarCreditoCON implements CatalogoControlConsultaIN
 				registroControl.respuesta.addDefCampo("ListaEstadoCuentaResumen", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumen", parametros));
 				parametros.addDefCampo("CONSULTA","SALDO_TOTAL");
 				registroControl.respuesta.addDefCampo("SaldoTotal", catalogoSL.getRegistros("SimPrestamoEstadoCuentaResumen", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagCreInd.jsp?IdCaja="+request.getParameter("IdCaja")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Respuesta="+request.getParameter("Respuesta");
+				
+				//Consulta si no tiene saldo positivo en la cuenta del cliente.
+				parametros.addDefCampo("CONSULTA","SALDO_INDIVIDUAL");
+				Registro saldocliente = new Registro ();
+				saldocliente = catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros);
+				String sSaldocliente = (String)saldocliente.getDefCampo("SDO_EFECTIVO");
+				System.out.println("sSaldocliente***////"+sSaldocliente);
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagCreInd.jsp?IdCaja="+request.getParameter("IdCaja")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Respuesta="+request.getParameter("Respuesta")+"&SaldoCliente="+sSaldocliente;
 			}else if (request.getParameter("AplicaA").equals("GRUPO")){
 				parametros.addDefCampo("APLICA_A","GRUPO");
 				registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCajaConsultaPagarCredito", parametros));
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagCreGpo.jsp?IdCaja="+request.getParameter("IdCaja")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Respuesta="+request.getParameter("Respuesta");
+				
+				//Consulta si no tiene saldo positivo en la cuenta del cliente.
+				parametros.addDefCampo("CONSULTA","SALDO_GRUPAL");
+				parametros.addDefCampo("ID_PRESTAMO_GRUPO",request.getParameter("IdPrestamo"));
+				
+				Registro saldocliente = new Registro ();
+				saldocliente = catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros);
+				String sSaldocliente = (String)saldocliente.getDefCampo("SDO_EFECTIVO");
+				System.out.println("sSaldocliente&&&&)))))"+sSaldocliente);
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagCreGpo.jsp?IdCaja="+request.getParameter("IdCaja")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Respuesta="+request.getParameter("Respuesta")+"&SaldoCliente="+sSaldocliente;
 			}
 		}
 		else if (iTipoOperacion == CON_INICIALIZACION){

@@ -3,6 +3,11 @@
 <Portal:Pagina funcion="SimCajaConsultaPagarCredito">
 	<Portal:PaginaNombre titulo="Pago de amortizaci&oacute;n" subtitulo="Consulta de datos"/>
 	
+	<%
+	String sSaldoCuenta = ((request.getParameter("SaldoCliente")!=null) ? request.getParameter("SaldoCliente"):"0");
+	float fSaldoCuenta = (Float.parseFloat(sSaldoCuenta));
+	%>
+	
 	<Portal:Forma tipo='catalogo' funcion='SimCajaConsultaPagarCredito'>
 		<Portal:FormaSeparador nombre="Datos generales"/>
 		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${registro.campos["CVE_PRESTAMO"]}' controllongitud='10' controllongitudmax='10' editarinicializado='false' obligatorio='true'/>
@@ -126,10 +131,15 @@
 		}  
 		 
 		function fPagoIndividual(){
-			document.frmRegistro.PagoIndividual.disabled = true; 
-			document.frmRegistro.PagoIndividual.value = "Pago realizado"; 
-			document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoIndividualSaldo&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
-			document.frmRegistro.submit();
+			<% if(fSaldoCuenta > 0){%>
+				alert ("No se puede hacer pagos ya que existe saldo positivo a la cuenta del cliente");
+			<%} else {%> 
+				document.frmRegistro.PagoIndividual.disabled = true; 
+				document.frmRegistro.PagoIndividual.value = "Pago realizado"; 
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoIndividualSaldo&OperacionCatalogo=AL&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
+				document.frmRegistro.submit();
+			<%}%>
+			
 		}
 		 
 		
@@ -154,6 +164,11 @@
 		if (document.frmRegistro.Respuesta.value != "null"){
 			alert('<%=request.getParameter("Respuesta")%>');
 		}
+		
+		<% if(fSaldoCuenta > 0){%>
+			alert ("No se puede hacer pagos ya que existe saldo positivo a la cuenta del cliente");
+		<%}%>
+	
 		
 	</script>		
 	

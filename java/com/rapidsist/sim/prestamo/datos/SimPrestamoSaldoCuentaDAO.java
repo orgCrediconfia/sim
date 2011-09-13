@@ -28,23 +28,23 @@ public class SimPrestamoSaldoCuentaDAO extends Conexion2 implements OperacionCon
 	public Registro getRegistro(Registro parametros) throws SQLException{
 		
 		if (parametros.getDefCampo("CONSULTA").equals("SALDO_INDIVIDUAL")) {
-
-			//  TO_CHAR(SUM(NVL(A.SDO_EFECTIVO,0)),'999,999,999.99') SALDO_CUENTA,
-				
+			
 			sSql =  "SELECT \n"+
-			      "P.ID_PRESTAMO, \n"+
-			      "TO_CHAR(A.SDO_EFECTIVO,'999,999,999.99') SALDO_CUENTA, \n"+
-			      "MAX (A.F_FOTO) FECHA FROM \n"+
-			      "(SELECT CVE_GPO_EMPRESA, CVE_EMPRESA, ID_CUENTA, F_FOTO, CVE_DIVISA, SDO_EFECTIVO FROM PFIN_SALDO) A, \n"+
-			      "SIM_PRESTAMO P \n"+
-			      "WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-			      "AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-			      "AND P.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
-			      "AND A.CVE_GPO_EMPRESA  = P.CVE_GPO_EMPRESA  \n"+
-			      "AND A.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-			      "AND A.ID_CUENTA = P.ID_CUENTA_REFERENCIA \n"+
-			      "AND A.CVE_DIVISA = 'MXP' \n"+
-			      "GROUP BY P.ID_PRESTAMO, TO_CHAR(A.SDO_EFECTIVO,'999,999,999.99') \n";
+					"P.ID_PRESTAMO, \n"+
+					"TO_CHAR(A.SDO_EFECTIVO,'999,999,999.99') SALDO_CUENTA, \n"+
+					"NVL(A.SDO_EFECTIVO,0) SDO_EFECTIVO, \n"+
+					"A.F_FOTO FECHA \n"+
+					"FROM \n"+
+					"PFIN_SALDO A, \n"+
+					"SIM_PRESTAMO P \n"+
+					"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				    "AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+				    "AND P.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
+					"AND A.CVE_GPO_EMPRESA  = P.CVE_GPO_EMPRESA \n"+
+					"AND A.CVE_EMPRESA = P.CVE_EMPRESA \n"+
+					"AND A.ID_CUENTA = P.ID_CUENTA_REFERENCIA \n"+
+					"AND A.CVE_DIVISA = 'MXP' \n"+
+					"ORDER BY FECHA DESC \n";
 			
 			System.out.println("saldo de la cuenta individual¨****************************************"+sSql);
 			
@@ -53,6 +53,7 @@ public class SimPrestamoSaldoCuentaDAO extends Conexion2 implements OperacionCon
 			sSql =  "SELECT \n"+
 			      "PG.ID_PRESTAMO_GRUPO, \n"+
 			      "TO_CHAR(SUM(NVL(A.SDO_EFECTIVO,0)),'999,999,999.99') SALDO_CUENTA, \n"+
+			      "SUM(NVL(A.SDO_EFECTIVO,0)) SDO_EFECTIVO, \n"+
 			      "MAX (A.F_FOTO) FECHA FROM \n"+
 			      "(SELECT CVE_GPO_EMPRESA, CVE_EMPRESA, ID_CUENTA, F_FOTO, CVE_DIVISA, SDO_EFECTIVO FROM PFIN_SALDO) A, \n"+
 			      "SIM_PRESTAMO_GPO_DET PG, \n"+
