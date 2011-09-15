@@ -53,35 +53,71 @@ public class SimReportesEstadoCuentaCuentaREP implements ReporteControlIN {
 		Map parametros = new HashMap();
 
 		String sCvePrestamo = request.getParameter("CvePrestamo");
-	
-		String sSql = "SELECT\n" + "MO.ID_CUENTA,\n" + "SP.CVE_PRESTAMO,\n"
-				+ "RP.NOM_COMPLETO,\n" + "MO.F_OPERACION,  \n"
-				+ "CO.DESC_LARGA,\n" 
-				+ "DECODE (CO.CVE_AFECTA_SALDO, 'D', MO.IMP_NETO * -1, MO.IMP_NETO) IMP_NETO\n" 
-				+ "FROM\n"
-				+ "PFIN_MOVIMIENTO MO,\n" + "PFIN_CAT_OPERACION CO,\n"
-				+ "SIM_PRESTAMO SP,\n" + "RS_GRAL_PERSONA RP\n"
-				+ "WHERE MO.CVE_GPO_EMPRESA      = '"
-				+ parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "'\n"
-				+ "AND MO.CVE_EMPRESA          = '"
-				+ parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "'\n"
-				+ "AND CO.CVE_EMPRESA          = MO.CVE_EMPRESA\n"
-				+ "AND CO.CVE_GPO_EMPRESA      = MO.CVE_GPO_EMPRESA\n"
-				+ "AND CO.CVE_OPERACION        = MO.CVE_OPERACION\n"
-				+ "AND SP.CVE_GPO_EMPRESA      = CO.CVE_GPO_EMPRESA\n"
-				+ "AND SP.CVE_EMPRESA          = CO.CVE_EMPRESA\n"
-				+ "AND SP.ID_CUENTA_REFERENCIA = MO.ID_CUENTA\n"
-				+ "AND RP.CVE_GPO_EMPRESA      = SP.CVE_GPO_EMPRESA\n"
-				+ "AND RP.CVE_EMPRESA          = SP.CVE_EMPRESA\n"
-				+ "AND RP.ID_PERSONA           = SP.ID_CLIENTE\n";
+		String sGrupo = sCvePrestamo.substring(2,8);
+		String sSql = "";
 		
-		if (request.getParameter("CvePrestamo") != null && !request.getParameter("CvePrestamo").equals("") && !request.getParameter("CvePrestamo").equals("null") ){
-			sSql = sSql + "AND SP.CVE_PRESTAMO = '" + request.getParameter("CvePrestamo")+"'  \n";
-			parametros.put("CvePrestamo", request.getParameter("CvePrestamo"));
+		if (sGrupo.equals("000000")){
+			sSql =   "SELECT\n" +
+					 "SP.CVE_PRESTAMO,\n" +
+					 "RP.NOM_COMPLETO,\n" + 
+					 "MO.F_OPERACION,  \n" +
+					 "CO.DESC_LARGA,\n" +
+					 "DECODE (CO.CVE_AFECTA_SALDO, 'D', MO.IMP_NETO * -1, MO.IMP_NETO) IMP_NETO\n" +
+					 "FROM\n"+
+					 "PFIN_MOVIMIENTO MO,\n" + 
+					 "PFIN_CAT_OPERACION CO,\n" +
+					 "SIM_PRESTAMO SP,\n" + 
+					 "RS_GRAL_PERSONA RP\n"+
+					 "WHERE MO.CVE_GPO_EMPRESA    = '"+parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					 "AND MO.CVE_EMPRESA          = '"+parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
+					 "AND SP.CVE_PRESTAMO         = '" + request.getParameter("CvePrestamo")+"' \n"+
+					 "AND CO.CVE_EMPRESA          = MO.CVE_EMPRESA \n"+
+					 "AND CO.CVE_GPO_EMPRESA      = MO.CVE_GPO_EMPRESA \n"+
+					 "AND CO.CVE_OPERACION        = MO.CVE_OPERACION \n"+
+					 "AND SP.CVE_GPO_EMPRESA      = CO.CVE_GPO_EMPRESA \n"+
+					 "AND SP.CVE_EMPRESA          = CO.CVE_EMPRESA \n"+
+					 "AND SP.ID_CUENTA_REFERENCIA = MO.ID_CUENTA \n"+
+					 "AND RP.CVE_GPO_EMPRESA      = SP.CVE_GPO_EMPRESA \n"+
+					 "AND RP.CVE_EMPRESA          = SP.CVE_EMPRESA \n"+
+					 "AND RP.ID_PERSONA           = SP.ID_CLIENTE \n"+
+			         "ORDER BY MO.F_OPERACION \n";
+		} else {
+			sSql =  "SELECT \n" +
+					"PG.ID_PRESTAMO_GRUPO, \n" +
+					"G.CVE_PRESTAMO_GRUPO CVE_PRESTAMO, \n" +
+					"GR.NOM_GRUPO NOM_COMPLETO,\n" + 
+					"MO.F_OPERACION, \n" +
+					"CO.DESC_LARGA, \n" +
+					"SUM(DECODE(CO.CVE_AFECTA_SALDO,'D',MO.IMP_NETO * -1,MO.IMP_NETO)) IMP_NETO \n" + 
+					"FROM \n" +
+					"PFIN_MOVIMIENTO MO, \n" +  
+					"PFIN_CAT_OPERACION CO, \n" +
+					"SIM_PRESTAMO SP,  \n" +
+					"SIM_PRESTAMO_GPO_DET PG, \n" +
+					"SIM_PRESTAMO_GRUPO G, \n" +
+					"SIM_GRUPO GR \n" +
+					"WHERE MO.CVE_GPO_EMPRESA    = '"+parametrosCatalogo.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND MO.CVE_EMPRESA          = '"+parametrosCatalogo.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND G.CVE_PRESTAMO_GRUPO    = '" + request.getParameter("CvePrestamo")+"' \n"+
+					"AND CO.CVE_EMPRESA          = MO.CVE_EMPRESA \n" +
+					"AND CO.CVE_GPO_EMPRESA      = MO.CVE_GPO_EMPRESA \n" +
+					"AND CO.CVE_OPERACION        = MO.CVE_OPERACION \n" +
+					"AND SP.CVE_GPO_EMPRESA      = CO.CVE_GPO_EMPRESA \n" +
+					"AND SP.CVE_EMPRESA          = CO.CVE_EMPRESA \n" +
+					"AND SP.ID_CUENTA_REFERENCIA = MO.ID_CUENTA \n" +
+					"AND PG.CVE_GPO_EMPRESA      = SP.CVE_GPO_EMPRESA \n" +
+					"AND PG.CVE_EMPRESA          = SP.CVE_EMPRESA \n" +
+					"AND PG.ID_PRESTAMO          = SP.ID_PRESTAMO  \n" +
+					"AND G.CVE_GPO_EMPRESA       = PG.CVE_GPO_EMPRESA \n" +
+					"AND G.CVE_EMPRESA           = PG.CVE_EMPRESA \n" +
+					"AND G.ID_PRESTAMO_GRUPO     = PG.ID_PRESTAMO_GRUPO \n" +
+					"AND GR.CVE_GPO_EMPRESA      = G.CVE_GPO_EMPRESA \n" +
+				    "AND GR.CVE_EMPRESA          = G.CVE_EMPRESA \n" +
+				    "AND GR.ID_GRUPO             = G.ID_GRUPO \n" +
+					"GROUP BY PG.ID_PRESTAMO_GRUPO, G.CVE_PRESTAMO_GRUPO, GR.NOM_GRUPO, MO.F_OPERACION, CO.DESC_LARGA \n"+
+					"ORDER BY MO.F_OPERACION \n";
 		}
-		
-		sSql = sSql + "ORDER BY MO.ID_CUENTA, MO.F_OPERACION\n";
-
+	
 		System.out.println(sSql);
 		String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);

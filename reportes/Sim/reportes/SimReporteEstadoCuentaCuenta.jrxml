@@ -27,7 +27,6 @@
 	<parameter name="CvePrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
-	<field name="ID_CUENTA" class="java.math.BigDecimal"/>
 	<field name="CVE_PRESTAMO" class="java.lang.String"/>
 	<field name="NOM_COMPLETO" class="java.lang.String"/>
 	<field name="F_OPERACION" class="java.sql.Timestamp"/>
@@ -71,7 +70,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Préstamo :]]></text>
+				<text><![CDATA[Clave del Préstamo :]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
