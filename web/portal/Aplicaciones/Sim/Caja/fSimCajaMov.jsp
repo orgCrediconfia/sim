@@ -7,7 +7,10 @@
 		<Portal:FormaSeparador nombre="Movimientos"/>
 		
 		<Portal:FormaElemento etiqueta='Movimientos' control='selector' controlnombre='CveMovimientoCaja' controlvalor='${requestScope.registro.campos["CVE_MOVIMIENTO_CAJA"]}' editarinicializado='true' obligatorio='true' campoclave="CVE_MOVIMIENTO_CAJA" campodescripcion="NOM_MOVIMIENTO_CAJA" datosselector='${requestScope.ListaMovimientosCaja}'/>
-
+		<input type="hidden" name="CveOperacion" value='<c:out value='${param.CveOperacion}'/>' />
+		<input type="hidden" name="NomMovimientoCaja" value='<c:out value='${param.NomMovimientoCaja}'/>' />
+		<input type="hidden" name="CveAfectaSaldo" value='<c:out value='${param.CveAfectaSaldo}'/>' />
+		<input type="hidden" name="IdGrupo" value='<c:out value='${requestScope.registro.campos["ID_GRUPO"]}'/>' />
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
 		<Portal:FormaBotones>
 			<input type="button" name="Aceptar"  value="Aceptar" onclick='javascript:fAceptar()'>
@@ -52,17 +55,22 @@
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "TRABAN"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaTranspasoBanco&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
-			}else if (document.frmRegistro.CveMovimientoCaja.value == "INGCAJDES"){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaIngresoCajaDesembolsar&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
-				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "SALCAJDES"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaSalidaCajaDesembolso&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
 			}else if (document.frmRegistro.CveMovimientoCaja.value == "RECCTAINC"){
 				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaRecuperacionCuentaIncobrable&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&IdMovimientoOperacion=null";
 				document.frmRegistro.submit();
+			}else {
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaMovimiento&OperacionCatalogo=CR&CveMovimientoCaja="+document.frmRegistro.CveMovimientoCaja.value;
+				document.frmRegistro.submit();
 			}
 		}
+		
+			if (document.frmRegistro.CveOperacion.value != ""){
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaMovimientoCuenta&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+document.frmRegistro.IdCaja.value+"&CveMovimientoCaja="+document.frmRegistro.CveOperacion.value+"&NomMovimientoCaja="+document.frmRegistro.NomMovimientoCaja.value+"&IdMovimientoOperacion=null";
+				document.frmRegistro.submit();
+			}
 	</script>
 	
 </Portal:Pagina>

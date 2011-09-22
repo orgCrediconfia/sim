@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Administra los accesos a la base de datos para realiza movimientos a la cuenta.
  */
  
-public class SimCajaIngresoCajaDesembolsarDAO extends Conexion2 implements OperacionAlta, OperacionConsultaTabla {
+public class SimCajaMovimientoCuentaDAO extends Conexion2 implements OperacionAlta, OperacionConsultaTabla {
 
 	/**
 	 * Obtiene un conjunto de registros en base a el filtro de búsqueda.
@@ -113,32 +113,29 @@ public class SimCajaIngresoCajaDesembolsarDAO extends Conexion2 implements Opera
 		
 			//Obtiene la cuenta del crédito.
 			sSql =  "SELECT \n"+
-						"PG.ID_PRESTAMO, \n"+
-					    "PG.ID_PRESTAMO_GRUPO, \n"+
-					    "P.ID_CLIENTE, \n"+
-					    "C.ID_CUENTA \n"+
-						"FROM \n"+
-						"SIM_PRESTAMO_GPO_DET PG, \n"+
-					    "SIM_PRESTAMO P, \n"+
-					    "PFIN_CUENTA C \n"+
-					    "WHERE PG.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-						"AND PG.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					    "AND P.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n"+
-					    "AND P.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
-					    "AND P.ID_PRESTAMO = PG.ID_PRESTAMO \n"+
-					    "AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
-					    "AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-					    "AND C.CVE_TIP_CUENTA = 'VISTA' \n"+
-					    "AND C.SIT_CUENTA = 'AC' \n"+
-					    "AND ID_TITULAR ='" + (String)registro.getDefCampo("ID_PERSONA") + "' \n"+
-						"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
-						"AND ID_CLIENTE = '" + (String)registro.getDefCampo("ID_PERSONA") + "' \n";
+             		"P.ID_PRESTAMO, \n"+
+					"P.ID_CLIENTE, \n"+ 
+					"C.ID_CUENTA \n"+
+					"FROM \n"+
+					"SIM_PRESTAMO P, \n"+ 
+					"PFIN_CUENTA C \n"+
+					"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
+					"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
+					"AND C.CVE_TIP_CUENTA = 'VISTA' \n"+
+					"AND C.SIT_CUENTA = 'AC' \n"+
+					"AND C.ID_TITULAR = P.ID_CLIENTE \n"+
+					"AND C.ID_TITULAR = '"+ (String)registro.getDefCampo("ID_PERSONA") + "' \n"+ 
+					"AND P.ID_CLIENTE = '"+ (String)registro.getDefCampo("ID_PERSONA") + "' \n"+
+					"AND P.ID_PRESTAMO = '"+ (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
 			ejecutaSql();
 			if (rs.next()){
 				sIdCuentaVista = rs.getString("ID_CUENTA");
 				registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO"));
 			}
 			
+			System.out.println("cuenta"+sSql);
 			
 			//Obtenemos el sequence ID_PRE_MOVIMIENTO para la tabla PFIN_PRE_MOVIMIENTO.
 			sSql = "SELECT SQ01_PFIN_PRE_MOVIMIENTO.nextval as ID_PREMOVIMIENTO FROM DUAL";
@@ -153,7 +150,7 @@ public class SimCajaIngresoCajaDesembolsarDAO extends Conexion2 implements Opera
 			String sIdCuenta = sIdCuentaVista;
 			String sIdPrestamo = (String)registro.getDefCampo("ID_PRESTAMO");
 			String sCveDivisa = "MXP";
-			String sCveOperacion = "INGCAJDES";
+			String sCveOperacion = (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA");
 			String sImpNeto = (String)registro.getDefCampo("IMP_NETO");
 			String sCveMedio = "PRESTAMO";
 			String sCveMercado = "PRESTAMO";
@@ -253,16 +250,10 @@ public class SimCajaIngresoCajaDesembolsarDAO extends Conexion2 implements Opera
 				"ID_CAJA, \n" +
 				"ID_CLIENTE, \n" +
 				"ID_PRESTAMO, \n" +
-				"ID_GRUPO, \n" +
-				"ID_PRODUCTO, \n" +
-				"NUM_CICLO, \n" +
 				"CVE_MOVIMIENTO_CAJA, \n" +
 				"MONTO, \n" +
 				"FECHA_TRANSACCION, \n" +
-				"CVE_USUARIO_CAJERO, \n" +
-				"USUARIO_ENTREGA, \n" +
-				"ID_TRANSACCION_GRUPO, \n" +
-				"ID_PRESTAMO_GRUPO) \n" +
+				"CVE_USUARIO_CAJERO) \n" +
 		        "VALUES ( \n"+
 				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
 				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
@@ -270,23 +261,18 @@ public class SimCajaIngresoCajaDesembolsarDAO extends Conexion2 implements Opera
 				sIdTransaccion + ", \n "+
 				"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
-				"'" + (String)registro.getDefCampo("USUARIO_ENTREGA") + "', \n" +
+				"'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
-				"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
 				"'" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "', \n" +
 				"'" + (String)registro.getDefCampo("IMP_NETO") + "', \n" +
 				"SYSDATE, \n" +
-				"'" + (String)registro.getDefCampo("CVE_USUARIO_CAJERO") + "', \n" +
-				"'" + (String)registro.getDefCampo("USUARIO_ENTREGA") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_TRANSACCION_GRUPO") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "') \n" ;
-		
+				"'" + (String)registro.getDefCampo("CVE_USUARIO_CAJERO") + "') \n" ;
+			
 		//VERIFICA SI NO SE DIO DE ALTA EL REGISTRO
 		if (ejecutaUpdate() == 0){
 			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 		}
+		
 		resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);
 		
 		return resultadoCatalogo;

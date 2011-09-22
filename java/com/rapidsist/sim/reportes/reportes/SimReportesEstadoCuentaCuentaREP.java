@@ -118,7 +118,6 @@ public class SimReportesEstadoCuentaCuentaREP implements ReporteControlIN {
 					"ORDER BY MO.F_OPERACION \n";
 		}
 	
-		System.out.println(sSql);
 		String sTipoReporte = request.getParameter("TipoReporte");
 		parametros.put("Sql", sSql);
 		parametros.put("CvePrestamo", sCvePrestamo);

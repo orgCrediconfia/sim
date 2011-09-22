@@ -52,6 +52,21 @@ public class SimCajaMovimientoCON implements CatalogoControlConsultaIN {
 	public RegistroControl consulta(Registro parametros, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		//VERIFICA SI BUSCA TODOS LOS REGISTROS
+		
+		if (iTipoOperacion == CON_CONSULTA_REGISTRO){
+			parametros.addDefCampo("CVE_OPERACION", request.getParameter("CveMovimientoCaja"));
+			registroControl.respuesta.addDefCampo("registro", catalogoSL.getRegistro("SimCajaMovimiento", parametros));
+			Registro movtocuenta = new Registro();
+			movtocuenta = catalogoSL.getRegistro("SimCajaMovimiento", parametros);
+			String sCveMovimientoCaja = (String)movtocuenta.getDefCampo("CVE_MOVIMIENTO_CAJA");
+			String sNomMovimientoCaja = (String)movtocuenta.getDefCampo("NOM_MOVIMIENTO_CAJA");
+			String sCveAfectaSaldo = (String)movtocuenta.getDefCampo("CVE_AFECTA_SALDO");
+			System.out.println("sCveMovimientoCaja"+sCveMovimientoCaja);
+			System.out.println("sNomMovimientoCaja"+sNomMovimientoCaja);
+			System.out.println("sCveAfectaSaldo"+sCveAfectaSaldo);
+			registroControl.respuesta.addDefCampo("ListaMovimientosCaja", catalogoSL.getRegistros("SimCajaMovimiento", parametros));
+			registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaMov.jsp?IdCaja="+request.getParameter("IdCaja")+"&CveOperacion="+sCveMovimientoCaja+"&NomMovimientoCaja="+sNomMovimientoCaja+"&CveAfectaSaldo="+sCveAfectaSaldo;
+		}
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
 				registroControl.respuesta.addDefCampo("ListaCajas", catalogoSL.getRegistros("SimCaja", parametros));
