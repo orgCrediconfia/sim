@@ -24,31 +24,21 @@ import com.rapidsist.comun.bd.Registro;
 
 public class SimReporteIfaiREP implements ReporteControlIN {
 
-	public Map getParametros(Registro parametrosCatalogo,
-			HttpServletRequest request, CatalogoSL catalogoSL,
-			Context contextoServidor, ServletContext contextoServlet)
-			throws Exception {
+	public Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet) throws Exception {
 		Map parametros = new HashMap();
 
-		String sIdPrestamo = request.getParameter("IdPrestamo");
-		System.out.println("Id Prestamo:" + sIdPrestamo);
-
-		parametrosCatalogo.addDefCampo("ID_PRESTAMO", sIdPrestamo);
-
-		String sSql = "SELECT\n"
-				+ "TO_CHAR(SYSDATE, 'DD') ||' de '|| RTRIM(TO_CHAR(SYSDATE, 'MONTH')) ||' del '||TO_CHAR(SYSDATE, 'YYYY') FECHA_HOY,\n"
-				+ "NOMBRE\n" + "FROM V_CREDITO\n" + "WHERE ID_PRESTAMO = '"
-				+ request.getParameter("IdPrestamo") + "'\n";
+		String sSql = "SELECT\n" +
+					 "TO_CHAR(SYSDATE, 'DD') ||' de '|| RTRIM(TO_CHAR(SYSDATE, 'MONTH')) ||' del '||TO_CHAR(SYSDATE, 'YYYY') FECHA_HOY, \n"+
+					 "NOMBRE NOM_COMPLETO \n"+ 
+					 "FROM V_CREDITO \n"+ 
+					 "WHERE ID_PRESTAMO = '" + request.getParameter("IdPrestamo") + "'\n";
 
 		System.out.println("sSql" + sSql);
 
 		parametros.put("Sql", sSql);
-		parametros.put("PathLogotipo", contextoServlet
-				.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
-		parametros.put("FechaReporte", Fecha2
-				.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte",
-				"/Reportes/Sim/prestamo/Consentimiento_IFAI.jasper");
+		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
+		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
+		parametros.put("NomReporte","/Reportes/Sim/prestamo/ConsentimientoIFAI.jasper");
 		return parametros;
 
 	}
