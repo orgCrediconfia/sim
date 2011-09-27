@@ -73,7 +73,10 @@ public class SimPrestamoObtieneIdentificadorDAO extends Conexion2 implements Ope
 				"SIM_PRESTAMO P \n"+
 				"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND P.CVE_PRESTAMO = '" + (String)parametros.getDefCampo("CVE_PRESTAMO") + "' \n";
+				"AND P.CVE_PRESTAMO = '" + (String)parametros.getDefCampo("CVE_PRESTAMO") + "' \n"+
+				"AND P.ID_ETAPA_PRESTAMO != '16' \n";
+		
+		System.out.println(sSql);
 		
 		ejecutaSql();
 		return this.getConsultaRegistro();
