@@ -59,7 +59,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		String sTxrespuestaActualiza = "";
 		String sFMedio = "";
 		String sFValor = "";
-	/*
+	
 		//COPIA INFORMACION HISTORICA A MYSQL
 		Reportes reportes = new Reportes();
 		try{
@@ -69,7 +69,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 			System.out.println("YA EXISTEN REGISTROS");
 		}
 	
-		*/
+		
 		sSql = "SELECT TO_CHAR(TO_DATE(F_LIQUIDACION,'DD-MM-YYYY'),'DD-MON-YY') AS F_MEDIO \n"+
         "FROM PFIN_DIA_LIQUIDACION \n"+
        "WHERE CVE_GPO_EMPRESA  = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
@@ -108,7 +108,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 		sto.execute();
 		sTxrespuestaRecorreFecha  = sto.getString(3);
 		sto.close();
-	/*
+	
 		//COPIA INFORMACION HISTORICA A MYSQL
 		HistoricoMysql historicoMysql = new HistoricoMysql();
 		try{
@@ -117,7 +117,7 @@ public class SimProcesoCierreDAO extends Conexion2 implements OperacionAlta, Ope
 			System.out.println(ex.getMessage());
 			System.out.println("YA EXISTEN REGISTROS EN EL HISTORICO");
 		}
-	*/
+
 		return resultadoCatalogo;
 	}
 }
