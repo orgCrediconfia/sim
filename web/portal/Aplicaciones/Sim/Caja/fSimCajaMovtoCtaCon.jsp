@@ -4,12 +4,14 @@
 <Portal:Pagina funcion="SimCajaMovimientoCuenta">
 	<Portal:PaginaNombre titulo='<%=request.getParameter("NomMovimientoCaja")%>' subtitulo=""/>
 		
-	<Portal:Forma tipo='busqueda' funcion='SimCajaMovimientoCuenta' operacion='CT' filtro='Todos' parametros='IdCaja=${param.IdCaja}&NomMovimientoCaja=${param.NomMovimientoCaja}&CveMovimientoCaja=${param.CveOperacion}'>
+	<Portal:Forma tipo='busqueda' funcion='SimCajaMovimientoCuenta' operacion='CT' filtro='Todos' parametros='IdCaja=${param.IdCaja}&NomMovimientoCaja=${param.NomMovimientoCaja}&CveMovimientoCaja=${param.CveMovimientoCaja}'>
 		<Portal:FormaElemento etiqueta='Clave del pr&eacute;stamo' control='Texto' controlnombre='CvePrestamo' controlvalor='${param.CvePrestamo}' controllongitud='20' controllongitudmax='18' editarinicializado='true' obligatorio='true'/>
 		<Portal:FormaElemento etiqueta='Nombre del Grupo / Cliente' control='Texto' controlnombre='NomCompleto' controlvalor='${param.NomCompleto}' controllongitud='30' controllongitudmax='30' editarinicializado='true' obligatorio='true'/>
 		
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
 		<input type="hidden" name="IdMovimientoOperacion" value='<c:out value='${param.IdMovimientoOperacion}'/>' />
+		<input type="hidden" name="CveMovimientoCaja" value='<c:out value='${param.CveMovimientoCaja}'/>' />
+		<input type="hidden" name="NomMovimientoCaja" value='<c:out value='${param.NomMovimientoCaja}'/>' />
 	</Portal:Forma>
 	<Portal:TablaLista tipo="consulta" nombre="<%=request.getParameter("NomMovimientoCaja")%>">
 		<Portal:TablaListaTitulos>
@@ -29,4 +31,11 @@
 			</Portal:TablaListaRenglon>
 		</c:forEach>
 	</Portal:TablaLista>
+	
+	<script>
+		if (document.frmRegistro.IdMovimientoOperacion.value != "null"){
+			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaMovimientoCuenta&TipoReporte=Pdf&Reimpresion=0&IdCaja='+document.frmRegistro.IdCaja.value+'&IdMovimientoOperacion='+document.frmRegistro.IdMovimientoOperacion.value+'&CveMovimientoCaja='+document.frmRegistro.CveMovimientoCaja.value+'&NomMovimientoCaja='+document.frmRegistro.NomMovimientoCaja.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+		}
+	</script>
+	
 </Portal:Pagina>

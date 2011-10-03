@@ -78,7 +78,8 @@ public class SimCajaMovimientoCuentaCON implements CatalogoControlConsultaIN, Ca
 		}	
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaMovtoCtaCon.jsp?IdCaja="+request.getParameter("IdCaja");
+				System.out.println("paso por aqui 2");
+				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaMovtoCtaCon.jsp?IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+request.getParameter("IdMovimientoOperacion");
 			}else if (request.getParameter("Filtro").equals("Alta")){
 				if (request.getParameter("AplicaA").equals("GRUPO")){
 					parametros.addDefCampo("ID_GRUPO", request.getParameter("CveNombre"));
@@ -151,8 +152,8 @@ public class SimCajaMovimientoCuentaCON implements CatalogoControlConsultaIN, Ca
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaMovimientoCuenta", registro, iTipoOperacion);
 		sIdMovimientoOperacion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_MOVIMIENTO_OPERACION");
-		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaMovimientoCuenta&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+request.getParameter("IdCaja")+"&CveMovimientoCaja="+request.getParameter("CveMovimientoCaja")+"&NomMovimientoCaja="+request.getParameter("NomMovimientoCaja");
+		System.out.println("paso por aqui 1");
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaMovimientoCuenta&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+request.getParameter("IdCaja")+"&CveMovimientoCaja="+request.getParameter("CveMovimientoCaja")+"&NomMovimientoCaja="+request.getParameter("NomMovimientoCaja")+"&Monto="+request.getParameter("Monto")+"&IdMovimientoOperacion="+sIdMovimientoOperacion;
 		return registroControl;
 	}
 }
