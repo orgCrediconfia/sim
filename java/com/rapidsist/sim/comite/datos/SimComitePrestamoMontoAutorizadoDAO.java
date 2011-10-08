@@ -201,7 +201,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 			registro.addDefCampo("ID_CLIENTE",sCliente);
 			registro.addDefCampo("ID_PRESTAMO_INDIVIDUAL",sPrestamoIndividual);
 			
-			System.out.println(iNumParametro);
+			System.out.println("prestamo no. :"+iNumParametro);
 			System.out.println("ID_PRESTAMO_INDIVIDUAL"+sPrestamoIndividual);
 			
 			if (registro.getDefCampo("PRESTAMO").equals("Grupo")){
@@ -386,14 +386,12 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 							" AND E.ID_PRESTAMO = D.ID_PRESTAMO \n" +
 							" AND E.ID_ETAPA_PRESTAMO = D.ID_ETAPA_PRESTAMO))))) \n"+
 							" AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n";
-					System.out.println("1");
+				
 					PreparedStatement ps7 = this.conn.prepareStatement(sSql);
 					ps7.execute();
 					ResultSet rs7 = ps7.getResultSet();
 					
 					if(rs7.next()){
-						
-						System.out.println("2");
 						//Pasa a la siguiente etapa ETAPA_PRESTAMO.
 						registro.addDefCampo("ETAPA_PRESTAMO",rs7.getString("ID_ETAPA_PRESTAMO"));
 					}
@@ -402,10 +400,10 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 								"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 								"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" ;
-						System.out.println("3");
-								PreparedStatement ps8 = this.conn.prepareStatement(sSql);
-								ps8.execute();
-								ResultSet rs8 = ps8.getResultSet();
+					
+						PreparedStatement ps8 = this.conn.prepareStatement(sSql);
+						ps8.execute();
+						ResultSet rs8 = ps8.getResultSet();
 								
 								
 						sSql = " UPDATE SIM_PRESTAMO_GPO_DET SET \n"+
@@ -415,7 +413,6 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 								"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" +
 								"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_IND_GPO") + "' \n" ;
-						System.out.println("4");
 						PreparedStatement ps9 = this.conn.prepareStatement(sSql);
 						ps9.execute();
 						ResultSet rs9 = ps9.getResultSet();
@@ -425,11 +422,8 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 								"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 								"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO_INDIVIDUAL") + "' \n" ;
-						System.out.println("5");
 						PreparedStatement ps10 = this.conn.prepareStatement(sSql);
-						System.out.println("6");
 						ps10.execute();
-						System.out.println("7");
 						ResultSet rs10 = ps10.getResultSet();
 						
 						sSql = " UPDATE SIM_PRESTAMO_ETAPA SET "+
@@ -445,16 +439,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 						ps11.execute();
 						ResultSet rs11 = ps11.getResultSet();
 								
-								System.out.println("sigo con ID_PRESTAMO_INDIVIDUAL"+sPrestamoIndividual);
-							
-						
-						
-								
-								
-				
-						
-						
-					
+						System.out.println("sigo con ID_PRESTAMO_INDIVIDUAL"+sPrestamoIndividual);
 					}
 					//Que haces aqui, obtienes la etapa y su orden????
 					

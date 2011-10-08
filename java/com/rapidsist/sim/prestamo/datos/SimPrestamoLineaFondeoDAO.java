@@ -298,7 +298,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 						
 							while (rs8.next()){
 								registro.addDefCampo("ID_PRESTAMO_INDIVIDUAL",rs8.getString("ID_PRESTAMO")== null ? "": rs8.getString("ID_PRESTAMO"));
-								
+								/*
 								//Avanza la etapa.
 								//Obtiene las actividades de la etapa que se completa por cada prestamo individual.
 								sSql =  "SELECT \n"+
@@ -363,7 +363,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 										ResultSet rs11 = ps11.getResultSet();
 									}
 								}
-							
+							*/
 							//Obtiene la siguiente etapa.
 							sSql =  " SELECT DISTINCT ID_ETAPA_PRESTAMO, \n"+
 									" ORDEN_ETAPA \n"+
@@ -421,7 +421,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 							PreparedStatement ps17 = this.conn.prepareStatement(sSql);
 							ps17.execute();
 							ResultSet rs17 = ps17.getResultSet();
-					
+					/*
 							//Obtiene las actividades de la nueva etapa.
 							sSql =  "SELECT \n"+
 									"CVE_GPO_EMPRESA, \n"+
@@ -490,7 +490,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 									ResultSet rs20 = ps20.getResultSet();
 								}
 							}
-					
+					*/
 							}
 				
 							}
