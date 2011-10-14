@@ -78,7 +78,6 @@ public class SimCajaRecuperacionCuentaIncobrableCON implements CatalogoControlCo
 		}	
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
-				System.out.println("what happen hard house");
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaRecCtaIncCon.jsp?IdCaja="+request.getParameter("IdCaja");
 			}else if (request.getParameter("Filtro").equals("Alta")){
 				parametros.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
@@ -134,8 +133,9 @@ public class SimCajaRecuperacionCuentaIncobrableCON implements CatalogoControlCo
 		
 		registro.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
 		registro.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
-		registro.addDefCampo("ID_GRUPO", request.getParameter("IdGrupo"));
-		registro.addDefCampo("ID_CLIENTE", request.getParameter("IdCliente"));
+		registro.addDefCampo("CVE_NOMBRE", request.getParameter("CveNombre"));
+		registro.addDefCampo("APLICA_A", request.getParameter("AplicaA"));
+		
 		
 		sIdCajaSucursal = request.getParameter("IdCaja");
 		
@@ -147,9 +147,9 @@ public class SimCajaRecuperacionCuentaIncobrableCON implements CatalogoControlCo
 		registro.addDefCampo("CVE_MOVIMIENTO_CAJA", "RECCTAINC");
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaRecuperacionCuentaIncobrable", registro, iTipoOperacion);
-		System.out.println("what happen 6");
+		
 		sIdMovimientoOperacion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_MOVIMIENTO_OPERACION");
-		System.out.println("what happen 7");
+	
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaRecuperacionCuentaIncobrable&OperacionCatalogo=IN&Filtro=Inicio&IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+sIdMovimientoOperacion;
 		return registroControl;
 	}

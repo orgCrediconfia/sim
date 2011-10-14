@@ -78,6 +78,7 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 					//Es un crédito individual.
 					parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 					Registro idprestamo = new Registro ();
+					parametros.addDefCampo("APLICA_A", "INDIVIDUAL");
 					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
 					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 					
@@ -130,6 +131,7 @@ public class SimPrestamoEstadoCuentaCON implements CatalogoControlConsultaIN {
 						//Es un crédito grupal-individual.
 						parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
 						Registro idprestamo = new Registro ();
+						parametros.addDefCampo("APLICA_A", "INDIVIDUAL");
 						idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
 						String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 						

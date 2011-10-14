@@ -114,6 +114,7 @@ public class SimPrestamoMovimientoExtraordinarioCON implements CatalogoControlCo
 					//Obtiene los accesorios del prestamo.
 					parametros.addDefCampo("CVE_PRESTAMO",request.getParameter("CvePrestamo"));
 					Registro idprestamo = new Registro ();
+					parametros.addDefCampo("APLICA_A", "INDIVIDUAL");
 					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
 					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 					parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);

@@ -3,6 +3,8 @@ package com.rapidsist.sim.reportes.reportes;
 import com.rapidsist.portal.cliente.reportes.ReporteControlIN;
 
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,15 +48,37 @@ public class SimReportesEstadoCuentaCuentaREP implements ReporteControlIN {
 	 * @throws SQLException
 	 *             Si se genera un error al accesar la base de datos.
 	 */
-	public Map getParametros(Registro parametrosCatalogo,
-			HttpServletRequest request, CatalogoSL catalogoSL,
-			Context contextoServidor, ServletContext contextoServlet)
-			throws Exception {
+	public Map getParametros(Registro parametrosCatalogo, HttpServletRequest request, CatalogoSL catalogoSL, Context contextoServidor, ServletContext contextoServlet) throws Exception {
 		Map parametros = new HashMap();
 
 		String sCvePrestamo = request.getParameter("CvePrestamo");
 		String sGrupo = sCvePrestamo.substring(2,8);
 		String sSql = "";
+		
+		parametrosCatalogo.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
+		
+		if (sGrupo.equals("000000")){
+			parametrosCatalogo.addDefCampo("APLICA_A", "INDIVIDUAL");
+		}else {
+			parametrosCatalogo.addDefCampo("APLICA_A", "GRUPO");
+		}
+		
+		Registro identificador = new Registro ();
+		identificador = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametrosCatalogo);
+		String sIdPrestamo = (String)identificador.getDefCampo("ID_PRESTAMO");
+		parametrosCatalogo.addDefCampo("ID_PRESTAMO", sIdPrestamo);
+		
+		Registro porcentajes = new Registro ();
+		porcentajes = catalogoSL.getRegistro("SimCajaRecuperacionCuentaIncobrablePorcentajes", parametrosCatalogo);
+		String sPorcCapital = (String)porcentajes.getDefCampo("PORC_CAPITAL");
+		String sPorcInteres = (String)porcentajes.getDefCampo("PORC_INTERES");
+		String sPorcRecargo = (String)porcentajes.getDefCampo("PORC_RECARGO");
+		String sPorcAccesorios = (String)porcentajes.getDefCampo("PORC_ACCESORIOS");
+		System.out.println("sPorcCapital"+sPorcCapital);
+		System.out.println("sPorcInteres"+sPorcInteres);
+		System.out.println("sPorcRecargo"+sPorcRecargo);
+		System.out.println("sPorcAccesorios"+sPorcAccesorios);
+		
 		
 		if (sGrupo.equals("000000")){
 			sSql =   "SELECT\n" +
@@ -124,6 +148,10 @@ public class SimReportesEstadoCuentaCuentaREP implements ReporteControlIN {
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
 		parametros.put("NomReporte", "/Reportes/Sim/reportes/SimReporteEstadoCuentaCuenta.jasper");
 		parametros.put("NombreReporte", "Estado de Cuenta");
+		parametros.put("PorcCapital", sPorcCapital);
+		parametros.put("PorcInteres", sPorcInteres);
+		parametros.put("PorcRecargo", sPorcRecargo);
+		parametros.put("PorcAccesorios", sPorcAccesorios);
 
 		return parametros;
 	}

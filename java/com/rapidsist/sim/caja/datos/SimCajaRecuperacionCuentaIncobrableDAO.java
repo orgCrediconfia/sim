@@ -14,6 +14,8 @@ import com.rapidsist.comun.bd.Registro;
 import com.rapidsist.portal.catalogos.ResultadoCatalogo;
 import java.util.LinkedList;
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -125,24 +127,149 @@ public class SimCajaRecuperacionCuentaIncobrableDAO extends Conexion2 implements
 		String sTxrespuesta1 = "";
 		String sTxrespuesta2 = "";
 		
-			//Obtenemos el sequence ID_TRANSACCION que relacionará el movimiento de la caja con los movimientos del credito 
-			//en las tablas PFIN_MOVIMIENTO y PFIN_PRE_MOVIMIENTO.
-			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
-			ejecutaSql();
-			if (rs.next()){
-				sIdTransaccion = rs.getString("ID_TRANSACCION");
-			}
-			
-			sSql = "SELECT TO_CHAR(F_MEDIO,'DD-MON-YYYY') AS F_MEDIO \n"+
-					"FROM PFIN_PARAMETRO \n"+
+		//Obtenemos el sequence ID_TRANSACCION que relacionará el movimiento de la caja con los movimientos del credito 
+		//en las tablas PFIN_MOVIMIENTO y PFIN_PRE_MOVIMIENTO.
+		sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
+		ejecutaSql();
+		if (rs.next()){
+			sIdTransaccion = rs.getString("ID_TRANSACCION");
+		}
+		
+		sSql = "SELECT TO_CHAR(F_MEDIO,'DD-MON-YYYY') AS F_MEDIO \n"+
+				"FROM PFIN_PARAMETRO \n"+
+				"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+				"AND CVE_MEDIO = 'SYSTEM' \n";
+		ejecutaSql();
+		if (rs.next()){
+			sFMedio = rs.getString("F_MEDIO");
+		}
+		
+		if (registro.getDefCampo("APLICA_A").equals("GRUPO")) {
+			System.out.println("Es grupal");
+			sSql = "SELECT \n"+
+					"CVE_GPO_EMPRESA, \n" +
+					"CVE_EMPRESA, \n" +
+					"ID_PRESTAMO, \n" +
+					"ID_PRESTAMO_GRUPO \n" +
+					"FROM \n" +
+					"SIM_PRESTAMO_GPO_DET \n" +
 					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-					"AND CVE_MEDIO = 'SYSTEM' \n";
-				ejecutaSql();
-				if (rs.next()){
-					sFMedio = rs.getString("F_MEDIO");
+					"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
+			ejecutaSql();
+			System.out.println("Es grupal"+sSql);
+			while (rs.next()){
+				System.out.println("va n veces no?");
+				registro.addDefCampo("ID_PRESTAMO",rs.getString("ID_PRESTAMO")== null ? "": rs.getString("ID_PRESTAMO"));
+				System.out.println(rs.getString("ID_PRESTAMO"));
+				
+				//Obtiene la cuenta del crédito.
+				sSql =  "SELECT ID_CUENTA \n"+
+					"FROM PFIN_CUENTA \n"+
+					"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND CVE_TIP_CUENTA = 'VISTA' \n"+
+					"AND SIT_CUENTA = 'AC' \n"+
+					"AND ID_TITULAR = (SELECT ID_CLIENTE FROM SIM_PRESTAMO WHERE ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "') \n";
+				PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+				ps1.execute();
+				ResultSet rs1 = ps1.getResultSet();
+				if (rs1.next()){
+					sIdCuentaVista = rs1.getString("ID_CUENTA");
 				}
 				
+			
+				//Obtenemos el sequence ID_PRE_MOVIMIENTO para la tabla PFIN_PRE_MOVIMIENTO.
+				sSql = "SELECT SQ01_PFIN_PRE_MOVIMIENTO.nextval as ID_PREMOVIMIENTO FROM DUAL";
+				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+				ps2.execute();
+				ResultSet rs2 = ps2.getResultSet();
+				if (rs2.next()){
+					sIdPreMovimiento = rs2.getString("ID_PREMOVIMIENTO");
+				}
+				
+				
+				String sCveGpoEmpresa = (String)registro.getDefCampo("CVE_GPO_EMPRESA");
+				String sCveEmpresa = (String)registro.getDefCampo("CVE_EMPRESA");
+				String sIdPreMovi = sIdPreMovimiento;
+				String sFMovimiento = sFMedio;
+				String sIdCuenta = sIdCuentaVista;
+				String sIdPrestamo = (String)registro.getDefCampo("ID_PRESTAMO");
+				String sCveDivisa = "MXP";
+				String sCveOperacion = "RECCTAINC";
+				String sImpNeto = (String)registro.getDefCampo("IMPORTE");
+				String sCveMedio = "PRESTAMO";
+				String sCveMercado = "PRESTAMO";
+				String sNota = "Movimiento extraordinario en el saldo de la cuenta";
+				String sIdGrupo = "";
+				String sCveUsuario = (String)registro.getDefCampo("CVE_USUARIO");
+				String sFValor = sFMedio;
+				String sNumPagoAmort = "0";
+				
+					
+				System.out.println("sCveGpoEmpresa"+sCveGpoEmpresa);
+				System.out.println("sCveEmpresa"+sCveEmpresa);
+				System.out.println("sIdPreMovimiento"+sIdPreMovi);
+				System.out.println("sFMovimiento"+sFMovimiento);
+				System.out.println("sIdCuenta"+sIdCuenta);
+				System.out.println("sIdPrestamo"+sIdPrestamo);
+				System.out.println("sCveDivisa"+sCveDivisa);
+				System.out.println("sCveOperacion"+sCveOperacion);
+				System.out.println("sImpNeto"+sImpNeto);
+				System.out.println("sCveMedio"+sCveMedio);
+				System.out.println("sCveMercado"+sCveMercado);
+				System.out.println("sNota"+sNota);
+				System.out.println("sIdGrupo"+sIdGrupo);
+				System.out.println("sFValor********************************************"+sFMedio);
+				System.out.println("sNumPagoAmort"+sNumPagoAmort);
+				
+				CallableStatement sto = conn.prepareCall("begin PKG_PROCESOS.pGeneraPreMovto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
+				sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
+				sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
+				sto.setString(3, sIdPreMovi);
+				sto.setString(4, sFMovimiento);
+				sto.setString(5, sIdCuenta);
+				sto.setString(6, (String)registro.getDefCampo("ID_PRESTAMO"));
+				sto.setString(7, sCveDivisa);
+				sto.setString(8, sCveOperacion);
+				sto.setString(9, (String)registro.getDefCampo("IMPORTE"));
+				sto.setString(10, sCveMedio);
+				sto.setString(11, sCveMercado);
+				sto.setString(12, sNota);
+				sto.setString(13, sIdGrupo);
+				sto.setString(14, (String)registro.getDefCampo("CVE_USUARIO"));
+				sto.setString(15, sFMedio);
+				sto.setString(16, sNumPagoAmort);
+				sto.setString(17, sIdTransaccion);
+				sto.registerOutParameter(18, java.sql.Types.VARCHAR);
+			
+				//EJECUTA EL PROCEDIMIENTO ALMACENADO
+				sto.execute();
+				sTxrespuesta1 = sto.getString(18);
+				System.out.println("2*"+sTxrespuesta1);
+				sto.close();
+			
+				CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?)); end;");
+				
+				sto1.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
+				sto1.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
+				sto1.setString(3, sIdPreMovi);
+				sto1.setString(4, "PV");
+				sto1.setString(5, (String)registro.getDefCampo("CVE_USUARIO"));
+				sto1.setString(6, "F");
+				sto1.registerOutParameter(7, java.sql.Types.VARCHAR);
+			
+				//EJECUTA EL PROCEDIMIENTO ALMACENADO
+				sto1.execute();
+				sTxrespuesta2  = sto1.getString(7);
+				sto1.close();
+				System.out.println("4*"+sTxrespuesta2);
+				
+			}
+			
+		}else if (registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")) {
+		
 				//Obtiene la cuenta del crédito.
 				sSql =  "SELECT ID_CUENTA \n"+
 					"FROM PFIN_CUENTA \n"+
@@ -198,7 +325,6 @@ public class SimCajaRecuperacionCuentaIncobrableDAO extends Conexion2 implements
 				System.out.println("sNumPagoAmort"+sNumPagoAmort);
 				
 				CallableStatement sto = conn.prepareCall("begin PKG_PROCESOS.pGeneraPreMovto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
-				System.out.println("1");
 				sto.setString(1, (String)registro.getDefCampo("CVE_GPO_EMPRESA"));
 				sto.setString(2, (String)registro.getDefCampo("CVE_EMPRESA"));
 				sto.setString(3, sIdPreMovi);
@@ -221,6 +347,7 @@ public class SimCajaRecuperacionCuentaIncobrableDAO extends Conexion2 implements
 				//EJECUTA EL PROCEDIMIENTO ALMACENADO
 				sto.execute();
 				sTxrespuesta1 = sto.getString(18);
+				System.out.println("2*"+sTxrespuesta1);
 				sto.close();
 			
 				CallableStatement sto1 = conn.prepareCall("begin dbms_output.put_line(PKG_PROCESADOR_FINANCIERO.pProcesaMovimiento(?,?,?,?,?,?,?)); end;");
@@ -237,7 +364,10 @@ public class SimCajaRecuperacionCuentaIncobrableDAO extends Conexion2 implements
 				sto1.execute();
 				sTxrespuesta2  = sto1.getString(7);
 				sto1.close();
+				System.out.println("4*"+sTxrespuesta2);
 				
+			
+		}
 				//OBTENEMOS EL SEQUENCE
 				sSql =  "SELECT \n" +
 						"CVE_GPO_EMPRESA, \n" +
@@ -267,10 +397,15 @@ public class SimCajaRecuperacionCuentaIncobrableDAO extends Conexion2 implements
 				"ID_MOVIMIENTO_OPERACION, \n" +
 				"ID_TRANSACCION, \n" +
 				"ID_SUCURSAL, \n" +
-				"ID_CAJA, \n" +
-				"ID_CLIENTE, \n" +
-				"ID_GRUPO, \n" +
-				"ID_PRODUCTO, \n" +
+				"ID_CAJA, \n" ;
+				
+				if (registro.getDefCampo("APLICA_A").equals("GRUPO")) {
+					sSql = sSql + "ID_GRUPO, \n" ;
+				}else if (registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")) {
+					sSql = sSql + "ID_CLIENTE, \n" ;
+				}
+				
+				sSql = sSql + "ID_PRODUCTO, \n" +
 				"NUM_CICLO, \n" +
 				"CVE_MOVIMIENTO_CAJA, \n" +
 				"MONTO, \n" +
@@ -283,8 +418,7 @@ public class SimCajaRecuperacionCuentaIncobrableDAO extends Conexion2 implements
 				sIdTransaccion + ", \n "+
 				"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_CLIENTE") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+				"'" + (String)registro.getDefCampo("CVE_NOMBRE") + "', \n" +
 				"'" + (String)registro.getDefCampo("ID_PRODUCTO") + "', \n" +
 				"'" + (String)registro.getDefCampo("NUM_CICLO") + "', \n" +
 				"'RECCTAINC', \n" +

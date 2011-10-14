@@ -3,7 +3,7 @@
 
 <Portal:Pagina funcion="SimCajaRecuperacionCuentaIncobrable">
 	<Portal:PaginaNombre titulo="Recuperación de Cuenta Incobrable" subtitulo=""/>
-	<Portal:Forma tipo='catalogo' funcion='SimCajaRecuperacionCuentaIncobrable' parametros='IdCliente=${param.IdCliente}&IdCaja=${param.IdCaja}&IdPrestamo=${param.IdPrestamo}&IdTransaccion=${param.IdTransaccion}&IdGrupo=${param.IdGrupo}&IdProducto=${param.IdProducto}&NumCiclo=${param.NumCiclo}'>
+	<Portal:Forma tipo='catalogo' funcion='SimCajaRecuperacionCuentaIncobrable' parametros='CveNombre=${param.CveNombre}&IdCaja=${param.IdCaja}&AplicaA=${param.AplicaA}&IdPrestamo=${param.IdPrestamo}&IdTransaccion=${param.IdTransaccion}&IdProducto=${param.IdProducto}&NumCiclo=${param.NumCiclo}'>
 		<Portal:FormaSeparador nombre="Recuperación de Cuenta Incobrable"/>
 		<Portal:FormaElemento etiqueta='Clave del préstamo' control='etiqueta-controloculto' controlnombre='CvePrestamo' controlvalor='${requestScope.registro.campos["CVE_PRESTAMO"]}' />
 		<Portal:FormaElemento etiqueta='Nombre' control='etiqueta-controloculto' controlnombre='Nombre' controlvalor='${requestScope.registro.campos["NOMBRE"]}' />

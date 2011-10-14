@@ -67,6 +67,8 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 		if (sCeros.equals("000000")){
 			//Es un crédito individual.
 			Registro idprestamo = new Registro ();
+			
+			registro.addDefCampo("APLICA_A", "INDIVIDUAL");
 			idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", registro);
 			String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 			
@@ -100,6 +102,7 @@ public class SimGenerarTablaAmortizacionCON implements CatalogoControlActualizaI
 			}else {
 				//Es un crédito grupal-individual.
 				Registro idprestamo = new Registro ();
+				registro.addDefCampo("APLICA_A", "INDIVIDUAL");
 				idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", registro);
 				String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 				

@@ -64,17 +64,31 @@ public class SimPrestamoObtieneIdentificadorDAO extends Conexion2 implements Ope
 	 */
 	public Registro getRegistro(Registro parametros) throws SQLException{
 		
-		sSql =  "SELECT \n"+
-				"P.CVE_GPO_EMPRESA, \n"+
-				"P.CVE_EMPRESA, \n"+
-				"P.ID_PRESTAMO, \n"+
-				"P.CVE_PRESTAMO \n"+
-				"FROM \n"+
-				"SIM_PRESTAMO P \n"+
-				"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
-				"AND P.CVE_PRESTAMO = '" + (String)parametros.getDefCampo("CVE_PRESTAMO") + "' \n"+
-				"AND P.ID_ETAPA_PRESTAMO != '16' \n";
+		if (parametros.getDefCampo("APLICA_A").equals("INDIVIDUAL")) {
+			sSql =  "SELECT \n"+
+					"P.CVE_GPO_EMPRESA, \n"+
+					"P.CVE_EMPRESA, \n"+
+					"P.ID_PRESTAMO, \n"+
+					"P.CVE_PRESTAMO \n"+
+					"FROM \n"+
+					"SIM_PRESTAMO P \n"+
+					"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND P.CVE_PRESTAMO = '" + (String)parametros.getDefCampo("CVE_PRESTAMO") + "' \n"+
+					"AND P.ID_ETAPA_PRESTAMO != '16' \n";
+		}else if (parametros.getDefCampo("APLICA_A").equals("GRUPO")) {
+			sSql =  "SELECT \n"+
+					"PG.CVE_GPO_EMPRESA, \n"+
+					"PG.CVE_EMPRESA, \n"+
+					"PG.ID_PRESTAMO_GRUPO ID_PRESTAMO, \n"+
+					"PG.CVE_PRESTAMO_GRUPO \n"+
+					"FROM \n"+
+					"SIM_PRESTAMO_GRUPO PG \n"+
+					"WHERE PG.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+					"AND PG.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"+
+					"AND PG.CVE_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("CVE_PRESTAMO") + "' \n"+
+					"AND PG.ID_ETAPA_PRESTAMO != '16' \n";
+		}	
 		
 		System.out.println(sSql);
 		

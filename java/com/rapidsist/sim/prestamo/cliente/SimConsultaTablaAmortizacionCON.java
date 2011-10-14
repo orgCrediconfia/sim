@@ -78,6 +78,7 @@ public class SimConsultaTablaAmortizacionCON implements CatalogoControlConsultaI
 					parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("IdPrestamo"));
 					
 					Registro idprestamo = new Registro ();
+					parametros.addDefCampo("APLICA_A", "INDIVIDUAL");
 					idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
 					String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 					parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);
@@ -121,6 +122,7 @@ public class SimConsultaTablaAmortizacionCON implements CatalogoControlConsultaI
 						parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("IdPrestamo"));
 						
 						Registro idprestamo = new Registro ();
+						parametros.addDefCampo("APLICA_A", "INDIVIDUAL");
 						idprestamo = catalogoSL.getRegistro("SimPrestamoObtieneIdentificador", parametros);
 						String sIdPrestamo = (String)idprestamo.getDefCampo("ID_PRESTAMO");
 						parametros.addDefCampo("ID_PRESTAMO",sIdPrestamo);
