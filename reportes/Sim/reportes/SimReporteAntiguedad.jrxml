@@ -342,7 +342,7 @@ Prestado]]></text>
 					<textElement textAlignment="Right" verticalAlignment="Bottom">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Seguros]]></text>
+				<text><![CDATA[Accesorios]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -434,7 +434,7 @@ Prestado]]></text>
 					<textElement textAlignment="Right" verticalAlignment="Bottom">
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Seguros]]></text>
+				<text><![CDATA[Accesorios]]></text>
 				</staticText>
 				<staticText>
 					<reportElement

@@ -89,7 +89,8 @@ public class SimReporteAntiguedadREP implements ReporteControlIN {
 		"IFNULL(SALDO_INTERES,0) + IFNULL(SALDO_CAPITAL,0) + IFNULL(SALDO_SEGURO,0) + IFNULL(SALDO_RECARGO,0) SALDO_TOTAL, \n"+
 		"TRUNCATE((IFNULL(SALDO_INTERES,0) + IFNULL(SALDO_CAPITAL,0) + IFNULL(SALDO_SEGURO,0) + IFNULL(SALDO_RECARGO,0)) / CUOTA,2) SALDO_CUOTA \n"+
 		"FROM SIM_PRESTAMO_ANTIGUEDAD \n"+
-		"WHERE F_MEDIO = STR_TO_DATE('" + sFechaAnteriorValida + "', '%d/%m/%y') \n";
+		"WHERE F_MEDIO = STR_TO_DATE('" + sFechaAnteriorValida + "', '%d/%m/%y') \n"+
+		"AND SALDO_COUTA > 0  \n";
 		
 		if (!sIdSucursal.equals("null")){
 			sSql = sSql + "AND ID_SUCURSAL = '" + (String)request.getParameter("IdSucursal") + "'\n";
