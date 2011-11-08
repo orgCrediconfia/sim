@@ -71,8 +71,7 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 				+ "C.PLAZO, \n"
 				+ "TO_CHAR(C.MONTO_AUTORIZADO + C.CARGO_INICIAL,'999,999,999.00') MONTO_AUTORIZADO, \n"
 				+ "CANTIDADES_LETRAS(C.MONTO_AUTORIZADO + C.CARGO_INICIAL) MONTO_AUTORIZADO_LETRAS \n"
-				+ "FROM V_CREDITO C, \n"
-				+ "RS_CONF_EMPRESA E \n"
+				+ "FROM V_CREDITO C, \n" + "RS_CONF_EMPRESA E \n"
 				+ "WHERE C.CVE_GPO_EMPRESA = 'SIM' \n"
 				+ "AND C.CVE_EMPRESA = 'CREDICONFIA'  \n"
 				+ "AND C.ID_PRESTAMO = '"
@@ -109,7 +108,7 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 							"Subreporte3",
 							contextoServlet
 									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.jasper"));
-		} else {
+		} else if (iCantidadIntegrantes > 6 && iCantidadIntegrantes <= 10) {
 			parametros
 					.put("NomReporte",
 							"/Reportes/Sim/prestamo/SimReportePagareSolidarioNuevoCopia.jasper");
@@ -128,6 +127,26 @@ public class SimReportePagareSolidarioREP implements ReporteControlIN {
 							"Subreporte3",
 							contextoServlet
 									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidario1.1.jasper"));
+
+		} else if (iCantidadIntegrantes > 10) {
+			parametros
+					.put("NomReporte",
+							"/Reportes/Sim/prestamo/SimReportePagareSolidarioPadreGrande.jasper");
+			parametros
+					.put(
+							"Subreporte1",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidarioSub1Grande.jasper"));
+			parametros
+					.put(
+							"Subreporte2",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidarioSub2Grande.jasper"));
+			parametros
+					.put(
+							"Subreporte3",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReportePagareSolidarioSub3Grande.jasper"));
 
 		}
 

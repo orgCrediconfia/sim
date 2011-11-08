@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportePagareSolidarioNuevoCopia"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="842"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NombresIntegrantes" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Subreporte1" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte2" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte3" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="ID_PRESTAMO_GRUPO" class="java.lang.String"/>
+	<field name="ID_GRUPO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.lang.String"/>
+	<field name="VALOR_TASA" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="FECHA_FIN" class="java.lang.String"/>
+	<field name="NOM_PERIODICIDAD" class="java.lang.String"/>
+	<field name="MONTO_FIJO_PERIODO_LETRAS" class="java.lang.String"/>
+	<field name="TX_DESC_EMPRESA" class="java.lang.String"/>
+	<field name="ID_SUCURSAL" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="PLAZO" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL_CIUDAD" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="221"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="15"
+						width="552"
+						height="13"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[PAGARÉ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="552"
+						height="14"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pagaré No.   " + $F{ID_GRUPO} + "-" + $F{NUM_CICLO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="28"
+						width="552"
+						height="193"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré los señor(es) firmantes, " + $P{NombresIntegrantes} + " (el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " (" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.), " + "a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable. \n Asimismo, nos obligamos incondicionalmente a pagar los intereses ordinarios fijos, sobre el saldo global del presente Pagaré y los impuestos que genere de acuerdo a la legislación aplicable, mismos que se pagarán conjuntamente con el capital. \n Los pagos de principal e intereses ordinarios se realizarán, mediante "+$F{PLAZO}+" pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días "+$F{NOM_PERIODICIDAD}+"(es), establecidos conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="570"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="2"
+						width="552"
+						height="31"
+						key="subreport-1"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="44"
+						width="552"
+						height="0"
+						key="element-2"/>
+				</break>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="76"
+						width="552"
+						height="23"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["“DINSA” , " + $F{DIRECCION_SUCURSAL}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="554"
+						width="552"
+						height="16"
+						key="subreport-2"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="99"
+						width="552"
+						height="52"
+						key="subreport-3"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO_GRUPO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FechaFin">
+						<subreportParameterExpression><![CDATA[$F{FECHA_FIN}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte3}]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="0"
+						y="61"
+						width="552"
+						height="13"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<text><![CDATA[Las partes declaran como sus domicilios:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="529"
+						width="552"
+						height="25"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Este PAGARÉ se firma en la Ciudad de " + $F{DIRECCION_SUCURSAL_CIUDAD} + " el " + $F{FECHA_ENTREGA} + "."]]></textFieldExpression>
+				</textField>
+				<break>
+					<reportElement
+						x="0"
+						y="525"
+						width="552"
+						height="0"
+						key="element-3"/>
+				</break>
+			</band>
+		</summary>
+</jasperReport>
