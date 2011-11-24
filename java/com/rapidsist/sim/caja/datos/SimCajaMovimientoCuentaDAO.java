@@ -125,10 +125,14 @@ public class SimCajaMovimientoCuentaDAO extends Conexion2 implements OperacionAl
 					"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 					"AND C.CVE_TIP_CUENTA = 'VISTA' \n"+
 					"AND C.SIT_CUENTA = 'AC' \n"+
-					"AND C.ID_TITULAR = P.ID_CLIENTE \n"+
-					"AND C.ID_TITULAR = '"+ (String)registro.getDefCampo("ID_PERSONA") + "' \n"+ 
-					"AND P.ID_CLIENTE = '"+ (String)registro.getDefCampo("ID_PERSONA") + "' \n"+
-					"AND P.ID_PRESTAMO = '"+ (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
+					"AND C.ID_TITULAR = P.ID_CLIENTE \n";
+			if (registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")){
+				sSql = sSql + "AND C.ID_TITULAR = '"+ (String)registro.getDefCampo("CVE_NOMBRE") + "' \n"+ 
+							"AND P.ID_CLIENTE = '"+ (String)registro.getDefCampo("CVE_NOMBRE") + "' \n";
+			}else if (registro.getDefCampo("APLICA_A").equals("GRUPO")){
+				sSql = sSql + "AND C.ID_TITULAR = '"+ (String)registro.getDefCampo("ID_PERSONA") + "' \n"+ 
+				"AND P.ID_CLIENTE = '"+ (String)registro.getDefCampo("ID_PERSONA") + "' \n";
+			}
 			ejecutaSql();
 			if (rs.next()){
 				sIdCuentaVista = rs.getString("ID_CUENTA");
@@ -248,21 +252,37 @@ public class SimCajaMovimientoCuentaDAO extends Conexion2 implements OperacionAl
 				"ID_TRANSACCION, \n" +
 				"ID_SUCURSAL, \n" +
 				"ID_CAJA, \n" +
-				"ID_CLIENTE, \n" +
-				"ID_PRESTAMO, \n" +
-				"CVE_MOVIMIENTO_CAJA, \n" +
-				"MONTO, \n" +
-				"FECHA_TRANSACCION, \n" +
-				"CVE_USUARIO_CAJERO) \n" +
-		        "VALUES ( \n"+
-				"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-				"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				sIdMovimientoOperacion + ", \n "+
-				sIdTransaccion + ", \n "+
-				"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" +
-				"'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
+				"ID_CLIENTE, \n" ;
+				
+		if (registro.getDefCampo("APLICA_A").equals("GRUPO")){			
+			sSql = sSql + "ID_GRUPO, \n" ;
+		}
+		
+			sSql = sSql + "ID_PRESTAMO, \n" +
+					"CVE_MOVIMIENTO_CAJA, \n" +
+					"MONTO, \n" +
+					"FECHA_TRANSACCION, \n" +
+					"CVE_USUARIO_CAJERO) \n" +
+			        "VALUES ( \n"+
+					"'" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+					"'" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+					sIdMovimientoOperacion + ", \n "+
+					sIdTransaccion + ", \n "+
+					"'" + (String)registro.getDefCampo("ID_SUCURSAL") + "', \n" +
+					"'" + (String)registro.getDefCampo("ID_CAJA") + "', \n" ;
+			
+			if (registro.getDefCampo("APLICA_A").equals("INDIVIDUAL")){
+				sSql = sSql + "'" + (String)registro.getDefCampo("CVE_NOMBRE") + "', \n" ;
+					
+			}else if (registro.getDefCampo("APLICA_A").equals("GRUPO")){			
+				sSql = sSql + "'" + (String)registro.getDefCampo("ID_PERSONA") + "', \n" ;
+			}
+		
+			if (registro.getDefCampo("APLICA_A").equals("GRUPO")){			
+				sSql = sSql + "'" + (String)registro.getDefCampo("CVE_NOMBRE") + "', \n" ;
+			}
+		
+				sSql = sSql + "'" + (String)registro.getDefCampo("ID_PRESTAMO") + "', \n" +
 				"'" + (String)registro.getDefCampo("CVE_MOVIMIENTO_CAJA") + "', \n" +
 				"'" + (String)registro.getDefCampo("IMP_NETO") + "', \n" +
 				"SYSDATE, \n" +

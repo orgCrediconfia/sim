@@ -133,13 +133,11 @@ public class SimCajaMovimientoCuentaCON implements CatalogoControlConsultaIN, Ca
 		registro.addDefCampo("CVE_USUARIO_CAJERO", usuario.sCveUsuario);
 		
 		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
-		//registro.addDefCampo("ID_TRANSACCION_GRUPO", request.getParameter("IdTransaccionGrupo"));
-		//registro.addDefCampo("ID_GRUPO", request.getParameter("IdGrupo"));
-		//registro.addDefCampo("USUARIO_ENTREGA", request.getParameter("IdPersona"));
-		//registro.addDefCampo("ID_PRODUCTO", request.getParameter("IdProducto"));
-		//registro.addDefCampo("NUM_CICLO", request.getParameter("NumCiclo"));
+		registro.addDefCampo("APLICA_A", request.getParameter("AplicaA"));
+		System.out.println("aplica a*****"+request.getParameter("AplicaA"));
 		registro.addDefCampo("IMP_NETO", request.getParameter("Monto"));
-		registro.addDefCampo("ID_PERSONA", request.getParameter("CveNombre"));
+		registro.addDefCampo("CVE_NOMBRE", request.getParameter("CveNombre"));
+		registro.addDefCampo("ID_PERSONA", request.getParameter("IdPersona"));
 		
 		sIdCajaSucursal = request.getParameter("IdCaja");
 		
