@@ -46,19 +46,23 @@ public class SimPrestamoGarantiaDAO extends Conexion2 implements OperacionConsul
 				"AND ID_PERSONA = '" + (String)parametros.getDefCampo("ID_PERSONA") + "' \n"+
 				"UNION \n"+
 				"SELECT \n"+
-				"G.CVE_GPO_EMPRESA, \n"+
-				"G.CVE_EMPRESA, \n"+
+				"G.CVE_GPO_EMPRESA, \n"+ 
+				"G.CVE_EMPRESA, \n"+ 
 				"G.ID_GARANTIA, \n"+
 				"G.DESCRIPCION \n"+
 				"FROM SIM_PRESTAMO_PARTICIPANTE P, \n"+
-				"SIM_CLIENTE_GARANTIA G \n"+
+				"SIM_CLIENTE_GARANTIA G, \n"+
+				"RS_GRAL_PERSONA PE \n"+
 				"WHERE P.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
 				"AND P.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
 				"AND P.ID_PRESTAMO = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"+
 				"AND P.CVE_TIPO_PERSONA = 'GARANTE' \n"+
-				"AND G.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
+				"AND G.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+ 
 				"AND G.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 				"AND G.ID_PERSONA = P.ID_PERSONA \n"+
+				"AND PE.CVE_GPO_EMPRESA = G.CVE_GPO_EMPRESA \n"+
+				"AND PE.CVE_EMPRESA = G.CVE_EMPRESA \n"+
+				"AND PE.ID_PERSONA = G.ID_GARANTE_DEPOSITARIO \n"+
 				"MINUS \n"+ 
 				"SELECT \n"+
 				"P.CVE_GPO_EMPRESA, \n"+
@@ -73,7 +77,7 @@ public class SimPrestamoGarantiaDAO extends Conexion2 implements OperacionConsul
 				"AND C.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 				"AND C.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 				"AND C.ID_GARANTIA = P.ID_GARANTIA \n";
-				
+				System.out.println("1. Garantias disponibles"+sSql);
 		}else if (parametros.getDefCampo("FILTRO").equals("ASIGNADOS")){
 			sSql =  " SELECT \n"+ 
 				"P.CVE_GPO_EMPRESA, \n"+

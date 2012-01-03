@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 public class SimCajaDesembolsoGrupalTransaccionDAO extends Conexion2 implements OperacionConsultaTabla {
 	
 	/**
-	 * Obtiene un conjunto de registros en base a el filtro de búsqueda.
+	 * Obtiene los créditos grupales que se han desembolsado.
 	 * @param parametros Parámetros que se le envían a la consulta para obtener el conjunto
 	 * de registros deseados.
 	 * @return Lista de registros.

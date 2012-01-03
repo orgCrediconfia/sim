@@ -31,7 +31,7 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 	 * @throws SQLException Si se genera un error al accesar la base de datos.
 	 */
 	public LinkedList getRegistros(Registro parametros) throws SQLException{
-		//PREPARA LA CONSULTA QUE VA A HACER EN LA BD, PARA TRAER LOS REGISTROS QUE COINCIDAN CON LAS CONDICIONES
+		//Consulta los créditos grupales que tiene etapa de desembolso.
 		
 		if (parametros.getDefCampo("CONSULTA").equals("TODOS")){
 			
@@ -108,8 +108,6 @@ public class SimCajaDesembolsoGrupalDAO extends Conexion2 implements OperacionCo
 					
 					"AND P.B_ENTREGADO != 'V' \n"+
 					"AND P.ID_ETAPA_PRESTAMO != '18' \n";
-		}else if (parametros.getDefCampo("CONSULTA").equals("INDIVIDUALES")){
-			
 		}
 				
 		ejecutaSql();
