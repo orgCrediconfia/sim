@@ -114,9 +114,6 @@ public class SimCajaDesembolsoIndividualCON implements CatalogoControlConsultaIN
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 
-		Registro monto = new Registro();
-		String sMonto = "";
-		
 		String sIdCaja = "";
 		String sIdCajaSucursal = "";
 		String sIdSucursal = "";
@@ -124,16 +121,11 @@ public class SimCajaDesembolsoIndividualCON implements CatalogoControlConsultaIN
 		
 		registro.addDefCampo("ID_PRESTAMO", request.getParameter("IdPrestamo"));
 		
-		//monto = catalogoSL.getRegistro("SimCajaDesembolsoIndividual", registro);
-		
-		//sMonto = (String)monto.getDefCampo("MONTO_AUTORIZADO");
-		
 		//RECUPERA LA SESION DEL USUARIO
 		HttpSession session = request.getSession();
 		Usuario usuario = (Usuario) session.getAttribute("Usuario");
 		//AGREGA LA CLAVE DEL PORTAL Y DEL USUARIO DE LA SESION DEL USUARIO
 		registro.addDefCampo("CVE_USUARIO_CAJERO", usuario.sCveUsuario);
-		//registro.addDefCampo("MONTO", sMonto);
 		
 		sIdCajaSucursal = request.getParameter("IdCaja");
 		
@@ -146,7 +138,7 @@ public class SimCajaDesembolsoIndividualCON implements CatalogoControlConsultaIN
 		
 		registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaDesembolsoIndividual", registro, iTipoOperacion);
 		sIdMovimientoOperacion = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("ID_MOVIMIENTO_OPERACION");
-		
+		System.out.println("IdMovimientoOperacion"+sIdMovimientoOperacion);
 		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaDesembolsoIndividual&OperacionCatalogo=CT&Filtro=Todos&IdCaja="+request.getParameter("IdCaja")+"&IdMovimientoOperacion="+sIdMovimientoOperacion;
 		return registroControl;
 	}

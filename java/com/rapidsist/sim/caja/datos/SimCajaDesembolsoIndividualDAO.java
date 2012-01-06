@@ -159,7 +159,9 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 		}
 		
 		if (fMontoCaja < fMonto){
-			resultadoCatalogo.mensaje.setClave("FONDO_INSUFICIENTE");
+			//La caja no tiene suficientes fondos para hacer el retiro.
+			resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", "NO_FONDOS");
+			System.out.println("no tiene fondos");
 		}else {
 			
 			sSql = "SELECT SQ01_SIM_CAJA_TRANSACCION.nextval as ID_TRANSACCION FROM DUAL";
@@ -244,7 +246,7 @@ public class SimCajaDesembolsoIndividualDAO extends Conexion2 implements Operaci
 				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 			}
 			resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);
-			
+		
 			//
 			sSql =  "SELECT \n"+
 					"ID_ETAPA_PRESTAMO \n"+

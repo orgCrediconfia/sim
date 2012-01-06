@@ -59,8 +59,10 @@
 			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaEntregaPrestamo&TipoReporte=Pdf&Reimpresion=1&IdCaja='+document.frmRegistro.IdCaja.value+'&IdMovimientoOperacion='+sIdMovimientoOperacion,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
 		}
 		
-		if (document.frmRegistro.IdMovimientoOperacion.value != "null"){
+		if ((document.frmRegistro.IdMovimientoOperacion.value != "null") && (document.frmRegistro.IdMovimientoOperacion.value != "NO_FONDOS")){
 			MM_openBrWindow('/portal/ProcesaReporte?Funcion=SimCajaEntregaPrestamo&TipoReporte=Pdf&Reimpresion=0&IdCaja='+document.frmRegistro.IdCaja.value+'&IdMovimientoOperacion='+document.frmRegistro.IdMovimientoOperacion.value,'Reporte','status=yes,scrollbars=yes,resizable=yes,width=700,height=400');
+		}else if (document.frmRegistro.IdMovimientoOperacion.value == "NO_FONDOS"){
+			alert("La caja no tiene suficientes fondos para hacer el retiro");
 		}
 			
 	</script>

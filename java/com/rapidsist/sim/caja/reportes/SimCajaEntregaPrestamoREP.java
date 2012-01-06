@@ -77,7 +77,7 @@ public class SimCajaEntregaPrestamoREP implements ReporteControlIN {
 						"AND D.ID_DOMICILIO (+)= A.ID_DIRECCION \n";
 		
 		String sReimpresion = request.getParameter("Reimpresion");
-		               
+		System.out.println("consulta Reporte"+sSql);    
 		parametros.put("Sql", sSql);
 		
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
