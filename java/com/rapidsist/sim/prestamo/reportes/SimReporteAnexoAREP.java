@@ -30,23 +30,23 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 			HttpServletRequest request, CatalogoSL catalogoSL,
 			Context contextoServidor, ServletContext contextoServlet)
 			throws Exception {
-		
-		//OBJETO MAP DE PARAMETROS QUE SON ENVIADOS AL REPORTE
+
+		// OBJETO MAP DE PARAMETROS QUE SON ENVIADOS AL REPORTE
 		Map parametros = new HashMap();
-		//PARAMETRO OBTENIDO DE LA JSP
+		// PARAMETRO OBTENIDO DE LA JSP
 		String sIdPrestamo = request.getParameter("IdPrestamo");
 		System.out.println("Id Prestamo:" + sIdPrestamo);
-		//PARAMETROS QUE SERAN ENVIADOS A LA DAO
+		// PARAMETROS QUE SERAN ENVIADOS A LA DAO
 		parametrosCatalogo.addDefCampo("ID_PRESTAMO", sIdPrestamo);
 		String sGarantiaDescripcion = "";
 		String sGarantiaValorComercial = "";
 		String sGarantiaNumeroFacturaEscritura = "";
 		String sGarantiaFechaFacturaEscritura = "";
-		
+
 		// Se obtine una sola garantia del prestamo
 		Registro registroGarantia = catalogoSL.getRegistro(
 				"SimGarantiasPrestamo", parametrosCatalogo);
-		
+
 		// VERIFICA SI ENCONTRO LA GARANTIA PARA EL PRESTAMO
 		if (registroGarantia != null) {
 			sGarantiaDescripcion = (String) registroGarantia
@@ -94,26 +94,24 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 				sGaranteDomicilio = (String) registro.getDefCampo("DIRECCION");
 			}
 		}
-		
+
 		/*
-		//EJEMPO PARA CONTAR REGISTROs DE UNA CONSULTA
-		Registro registroTotalEstados = catalogoSL.getRegistro(
-				"SimParticipanteC", parametrosCatalogo);
+		 * //EJEMPO PARA CONTAR REGISTROs DE UNA CONSULTA Registro
+		 * registroTotalEstados = catalogoSL.getRegistro( "SimParticipanteC",
+		 * parametrosCatalogo);
+		 * 
+		 * String sTotalEstados = (String) registroTotalEstados
+		 * .getDefCampo("TOTAL_ESTADOS");
+		 * 
+		 * System.out.println("TOTAL_ESTADOS:"+sTotalEstados);
+		 * 
+		 * int iTotalEstado = Integer.parseInt(sTotalEstados);
+		 * 
+		 * if (iTotalEstado>0){ System.out.println
+		 * ("***TOTAL ESTADOS MAYOR A 0"); }else{ System.out.println
+		 * ("***TOTAL ESTADOS MENOR O IGUAL A 0"); }
+		 */
 
-		String sTotalEstados = (String) registroTotalEstados
-		.getDefCampo("TOTAL_ESTADOS");
-
-		System.out.println("TOTAL_ESTADOS:"+sTotalEstados);
-		
-		int iTotalEstado = Integer.parseInt(sTotalEstados);
-		
-		if (iTotalEstado>0){
-			System.out.println ("***TOTAL ESTADOS MAYOR A 0");
-		}else{
-			System.out.println ("***TOTAL ESTADOS MENOR O IGUAL A 0");
-		}
-		*/
-	
 		String sSql = "SELECT \n"
 				+ "C.CVE_GPO_EMPRESA, \n"
 				+ "C.CVE_EMPRESA, \n"
@@ -202,20 +200,11 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 				.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2
 				.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte",
-				"/Reportes/Sim/prestamo/SimReporteAnexoANuevo.jasper");
-		parametros
-				.put(
-						"Subreporte1",
-						contextoServlet
-								.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
-		parametros.put("Subreporte2", contextoServlet
-				.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
-		parametros
-				.put(
-						"Subreporte3",
-						contextoServlet
-								.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
+		parametros.put("NomReporte","/Reportes/Sim/prestamo/SimReporteAnexoANuevo.jasper");
+		parametros.put("Subreporte1",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
+		parametros.put("Subreporte2",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
+		parametros.put("Subreporte3",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
+		parametros.put("Subreporte4",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub2.jasper"));
 		return parametros;
 	}
 }
