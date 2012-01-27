@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteAnexoANuevo_Sub2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="0"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+CG.DESCRIPCION, 
+TO_CHAR(CG.VALOR_COMERCIAL, '999,999,999.99')AS VALOR_COMERCIAL, 
+CG.NUMERO_FACTURA_ESCRITURA, 
+CG.FECHA_FACTURA_ESCRITURA 
+FROM SIM_CLIENTE_GARANTIA CG, 
+SIM_PRESTAMO_GARANTIA PG 
+WHERE CG.CVE_GPO_EMPRESA = 'SIM' 
+AND CG.CVE_EMPRESA     = 'CREDICONFIA' 
+AND CG.ID_GARANTIA     = PG.ID_GARANTIA 
+AND PG.ID_PRESTAMO     = $P{IdPrestamo}]]></queryString>
+
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="VALOR_COMERCIAL" class="java.lang.String"/>
+	<field name="NUMERO_FACTURA_ESCRITURA" class="java.lang.String"/>
+	<field name="FECHA_FACTURA_ESCRITURA" class="java.sql.Timestamp"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="94"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="0"
+						width="250"
+						height="79"
+						key="rectangle-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="250"
+						y="0"
+						width="250"
+						height="79"
+						key="rectangle-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="29"
+						y="3"
+						width="213"
+						height="75"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Traspaso Gerencia Recuperación: 1000.00 (mil pesos 00/100 M.N.). Aplicable siempre que el saldo o fracción de una cuota sobrepase los 45 días.
+
+Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que el saldo o fracción de una cuota sobrepase los 120 días.]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="44"
+						width="6"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="7"
+						width="6"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="79"
+						width="500"
+						height="15"
+						key="rectangle-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="250"
+						y="0"
+						width="245"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 17)     ESTADO DE CUENTA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="280"
+						y="14"
+						width="215"
+						height="40"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[El Estado de Cuenta estará a disposición del DEUDOR en la sucursal de DINSA en donde se contrató el Crédito.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="79"
+						width="241"
+						height="15"
+						key="textField-5"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" 16)     BIENES:"]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="40"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="-167"
+						width="250"
+						height="15"
+						key="textField-2"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" 16)     BIENES:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="1"
+						width="466"
+						height="39"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRIPCION}+ ".\n" +
+"Valor comercial: $ " +$F{VALOR_COMERCIAL}.trim()+ "\n" +
+"Número de Factura: " +$F{NUMERO_FACTURA_ESCRITURA} + ".\n" +
+"Fecha de Factura: " +$F{FECHA_FACTURA_ESCRITURA} + ".\n"]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="0"
+						width="500"
+						height="40"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

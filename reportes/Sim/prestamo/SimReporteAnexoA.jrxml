@@ -13,7 +13,7 @@
 		 leftMargin="14"
 		 rightMargin="14"
 		 topMargin="5"
-		 bottomMargin="5"
+		 bottomMargin="0"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -155,7 +155,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 					<reportElement
 						x="327"
 						y="0"
-						width="73"
+						width="71"
 						height="12"
 						key="staticText-7"/>
 					<box>					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -281,7 +281,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 					<reportElement
 						x="327"
 						y="0"
-						width="73"
+						width="71"
 						height="15"
 						key="textField-5"/>
 					<box>					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -339,12 +339,12 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 			</band>
 		</pageFooter>
 		<lastPageFooter>
-			<band height="72"  isSplitAllowed="true" >
+			<band height="60"  isSplitAllowed="true" >
 				<rectangle>
 					<reportElement
 						mode="Transparent"
 						x="0"
-						y="18"
+						y="6"
 						width="506"
 						height="54"
 						key="rectangle-1"/>
@@ -353,7 +353,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 				<staticText>
 					<reportElement
 						x="2"
-						y="37"
+						y="25"
 						width="496"
 						height="35"
 						key="staticText-5"/>
@@ -368,7 +368,7 @@ ORDER BY NUM_PAGO_AMORTIZACION]]></queryString>
 				<staticText>
 					<reportElement
 						x="2"
-						y="23"
+						y="11"
 						width="496"
 						height="14"
 						key="staticText-6"/>

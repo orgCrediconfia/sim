@@ -614,7 +614,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 							
 						}
 						
-						sSql =  " INSERT INTO SIM_PRESTAMO_ESTATUS_HISTORICO \n" +
+						sSql =  " INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO \n" +
 								" (CVE_GPO_EMPRESA, \n" +
 								" CVE_EMPRESA, \n" +
 								" ID_PRESTAMO, \n" +
@@ -1318,7 +1318,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 							
 						}
 						
-						sSql =  " INSERT INTO SIM_PRESTAMO_ESTATUS_HISTORICO \n" +
+						sSql =  " INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO \n" +
 								" (CVE_GPO_EMPRESA, \n" +
 								" CVE_EMPRESA, \n" +
 								" ID_PRESTAMO, \n" +
@@ -1986,7 +1986,7 @@ public class SimPrestamoProductoDAO extends Conexion2 implements OperacionAlta {
 						
 					}
 					
-					sSql =  " INSERT INTO SIM_PRESTAMO_ESTATUS_HISTORICO \n" +
+					sSql =  " INSERT INTO SIM_PRESTAMO_ETAPA_HISTORICO \n" +
 							" (CVE_GPO_EMPRESA, \n" +
 							" CVE_EMPRESA, \n" +
 							" ID_PRESTAMO, \n" +

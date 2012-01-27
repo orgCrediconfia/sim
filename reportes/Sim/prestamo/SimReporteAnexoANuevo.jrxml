@@ -39,6 +39,7 @@
 	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte4" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
@@ -127,7 +128,7 @@
 					<textElement verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
 					</textElement>
-				<text><![CDATA[2807-439-004123/04-11252-1210]]></text>
+				<text><![CDATA[2807-439-004123/05-13891-1011]]></text>
 				</staticText>
 			</band>
 		</pageHeader>
@@ -185,9 +186,9 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="327"
+						y="398"
 						width="567"
-						height="135"
+						height="70"
 						key="subreport-2"/>
 					<subreportParameter  name="IdPrestamo">
 						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
@@ -199,119 +200,7 @@
 					<reportElement
 						mode="Transparent"
 						x="36"
-						y="162"
-						width="250"
-						height="81"
-						key="rectangle-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<rectangle>
-					<reportElement
-						mode="Transparent"
-						x="286"
-						y="162"
-						width="250"
-						height="81"
-						key="rectangle-2"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<staticText>
-					<reportElement
-						x="285"
-						y="162"
-						width="250"
-						height="15"
-						key="staticText-2"/>
-					<box></box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[ 17)     ESTADO DE CUENTA:]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="36"
-						y="161"
-						width="250"
-						height="15"
-						key="textField-1"/>
-					<box></box>
-					<textElement verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[" 16)     BIENES:"]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="315"
-						y="176"
-						width="220"
-						height="40"
-						key="staticText-3"/>
-					<box></box>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[El Estado de Cuenta estará a disposición del DEUDOR en la sucursal de DINSA en donde se contrató el Crédito.]]></text>
-				</staticText>
-				<rectangle>
-					<reportElement
-						mode="Transparent"
-						x="36"
-						y="81"
-						width="250"
-						height="81"
-						key="rectangle-3"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<rectangle>
-					<reportElement
-						mode="Transparent"
-						x="286"
-						y="81"
-						width="250"
-						height="81"
-						key="rectangle-4"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
-				<staticText>
-					<reportElement
-						x="65"
-						y="84"
-						width="220"
-						height="77"
-						key="staticText-5"/>
-					<box></box>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[Traspaso Gerencia Recuperación: 1000.00 (mil pesos 00/100 M.N.). Aplicable siempre que el saldo o fracción de una cuota sobrepase los 45 días.
-
-Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que el saldo o fracción de una cuota sobrepase los 120 días.]]></text>
-				</staticText>
-				<line direction="TopDown">
-					<reportElement
-						x="56"
-						y="88"
-						width="6"
-						height="0"
-						key="line-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="56"
-						y="131"
-						width="6"
-						height="0"
-						key="line-2"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<rectangle>
-					<reportElement
-						mode="Transparent"
-						x="36"
-						y="268"
+						y="341"
 						width="190"
 						height="51"
 						key="rectangle-5"/>
@@ -321,7 +210,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 					<reportElement
 						mode="Transparent"
 						x="226"
-						y="268"
+						y="341"
 						width="190"
 						height="51"
 						key="rectangle-6"/>
@@ -330,7 +219,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 				<staticText>
 					<reportElement
 						x="36"
-						y="254"
+						y="327"
 						width="380"
 						height="14"
 						key="staticText-6"/>
@@ -343,7 +232,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="36"
-						y="268"
+						y="341"
 						width="190"
 						height="15"
 						key="textField-2"/>
@@ -356,7 +245,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 				<staticText>
 					<reportElement
 						x="227"
-						y="268"
+						y="341"
 						width="190"
 						height="15"
 						key="staticText-7"/>
@@ -369,7 +258,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 				<staticText>
 					<reportElement
 						x="70"
-						y="282"
+						y="355"
 						width="156"
 						height="15"
 						key="staticText-8"/>
@@ -382,7 +271,7 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="256"
-						y="283"
+						y="356"
 						width="153"
 						height="34"
 						key="textField-3"/>
@@ -422,22 +311,19 @@ Gestión Judicial: $3,000.00 (tres mil pesos 00/100 M.N.). Aplicable siempre que
 						height="0"
 						key="element-2"/>
 				</break>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<subreport  isUsingCache="true">
 					<reportElement
-						x="65"
-						y="177"
-						width="221"
-						height="60"
-						key="textField-4"/>
-					<box></box>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{GarantiaDescripcion}+ ".\n" +
-"Valor comercial: $ " +$P{GarantiaValorComercial}.trim()+ "\n" +
-"Número de Factura: " +$P{GarantiaNumeroFacturaEscritura} + ".\n" +
-"Fecha de Factura: " +$P{GarantiaFechaFacturaEscritura}]]></textFieldExpression>
-				</textField>
+						x="0"
+						y="84"
+						width="567"
+						height="233"
+						key="subreport-4"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte4}]]></subreportExpression>
+				</subreport>
 			</band>
 		</summary>
 </jasperReport>

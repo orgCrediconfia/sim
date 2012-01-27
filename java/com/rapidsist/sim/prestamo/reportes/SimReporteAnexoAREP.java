@@ -204,7 +204,7 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 		parametros.put("Subreporte1",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
 		parametros.put("Subreporte2",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
 		parametros.put("Subreporte3",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
-		parametros.put("Subreporte4",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub2.jasper"));
+		parametros.put("Subreporte4",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub0.jasper"));
 		return parametros;
 	}
 }
