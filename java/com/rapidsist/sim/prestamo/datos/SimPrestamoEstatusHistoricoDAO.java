@@ -39,8 +39,8 @@ public class SimPrestamoEstatusHistoricoDAO extends Conexion2 implements Operaci
 			   " E.NOM_ESTATUS_PRESTAMO, \n" +
 			   " H.CVE_USUARIO, \n" +
 			   " P.NOM_COMPLETO, \n" +
-			   " H.FECHA \n" +
-			   " FROM SIM_PRESTAMO_ESTATUS_HISTORICO H, \n"+
+			   " H.FECHA_REALIZADA \n" +
+			   " FROM SIM_PRESTAMO_ETAPA_HISTORICO H, \n"+
 			   "      SIM_CAT_ETAPA_PRESTAMO E, \n"+
 			   "      RS_GRAL_USUARIO U, \n"+
 			   "      RS_GRAL_PERSONA P \n"+
