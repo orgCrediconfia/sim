@@ -43,7 +43,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 				"C.NUM_CICLO,\n"+
 				"C.FECHA_ENTREGA,\n"+
 				"C.ID_ETAPA_PRESTAMO,\n"+
-				"C.MONTO_AUTORIZADO + C.CARGO_INICIAL IMPORTE_PRESTADO,\n"+
+				"NVL(C.MONTO_AUTORIZADO,0) + NVL(C.CARGO_INICIAL,0) IMPORTE_PRESTADO, \n"+
 				"C.NUM_LINEA\n"+
 				"FROM V_CREDITO C, \n"+
 				"SIM_CAT_ETAPA_PRESTAMO E, \n"+
