@@ -116,7 +116,7 @@ public class SimPrestamoLineaFondeoDAO extends Conexion2 implements OperacionCon
 					
 				//Obtiene el monto autorizado del grupo.
 				sSql =  "SELECT \n"+
-						"A.MONTO_AUTORIZADO + B.CARGO_INICIAL IMPORTE_PRESTADO \n"+
+						"NVL(A.MONTO_AUTORIZADO,0) + NVL(B.CARGO_INICIAL,0) IMPORTE_PRESTADO \n"+
 						"FROM SIM_PRESTAMO_GRUPO P, \n"+
 						"SIM_GRUPO N, \n"+ 
 						"(SELECT \n"+ 

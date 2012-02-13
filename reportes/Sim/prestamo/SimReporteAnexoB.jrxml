@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteAnexoB"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="842"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="PathLogotipo" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="NOM_GARANTE" class="java.lang.String"/>
+	<field name="SOLIDARIO" class="java.lang.String"/>
+	<field name="SOLIDARIO_2" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="690"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="-1"
+						y="1"
+						width="354"
+						height="12"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[No. 2807-439-004123/05-13891-1011
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="148"
+						y="20"
+						width="228"
+						height="28"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA["ANEXO B"]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="59"
+						width="541"
+						height="98"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO 066168-02 DE FECHA " + $F{FECHA_ENTREGA}.replace( '\\', ' ' ) + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, " + $F{NOM_GARANTE} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " +$F{SOLIDARIO}+", "+ $F{SOLIDARIO_2}+ " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OBLIGADO SOLIDARIO”."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="160"
+						width="541"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[ARTÍCULOS REFERIDOS EN EL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="180"
+						width="429"
+						height="13"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[1. Artículo 87-J, de la Ley General de Organizaciones y Actividades Auxiliares del Crédito:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="64"
+						y="199"
+						width="476"
+						height="118"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font pdfFontName="Helvetica-Oblique" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[“Artículo 87-J.- En los contratos de arrendamiento financiero, factoraje financiero y crédito que celebren las sociedades financieras de objeto múltiple, éstas deberán señalar expresamente que, para su constitución y operación con tal carácter, no requieren de autorización de la Secretaría de Hacienda y Crédito Público. Igual mención deberá señalarse en cualquier tipo de información que, para fines de promoción de sus operaciones y servicios, utilicen las sociedades financieras de objeto múltiple.
+En adición a lo anterior, las sociedades financieras de objeto múltiple no reguladas, en la documentación e información a que se refiere el párrafo anterior, deberán expresar que, para la realización de las operaciones señaladas en ese mismo párrafo, no están sujetas a la supervisión y vigilancia de la Comisión Nacional Bancaria y de Valores.”]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="64"
+						y="345"
+						width="476"
+						height="82"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[“Artículo 170.- El pagaré debe contener:
+I.- La mención de ser pagaré, inserta en el texto del documento;
+II.- La promesa incondicional de pagar una suma determinada de dinero;
+III.- El nombre de la persona a quien ha de hacerse el pago;
+IV.- La época y el lugar del pago;
+V.- La fecha y el lugar en que se subscriba el documento; y
+VI.- La firma del suscriptor o de la persona que firme a su ruego o en su nombre.”]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="326"
+						width="429"
+						height="13"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[2. Artículo 170, de la Ley General de Títulos y Operaciones de Crédito:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="64"
+						y="457"
+						width="476"
+						height="120"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[“Artículo 299.- El otorgamiento o transmisión de un título de crédito o de cualquier otro documento por el acreditado al acreditante, como reconocimiento del adeudo que a cargo de aquél resulte en virtud de las disposiciones que haga del crédito concedido, no facultan al acreditante para descontar o ceder el crédito así documentado, antes de su vencimiento, sino hasta cuando el acreditado lo autorice a ello expresamente.
+
+Negociado o cedido el crédito por el acreditante, éste abonará al acreditado, desde la fecha de tales actos, los intereses correspondientes al importe de la disposición de que dicho crédito proceda, conforme al tipo estipulado en la apertura de crédito; pero el crédito concedido no se entenderá renovado por esa cantidad, sino cuando las partes así lo hayan convenido.”]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="438"
+						width="429"
+						height="13"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[3. Artículo 299, de la General de Títulos y Operaciones de Crédito:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="64"
+						y="614"
+						width="476"
+						height="74"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[“Artículo 1989.- Cada uno de los acreedores o todos juntos pueden exigir de todos los deudores solidarios o de cualquiera de ellos, el pago total o parcial de la deuda. Si reclaman todo de uno de los deudores y resultare insolvente, pueden reclamarlo de los demás o de cualquiera de ellos. Si hubiesen reclamado sólo parte, o de otro modo hubiesen consentido en la división de la deuda, respecto de alguno o algunos de los deudores, podrán reclamar el todo de los demás obligados, con deducción de la parte del deudor o deudores libertados de la solidaridad.”]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="595"
+						width="429"
+						height="13"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[4. Artículo 1989, del Código Civil Federal:]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="472"
+						y="-680"
+						width="79"
+						height="39"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["file:" + $P{PathLogotipo}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="472"
+						y="-680"
+						width="79"
+						height="39"
+						key="image-2"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["file:" + $P{PathLogotipo}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="1"
+						width="79"
+						height="39"
+						key="image-5"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["file:" + $P{PathLogotipo}]]></imageExpression>
+				</image>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="788"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="64"
+						y="50"
+						width="476"
+						height="168"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[“Artículo 301.- El crédito se extinguirá, cesando, en consecuencia, el derecho del acreditado a hacer uso de él en lo futuro:
+I.- Por haber dispuesto el acreditado de la totalidad de su importe, a menos que el crédito se haya abierto en cuenta corriente;
+II.- Por la expiración del término convenido, o por la notificación de haberse dado por concluido el contrato, conforme al artículo 294, cuando no se hubiere fijado plazo;
+III.- Por la denuncia que del contrato se haga en los términos del citado artículo;
+IV.- Por la falta o disminución de las garantías pactadas a cargo del acreditado, ocurridas con posterioridad al contrato, a menos que el acreditado suplemente o substituya debidamente la garantía en el término convenido al efecto;
+V.- Por hallarse cualquiera de las partes en estado de suspensión de pagos, de liquidación judicial o de quiebra;
+VI.- Por la muerte, interdicción, inhabilitación o ausencia del acreditado, o por disolución de la sociedad a cuyo favor se hubiere concedido crédito.”]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="31"
+						width="429"
+						height="13"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[5. Artículo 301, de la General de Títulos y Operaciones de Crédito:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="367"
+						width="248"
+						height="29"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[“DINSA” - DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE,ENTIDAD NO REGULADA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="290"
+						y="368"
+						width="250"
+						height="10"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA["DEUDOR"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="437"
+						width="248"
+						height="11"
+						key="staticText-16"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Representantes Legales]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="15"
+						y="435"
+						width="248"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="290"
+						y="437"
+						width="250"
+						height="11"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "DEUDOR"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="290"
+						y="435"
+						width="250"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="15"
+						y="487"
+						width="248"
+						height="10"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OTORGANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="290"
+						y="488"
+						width="250"
+						height="10"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="540"
+						width="248"
+						height="11"
+						key="staticText-20"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "OTORGANTE"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="15"
+						y="538"
+						width="248"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="290"
+						y="540"
+						width="250"
+						height="11"
+						key="staticText-21"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "OBLIGADO SOLIDARIO"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="290"
+						y="538"
+						width="250"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="15"
+						y="599"
+						width="248"
+						height="10"
+						key="staticText-22"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="657"
+						width="248"
+						height="11"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "OBLIGADO SOLIDARIO"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="14"
+						y="655"
+						width="248"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="250"
+						width="540"
+						height="52"
+						key="staticText-24"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<text><![CDATA[LOS TÉRMINOS Y CONDICIONES DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO, SON, EN ESTE ACTO, INCORPORADOS Y FORMAN PARTE DEL PRESENTE ANEXO, COMO SÍ DICHOS TÉRMINOS Y CONDICIONES ESTUVIESEN TOTALMENTE PREVISTOS EN EL PRESENTE DOCUMENTO.
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="308"
+						width="540"
+						height="51"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LEÍDO QUE FUE EL PRESENTE ANEXO, LAS PARTES LO FIRMAN, POR DUPLICADO EN " + $F{DIRECCION_SUCURSAL}+ ", EL DÍA " + $F{FECHA_ENTREGA} + "."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="15"
+						y="668"
+						width="248"
+						height="13"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SOLIDARIO_2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="15"
+						y="551"
+						width="248"
+						height="13"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GARANTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="290"
+						y="449"
+						width="250"
+						height="13"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GARANTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="289"
+						y="552"
+						width="251"
+						height="12"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SOLIDARIO}]]></textFieldExpression>
+				</textField>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="1"
+						width="79"
+						height="39"
+						key="image-6"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["file:" + $P{PathLogotipo}]]></imageExpression>
+				</image>
+			</band>
+		</summary>
+</jasperReport>

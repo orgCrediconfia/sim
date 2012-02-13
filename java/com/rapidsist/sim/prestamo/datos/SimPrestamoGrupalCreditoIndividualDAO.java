@@ -1409,7 +1409,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					"AND CVE_APLICACION = 'Prestamo') \n";
 			ejecutaSql();
 			if(rs.next()){
-				
+				System.out.println("Verifica si tiene permisos para manipular la etapa");
 				//Retrocede etapa.
 				//Obtiene las actividades de la etapa que se retroce para inicializarlas.
 				sSql =  "SELECT \n"+
@@ -1429,13 +1429,14 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 				PreparedStatement ps2 = this.conn.prepareStatement(sSql);
 				ps2.execute();
 				ResultSet rs2 = ps2.getResultSet();
-				
+				System.out.println("Obtiene las actividades de la etapa que se retroce para inicializarlas.");
 				while (rs2.next()){
 					registro.addDefCampo("ID_ACTIVIDAD_REQUISITO",rs2.getString("ID_ACTIVIDAD_REQUISITO")== null ? "": rs2.getString("ID_ACTIVIDAD_REQUISITO"));
 					registro.addDefCampo("ORDEN_ETAPA",rs2.getString("ORDEN_ETAPA")== null ? "": rs2.getString("ORDEN_ETAPA"));
 					registro.addDefCampo("FECHA_REGISTRO",rs2.getString("FECHA_REGISTRO")== null ? "": rs2.getString("FECHA_REGISTRO"));
 					//Guarda el historial de la etapa y las actividades
 					sSql = "SELECT SQ01_SIM_PRESTAMO_ACT_REQ_HIST.nextval AS ID_HISTORICO FROM DUAL";
+					System.out.println("Guarda el historial de la etapa y las actividades");
 					PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 					ps3.execute();
 					ResultSet rs3 = ps3.getResultSet();
@@ -1471,7 +1472,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 						}
 					}
 				}
-					
+				
 				//Obtiene la etapa anterior.
 				sSql =  " SELECT DISTINCT ID_ETAPA_PRESTAMO, ORDEN_ETAPA \n"+
 					"	  FROM SIM_PRESTAMO_ETAPA \n"+
@@ -1483,7 +1484,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					"	  AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 					"	  AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "') \n"+
 					" 	  AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
-					
+				System.out.println("Obtiene la etapa anterior.");
 					ejecutaSql();
 					if(rs.next()){
 						//Retrocede a la etapa anterior.
@@ -1495,7 +1496,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 							"WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 							"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 							"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" ;
-							
+						System.out.println("Retrocede a la etapa anterior.");
 						if (ejecutaUpdate() == 0){
 							resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 						}
@@ -1506,7 +1507,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 								"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n" +
 								"AND ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" ;
-								
+						System.out.println("1");
 						if (ejecutaUpdate() == 0){
 							resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 						}
@@ -1519,7 +1520,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 								" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 								" AND ID_ETAPA_PRESTAMO	='" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n";
-						
+						System.out.println("2");
 						if (ejecutaUpdate() == 0){
 							resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 						}
@@ -1541,7 +1542,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 								"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 								"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 								"AND ID_ETAPA_PRESTAMO = '" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n";
-						
+						System.out.println("3");
 							PreparedStatement ps10 = this.conn.prepareStatement(sSql);
 							ps10.execute();
 							ResultSet rs10 = ps10.getResultSet();
@@ -1553,7 +1554,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 								registro.addDefCampo("FECHA_REGISTRO",rs10.getString("FECHA_REGISTRO")== null ? "": rs10.getString("FECHA_REGISTRO"));
 								registro.addDefCampo("COMENTARIO",rs10.getString("COMENTARIO")== null ? "": rs10.getString("COMENTARIO"));
 								registro.addDefCampo("ESTATUS",rs10.getString("ESTATUS")== null ? "": rs10.getString("ESTATUS"));
-							
+								System.out.println("4");
 								sSql = "SELECT SQ01_SIM_PRESTAMO_ACT_REQ_HIST.nextval AS ID_HISTORICO FROM DUAL";
 								
 								PreparedStatement ps11 = this.conn.prepareStatement(sSql);
@@ -1584,7 +1585,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 										"'" + (String)registro.getDefCampo("ORDEN_ETAPA") + "', \n" +
 										"'" + (String)registro.getDefCampo("COMENTARIO") + "', \n" +
 										"'" + (String)registro.getDefCampo("ESTATUS") + "') \n" ;
-									
+									System.out.println("5");
 									PreparedStatement ps12 = this.conn.prepareStatement(sSql);
 									ps12.execute();
 									ResultSet rs12 = ps12.getResultSet();
@@ -1600,6 +1601,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 								" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
 								" AND ID_ETAPA_PRESTAMO	='" + (String)registro.getDefCampo("ID_ETAPA_PRESTAMO") + "' \n"+
 								" AND ID_PRESTAMO	='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n";
+						System.out.println("6");
 						if (ejecutaUpdate() == 0){
 							resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 						}
