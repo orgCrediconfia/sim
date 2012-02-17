@@ -740,7 +740,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 															}
 														}
-														
+													//No se ha asignado el producto al grupo.	
 													}else{
 														
 														//Busca si hay una excepciï¿½n.
@@ -760,7 +760,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 															ejecutaSql();
 															if (rs.next()){
 																registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
-																
+																//Busca los atributos del ciclo siguiente.
 																sSql = "SELECT DISTINCT \n"+
 																		"PC.CVE_GPO_EMPRESA, \n"+
 																		"PC.CVE_EMPRESA, \n"+
@@ -805,18 +805,19 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																	resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																}else{
 																	//Como no tiene otro ciclo definido se le asigna el ultimo.
-																	sSql =  "SELECT \n"+
-																	"P.CVE_GPO_EMPRESA, \n"+
-																	"P.CVE_EMPRESA, \n"+
-																	"P.ID_PRODUCTO, \n"+
-																	"P.NUM_CICLO, \n"+
-																	"P.ID_GRUPO \n"+
-																	"FROM \n"+
-																	"SIM_PRESTAMO_EXCEPCION_CICLO P \n"+
-																	"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-																	"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-																	"AND P.ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
-																	"AND P.ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n";
+																	
+																	sSql =  "SELECT \n" +
+																			"MAX (NUM_CICLO) NUM_CICLO \n"+
+																			"FROM ( \n"+
+																			"SELECT \n" +
+																			"ID_PRODUCTO, \n"+
+																			"NUM_CICLO \n"+
+																			"FROM SIM_PRODUCTO_CICLO \n"+
+																			"WHERE \n"+
+																			"CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+																			"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+																			"AND ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
+																			") \n";
 																	
 																			
 																	ejecutaSql();
@@ -830,13 +831,13 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																}
 														
 															}else {
-														
-														//Se le asigna el producto-ciclo 1.
-														//Ingresa el crï¿½dito grupal.
-														
-														sSql = "Todavia no se da ningún alta";
-														resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
-														resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO","1");
+																//No hay ninguna excepción.
+																//Se le asigna el producto-ciclo 1.
+																//Ingresa el crï¿½dito grupal.
+																
+																sSql = "Todavia no se da ningún alta";
+																resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
+																resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO","1");
 															}
 														
 													}
@@ -1306,7 +1307,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																ejecutaSql();
 																if (rs.next()){
 																	registro.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO")== null ? "": rs.getString("NUM_CICLO"));
-																	
+																	//Busca los atributos del ciclo siguiente.
 																	sSql = "SELECT DISTINCT \n"+
 																			"PC.CVE_GPO_EMPRESA, \n"+
 																			"PC.CVE_EMPRESA, \n"+
@@ -1351,18 +1352,19 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																		resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO",rs.getString("NUM_CICLO"));
 																	}else{
 																		//Como no tiene otro ciclo definido se le asigna el ultimo.
-																		sSql =  "SELECT \n"+
-																		"P.CVE_GPO_EMPRESA, \n"+
-																		"P.CVE_EMPRESA, \n"+
-																		"P.ID_PRODUCTO, \n"+
-																		"P.NUM_CICLO, \n"+
-																		"P.ID_GRUPO \n"+
-																		"FROM \n"+
-																		"SIM_PRESTAMO_EXCEPCION_CICLO P \n"+
-																		"WHERE P.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
-																		"AND P.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-																		"AND P.ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n"+
-																		"AND P.ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n";
+																		//Debe buscarse en la tabla SIM_PRODUCTO_CICLO.
+																		sSql =  "SELECT \n" +
+																				"MAX (NUM_CICLO) NUM_CICLO \n"+
+																				"FROM ( \n"+
+																				"SELECT \n" +
+																				"ID_PRODUCTO, \n"+
+																				"NUM_CICLO \n"+
+																				"FROM SIM_PRODUCTO_CICLO \n"+
+																				"WHERE \n"+
+																				"CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+																				"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+																				"AND ID_PRODUCTO = '" + (String)registro.getDefCampo("ID_PRODUCTO") + "' \n" +
+																				") \n";
 																		System.out.println("Como no tiene otro ciclo definido se le asigna el ultimo."+sSql);
 																				
 																		ejecutaSql();
@@ -1376,13 +1378,14 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 																	}
 																	
 																}else {
-															//Se le asigna el producto-ciclo 1.
-															//Ingresa el crï¿½dito grupal.
-															
-															sSql = "Todavia no se da ningún alta";
-															resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
-															resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO","1");
-														}
+																	//No hay ninguna excepción.
+																	//Se le asigna el producto-ciclo 1.
+																	//Ingresa el crï¿½dito grupal.
+																	
+																	sSql = "Todavia no se da ningún alta";
+																	resultadoCatalogo.Resultado.addDefCampo("B_EXISTE_CICLO_SIG","V");
+																	resultadoCatalogo.Resultado.addDefCampo("NUM_CICLO","1");
+																}
 															
 														}
 												

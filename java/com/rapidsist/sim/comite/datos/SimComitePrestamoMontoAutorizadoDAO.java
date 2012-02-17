@@ -179,6 +179,8 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 		String sFechaReal = "";
 		String sFechaRealValida = "";
 		
+		boolean bTimeStamp = false;
+		
 		ResultadoCatalogo resultadoCatalogoGenerarTablaAmortizacion = new ResultadoCatalogo();
 		SimGenerarTablaAmortizacionDAO simGenerarTablaAmortizacionDAO = new SimGenerarTablaAmortizacionDAO();
 		simGenerarTablaAmortizacionDAO.setConexion(this.getConexion());
@@ -793,23 +795,23 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 			   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 			   " AND CVE_PAIS 			= 'MX' \n";		
 			ejecutaSql();
-			System.out.println("es dia festivo? "+sSql);
+			
 			if (rs.next()){
 				bDiaFestivo = true;
 			}else {
 				bDiaFestivo = false;
 			}
-			System.out.println("bDiaFestivo"+bDiaFestivo);
+			System.out.println("¿es dia festivo? "+bDiaFestivo);
 			sSql = " SELECT TO_CHAR(TO_DATE('" + sFechaEntrega + "','DD/MM/YYYY'),'D') DIA FROM DUAL \n" ;
 			ejecutaSql();
 			if (rs.next()){
 				sDiaEntrega = rs.getString("DIA");
 			}
-			System.out.println("sDiaEntrega "+sDiaEntrega);
+			System.out.println("El día es: "+sDiaEntrega);
 			
 			
 			if (sDiaEntrega.equals("6") || sDiaEntrega.equals("7") || bDiaFestivo){
-				System.out.println("Se trata de unn domingo sabado o dia festivo");
+				System.out.println("La fecha ES un domingo, sabado o dia festivo");
 				if (sOperaDomingo.equals("V") && sDiaEntrega.equals("6")){
 					bBuscaFechaValida = false;
 				}else if (sOperaSabado.equals("V") && sDiaEntrega.equals("7")){
@@ -818,20 +820,22 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 					bBuscaFechaValida = false;
 				}else {
 					//No se permiten días festivos, ni sábados, ni domingos, por lo que obtiene el siguiente.
-					sSql = " SELECT TO_CHAR(TO_DATE('" + sFechaEntrega + "','DD/MM/YYYY') + 1,'DD/MM/YYYY') FECHA_VALIDA FROM DUAL \n" ;
+					sSql = " SELECT TO_CHAR(TO_DATE('" + sFechaEntrega + "','DD/MM/YYYY') + '1','DD/MM/YYYY') FECHA_VALIDA FROM DUAL \n" ;
 					ejecutaSql();
-					System.out.println("la siguiente fecha a analizar es: "+sSql);
+					System.out.println("la siguiente fecha a analizar es : "+sSql);
 					if (rs.next()){
 						//La siguiente fecha de entrega a analizar.
 						sFechaEntrega = rs.getString("FECHA_VALIDA");
 					}
 				}
 			}else {
-				System.out.println("Se queda igual");
+				System.out.println("La fecha NO ES un domingo, sabado o dia festivo");
 				sFechaEntrega = sFechaEntrega;
 				bBuscaFechaValida = false;
 			}
 		}
+		
+		System.out.println("Ahora sumare los dias de interes con la fecha obtenida");
 		
 		sFechaDesembolsoValida = sFechaEntrega;
 		iDiaEntrega = Integer.parseInt(sDiaEntrega);
@@ -854,7 +858,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 			}
 			
 			if (iDiaSemanaPago > iDiaEntrega){
-				System.out.println("uno");
+				System.out.println("suma uno");
 				int iFactorSuma = iDiaSemanaPago - iDiaEntrega;
 			
 				sSql = "SELECT TO_DATE('" + (String)registro.getDefCampo("FECHA_ENTREGA") + "','DD/MM/YYYY') + '"+iFactorSuma+"' FECHA_REAL FROM DUAL \n" ;
@@ -864,8 +868,9 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 					sFechaReal = rs.getString("FECHA_REAL");
 					registro.addDefCampo("FECHA_REAL",rs.getString("FECHA_REAL"));
 				}
+				bTimeStamp = false;
 			}else if (iDiaSemanaPago < iDiaEntrega){
-				System.out.println("dos");
+				System.out.println("suma dos");
 				int iFactorSuma = 7 - iDiaEntrega;
 				iFactorSuma = iFactorSuma + iDiaSemanaPago;
 			
@@ -876,9 +881,11 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 					sFechaReal = rs.getString("FECHA_REAL");
 					registro.addDefCampo("FECHA_REAL",rs.getString("FECHA_REAL")== null ? "": rs.getString("FECHA_REAL"));
 				}
+				bTimeStamp = true;
 			}else if (iDiaSemanaPago == iDiaEntrega){
-				System.out.println("tres");
+				System.out.println("suma tres");
 				registro.addDefCampo("FECHA_REAL","");
+				bTimeStamp = false;
 			}
 			
 			//Valida que la fecha real obtenida sea valida, si no es asÃ­ obtiene una que sÃ­ lo sea
@@ -887,35 +894,42 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 			
 			
 			while (bBuscaFechaValida){
-				
+				System.out.println("*******empieza*******while*********************+");
 				sSql = " SELECT \n" +
 				   " F_DIA_FESTIVO \n" +
-				   " FROM PFIN_DIA_FESTIVO \n" +
-				   " WHERE F_DIA_FESTIVO      	= TO_TIMESTAMP('" + sFechaReal + "','yyyy-MM-dd HH24:MI:SSXFF') \n" +
-				   " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-				   " AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-				   " AND CVE_PAIS 			= 'MX' \n";		
+				   " FROM PFIN_DIA_FESTIVO \n" ;
+				
+				if (bTimeStamp){
+					sSql = sSql +  " WHERE F_DIA_FESTIVO      	= TO_TIMESTAMP('" + sFechaReal + "','yyyy-MM-dd HH24:MI:SSXFF') \n" ;
+				}else {
+					sSql = sSql +  " WHERE F_DIA_FESTIVO      	= TO_DATE('" + sFechaReal + "','DD/MM/YYYY') \n" ;
+				}
+				
+				  
+				sSql = sSql +  " AND CVE_GPO_EMPRESA   	= '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				   			" AND CVE_EMPRESA   		= '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+				   			" AND CVE_PAIS 			= 'MX' \n";		
 				ejecutaSql();
-				System.out.println("es dia festivo? "+sSql);
+				
 				if (rs.next()){
 					bDiaFestivo = true;
 				}else {
 					bDiaFestivo = false;
 				}
-				System.out.println("bDiaFestivo"+bDiaFestivo);
+				System.out.println("***¿es dia festivo?**** "+sSql);
 				sSql = " SELECT TO_CHAR(TO_TIMESTAMP('" + sFechaReal + "','yyyy-MM-dd HH24:MI:SSXFF'),'D') DIA FROM DUAL \n" ;
 				ejecutaSql();
 				if (rs.next()){
 					sDiaEntrega = rs.getString("DIA");
 				}
-				System.out.println("sDiaEntrega "+sDiaEntrega);
+				System.out.println("****El día es: "+sDiaEntrega);
 				
 				if (sDiaEntrega == null){
 					sDiaEntrega = "0";
 				}
 				
 				if (sDiaEntrega.equals("6") || sDiaEntrega.equals("7") || bDiaFestivo){
-					System.out.println("Se trata de unn domingo sabado o dia festivo");
+					System.out.println("***Se trata de un domingo, sabado o dia festivo");
 					if (sOperaDomingo.equals("V") && sDiaEntrega.equals("6")){
 						bBuscaFechaValida = false;
 					}else if (sOperaSabado.equals("V") && sDiaEntrega.equals("7")){
@@ -923,15 +937,22 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 					}else if (sOperaDiaFestivo.equals("V") && bDiaFestivo){
 						bBuscaFechaValida = false;
 					}else {
-						sSql = " SELECT TO_CHAR(TO_TIMESTAMP('" + sFechaReal + "','yyyy-MM-dd HH24:MI:SSXFF') + 1,'DD/MM/YYYY') FECHA_VALIDA FROM DUAL \n" ;
+							if (bTimeStamp){
+								sSql = " SELECT TO_CHAR(TO_TIMESTAMP('" + sFechaReal + "','yyyy-MM-dd HH24:MI:SSXFF') + '1','DD/MM/YYYY') FECHA_VALIDA FROM DUAL \n" ;
+								bTimeStamp = false;
+							}else{
+								sSql = " SELECT TO_DATE('" + sFechaReal + "','DD/MM/YYYY') + '1' FECHA_VALIDA FROM DUAL \n" ;
+								bTimeStamp = true;
+							}
+							
 						ejecutaSql();
-						System.out.println("la siguiente fecha a analizar es: "+sSql);
+						System.out.println("****la siguiente fecha a analizar es: "+sSql);
 						if (rs.next()){
 							sFechaReal = rs.getString("FECHA_VALIDA");
 						}
 					}
 				}else {
-					System.out.println("Se queda igual");
+					System.out.println("****Se queda igual");
 					sFechaReal = sFechaReal;
 					bBuscaFechaValida = false;
 				}
