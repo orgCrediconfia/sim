@@ -868,7 +868,7 @@ public class SimComitePrestamoMontoAutorizadoDAO extends Conexion2 implements Op
 					sFechaReal = rs.getString("FECHA_REAL");
 					registro.addDefCampo("FECHA_REAL",rs.getString("FECHA_REAL"));
 				}
-				bTimeStamp = false;
+				bTimeStamp = true;
 			}else if (iDiaSemanaPago < iDiaEntrega){
 				System.out.println("suma dos");
 				int iFactorSuma = 7 - iDiaEntrega;
