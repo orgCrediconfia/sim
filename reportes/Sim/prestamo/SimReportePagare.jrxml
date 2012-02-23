@@ -64,11 +64,11 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="726"  isSplitAllowed="true" >
+			<band height="731"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="22"
-						y="507"
+						y="512"
 						width="235"
 						height="10"
 						key="staticText-4"/>
@@ -81,7 +81,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="21"
-						y="542"
+						y="547"
 						width="234"
 						height="0"
 						key="line-1"/>
@@ -90,7 +90,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="565"
+						y="570"
 						width="235"
 						height="10"
 						key="staticText-6"/>
@@ -103,7 +103,7 @@
 				<staticText>
 					<reportElement
 						x="21"
-						y="584"
+						y="589"
 						width="40"
 						height="27"
 						key="staticText-7"/>
@@ -129,7 +129,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="467"
+						y="472"
 						width="556"
 						height="24"
 						key="textField-6"/>
@@ -157,7 +157,7 @@
 						x="0"
 						y="102"
 						width="554"
-						height="33"
+						height="41"
 						key="staticText-32"/>
 					<box></box>
 					<textElement textAlignment="Justified">
@@ -168,7 +168,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="138"
+						y="143"
 						width="556"
 						height="25"
 						key="textField-16"/>
@@ -176,12 +176,12 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Los intereses ordinarios se devengarán y pagarán " + $F{NOM_PERIODICIDAD} + "(mente), en las mismas fechas señaladas en la tabla de amortización de conformidad con el Contrato de crédito numero " + $F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los intereses ordinarios se devengarán y pagarán " + $F{NOM_PERIODICIDAD} + "(mente), en las mismas fechas señaladas en la tabla de amortización de conformidad con el Contrato de crédito numero " + $F{ID_CLIENTE} + " - " +  $F{NUM_CICLO} + "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="0"
-						y="368"
+						y="373"
 						width="414"
 						height="13"
 						key="staticText-88"/>
@@ -194,7 +194,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="384"
-						y="368"
+						y="373"
 						width="139"
 						height="13"
 						key="textField-17"/>
@@ -207,7 +207,7 @@
 				<staticText>
 					<reportElement
 						x="1"
-						y="383"
+						y="388"
 						width="555"
 						height="79"
 						key="staticText-89"/>
@@ -225,7 +225,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="22"
-						y="544"
+						y="549"
 						width="235"
 						height="13"
 						key="textField-19"/>
@@ -238,7 +238,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="61"
-						y="584"
+						y="589"
 						width="196"
 						height="27"
 						key="textField-20"/>
@@ -277,7 +277,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="275"
-						y="507"
+						y="512"
 						width="268"
 						height="10"
 						key="staticText-104"/>
@@ -290,7 +290,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<line direction="TopDown">
 					<reportElement
 						x="274"
-						y="542"
+						y="547"
 						width="267"
 						height="0"
 						key="line-2"/>
@@ -299,7 +299,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="274"
-						y="568"
+						y="573"
 						width="268"
 						height="10"
 						key="staticText-105"/>
@@ -312,7 +312,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="274"
-						y="584"
+						y="589"
 						width="39"
 						height="13"
 						key="staticText-106"/>
@@ -325,7 +325,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="313"
-						y="584"
+						y="589"
 						width="230"
 						height="27"
 						key="textField-28"/>
@@ -338,7 +338,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="274"
-						y="543"
+						y="548"
 						width="268"
 						height="13"
 						key="textField-29"/>
@@ -351,7 +351,7 @@ Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscr
 				<staticText>
 					<reportElement
 						x="0"
-						y="159"
+						y="164"
 						width="553"
 						height="207"
 						key="staticText-107"/>
@@ -373,7 +373,7 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				<staticText>
 					<reportElement
 						x="275"
-						y="622"
+						y="627"
 						width="268"
 						height="10"
 						key="staticText-108"/>
@@ -386,7 +386,7 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				<line direction="TopDown">
 					<reportElement
 						x="274"
-						y="657"
+						y="662"
 						width="267"
 						height="0"
 						key="line-3"/>
@@ -395,7 +395,7 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				<staticText>
 					<reportElement
 						x="274"
-						y="683"
+						y="688"
 						width="268"
 						height="10"
 						key="staticText-109"/>
@@ -408,7 +408,7 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				<staticText>
 					<reportElement
 						x="274"
-						y="699"
+						y="704"
 						width="39"
 						height="13"
 						key="staticText-110"/>
@@ -421,7 +421,7 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="274"
-						y="658"
+						y="663"
 						width="268"
 						height="13"
 						key="textField-31"/>
@@ -434,7 +434,7 @@ El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Ope
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="313"
-						y="699"
+						y="704"
 						width="230"
 						height="27"
 						key="textField-32"/>

@@ -120,7 +120,7 @@
 					<textElement>
 						<font/>
 					</textElement>
-				<text><![CDATA[TASA_INTERES]]></text>
+				<text><![CDATA[TASA_INTERES_SIN_IVA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
