@@ -118,7 +118,7 @@
 					<textElement textAlignment="Justified">
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Asimismo, nos obligamos incondicionalmente a pagar los intereses ordinarios fijos, sobre el saldo global del presente Pagaré y los impuestos que genere de acuerdo a la legislación aplicable, mismos que se pagarán conjuntamente con el capital."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Asimismo, nos obligamos incondicionalmente a pagar los intereses ordinarios, sobre el saldo global del presente Pagaré y los impuestos que genere de acuerdo a la legislación aplicable, mismos que se pagarán conjuntamente con el capital."]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

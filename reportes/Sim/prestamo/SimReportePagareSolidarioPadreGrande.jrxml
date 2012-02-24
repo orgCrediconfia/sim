@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimReportePagareSolidarioNuevoCopia"
+		 name="SimReportePagareSolidarioPadreGrande"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -105,7 +105,7 @@
 					<textElement textAlignment="Justified">
 						<font size="9"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré los señor(es) firmantes, " + $P{NombresIntegrantes} + " (el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " (" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.), " + "a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable. \n Asimismo, nos obligamos incondicionalmente a pagar los intereses ordinarios fijos, sobre el saldo global del presente Pagaré y los impuestos que genere de acuerdo a la legislación aplicable, mismos que se pagarán conjuntamente con el capital. \n Los pagos de principal e intereses ordinarios se realizarán, mediante "+$F{PLAZO}+" pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días "+$F{NOM_PERIODICIDAD}+"(es), establecidos conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré los señor(es) firmantes, " + $P{NombresIntegrantes} + " (el (los) “Suscriptor(es)”), se obliga(n) incondicional y solidariamente en este acto a pagar a DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V. SOFOM E.N.R. (“DINSA”), en su domicilio ubicado en " + $F{DIRECCION_SUCURSAL} + " la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " (" + $F{MONTO_AUTORIZADO_LETRAS} + "00/100 M.N.), " + "a la vista, más los intereses devengados y en su caso los gastos, comisiones y demás erogaciones en que se incurra con motivo de su cobranza, así como los impuestos que se generen de acuerdo a la legislación aplicable. \n Asimismo, nos obligamos incondicionalmente a pagar los intereses ordinarios, sobre el saldo global del presente Pagaré y los impuestos que genere de acuerdo a la legislación aplicable, mismos que se pagarán conjuntamente con el capital. \n Los pagos de principal e intereses ordinarios se realizarán, mediante "+$F{PLAZO}+" pagos "+$F{NOM_PERIODICIDAD}+"(es), precisamente los días "+$F{NOM_PERIODICIDAD}+"(es), establecidos conforme al calendario de pagos sucesivos que a continuación se detalla:"]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>

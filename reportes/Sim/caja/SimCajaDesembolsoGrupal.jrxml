@@ -27,21 +27,72 @@
 	<parameter name="FechaReporte" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CveUsuario" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="Reimpresion" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[$P!{Sql}]]></queryString>
+	<queryString><![CDATA[SELECT 
+T.CVE_GPO_EMPRESA, 
+T.CVE_EMPRESA, 
+T.ID_MOVIMIENTO_OPERACION, 
+T.ID_CLIENTE, 
+T.ID_GRUPO, 
+G.NOM_GRUPO, 
+T.NUM_CICLO, 
+T.ID_PRESTAMO, 
+B.NOM_COMPLETO, 
+-T.MONTO MONTO, 
+CANTIDADES_LETRAS(MONTO) MONTO_AUTORIZADO_LETRAS, 
+NVL(P.FECHA_ENTREGA,P.FECHA_REAL) FECHA,
+TO_CHAR(SYSDATE, 'HH:MI AM') AS HORA,
+T.ID_SUCURSAL, 
+A.NOM_SUCURSAL, 
+T.ID_CAJA, 
+D.CALLE||' '||D.NUMERO_INT||' '||'COL.'||' '||D.NOM_ASENTAMIENTO||' '||'C.P.'||' '||D.CODIGO_POSTAL||','||' '||D.NOM_DELEGACION||','||' '||D.NOM_ESTADO DOMICILIO 
+FROM SIM_CAJA_TRANSACCION T, 
+SIM_PRESTAMO P, 
+SIM_SUCURSAL_CAJA S, 
+RS_GRAL_PERSONA B, 
+SIM_CAT_SUCURSAL A, 
+RS_GRAL_DOMICILIO D, 
+SIM_GRUPO G 
+WHERE T.CVE_GPO_EMPRESA = 'SIM' 
+AND T.CVE_EMPRESA = 'CREDICONFIA' 
+AND T.ID_TRANSACCION_GRUPO = '62' 
+AND T.CVE_MOVIMIENTO_CAJA = 'DESGPO' 
+AND S.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA 
+AND S.CVE_EMPRESA = T.CVE_EMPRESA 
+AND S.ID_SUCURSAL = T.ID_SUCURSAL 
+AND S.ID_SUCURSAL||'-'||S.ID_CAJA = '5-1' 
+AND P.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA 
+AND P.CVE_EMPRESA (+)= T.CVE_EMPRESA 
+AND P.ID_PRESTAMO (+)= T.ID_PRESTAMO 
+AND B.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA 
+AND B.CVE_EMPRESA (+)= T.CVE_EMPRESA 
+AND B.ID_PERSONA (+)= T.ID_CLIENTE 
+AND A.CVE_GPO_EMPRESA = T.CVE_GPO_EMPRESA 
+AND A.CVE_EMPRESA = T.CVE_EMPRESA 
+AND A.ID_SUCURSAL = T.ID_SUCURSAL 
+AND D.CVE_GPO_EMPRESA (+)= A.CVE_GPO_EMPRESA 
+AND D.CVE_EMPRESA (+)= A.CVE_EMPRESA 
+AND D.ID_DOMICILIO (+)= A.ID_DIRECCION 
+AND G.CVE_GPO_EMPRESA (+)= T.CVE_GPO_EMPRESA 
+AND G.CVE_EMPRESA (+)= T.CVE_EMPRESA 
+AND G.ID_GRUPO (+)= T.ID_GRUPO]]></queryString>
 
-	<field name="ID_CLIENTE" class="java.lang.String"/>
-	<field name="NUM_CICLO" class="java.lang.String"/>
-	<field name="NOM_COMPLETO" class="java.lang.String"/>
-	<field name="MONTO" class="java.lang.Float"/>
-	<field name="FECHA" class="java.util.Date"/>
-	<field name="ID_CAJA" class="java.lang.String"/>
-	<field name="DOMICILIO" class="java.lang.String"/>
-	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
-	<field name="ID_SUCURSAL" class="java.lang.String"/>
-	<field name="NOM_SUCURSAL" class="java.lang.String"/>
-	<field name="ID_MOVIMIENTO_OPERACION" class="java.lang.String"/>
-	<field name="ID_GRUPO" class="java.lang.String"/>
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_MOVIMIENTO_OPERACION" class="java.math.BigDecimal"/>
+	<field name="ID_CLIENTE" class="java.math.BigDecimal"/>
+	<field name="ID_GRUPO" class="java.math.BigDecimal"/>
 	<field name="NOM_GRUPO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.math.BigDecimal"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="MONTO" class="java.math.BigDecimal"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="FECHA" class="java.sql.Timestamp"/>
+	<field name="HORA" class="java.lang.String"/>
+	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
+	<field name="NOM_SUCURSAL" class="java.lang.String"/>
+	<field name="ID_CAJA" class="java.math.BigDecimal"/>
+	<field name="DOMICILIO" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -60,7 +111,7 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="375"  isSplitAllowed="true" >
+			<band height="398"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
@@ -168,7 +219,7 @@
 				<staticText>
 					<reportElement
 						x="-1"
-						y="345"
+						y="363"
 						width="200"
 						height="29"
 						key="staticText-9"/>
@@ -198,7 +249,7 @@
 					<textElement>
 						<font fontName="SansSerif" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CAJA}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ID_CAJA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -211,7 +262,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="11"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ID_CLIENTE}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -224,7 +275,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="11"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NUM_CICLO}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{NUM_CICLO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -237,7 +288,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="11"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Float"><![CDATA[$F{MONTO}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{MONTO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -408,7 +459,7 @@
 					<textElement>
 						<font fontName="SansSerif" pdfFontName="Helvetica" size="11" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_GRUPO}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ID_GRUPO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -426,11 +477,37 @@
 				<break>
 					<reportElement
 						x="0"
-						y="374"
+						y="397"
 						width="200"
 						height="0"
 						key="element-1"/>
 				</break>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="342"
+						width="127"
+						height="15"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Hora de impresión:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="126"
+						y="342"
+						width="69"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="SansSerif" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{HORA}]]></textFieldExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>

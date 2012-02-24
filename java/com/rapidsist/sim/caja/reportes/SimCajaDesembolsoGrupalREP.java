@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import com.rapidsist.portal.configuracion.Usuario;
 
 /**
- * Esta clase se encarga de administrar la operación consulta del Reporte Anexo A
+ * Esta clase se encarga de administrar la operaciï¿½n consulta del Reporte Anexo A
  * Esta clase es llamada por el servlet ProcesaReporteS.
  */
 
@@ -47,6 +47,7 @@ public class SimCajaDesembolsoGrupalREP implements ReporteControlIN {
 						"-T.MONTO MONTO, \n"+
 						"CANTIDADES_LETRAS(MONTO) MONTO_AUTORIZADO_LETRAS, \n"+
 						"NVL(P.FECHA_ENTREGA,P.FECHA_REAL) FECHA, \n"+
+						"TO_CHAR(SYSDATE, 'HH:MI AM') AS HORA, \n"+
 						"T.ID_SUCURSAL, \n"+
 						"A.NOM_SUCURSAL, \n"+
 						"T.ID_CAJA, \n"+

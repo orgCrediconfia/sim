@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimReporteAvisoPrivacidad"
+		 name="ConsentimientoIFAI"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -28,6 +28,7 @@
 	<queryString><![CDATA[$P!{Sql}]]></queryString>
 
 	<field name="FECHA_HOY" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
 	<field name="NOM_COMPLETO" class="java.lang.String"/>
 
 		<background>
@@ -64,8 +65,8 @@
 				<line direction="TopDown">
 					<reportElement
 						x="0"
-						y="777"
-						width="319"
+						y="767"
+						width="344"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -156,7 +157,7 @@ Finalmente, el Responsable ha implementado políticas y procesos internos aplica
 					<reportElement
 						x="-2"
 						y="196"
-						width="8"
+						width="15"
 						height="11"
 						key="staticText-10"/>
 					<box></box>
@@ -195,7 +196,7 @@ Finalmente, el Responsable ha implementado políticas y procesos internos aplica
 					<reportElement
 						x="-1"
 						y="355"
-						width="8"
+						width="14"
 						height="10"
 						key="staticText-13"/>
 					<box></box>
@@ -250,15 +251,13 @@ En todos los casos el Responsable dará a conocer a los terceros el contenido de
 						x="28"
 						y="551"
 						width="506"
-						height="78"
+						height="63"
 						key="staticText-17"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[                                                      En el supuesto de que el Responsable requiera modificar el contenido del presente aviso de privacidad lo hará del conocimiento del Titular a efecto de obtener su consentimiento respecto al nuevo tratamiento de sus datos personales. Lo anterior se realizará poniendo a disposición del Titular el nuevo aviso de privacidad, aplicando en lo conducente lo establecido en la propia Ley Federal de Protección de Datos Personales en Posesión de los Particulares, para la manifestación de la voluntad del Titular, lo cual aplicará únicamente para los aspectos del tratamiento de datos personales diversos de los ya consentidos para este aviso de privacidad.
-
-En todos los casos el Responsable dará a conocer a los terceros el contenido del presente aviso de privacidad.]]></text>
+				<text><![CDATA[                                                      En el supuesto de que el Responsable requiera modificar el contenido del presente aviso de privacidad lo hará del conocimiento del Titular a efecto de obtener su consentimiento respecto al nuevo tratamiento de sus datos personales. Lo anterior se realizará poniendo a disposición del Titular el nuevo aviso de privacidad, aplicando en lo conducente lo establecido en la propia Ley Federal de Protección de Datos Personales en Posesión de los Particulares, para la manifestación de la voluntad del Titular, lo cual aplicará únicamente para los aspectos del tratamiento de datos personales diversos de los ya consentidos para este aviso de privacidad.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -289,7 +288,7 @@ En todos los casos el Responsable dará a conocer a los terceros el contenido de
 				<staticText>
 					<reportElement
 						x="0"
-						y="630"
+						y="620"
 						width="535"
 						height="26"
 						key="staticText-20"/>
@@ -302,7 +301,7 @@ En todos los casos el Responsable dará a conocer a los terceros el contenido de
 				<staticText>
 					<reportElement
 						x="0"
-						y="659"
+						y="649"
 						width="535"
 						height="74"
 						key="staticText-21"/>
@@ -317,7 +316,7 @@ Asimismo, con fundamento en el segundo párrafo del artículo 35 del ordenamient
 				<staticText>
 					<reportElement
 						x="0"
-						y="738"
+						y="729"
 						width="106"
 						height="13"
 						key="staticText-22"/>
@@ -329,21 +328,21 @@ Asimismo, con fundamento en el segundo párrafo del artículo 35 del ordenamient
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="100"
-						y="736"
-						width="227"
+						x="106"
+						y="727"
+						width="292"
 						height="16"
 						key="textField-1"/>
 					<box></box>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_HOY}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FECHA_ENTREGA}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="784"
+						y="774"
 						width="340"
 						height="13"
 						key="textField-2"/>
