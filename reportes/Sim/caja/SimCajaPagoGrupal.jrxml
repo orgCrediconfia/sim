@@ -62,10 +62,10 @@
 			<band height="372"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="1"
+						x="3"
 						y="104"
 						width="66"
-						height="13"
+						height="16"
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -75,10 +75,10 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="120"
+						x="3"
+						y="122"
 						width="48"
-						height="13"
+						height="16"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -88,10 +88,10 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="136"
+						x="3"
+						y="138"
 						width="74"
-						height="13"
+						height="16"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -101,10 +101,10 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="152"
+						x="3"
+						y="154"
 						width="94"
-						height="13"
+						height="16"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -114,9 +114,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="271"
-						width="182"
+						x="3"
+						y="275"
+						width="191"
 						height="30"
 						key="staticText-7"/>
 					<box></box>
@@ -127,10 +127,10 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="253"
+						x="3"
+						y="258"
 						width="34"
-						height="13"
+						height="16"
 						key="staticText-10"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -140,10 +140,10 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="187"
-						width="74"
-						height="13"
+						x="3"
+						y="189"
+						width="60"
+						height="16"
 						key="staticText-11"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -153,9 +153,9 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="224"
-						width="182"
+						x="3"
+						y="228"
+						width="191"
 						height="29"
 						key="staticText-12"/>
 					<box></box>
@@ -167,10 +167,10 @@ periodo.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="1"
-						y="301"
-						width="181"
-						height="42"
+						x="3"
+						y="305"
+						width="190"
+						height="36"
 						key="staticText-13"/>
 					<box></box>
 					<textElement textAlignment="Left">
@@ -181,9 +181,9 @@ crédito total del grupo.]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="46"
-						width="183"
+						x="2"
+						y="47"
+						width="192"
 						height="37"
 						key="textField-1"/>
 					<box></box>
@@ -194,10 +194,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="88"
-						width="182"
-						height="13"
+						x="2"
+						y="86"
+						width="191"
+						height="16"
 						key="textField-2"/>
 					<box></box>
 					<textElement>
@@ -207,10 +207,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="67"
+						x="69"
 						y="104"
-						width="116"
-						height="13"
+						width="125"
+						height="16"
 						key="textField-5"/>
 					<box></box>
 					<textElement>
@@ -220,10 +220,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="49"
-						y="120"
-						width="134"
-						height="13"
+						x="51"
+						y="122"
+						width="143"
+						height="16"
 						key="textField-6"/>
 					<box></box>
 					<textElement>
@@ -233,10 +233,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="35"
-						y="253"
-						width="148"
-						height="13"
+						x="37"
+						y="258"
+						width="157"
+						height="16"
 						key="textField-8"/>
 					<box></box>
 					<textElement>
@@ -246,9 +246,9 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1"
+						x="3"
 						y="343"
-						width="182"
+						width="191"
 						height="27"
 						key="textField-9"/>
 					<box></box>
@@ -259,10 +259,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="95"
-						y="152"
-						width="88"
-						height="13"
+						x="97"
+						y="154"
+						width="97"
+						height="16"
 						key="textField-10"/>
 					<box></box>
 					<textElement>
@@ -272,10 +272,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="167"
-						width="182"
-						height="13"
+						x="2"
+						y="172"
+						width="191"
+						height="14"
 						key="textField-11"/>
 					<box></box>
 					<textElement>
@@ -285,9 +285,9 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
+						x="2"
 						y="31"
-						width="183"
+						width="192"
 						height="15"
 						key="textField-12"/>
 					<box></box>
@@ -298,10 +298,10 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1"
+						x="3"
 						y="14"
-						width="180"
-						height="13"
+						width="189"
+						height="16"
 						key="textField-13"/>
 					<box></box>
 					<textElement>
@@ -311,7 +311,7 @@ crédito total del grupo.]]></text>
 				</textField>
 				<staticText>
 					<reportElement
-						x="1"
+						x="3"
 						y="1"
 						width="131"
 						height="13"
@@ -326,10 +326,10 @@ crédito total del grupo.]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="71"
-						y="187"
-						width="112"
-						height="13"
+						x="64"
+						y="189"
+						width="126"
+						height="16"
 						key="textField-14"/>
 					<box></box>
 					<textElement>
@@ -339,9 +339,9 @@ crédito total del grupo.]]></text>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1"
-						y="200"
-						width="182"
+						x="3"
+						y="205"
+						width="191"
 						height="18"
 						key="textField"/>
 					<box></box>

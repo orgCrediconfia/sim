@@ -72,10 +72,10 @@ public class SimPrestamoSaldoCuentaDAO extends Conexion2 implements OperacionCon
 			      "AND P.CVE_GPO_EMPRESA  = PG.CVE_GPO_EMPRESA  \n"+
 			      "AND P.CVE_EMPRESA = PG.CVE_EMPRESA \n"+
 			      "AND P.ID_PRESTAMO = PG.ID_PRESTAMO \n"+
-			      "AND A.CVE_GPO_EMPRESA  = P.CVE_GPO_EMPRESA  \n"+
-			      "AND A.CVE_EMPRESA = P.CVE_EMPRESA \n"+
-			      "AND A.ID_CUENTA = P.ID_CUENTA_REFERENCIA \n"+
-			      "AND A.CVE_DIVISA = 'MXP' \n"+
+			      "AND A.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA  \n"+
+			      "AND A.CVE_EMPRESA (+)= P.CVE_EMPRESA \n"+
+			      "AND A.ID_CUENTA (+)= P.ID_CUENTA_REFERENCIA \n"+
+			      "AND A.CVE_DIVISA (+)= 'MXP' \n"+
 			      "GROUP BY PG.ID_PRESTAMO_GRUPO \n";
 				System.out.println("tiene saldo");
 			}else{
