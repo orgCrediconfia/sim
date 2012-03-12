@@ -379,6 +379,10 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 				//Ingresa el pago grupal en la caja.
 				String sIdMovimientoOperacion = "";
 				int iIdMovimientoOperacion = 0;
+				String sSaldoTotal = "";
+				float fSaldoTotal = 0;
+				String sDeudaMinima = "";
+				float fDeudaMinima = 0;
 				
 				sSql =  "SELECT \n" +
 						"CVE_GPO_EMPRESA, \n" +
@@ -456,6 +460,102 @@ public class SimCajaPagoGrupalDAO extends Conexion2 implements OperacionAlta {
 					resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
 				}
 				resultadoCatalogo.Resultado.addDefCampo("ID_MOVIMIENTO_OPERACION", sIdMovimientoOperacion);		
+				
+				System.out.println("que jais 1");
+				
+				//Cambiara el estatus a liquidado si la deuda es menor o igual a la deuda mínima permitida.
+				sSql =	"SELECT \n"+	
+						"    sum(nvl(imp_neto,0)) SALDO \n"+
+						"  FROM  \n"+
+						"  SIM_PRESTAMO_GPO_DET G, \n"+
+						"  V_SIM_TABLA_AMORT_CONCEPTO A, \n"+
+						"  PFIN_CAT_CONCEPTO B \n"+
+						  "WHERE G.CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n"+
+						 "AND G.CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+						 "AND G.ID_PRESTAMO_GRUPO = '" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+						 "AND A.CVE_GPO_EMPRESA   = G.CVE_GPO_EMPRESA \n"+
+						 "AND A.CVE_EMPRESA       = G.CVE_EMPRESA \n"+
+						 "AND A.ID_PRESTAMO       = G.ID_PRESTAMO \n"+
+						 "AND B.CVE_GPO_EMPRESA   = A.CVE_GPO_EMPRESA \n"+
+						 "AND B.CVE_EMPRESA       = A.CVE_EMPRESA \n"+
+						 "AND B.CVE_CONCEPTO      = A.CVE_CONCEPTO \n"+
+						 "AND (NVL(A.IMP_ORIGINAL,0) + A.IMP_EXTRAORDINARIO) <> 0 \n";
+				System.out.println("que jais 2"+sSql);
+				ejecutaSql();
+				if (rs.next()){
+					System.out.println("que jais 3");
+					sSaldoTotal = rs.getString("SALDO");
+					System.out.println("que jais 4");
+					fSaldoTotal = Float.parseFloat(sSaldoTotal.trim());
+					System.out.println("que jais 5");
+					fSaldoTotal = fSaldoTotal < 0 ? -fSaldoTotal : fSaldoTotal;
+					System.out.println("fSaldoTotal"+fSaldoTotal);
+				}
+				
+				sSql = " SELECT \n" + 
+					  " IMP_DEUDA_MINIMA \n" +
+					  "	FROM SIM_PARAMETRO_GLOBAL  \n" +
+					  "	WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+					  "	AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" ;
+				ejecutaSql();
+				if (rs.next()){
+					sDeudaMinima = rs.getString("IMP_DEUDA_MINIMA");
+					fDeudaMinima = (Float.parseFloat(sDeudaMinima));
+					System.out.println("fDeudaMinima"+fDeudaMinima);
+				}
+			
+				if (fSaldoTotal <= fDeudaMinima){
+					System.out.println("tarde me inspiro");
+						//La deuda esta liquidada y actualiza el estatus.
+							sSql =  "   SELECT ID_PRESTAMO \n" + 
+							"	FROM SIM_PRESTAMO_GPO_DET  \n" +
+							" WHERE ID_PRESTAMO_GRUPO		='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
+							" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+					PreparedStatement ps1 = this.conn.prepareStatement(sSql);
+					ps1.execute();
+					ResultSet rs1 = ps1.getResultSet();
+					System.out.println(sSql);
+					while (rs1.next()){
+						registro.addDefCampo("ID_PRESTAMO",rs1.getString("ID_PRESTAMO"));
+						
+						sSql =  " UPDATE SIM_PRESTAMO SET "+
+								" ID_ETAPA_PRESTAMO 	= '8' \n" +
+								" WHERE ID_PRESTAMO 	='" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
+								" AND CVE_EMPRESA		='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+								" AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+						System.out.println(sSql);
+						//VERIFICA SI DIO DE ALTA EL REGISTRO
+						PreparedStatement ps2 = this.conn.prepareStatement(sSql);
+						ps2.execute();
+						ResultSet rs2 = ps2.getResultSet();
+					}	
+					
+					sSql =  " UPDATE SIM_PRESTAMO_GPO_DET SET "+
+							" ID_ETAPA_PRESTAMO 		='8' \n" +
+							" WHERE ID_PRESTAMO_GRUPO 	='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+							" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+						
+					//VERIFICA SI DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+					
+					sSql =  " UPDATE SIM_PRESTAMO_GRUPO SET "+
+							" ID_ETAPA_PRESTAMO 		='8' \n" +
+							" WHERE ID_PRESTAMO_GRUPO 	='" + (String)registro.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n"+
+							" AND CVE_EMPRESA			='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+							" AND CVE_GPO_EMPRESA		='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+						
+					//VERIFICA SI DIO DE ALTA EL REGISTRO
+					if (ejecutaUpdate() == 0){
+						resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+					}
+					
+			
+				}
+				
 			}	
 		}else{
 			//La fecha de transacción no es valida.
