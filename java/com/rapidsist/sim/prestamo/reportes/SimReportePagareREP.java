@@ -66,6 +66,29 @@ public class SimReportePagareREP implements ReporteControlIN {
 			}
 
 		}
+		
+		LinkedList lVParticipantes = catalogoSL.getRegistros("SimValidaParticipanteC",
+				parametrosCatalogo);
+		Iterator iteratorVParticipantes = lVParticipantes.iterator();
+
+		String sIdObligadoUno = "";
+		String sIdObligadoDos = "";
+		String sIdGarante = "";
+		// Verifica que haya participantes del crédito
+		while (iteratorVParticipantes.hasNext()) {
+			Registro registro = (Registro) iteratorVParticipantes.next();
+			String sTipoPersona = (String) registro
+					.getDefCampo("CVE_TIPO_PERSONA");
+			if (sTipoPersona.equals("OBLIGADO")) {
+				sIdObligadoUno = (String) registro.getDefCampo("ID_PERSONA");
+			} else if (sTipoPersona.equals("OBLIGADO 2")) {
+				sIdObligadoDos = (String) registro.getDefCampo("ID_PERSONA");
+			} else if (sTipoPersona.equals("GARANTE")) {
+				sIdGarante = (String) registro.getDefCampo("ID_PERSONA");
+			}
+
+		}
+		System.out.println("Id de Obligado 2: " + sIdObligadoDos);
 
 		String sSql = "SELECT \n"
 				+ "C.ID_PRESTAMO, \n"
@@ -83,7 +106,7 @@ public class SimReportePagareREP implements ReporteControlIN {
 				+ "||DC.NUMERO_EXT\n"
 				+ "||', '\n"
 				+ "||DC.NUMERO_INT\n"
-				+ "||', '\n"				
+				+ "||', '\n"
 				+ "||DC.NOM_ASENTAMIENTO\n"
 				+ "||', '\n"
 				+ "||DC.NOM_DELEGACION\n"
@@ -96,21 +119,11 @@ public class SimReportePagareREP implements ReporteControlIN {
 				+ "TO_CHAR(C.MONTO_AUTORIZADO + CARGO_INICIAL,'999,999,999.99') MONTO_AUTORIZADO,\n"
 				+ "CANTIDADES_LETRAS(MONTO_AUTORIZADO + CARGO_INICIAL) MONTO_AUTORIZADO_LETRAS,\n"
 				+ "PA.ID_PERSONA ID_AVAL, \n" + "PPA.NOM_COMPLETO NOM_AVAL, \n"
-				+ "DA.CALLE\n" 
-				+ "||', '\n"
-				+ "||DA.NUMERO_EXT\n" 
-				+ "||', '\n" 
-				+ "||DA.NUMERO_INT\n" 
-				+ "||', '\n"				
-				+ "||DA.NOM_ASENTAMIENTO\n"
-				+ "||', '\n" 
-				+ "||DA.NOM_DELEGACION\n" 
-				+ "||', '\n"
-				+ "||DA.NOM_CIUDAD\n" 
-				+ "||', '\n" 
-				+ "||DA.NOM_ESTADO\n"
-				+ "||'. CP: '\n" 
-				+ "||DA.CODIGO_POSTAL AS DIRECCION_AVAL\n"
+				+ "DA.CALLE\n" + "||', '\n" + "||DA.NUMERO_EXT\n" + "||', '\n"
+				+ "||DA.NUMERO_INT\n" + "||', '\n" + "||DA.NOM_ASENTAMIENTO\n"
+				+ "||', '\n" + "||DA.NOM_DELEGACION\n" + "||', '\n"
+				+ "||DA.NOM_CIUDAD\n" + "||', '\n" + "||DA.NOM_ESTADO\n"
+				+ "||'. CP: '\n" + "||DA.CODIGO_POSTAL AS DIRECCION_AVAL\n"
 				+ "FROM V_CREDITO C, \n" + "SIM_PRESTAMO_PARTICIPANTE PA,\n"
 				+ "RS_GRAL_PERSONA PPA, \n" + "RS_GRAL_DOMICILIO DA,\n"
 				+ "RS_GRAL_DOMICILIO DC \n"
@@ -148,8 +161,19 @@ public class SimReportePagareREP implements ReporteControlIN {
 				.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2
 				.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte",
-				"/Reportes/Sim/prestamo/SimReportePagare.jasper");
+
+		if (sIdObligadoDos == null) {
+			parametros.put("NomReporte",
+					"/Reportes/Sim/prestamo/SimReportePagareSinObligado.jasper");
+		}
+
+		else {
+			parametros
+					.put("NomReporte",
+							"/Reportes/Sim/prestamo/SimReportePagare.jasper");
+		}
+
 		return parametros;
+
 	}
 }

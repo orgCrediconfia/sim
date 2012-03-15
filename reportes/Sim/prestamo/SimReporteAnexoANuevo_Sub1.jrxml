@@ -152,7 +152,7 @@
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO " + $F{ID_CLIENTE} + "-" + $F{NUM_CICLO} + " DE FECHA " + $F{FECHA_ENTREGA}.replace( '\\', ' ' ) + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. ARTURO PEREZ ACOSTA, " + $F{NOM_COMPLETO} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " +$P{ObligadoUno}+", "+ $P{ObligadoDos}+ $F{NOM_AVAL} + " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL(LOS) “OBLIGADO SOLIDARIO”."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ANEXO A DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO NÚMERO " + $F{ID_CLIENTE} + "-" + $F{NUM_CICLO} + " DE FECHA " + $F{FECHA_ENTREGA}.replace( '\\', ' ' ) + " CELEBRADO ENTRE DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MULTIPLE, ENTIDAD NO REGULADA, A QUIEN SE LE DENOMINÓ “DINSA” REPRESENTADA POR EL SR. JOSE ARTURO PEREZ ACOSTA, " + $F{NOM_COMPLETO} + ", A QUIEN SE LE DENOMINÓ EL “DEUDOR”," + $F{NOM_GARANTE} + ", A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL “OTORGANTE”, ASÍ COMO " +$P{ObligadoUno}+", "+ $P{ObligadoDos}+ $F{NOM_AVAL} + " A QUIEN(ES) SE LE(S) DENOMINÓ (EN FORMA CONJUNTA) EL(LOS) “OBLIGADO SOLIDARIO”."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -361,7 +361,7 @@
 					<textElement>
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["Tasa fija del " + $F{VALOR_TASA} + " % mensual, equivalente a la Tasa fija del " +$F{TASA_ANUAL}+ " % anual, para efectos informativos."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tasa fija del " + $F{VALOR_TASA} + " % mensual Sin IVA, equivalente a la Tasa fija del " +$F{TASA_ANUAL}+ " % anual Sin IVA, para efectos informativos."]]></textFieldExpression>
 				</textField>
 				<rectangle>
 					<reportElement
@@ -420,7 +420,7 @@
 					<textElement>
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[Factor del 1.5 veces la tasa de interés ordinario.]]></text>
+				<text><![CDATA[Factor del 1.5 veces la tasa de interés ordinario Sin IVA.]]></text>
 				</staticText>
 				<rectangle>
 					<reportElement

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteAnexoA2SinObligado"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="511"
+		 pageHeight="792"
+		 columnWidth="483"
+		 columnSpacing="28"
+		 leftMargin="14"
+		 rightMargin="14"
+		 topMargin="2"
+		 bottomMargin="2"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT 
+						C.CVE_GPO_EMPRESA, 
+						C.CVE_EMPRESA, 
+						C.ID_PRESTAMO, 
+					        TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA,
+						C.ID_SUCURSAL,  
+						C.DIRECCION_SUCURSAL, 
+						C.NOMBRE NOM_COMPLETO, 
+						PA.ID_PERSONA ID_AVAL, 
+						PPA.NOM_COMPLETO NOM_AVAL, 
+						PD.ID_PERSONA ID_DEPOSITARIO, 
+						PPD.NOM_COMPLETO NOM_DEPOSITARIO, 
+						PG.ID_PERSONA ID_GARANTE, 
+						PPG.NOM_COMPLETO NOM_GARANTE, 
+						G.ID_GARANTIA, 
+						CG.DESCRIPCION, 
+						CG.NUMERO_FACTURA_ESCRITURA,  
+						CG.FECHA_FACTURA_ESCRITURA 
+						FROM 
+						V_CREDITO C, 
+						SIM_PRESTAMO_CARGO_COMISION CA, 
+						SIM_PRESTAMO_PARTICIPANTE PA, 
+						RS_GRAL_PERSONA PPA, 
+						SIM_PRESTAMO_PARTICIPANTE PD,  
+						RS_GRAL_PERSONA PPD, 
+						SIM_PRESTAMO_PARTICIPANTE PG,  
+						RS_GRAL_PERSONA PPG, 
+						SIM_PRESTAMO_GARANTIA G, 
+						SIM_CLIENTE_GARANTIA CG 
+						WHERE C.CVE_GPO_EMPRESA = 'SIM'  
+						AND C.CVE_EMPRESA = 'CREDICONFIA' 
+						AND C.ID_PRESTAMO = $P{IdPrestamo}
+						AND C.APLICA_A = 'INDIVIDUAL' 
+						AND CA.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND CA.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND CA.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND CA.ID_CARGO_COMISION (+)= '11' 
+						AND PA.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND PA.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND PA.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND PA.CVE_TIPO_PERSONA (+)= 'AVAL' 
+						AND PPA.CVE_GPO_EMPRESA (+)= PA.CVE_GPO_EMPRESA  
+						AND PPA.CVE_EMPRESA (+)= PA.CVE_EMPRESA 
+						AND PPA.ID_PERSONA (+)= PA.ID_PERSONA 
+						AND PD.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND PD.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND PD.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND PD.CVE_TIPO_PERSONA (+)= 'DEPOSIT' 
+						AND PPD.CVE_GPO_EMPRESA (+)= PD.CVE_GPO_EMPRESA  
+						AND PPD.CVE_EMPRESA (+)= PD.CVE_EMPRESA 
+						AND PPD.ID_PERSONA (+)= PD.ID_PERSONA 
+						AND PG.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND PG.CVE_EMPRESA (+)= C.CVE_EMPRESA 
+						AND PG.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND PG.CVE_TIPO_PERSONA (+)= 'GARANTE' 
+						AND PPG.CVE_GPO_EMPRESA (+)= PG.CVE_GPO_EMPRESA  
+						AND PPG.CVE_EMPRESA (+)= PG.CVE_EMPRESA 
+						AND PPG.ID_PERSONA (+)= PG.ID_PERSONA 
+						AND G.CVE_GPO_EMPRESA (+)= C.CVE_GPO_EMPRESA  
+						AND G.CVE_EMPRESA (+)= C.CVE_EMPRESA  
+						AND G.ID_PRESTAMO (+)= C.ID_PRESTAMO 
+						AND CG.CVE_GPO_EMPRESA (+)= G.CVE_GPO_EMPRESA  
+						AND CG.CVE_EMPRESA (+)= G.CVE_EMPRESA 
+						AND CG.ID_GARANTIA (+)= G.ID_GARANTIA]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.math.BigDecimal"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="ID_SUCURSAL" class="java.math.BigDecimal"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="ID_AVAL" class="java.math.BigDecimal"/>
+	<field name="NOM_AVAL" class="java.lang.String"/>
+	<field name="ID_DEPOSITARIO" class="java.math.BigDecimal"/>
+	<field name="NOM_DEPOSITARIO" class="java.lang.String"/>
+	<field name="ID_GARANTE" class="java.math.BigDecimal"/>
+	<field name="NOM_GARANTE" class="java.lang.String"/>
+	<field name="ID_GARANTIA" class="java.math.BigDecimal"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="NUMERO_FACTURA_ESCRITURA" class="java.lang.String"/>
+	<field name="FECHA_FACTURA_ESCRITURA" class="java.sql.Timestamp"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="368"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="224"
+						y="-20"
+						width="0"
+						height="0"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="element-85"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="Cp1252" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[Static text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="89"
+						width="216"
+						height="29"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[“DINSA” - DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE,ENTIDAD NO REGULADA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="251"
+						y="89"
+						width="216"
+						height="10"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA["DEUDOR"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="159"
+						width="216"
+						height="11"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Representantes Legales]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="17"
+						y="157"
+						width="216"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="251"
+						y="158"
+						width="216"
+						height="11"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "DEUDOR"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="251"
+						y="156"
+						width="216"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="18"
+						y="187"
+						width="216"
+						height="10"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OTORGANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="251"
+						y="187"
+						width="216"
+						height="10"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="17"
+						y="257"
+						width="216"
+						height="11"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "OTORGANTE"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="17"
+						y="255"
+						width="216"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="251"
+						y="256"
+						width="216"
+						height="11"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre del "OBLIGADO SOLIDARIO"]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="251"
+						y="254"
+						width="216"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="17"
+						y="286"
+						width="216"
+						height="10"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="1"
+						width="482"
+						height="32"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[LOS TÉRMINOS Y CONDICIONES DEL CONTRATO DE APERTURA DE CRÉDITO SIMPLE CON DACIÓN EN PAGO, SON, EN ESTE ACTO, INCORPORADOS Y FORMAN PARTE DEL PRESENTE ANEXO, COMO SÍ DICHOS TÉRMINOS Y CONDICIONES ESTUVIESEN TOTALMENTE PREVISTOS EN EL PRESENTE DOCUMENTO.
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="47"
+						width="482"
+						height="37"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LEÍDO QUE FUE EL PRESENTE ANEXO, LAS PARTES LO FIRMAN, POR DUPLICADO EN " + $F{DIRECCION_SUCURSAL}+ ", EL DÍA " + $F{FECHA_ENTREGA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="17"
+						y="268"
+						width="216"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_GARANTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="170"
+						width="216"
+						height="13"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="250"
+						y="268"
+						width="217"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoUno}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

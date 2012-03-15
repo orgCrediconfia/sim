@@ -111,6 +111,28 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 		 * ("***TOTAL ESTADOS MAYOR A 0"); }else{ System.out.println
 		 * ("***TOTAL ESTADOS MENOR O IGUAL A 0"); }
 		 */
+		// Verifica que haya participantes del crédito
+		LinkedList lVParticipantes = catalogoSL.getRegistros(
+				"SimValidaParticipanteC", parametrosCatalogo);
+		Iterator iteratorVParticipantes = lVParticipantes.iterator();
+
+		String sIdObligadoUno = "";
+		String sIdObligadoDos = "";
+		String sIdGarante = "";
+
+		while (iteratorVParticipantes.hasNext()) {
+			Registro registro = (Registro) iteratorVParticipantes.next();
+			String sTipoPersona = (String) registro
+					.getDefCampo("CVE_TIPO_PERSONA");
+			if (sTipoPersona.equals("OBLIGADO")) {
+				sIdObligadoUno = (String) registro.getDefCampo("ID_PERSONA");
+			} else if (sTipoPersona.equals("OBLIGADO 2")) {
+				sIdObligadoDos = (String) registro.getDefCampo("ID_PERSONA");
+			} else if (sTipoPersona.equals("GARANTE")) {
+				sIdGarante = (String) registro.getDefCampo("ID_PERSONA");
+			}
+
+		}
 
 		String sSql = "SELECT \n"
 				+ "C.CVE_GPO_EMPRESA, \n"
@@ -200,11 +222,58 @@ public class SimReporteAnexoAREP implements ReporteControlIN {
 				.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2
 				.formatoCorporativoHora(new Date()));
-		parametros.put("NomReporte","/Reportes/Sim/prestamo/SimReporteAnexoANuevo.jasper");
-		parametros.put("Subreporte1",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
-		parametros.put("Subreporte2",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
-		parametros.put("Subreporte3",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
-		parametros.put("Subreporte4",contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub0.jasper"));
+
+		if (sIdObligadoDos == null) {
+			parametros
+					.put("NomReporte",
+							"/Reportes/Sim/prestamo/SimReporteAnexoANuevoSinObligado.jasper");
+			parametros
+					.put(
+							"Subreporte1",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
+			parametros
+					.put(
+							"Subreporte2",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
+			parametros
+					.put(
+							"Subreporte3",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2SinObligado.jasper"));
+			parametros
+					.put(
+							"Subreporte4",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub0.jasper"));
+		}
+
+		else {
+			parametros.put("NomReporte",
+					"/Reportes/Sim/prestamo/SimReporteAnexoANuevo.jasper");
+			parametros
+					.put(
+							"Subreporte1",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub1.jasper"));
+			parametros
+					.put(
+							"Subreporte2",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA.jasper"));
+			parametros
+					.put(
+							"Subreporte3",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoA2.jasper"));
+			parametros
+					.put(
+							"Subreporte4",
+							contextoServlet
+									.getRealPath("/Reportes/Sim/prestamo/SimReporteAnexoANuevo_Sub0.jasper"));
+		}
+
 		return parametros;
 	}
 }

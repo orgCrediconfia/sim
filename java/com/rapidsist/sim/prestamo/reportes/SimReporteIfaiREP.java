@@ -29,6 +29,7 @@ public class SimReporteIfaiREP implements ReporteControlIN {
 
 		String sSql = "SELECT\n" +
 					 "TO_CHAR(SYSDATE, 'DD') ||' de '|| RTRIM(TO_CHAR(SYSDATE, 'MONTH')) ||' del '||TO_CHAR(SYSDATE, 'YYYY') FECHA_HOY, \n"+
+					 "TO_CHAR(FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(FECHA_ENTREGA, 'MONTH')) ||' del '||TO_CHAR(FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA, \n"+
 					 "NOMBRE NOM_COMPLETO \n"+ 
 					 "FROM V_CREDITO \n"+ 
 					 "WHERE ID_PRESTAMO = '" + request.getParameter("IdPrestamo") + "'\n";

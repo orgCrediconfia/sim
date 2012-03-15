@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReporteAnexoANuevo"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="842"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="22"
+		 rightMargin="22"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="PathLogotipo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Subreporte1" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte2" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte3" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GarantiaDescripcion" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GarantiaValorComercial" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GarantiaNumeroFacturaEscritura" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GarantiaFechaFacturaEscritura" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GiroPersona" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Subreporte4" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="CVE_GPO_EMPRESA" class="java.lang.String"/>
+	<field name="CVE_EMPRESA" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.lang.String"/>
+	<field name="ID_CLIENTE" class="java.lang.String"/>
+	<field name="ID_PRODUCTO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="VALOR_TASA" class="java.lang.String"/>
+	<field name="TASA_ANUAL" class="java.lang.String"/>
+	<field name="PERIODICIDAD_PRODUCTO" class="java.lang.String"/>
+	<field name="CONSULTA_BURO" class="java.lang.String"/>
+	<field name="COMISION_APERTURA" class="java.lang.String"/>
+	<field name="FECHA_FIN" class="java.lang.String"/>
+	<field name="PLAZO" class="java.lang.String"/>
+	<field name="ID_SUCURSAL" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="MONTO_FIJO_PERIODO" class="java.lang.String"/>
+	<field name="MONTO_FIJO_PERIODO_LETRAS" class="java.lang.String"/>
+	<field name="ID_AVAL" class="java.lang.String"/>
+	<field name="NOM_AVAL" class="java.lang.String"/>
+	<field name="ID_DEPOSITARIO" class="java.lang.String"/>
+	<field name="NOM_DEPOSITARIO" class="java.lang.String"/>
+	<field name="ID_GARANTE" class="java.lang.String"/>
+	<field name="NOM_GARANTE" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="57"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="41"
+						width="567"
+						height="16"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[A N E X O  "A".]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="488"
+						y="1"
+						width="79"
+						height="39"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["file:" + $P{PathLogotipo}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="2"
+						y="3"
+						width="53"
+						height="16"
+						key="staticText-9"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No RECA ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="55"
+						y="3"
+						width="161"
+						height="16"
+						key="staticText-10"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[2807-439-004123/05-13891-1011]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="585"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="567"
+						height="62"
+						key="subreport-1"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GiroPersona">
+						<subreportParameterExpression><![CDATA[$P{GiroPersona}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoUno">
+						<subreportParameterExpression><![CDATA[$P{ObligadoUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoDos">
+						<subreportParameterExpression><![CDATA[$P{ObligadoDos}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GaranteUno">
+						<subreportParameterExpression><![CDATA[$P{GaranteUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte1}]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="72"
+						width="568"
+						height="0"
+						key="element-1"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="398"
+						width="567"
+						height="70"
+						key="subreport-2"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte2}]]></subreportExpression>
+				</subreport>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="36"
+						y="341"
+						width="190"
+						height="51"
+						key="rectangle-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="226"
+						y="341"
+						width="190"
+						height="51"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="36"
+						y="327"
+						width="380"
+						height="14"
+						key="staticText-6"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TABLA DE AMORTIZACIÓN:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="36"
+						y="341"
+						width="190"
+						height="15"
+						key="textField-2"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" 18)     PAGOS PARCIALES: "  +$F{PLAZO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="227"
+						y="341"
+						width="190"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 19)     PERIODICIDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="70"
+						y="355"
+						width="156"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MONEDA: Pesos Mexicanos]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="256"
+						y="356"
+						width="153"
+						height="34"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PERIODICIDAD_PRODUCTO}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="483"
+						width="567"
+						height="102"
+						key="subreport-3"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoUno">
+						<subreportParameterExpression><![CDATA[$P{ObligadoUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ObligadoDos">
+						<subreportParameterExpression><![CDATA[$P{ObligadoDos}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="GaranteUno">
+						<subreportParameterExpression><![CDATA[$P{GaranteUno}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte3}]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="473"
+						width="568"
+						height="0"
+						key="element-2"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="84"
+						width="567"
+						height="233"
+						key="subreport-4"/>
+					<subreportParameter  name="IdPrestamo">
+						<subreportParameterExpression><![CDATA[$F{ID_PRESTAMO}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["file:" + $P{Subreporte4}]]></subreportExpression>
+				</subreport>
+			</band>
+		</summary>
+</jasperReport>

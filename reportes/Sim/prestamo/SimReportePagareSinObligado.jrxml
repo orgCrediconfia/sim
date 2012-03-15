@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SimReportePagareSinObligado"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="900"
+		 columnWidth="556"
+		 columnSpacing="28"
+		 leftMargin="28"
+		 rightMargin="28"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="NomReporte" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Sql" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoUnoDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ObligadoDosDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteUno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="GaranteDomicilio" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{Sql}]]></queryString>
+
+	<field name="ID_CLIENTE" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO" class="java.lang.String"/>
+	<field name="NUM_CICLO" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL" class="java.lang.String"/>
+	<field name="PLAZO" class="java.lang.String"/>
+	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="NOM_PERIODICIDAD" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="MONTO_AUTORIZADO_LETRAS" class="java.lang.String"/>
+	<field name="DIRECCION_CLIENTE" class="java.lang.String"/>
+	<field name="ID_PRESTAMO" class="java.lang.String"/>
+	<field name="NOM_AVAL" class="java.lang.String"/>
+	<field name="DIRECCION_AVAL" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="731"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="22"
+						y="512"
+						width="235"
+						height="10"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Suscriptor]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="21"
+						y="547"
+						width="234"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="21"
+						y="570"
+						width="235"
+						height="10"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre y Firma]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="21"
+						y="589"
+						width="40"
+						height="27"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Dirección:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="176"
+						y="15"
+						width="380"
+						height="13"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="472"
+						width="556"
+						height="24"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Suscrito en " + $F{DIRECCION_SUCURSAL} + " el día " + $F{FECHA_ENTREGA}.trim()+ "."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="48"
+						width="555"
+						height="51"
+						key="textField-14"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Por este Pagaré, " + $F{NOM_COMPLETO} + " a quien(es) en lo sucesivo se le(s) denominará (el Suscriptor), se obliga(n) a pagar incondicionalmente a la orden de DESARROLLADORA E IMPULSORA DE NEGOCIOS, S.A. DE C.V., SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE, ENTIDAD NO REGULADA, en lo sucesivo (la Beneficiaria), la cantidad de $ " + $F{MONTO_AUTORIZADO}.trim() + " M.N. (" + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N.) a la vista, en el domicilio ubicado en  " + $F{DIRECCION_SUCURSAL} + " mediante " + $F{PLAZO} + " pagos " + $F{NOM_PERIODICIDAD} + "(es)."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="102"
+						width="554"
+						height="41"
+						key="staticText-32"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Los intereses ordinarios que se generen al amparo del presente PAGARÉ, serán calculados a partir de la fecha de su suscripción y hasta la fecha de su vencimiento, sobre una base de un año de 360 días y meses de 30 días, multiplicando el resultado así obtenido por el número de días efectivamente transcurridos durante cada periodo de intereses y su resultado será multiplicado por el importe principal del presente PAGARÉ.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="143"
+						width="556"
+						height="25"
+						key="textField-16"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Los intereses ordinarios se devengarán y pagarán " + $F{NOM_PERIODICIDAD} + "(mente), en las mismas fechas señaladas en la tabla de amortización de conformidad con el Contrato de crédito numero " + $F{ID_CLIENTE} + " - " +  $F{NUM_CICLO} + "."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="373"
+						width="414"
+						height="13"
+						key="staticText-88"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[El presente PAGARE se suscribe de conformidad con el Contrato de Crédito identificado con el número ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="373"
+						width="139"
+						height="13"
+						key="textField-17"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ID_CLIENTE} + " - " +  $F{NUM_CICLO} + "."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="388"
+						width="555"
+						height="79"
+						key="staticText-89"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Para la interpretación, ejecución y cumplimiento de lo pactado en este Pagaré, el Suscriptor se somete expresamente a la legislación Federal y a la jurisdicción de los tribunales que tengan competencia en el domicilio del Suscriptor del presente pagaré renunciando desde este momento a cualquier otro fuero que pudiera corresponder por cualquier otra causa. 
+
+En el evento de existir varios tribunales competentes por existir domicilios en distintos distritos o poblaciones lo será en definitiva el que conozca primero del juicio correspondiente. 
+
+Este Pagaré consta de una página(s), misma(s) que ha(n) sido debidamente suscrita(s) por el Suscriptor  y el (los) Avale (s).
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="22"
+						y="549"
+						width="235"
+						height="13"
+						key="textField-19"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="61"
+						y="589"
+						width="196"
+						height="27"
+						key="textField-20"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DIRECCION_CLIENTE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="31"
+						width="556"
+						height="13"
+						key="textField-26"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BUENO. Por $ " + $F{MONTO_AUTORIZADO}.trim() + " M.N. " + $F{MONTO_AUTORIZADO_LETRAS} + " 00/100 M.N."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="3"
+						width="554"
+						height="13"
+						key="staticText-103"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Pagaré]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="275"
+						y="512"
+						width="268"
+						height="10"
+						key="staticText-104"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Aval (es)]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="274"
+						y="547"
+						width="267"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="274"
+						y="573"
+						width="268"
+						height="10"
+						key="staticText-105"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Nombre y Firma]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="274"
+						y="589"
+						width="39"
+						height="27"
+						key="staticText-106"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Dirección:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="313"
+						y="589"
+						width="230"
+						height="27"
+						key="textField-28"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoUnoDomicilio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="274"
+						y="548"
+						width="268"
+						height="13"
+						key="textField-29"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ObligadoUno}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="164"
+						width="553"
+						height="207"
+						key="staticText-107"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[Si no fuere cubierto a su vencimiento el importe referido, las cantidades no pagadas causarán intereses moratorios mensuales calculados desde la fecha de vencimiento del presente PAGARÉ, y hasta la fecha en que el importe adeudado sea pagado en su totalidad (el “Periodo de Mora”), a razón de la tasa que resulte de multiplicar por 1.5 (UNO PUNTO CINCO) la tasa de interés ordinaria.
+
+Si la fecha en que deba efectuarse cualquier pago de acuerdo a lo estipulado en este PAGARÉ resulta día inhábil, el pago será realizado el día hábil inmediato posterior. Para efectos de este PAGARÉ por día hábil se entiende cualquier otro diverso a Sábados y Domingos y de aquellos que por disposición de la Ley las Instituciones de Crédito en México Distrito Federal o Torreón Coahuila, estén obligadas a mantener sus puertas cerradas al público.
+
+Todas las cantidades pagaderas por el Suscriptor a la Beneficiaria serán cubiertas sin deducción y libres de cualesquiera impuestos, contribuciones, deducciones o retenciones de cualquier naturaleza que se impongan o graven en cualquier tiempo, por cualquier autoridad, respecto del pago del principal bajo este PAGARÉ, incluyendo especialmente, pero sin limitación, el Impuesto Sobre la Renta en vigor. En caso de ser aplicables cualesquiera de los anteriores impuestos, contribuciones, deducciones o retenciones, el Suscriptor deberá cubrir las cantidades adicionales que sean necesarias a fin de que la Beneficiaria reciba las sumas que le corresponderían conforme a este PAGARÉ si no hubieran sido aplicables tales impuestos, contribuciones, deducciones o retenciones.
+
+El Suscriptor por medio del presente promete pagar los gastos que impliquen el cobro de este PAGARÉ y los honorarios de los abogados que intervengan en el cobro del mismo, en caso de que haya un incumplimiento en el pago de este PAGARÉ.
+
+El Suscriptor en términos del artículo 128 de la Ley General de Títulos y Operaciones de Crédito, conviene en extender el plazo de presentación del presente PAGARÉ por un periodo de tres años a partir de la fecha de su suscripción, en la inteligencia de que la extensión de dicho plazo no deberá entenderse como un impedimento para que la Beneficiaria presente este PAGARÉ para su pago, con anterioridad a dicha fecha.
+]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -280,8 +280,8 @@ SEGUNDA. PLAZO. El inicio del Crédito, será a partir de la fecha de disposici�
 				<staticText>
 					<reportElement
 						x="0"
-						y="647"
-						width="254"
+						y="655"
+						width="253"
 						height="13"
 						key="staticText-7"/>
 					<box></box>
@@ -336,18 +336,18 @@ Conformes las partes en las declaraciones que anteceden, celebran este Contrato 
 						x="0"
 						y="428"
 						width="252"
-						height="38"
+						height="48"
 						key="textField-4"/>
 					<box></box>
 					<textElement textAlignment="Justified">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["1) Cuenta(n) con capacidad jurídica para contraer derechos y obligaciones, con domicilio en " + $F{DIRECCION_CLIENTE}+ "."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1) Es una persona física, mayor de edad, con capacidad legal para celebrar este contrato y contraer los derechos y obligaciones que se deriven del mismo, teniendo su domicilio en " + $F{DIRECCION_CLIENTE}+ "."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="0"
-						y="468"
+						y="476"
 						width="252"
 						height="179"
 						key="staticText-10"/>
