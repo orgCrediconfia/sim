@@ -209,7 +209,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 		dRangoInferior = dImporte.subtract(dRango);
 		
 		if (sMontos != null) {
-			
+			/*
 			if (dPago.doubleValue() > dRangoSuperior.doubleValue()){
 				System.out.println("dPago"+dPago.doubleValue());
 				System.out.println("dRangoSuperior"+dRangoSuperior.doubleValue());
@@ -227,7 +227,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 				resultadoCatalogoControlado.mensaje.setDescripcion("La suma de todo los importes individuales debe ser igual a la ingresada anteriormente");
 				registroControl.resultadoCatalogo = resultadoCatalogoControlado;
 			}else{
-			
+			*/
 				registroControl.resultadoCatalogo = catalogoSL.modificacion("SimCajaPagoGrupal", registro, 1);//MODIFICACION
 				sRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("RESPUESTA");
 				
@@ -238,7 +238,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 				}
 				registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=GRUPO&IdPrestamo="+request.getParameter("IdPrestamoGrupo")+"&TxRespuesta=0&TxPregunta=0&PagoTotal=0&IdCaja="+request.getParameter("IdCaja")+"&Importe="+request.getParameter("Importe")+"&IdMovimientoOperacion="+sIdMovimientoOperacion+"&Respuesta="+sRespuesta;
 				
-			}
+			//}
 		}
 		
 		return registroControl;
