@@ -73,183 +73,8 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="29"
-						y="110"
-						width="506"
-						height="68"
-						key="staticText-3"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[                                                                                         La finalidad del tratamiento de los datos personales que se preten- den recabar es: (i) analizar la capacidad crediticia del Titular; (ii) incorporarlos en los instrumentos jurídicos necesarios para la formalización del financiamiento que, en su caso, se otorgue, así como los instrumentos jurídicos accesorios al financiamiento; (iii) utilizarlos en cualquier tipo de acto o diligencia de cobranza judicial y/o extrajudicial; (iv) elaborar estadísticas y reportes de los servicios prestados por el Responsable con el objeto de llevar un control interno de dichos servicios, así como para dar seguimiento puntual a los mismos; así como (v) para cualquier finalidad análoga o compatible a las anteriores.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="38"
-						width="535"
-						height="68"
-						key="staticText-5"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[Desarrolladora e Impulsora de Negocios, S.A. de C.V., Sociedad Financiera de Objeto Múltiple, Entidad no Regulada, sociedad mercantil debidamente constituida conforme a la legislación mexicana, teniendo su domicilio en Calle Tlacoquemecatl No 41 Int. 4 A, Col. Del Valle, Del. Benito Juárez, C.P. 03100, México, D.F, (denominada en lo sucesivo el “Responsable”), con fundamento en el artículo 15, 16, 17 y demás correlativos de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, pone a su disposición el presente aviso de privacidad, en virtud de los datos personales que se pretenden recabar de Usted como titular de los mismos (en lo sucesivo el “Titular”).]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="29"
-						y="110"
-						width="243"
-						height="10"
-						key="staticText-6"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
-					</textElement>
-				<text><![CDATA[Finalidad del tratamiento de los datos personales.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="-1"
-						y="109"
-						width="8"
-						height="10"
-						key="staticText-7"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
-					</textElement>
-				<text><![CDATA[I.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="28"
-						y="197"
-						width="506"
-						height="152"
-						key="staticText-8"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[                                                                                                                                                                                  Con el objeto de limitar el uso o divulgación de los datos personales, el Responsable resguarda dichos datos personales bajo programas de cómputo con acceso limitado mediante el uso de contraseñas con altas especificaciones de seguridad, únicamente a personas con facultades para ello. Por lo que respecta a documentos físicos que contengan datos personales del Titular, el Responsable los resguarda en archivos bajo llave, a los cuales únicamente tiene acceso el personal con facultades para ello.
-
-Los datos personales contenidos en medios electrónicos y los documentos físicos, el Responsable utiliza las mismas medidas de seguridad que las que aplica en su propia información.
-
-Finalmente, el Responsable ha implementado políticas y procesos internos aplicables a su personal, a través de los cuales los datos personales son utilizados con estricta confidencialidad por un mínimo de personas, limitándose el uso de los medios de reproducción, y generándose la obligación de destruir todas aquellas copias o reproducciones de documentos que contengan datos personales que no sean estrictamente indispensables para el adecuado desempeño de las funciones del personal del Responsable, así como la prohibición de extraer de las oficinas del Responsable cualquier tipo de información que contenga datos personales.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="28"
-						y="197"
-						width="506"
-						height="10"
-						key="staticText-9"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
-					</textElement>
-				<text><![CDATA[Opciones y medios que el Responsable ofrece para limitar el uso o divulgación de datos personales.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="-2"
-						y="196"
-						width="15"
-						height="11"
-						key="staticText-10"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
-					</textElement>
-				<text><![CDATA[II.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="29"
-						y="356"
-						width="506"
-						height="68"
-						key="staticText-11"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[                                                                                                                                               El Titular de los datos personales podrá ejercer sus derechos de acceso, rectificación, cancelación u oposición presentando una solicitud en términos del artículo 29 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, en el propio domicilio del Responsable, dirigida a José Arturo Pérez Acosta, persona a través de la cual se le dará trámite a la solicitud. El Responsable comunicará al Titular, en el domicilio de este último, en un plazo máximo de 20 (veinte) días, prorrogable en términos de ley, contado a partir de la fecha de recepción de la solicitud, la determinación adoptada, para todos los efectos legales a que hubiere lugar.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="29"
-						y="356"
-						width="397"
-						height="10"
-						key="staticText-12"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
-					</textElement>
-				<text><![CDATA[Medios para ejercer los derechos de acceso, rectificación, cancelación u oposición.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="-1"
-						y="355"
-						width="14"
-						height="10"
-						key="staticText-13"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
-					</textElement>
-				<text><![CDATA[III.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="29"
-						y="440"
-						width="506"
-						height="100"
-						key="staticText-14"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[                                                              El Responsable comunica al Titular mediante el presente aviso que podrá transferir datos personales a terceros nacionales o extranjeros, en los siguientes supuestos: a) Cuando decida ceder a un tercero, mediante cualquier forma legal, los derechos y/u obligaciones que tenga frente al Titular; b) Cuando requiera de un tercero una prestación de servicios o asesoría respecto de la capacidad crediticia, financiera y/o legal del Titular, incluyendo investigación sobre los bienes y deudas de éste; c) Cuando requiera de un tercero una prestación de servicios o asesoría jurídica relacionada con la instrumentación de los financiamientos que el Responsable otorga o con la administración y cobranza extrajudicial y el ejercicio de acciones legales; y, d) Cuando, en su caso, los requiera el fabricante, proveedor o distribuidor del bien con el que se relacione el financiamiento otorgado.
-
-En todos los casos el Responsable dará a conocer a los terceros el contenido del presente aviso de privacidad.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="29"
-						y="440"
-						width="176"
-						height="10"
-						key="staticText-15"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
-					</textElement>
-				<text><![CDATA[Transferencia de datos personales.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="-1"
-						y="439"
-						width="14"
-						height="10"
-						key="staticText-16"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
-					</textElement>
-				<text><![CDATA[IV.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="28"
-						y="551"
+						x="23"
+						y="538"
 						width="506"
 						height="78"
 						key="staticText-17"/>
@@ -257,35 +82,22 @@ En todos los casos el Responsable dará a conocer a los terceros el contenido de
 					<textElement textAlignment="Justified">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[                                                      En el supuesto de que el Responsable requiera modificar el contenido del presente aviso de privacidad lo hará del conocimiento del Titular a efecto de obtener su consentimiento respecto al nuevo tratamiento de sus datos personales. Lo anterior se realizará poniendo a disposición del Titular el nuevo aviso de privacidad, aplicando en lo conducente lo establecido en la propia Ley Federal de Protección de Datos Personales en Posesión de los Particulares, para la manifestación de la voluntad del Titular, lo cual aplicará únicamente para los aspectos del tratamiento de datos personales diversos de los ya consentidos para este aviso de privacidad.
+				<text><![CDATA[                                                                      En el supuesto de que el Responsable requiera modificar el contenido del presente aviso de privacidad lo hará del conocimiento del Titular a efecto de obtener su consentimiento respecto al nuevo tratamiento de sus datos personales. Lo anterior se realizará poniendo a disposición del Titular el nuevo aviso de privacidad, aplicando en lo conducente lo establecido en la propia Ley Federal de Protección de Datos Personales en Posesión de los Particulares, para la manifestación de la voluntad del Titular, lo cual aplicará únicamente para los aspectos del tratamiento de datos personales diversos de los ya consentidos para este aviso de privacidad.
 
 En todos los casos el Responsable dará a conocer a los terceros el contenido del presente aviso de privacidad.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="28"
-						y="551"
-						width="148"
-						height="10"
+						x="23"
+						y="538"
+						width="138"
+						height="11"
 						key="staticText-18"/>
 					<box></box>
 					<textElement>
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
 					</textElement>
 				<text><![CDATA[Cambios al aviso de privacidad.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="-2"
-						y="550"
-						width="14"
-						height="10"
-						key="staticText-19"/>
-					<box></box>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
-					</textElement>
-				<text><![CDATA[V.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -354,6 +166,194 @@ Asimismo, con fundamento en el segundo párrafo del artículo 35 del ordenamient
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NOM_COMPLETO}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="31"
+						width="535"
+						height="68"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Desarrolladora e Impulsora de Negocios, S.A. de C.V., Sociedad Financiera de Objeto Múltiple, Entidad no Regulada, sociedad mercantil debidamente constituida conforme a la legislación mexicana, teniendo su domicilio en Calle Tlacoquemecatl No 41 Int. 4 A, Col. Del Valle, Del. Benito Juárez, C.P. 03100, México, D.F, (denominada en lo sucesivo el “Responsable”), con fundamento en el artículo 15, 16, 17 y demás correlativos de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, pone a su disposición el presente aviso de privacidad, en virtud de los datos personales que se pretenden recabar de Usted como titular de los mismos (en lo sucesivo el “Titular”).]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="106"
+						width="23"
+						height="16"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[I.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="185"
+						width="23"
+						height="16"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[II.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="346"
+						width="23"
+						height="16"
+						key="staticText-26"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[III.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="426"
+						width="23"
+						height="16"
+						key="staticText-27"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[IV.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="538"
+						width="23"
+						height="16"
+						key="staticText-28"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[V.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="106"
+						width="198"
+						height="11"
+						key="staticText-29"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[Finalidad del tratamiento de los datos personales.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="185"
+						width="377"
+						height="11"
+						key="staticText-30"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[Opciones y medios que el Responsable ofrece para limitar el uso o divulgación de datos personales.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="346"
+						width="328"
+						height="11"
+						key="staticText-31"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[Medios para ejercer los derechos de acceso, rectificación, cancelación u oposición.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="426"
+						width="148"
+						height="11"
+						key="staticText-32"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[Transferencia de datos personales.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="106"
+						width="506"
+						height="68"
+						key="staticText-33"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[                                                                                                     La finalidad del tratamiento de los datos personales que se preten- den recabar es: (i) analizar la capacidad crediticia del Titular; (ii) incorporarlos en los instrumentos jurídicos necesarios para la formalización del financiamiento que, en su caso, se otorgue, así como los instrumentos jurídicos accesorios al financiamiento; (iii) utilizarlos en cualquier tipo de acto o diligencia de cobranza judicial y/o extrajudicial; (iv) elaborar estadísticas y reportes de los servicios prestados por el Responsable con el objeto de llevar un control interno de dichos servicios, así como para dar seguimiento puntual a los mismos; así como (v) para cualquier finalidad análoga o compatible a las anteriores.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="185"
+						width="506"
+						height="152"
+						key="staticText-34"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[                                                                                                                                                                                               Con el objeto de limitar el uso o divulgación de los datos personales, el Responsable resguarda dichos datos personales bajo programas de cómputo con acceso limitado mediante el uso de contraseñas con altas especificaciones de seguridad, únicamente a personas con facultades para ello. Por lo que respecta a documentos físicos que contengan datos personales del Titular, el Responsable los resguarda en archivos bajo llave, a los cuales únicamente tiene acceso el personal con facultades para ello.
+
+Los datos personales contenidos en medios electrónicos y los documentos físicos, el Responsable utiliza las mismas medidas de seguridad que las que aplica en su propia información.
+
+Finalmente, el Responsable ha implementado políticas y procesos internos aplicables a su personal, a través de los cuales los datos personales son utilizados con estricta confidencialidad por un mínimo de personas, limitándose el uso de los medios de reproducción, y generándose la obligación de destruir todas aquellas copias o reproducciones de documentos que contengan datos personales que no sean estrictamente indispensables para el adecuado desempeño de las funciones del personal del Responsable, así como la prohibición de extraer de las oficinas del Responsable cualquier tipo de información que contenga datos personales.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="346"
+						width="506"
+						height="68"
+						key="staticText-35"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[                                                                                                                                                                       El Titular de los datos personales podrá ejercer sus derechos de acceso, rectificación, cancelación u oposición presentando una solicitud en términos del artículo 29 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, en el propio domicilio del Responsable, dirigida a José Arturo Pérez Acosta, persona a través de la cual se le dará trámite a la solicitud. El Responsable comunicará al Titular, en el domicilio de este último, en un plazo máximo de 20 (veinte) días, prorrogable en términos de ley, contado a partir de la fecha de recepción de la solicitud, la determinación adoptada, para todos los efectos legales a que hubiere lugar.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="426"
+						width="506"
+						height="100"
+						key="staticText-36"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[                                                                                     El Responsable comunica al Titular mediante el presente aviso que podrá transferir datos personales a terceros nacionales o extranjeros, en los siguientes supuestos: a) Cuando decida ceder a un tercero, mediante cualquier forma legal, los derechos y/u obligaciones que tenga frente al Titular; b) Cuando requiera de un tercero una prestación de servicios o asesoría respecto de la capacidad crediticia, financiera y/o legal del Titular, incluyendo investigación sobre los bienes y deudas de éste; c) Cuando requiera de un tercero una prestación de servicios o asesoría jurídica relacionada con la instrumentación de los financiamientos que el Responsable otorga o con la administración y cobranza extrajudicial y el ejercicio de acciones legales; y, d) Cuando, en su caso, los requiera el fabricante, proveedor o distribuidor del bien con el que se relacione el financiamiento otorgado.
+
+En todos los casos el Responsable dará a conocer a los terceros el contenido del presente aviso de privacidad.]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
