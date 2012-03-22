@@ -2277,7 +2277,7 @@ public class SimPrestamoGrupalCreditoIndividualDAO extends Conexion2 implements 
 					           "AND P.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n" +
 					           "AND P.CVE_EMPRESA = V.CVE_EMPRESA \n" +
 					           "AND P.ID_PRESTAMO_GRUPO = V.ID_PRESTAMO \n" +
-					           "AND P.ID_ETAPA_PRESTAMO != '16' \n" +
+					           "AND (P.ID_ETAPA_PRESTAMO != '16' AND P.ID_ETAPA_PRESTAMO != '8') \n" +
 							   "GROUP BY V.CVE_GPO_EMPRESA, V.CVE_EMPRESA, V.Id_Prestamo \n" ;
 						
 						System.out.println("SimPrestamoGrupoCreditoIndividual saldo actual"+sSql);

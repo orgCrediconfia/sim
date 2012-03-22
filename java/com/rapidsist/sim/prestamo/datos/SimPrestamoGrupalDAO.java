@@ -920,7 +920,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 						           "AND P.CVE_GPO_EMPRESA = V.CVE_GPO_EMPRESA \n" +
 					               "AND P.CVE_EMPRESA = V.CVE_EMPRESA \n" +
 					               "AND P.ID_PRESTAMO = V.ID_PRESTAMO \n" + 
-					               "AND P.ID_ETAPA_PRESTAMO != '16' \n" +
+					               "AND (ID_ETAPA_PRESTAMO != '16' AND ID_ETAPA_PRESTAMO != '8') \n" +
 								   "GROUP BY V.CVE_GPO_EMPRESA, V.CVE_EMPRESA, V.Id_Prestamo \n" ;
 								PreparedStatement ps3 = this.conn.prepareStatement(sSql);
 								ps3.execute();
@@ -954,7 +954,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 											"AND P.CVE_GPO_EMPRESA = A.CVE_GPO_EMPRESA \n"+
 								            "AND P.CVE_EMPRESA = A.CVE_EMPRESA \n"+
 								            "AND P.ID_PRESTAMO = A.ID_PRESTAMO \n"+
-								            "AND P.ID_ETAPA_PRESTAMO != '16' \n"+
+								            "AND (ID_ETAPA_PRESTAMO != '16' AND ID_ETAPA_PRESTAMO != '8') \n"+
 								            "GROUP BY A.CVE_GPO_EMPRESA, A.CVE_EMPRESA, A.Id_Prestamo \n";
 									
 									PreparedStatement ps15 = this.conn.prepareStatement(sSql);
@@ -976,7 +976,7 @@ public class SimPrestamoGrupalDAO extends Conexion2 implements OperacionConsulta
 												"AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
 												"AND ID_PRESTAMO = '" + (String)registro.getDefCampo("ID_PRESTAMO") + "' \n"+
 												"AND FECHA_ENTREGA IS NULL \n"+
-												"AND ID_ETAPA_PRESTAMO != '16' \n";
+												"AND (ID_ETAPA_PRESTAMO != '16' AND ID_ETAPA_PRESTAMO != '8') \n";
 										PreparedStatement ps16 = this.conn.prepareStatement(sSql);
 										ps16.execute();
 										ResultSet rs16 = ps16.getResultSet();
