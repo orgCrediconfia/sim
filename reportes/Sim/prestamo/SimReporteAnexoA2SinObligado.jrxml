@@ -282,19 +282,6 @@
 				</line>
 				<staticText>
 					<reportElement
-						x="17"
-						y="286"
-						width="216"
-						height="10"
-						key="staticText-10"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-				<text><![CDATA[OBLIGADO SOLIDARIO]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
 						x="1"
 						y="1"
 						width="482"

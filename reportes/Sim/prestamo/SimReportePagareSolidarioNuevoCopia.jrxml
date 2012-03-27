@@ -152,7 +152,7 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="570"  isSplitAllowed="true" >
+			<band height="583"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
@@ -177,7 +177,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="73"
+						y="544"
 						width="552"
 						height="23"
 						key="textField-5"/>
@@ -190,7 +190,7 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="554"
+						y="567"
 						width="552"
 						height="16"
 						key="subreport-2"/>
@@ -203,7 +203,7 @@
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="0"
-						y="96"
+						y="91"
 						width="552"
 						height="52"
 						key="subreport-3"/>
@@ -219,7 +219,7 @@
 				<staticText>
 					<reportElement
 						x="0"
-						y="58"
+						y="529"
 						width="552"
 						height="13"
 						key="staticText-1"/>
@@ -232,7 +232,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="529"
+						y="62"
 						width="552"
 						height="25"
 						key="textField-7"/>

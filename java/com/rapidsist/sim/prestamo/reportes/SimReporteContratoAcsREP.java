@@ -61,7 +61,29 @@ public class SimReporteContratoAcsREP implements ReporteControlIN {
 		
 		}
 		
-		//Parámetros para obtener los obligados solidarios y el garante
+		LinkedList lVParticipantes = catalogoSL.getRegistros("SimValidaParticipanteC",
+				parametrosCatalogo);
+		Iterator iteratorVParticipantes = lVParticipantes.iterator();
+
+		String sIdObligadoUno = "";
+		String sIdObligadoDos = "";
+		String sIdGarante = "";
+		// Verifica que haya participantes del crÃ©dito
+		while (iteratorVParticipantes.hasNext()) {
+			Registro registro = (Registro) iteratorVParticipantes.next();
+			String sTipoPersona = (String) registro
+					.getDefCampo("CVE_TIPO_PERSONA");
+			if (sTipoPersona.equals("OBLIGADO")) {
+				sIdObligadoUno = (String) registro.getDefCampo("ID_PERSONA");
+			} else if (sTipoPersona.equals("OBLIGADO 2")) {
+				sIdObligadoDos = (String) registro.getDefCampo("ID_PERSONA");
+			} else if (sTipoPersona.equals("GARANTE")) {
+				sIdGarante = (String) registro.getDefCampo("ID_PERSONA");
+			}
+
+		}
+		
+		//Parï¿½metros para obtener los obligados solidarios y el garante
 		parametros.put("ObligadoUno", sObligadoUno);
 		parametros.put("ObligadoUnoDomicilio", sObligadoUnoDomicilio);
 		parametros.put("ObligadoDos", sObligadoDos);
@@ -72,12 +94,19 @@ public class SimReporteContratoAcsREP implements ReporteControlIN {
 		parametros.put("IdPrestamo", sIdPrestamo);
 		parametros.put("PathLogotipo", contextoServlet.getRealPath("/Portales/Sim/CrediConfia/img/CrediConfia.bmp"));
 		parametros.put("FechaReporte", Fecha2.formatoCorporativoHora(new Date()));
+		
+		
 		parametros.put("NomReporte", "/Reportes/Sim/prestamo/SimReporteContratoACS.jasper");
 		parametros.put("Subreporte1", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS1.jasper"));
 		parametros.put("Subreporte2", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS2.jasper"));
 		parametros.put("Subreporte3", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS3.jasper"));
 		parametros.put("Subreporte4", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS4.jasper"));
-		parametros.put("Subreporte5", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS5.jasper"));
+		if (sIdObligadoDos == null) {
+			parametros.put("Subreporte5", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS5SinObligado.jasper"));
+		}
+		else {
+			parametros.put("Subreporte5", contextoServlet.getRealPath("/Reportes/Sim/prestamo/SimReporteContratoACS5.jasper"));			
+		}
 		return parametros;		
 	}
 }

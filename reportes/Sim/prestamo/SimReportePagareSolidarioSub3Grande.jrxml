@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SimReportePagareSolidario2.1"
+		 name="SimReportePagareSolidarioSub3Grande"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -25,24 +25,47 @@
 
 	<parameter name="IdPrestamo" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT G.ID_INTEGRANTE,
-P.NOM_COMPLETO
+P.NOM_COMPLETO,
+TO_CHAR(C.FECHA_ENTREGA, 'DD') ||' de '|| RTRIM(TO_CHAR(C.FECHA_ENTREGA, 'MONTH')) ||' de '||TO_CHAR(C.FECHA_ENTREGA, 'YYYY') FECHA_ENTREGA,
+C.DIRECCION_SUCURSAL_CIUDAD
 FROM
 SIM_PRESTAMO_GPO_DET G,
-RS_GRAL_PERSONA P
-WHERE G.ID_PRESTAMO_GRUPO = $P{IdPrestamo}
-AND P.CVE_GPO_EMPRESA =  G.CVE_GPO_EMPRESA
-AND P.CVE_EMPRESA =  G.CVE_EMPRESA
-AND P.ID_PERSONA =  G.ID_INTEGRANTE]]></queryString>
+RS_GRAL_PERSONA P,
+V_CREDITO C
+WHERE G.CVE_GPO_EMPRESA  =  'SIM'
+AND G.CVE_EMPRESA        =  'CREDICONFIA'
+AND G.ID_PRESTAMO_GRUPO  =  $P{IdPrestamo}
+AND P.CVE_GPO_EMPRESA    =  G.CVE_GPO_EMPRESA
+AND P.CVE_EMPRESA        =  G.CVE_EMPRESA
+AND P.ID_PERSONA         =  G.ID_INTEGRANTE
+AND C.CVE_GPO_EMPRESA    =  P.CVE_GPO_EMPRESA
+AND C.CVE_EMPRESA        =  P.CVE_EMPRESA
+AND C.ID_PRESTAMO        =  G.ID_PRESTAMO_GRUPO]]></queryString>
 
 	<field name="ID_INTEGRANTE" class="java.math.BigDecimal"/>
 	<field name="NOM_COMPLETO" class="java.lang.String"/>
+	<field name="FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="DIRECCION_SUCURSAL_CIUDAD" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</background>
 		<title>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="50"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="528"
+						height="50"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Este PAGARÉ se firma en la Ciudad de " + $F{DIRECCION_SUCURSAL_CIUDAD} + " el " + $F{FECHA_ENTREGA} + "."]]></textFieldExpression>
+				</textField>
 			</band>
 		</title>
 		<pageHeader>

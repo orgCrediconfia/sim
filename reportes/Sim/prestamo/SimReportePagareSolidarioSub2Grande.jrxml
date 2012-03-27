@@ -178,7 +178,7 @@ AND C.ID_PRESTAMO     = G.ID_PRESTAMO_GRUPO]]></queryString>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="95"
+						y="105"
 						width="530"
 						height="34"
 						key="textField-2"/>
@@ -191,7 +191,7 @@ AND C.ID_PRESTAMO     = G.ID_PRESTAMO_GRUPO]]></queryString>
 				<staticText>
 					<reportElement
 						x="0"
-						y="0"
+						y="10"
 						width="530"
 						height="86"
 						key="staticText-2"/>
@@ -206,7 +206,7 @@ Los Suscriptores por medio del presente PAGARÉ, se obligan a pagar a DINSA, los
 				<staticText>
 					<reportElement
 						x="0"
-						y="137"
+						y="147"
 						width="530"
 						height="91"
 						key="staticText-3"/>
@@ -214,7 +214,7 @@ Los Suscriptores por medio del presente PAGARÉ, se obligan a pagar a DINSA, los
 					<textElement textAlignment="Justified">
 						<font size="9"/>
 					</textElement>
-				<text><![CDATA[Este PAGARÉ consta de 4 páginas, mismas que ha sido debidamente suscritas por los Suscriptores.
+				<text><![CDATA[Este PAGARÉ consta de 3 páginas, mismas que ha sido debidamente suscritas por los Suscriptores.
 
 Para todo lo relativo a este Pagaré, los Firmantes, Avales solidarios, se someten expresamente a la Legislación Federal y a la jurisdicción de los tribunales que tengan competencia en los domicilios de los suscriptores del presente Pagaré renunciando desde este momento a cualquier otro fuero que pudiera corresponder por cualquier otra causa. En el evento de existir varios tribunales competentes por existir domicilios en distintos distritos o poblaciones lo será en definitiva el que conozca primero del juicio correspondiente.]]></text>
 				</staticText>
