@@ -43,51 +43,60 @@ public class SimCajaPagoGrupalSaldoDAO extends Conexion2 implements OperacionAlt
 		float fSaldoFecha = 0;
 		float fSaldoTotal = 0;
 		float fDiferencia = 0;
+		float fSaldoCredito = 0;
 		
 		sImporte = (String)registro.getDefCampo("IMPORTE");
 		fImporte = (Float.parseFloat(sImporte.replace(",","")));
 		
 		if (registro.getDefCampo("SALDO_FECHA") == null){
-			System.out.println("***********no hay saldo a la fecha");
 			sSaldoFecha = "0";
 		}else {
 			sSaldoFecha = (String)registro.getDefCampo("SALDO_FECHA");
-			System.out.println("el saldo a la fecha es: **********:"+sSaldoFecha);
 		}
 		
 		fSaldoFecha = (Float.parseFloat(sSaldoFecha.replace(",","")));
 		sSaldoTotal = (String)registro.getDefCampo("SALDO_TOTAL");
 		fSaldoTotal = (Float.parseFloat(sSaldoTotal.replace(",",""))); 
-	
-		//El crédito tiene una deuda.
-		if (fSaldoFecha < 0){
-			sSql =  " SELECT \n"+
-					" '"+fImporte+"' + '"+fSaldoFecha+"' AS DIFERENCIA \n"+
-					" FROM DUAL \n";
-			ejecutaSql();
-			if (rs.next()){
-				sDiferencia = rs.getString("DIFERENCIA");
-				fDiferencia = (Float.parseFloat(sDiferencia));
-				if (fDiferencia > 0){
-					//El pago excede la deuda actual.
-					System.out.println("a");
-					resultadoCatalogo.Resultado.addDefCampo("DIFERENCIA","El pago se excede por $ "+fDiferencia+" pesos");
-					resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","0");
-					resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
-				}else{
-					//El pago NO excede la deuda actual.
-					System.out.println("a1");
-					resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","0");
-					resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
-				}
-			}		
-		}
-		//El crédito no tiene deuda a la fecha.
-		else if (fSaldoFecha >= 0){
-			resultadoCatalogo.Resultado.addDefCampo("DIFERENCIA","El pago se excede por $ "+fImporte+" pesos");	
-			resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","1");
+		
+		fSaldoCredito = fSaldoTotal;
+		
+		fSaldoCredito = fSaldoCredito < 0 ? -fSaldoCredito : fSaldoCredito;
+		
+		if (fImporte > fSaldoCredito){
 			resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
+			resultadoCatalogo.Resultado.addDefCampo("VALIDA_PAGO_LIMITE","NO");	
+		}else{
+			//El crédito tiene una deuda.
+			if (fSaldoFecha < 0){
+				sSql =  " SELECT \n"+
+						" '"+fImporte+"' + '"+fSaldoFecha+"' AS DIFERENCIA \n"+
+						" FROM DUAL \n";
+				ejecutaSql();
+				if (rs.next()){
+					sDiferencia = rs.getString("DIFERENCIA");
+					fDiferencia = (Float.parseFloat(sDiferencia));
+					if (fDiferencia > 0){
+						//El pago excede la deuda actual.
+						resultadoCatalogo.Resultado.addDefCampo("DIFERENCIA","El pago se excede por $ "+fDiferencia+" pesos");
+						resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","0");
+						resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
+					}else{
+						//El pago NO excede la deuda actual.
+						resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","0");
+						resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
+					}
+				}		
+			}
+			//El crédito no tiene deuda a la fecha.
+			else if (fSaldoFecha >= 0){
+				resultadoCatalogo.Resultado.addDefCampo("DIFERENCIA","El pago se excede por $ "+fImporte+" pesos");	
+				resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","1");
+				resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
+			}
+			resultadoCatalogo.Resultado.addDefCampo("VALIDA_PAGO_LIMITE","SI");	
 		}
+		
+		
 		return resultadoCatalogo;
 	}
 }

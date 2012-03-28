@@ -61,6 +61,7 @@ public class SimCajaPagoGrupalSaldoCON implements CatalogoControlActualizaIN{
 		String sPagoTotal = "";
 		float fSaldo = 0;
 		String sImporteR = "";
+		String sTxValidaPagoLimite = "";
 		
 		registro.addDefCampo("IMPORTE",request.getParameter("Importe"));
 		
@@ -97,15 +98,15 @@ public class SimCajaPagoGrupalSaldoCON implements CatalogoControlActualizaIN{
 		
 		sTxRespuesta = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("DIFERENCIA");
 		sPagoTotal = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("PAGO_TOTAL");
-	
 		fSaldo = (Float) registroControl.resultadoCatalogo.Resultado.getDefCampo("SALDO");
+		sTxValidaPagoLimite = (String) registroControl.resultadoCatalogo.Resultado.getDefCampo("VALIDA_PAGO_LIMITE");
 		
 		if (sTxRespuesta == null){
 			sTxRespuesta = "0";
 			sTxPregunta = "1";
 		}
 		
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=GRUPO&IdCaja="+request.getParameter("IdCaja")+"&IdPrestamo="+request.getParameter("IdPrestamo")+"&Importe="+request.getParameter("Importe")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&TxRespuesta="+sTxRespuesta+"&TxPregunta="+sTxPregunta+"&PagoTotal="+sPagoTotal+"&Saldo="+fSaldo+"&IdMovimientoOperacion=null";
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimCajaConsultaPagarCredito&OperacionCatalogo=CR&AplicaA=GRUPO&IdCaja="+request.getParameter("IdCaja")+"&IdPrestamo="+request.getParameter("IdPrestamo")+"&Importe="+request.getParameter("Importe")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&TxRespuesta="+sTxRespuesta+"&TxPregunta="+sTxPregunta+"&TxValidaPagoLimite="+sTxValidaPagoLimite+"&PagoTotal="+sPagoTotal+"&Saldo="+fSaldo+"&IdMovimientoOperacion=null";
 		
 		return registroControl;
 	}

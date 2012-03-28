@@ -95,7 +95,6 @@ public class SimCajaConsultaPagarCreditoCON implements CatalogoControlConsultaIN
 				Registro saldocliente = new Registro ();
 				saldocliente = catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros);
 				String sSaldocliente = (String)saldocliente.getDefCampo("SDO_EFECTIVO");
-				System.out.println("sSaldocliente***////"+sSaldocliente);
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagCreInd.jsp?IdCaja="+request.getParameter("IdCaja")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Respuesta="+request.getParameter("Respuesta")+"&SaldoCliente="+sSaldocliente;
 			}else if (request.getParameter("AplicaA").equals("GRUPO")){
 				parametros.addDefCampo("APLICA_A","GRUPO");
@@ -108,7 +107,6 @@ public class SimCajaConsultaPagarCreditoCON implements CatalogoControlConsultaIN
 				Registro saldocliente = new Registro ();
 				saldocliente = catalogoSL.getRegistro("SimPrestamoSaldoCuenta", parametros);
 				String sSaldocliente = (String)saldocliente.getDefCampo("SDO_EFECTIVO");
-				System.out.println("sSaldocliente&&&&)))))"+sSaldocliente);
 				registroControl.sPagina = "/Aplicaciones/Sim/Caja/fSimCajaPagCreGpo.jsp?IdCaja="+request.getParameter("IdCaja")+"&FechaMovimiento="+request.getParameter("FechaMovimiento")+"&Respuesta="+request.getParameter("Respuesta")+"&SaldoCliente="+sSaldocliente;
 			}
 		}
