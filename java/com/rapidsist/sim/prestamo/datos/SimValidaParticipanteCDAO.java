@@ -42,12 +42,11 @@ public class SimValidaParticipanteCDAO extends Conexion2 implements
 				+ "PP.ID_PERSONA\n"
 				+ "FROM\n"
 				+ "SIM_PRESTAMO_PARTICIPANTE PP\n"
-				+ "WHERE PP.CVE_GPO_EMPRESA     = 'SIM'\n"
-				+ "AND PP.CVE_EMPRESA         = 'CREDICONFIA'\n"
-				+ "AND PP.ID_PRESTAMO         = 2130\n"
+				+ "WHERE PP.CVE_GPO_EMPRESA     = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n"
+				+ "AND PP.CVE_EMPRESA         = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n"
+				+ "AND PP.ID_PRESTAMO         = '" + (String)parametros.getDefCampo("ID_PRESTAMO") + "' \n"
 				+ "AND (PP.CVE_TIPO_PERSONA = 'GARANTE' OR PP.CVE_TIPO_PERSONA = 'OBLIGADO' OR PP.CVE_TIPO_PERSONA = 'OBLIGADO 2')\n";
 
-		System.out.println("sSql" + sSql);
 		ejecutaSql();
 		return getConsultaLista();
 	}
