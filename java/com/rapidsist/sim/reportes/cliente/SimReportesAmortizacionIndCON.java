@@ -51,21 +51,6 @@ public class SimReportesAmortizacionIndCON implements CatalogoControlConsultaIN 
 	public RegistroControl consulta(Registro parametros, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
-		//VERIFICA SI BUSCA TODOS LOS REGISTROS
-		if (iTipoOperacion == CON_CONSULTA_TABLA){
-			
-			parametros.addDefCampo("CVE_PRESTAMO",request.getParameter("CvePrestamo"));
-			
-			
-			//VERIFICA SI SE ENVIO EL PARAMETRO NOMBRE
-			if (request.getParameter("CvePrestamo") != null && !request.getParameter("CvePrestamo").equals("")){
-				parametros.addDefCampo("CVE_PRESTAMO", request.getParameter("CvePrestamo"));
-			}
-			
-			registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReportesAmortizacionIndCon.jsp";
-		}
-		
-		
 		if (iTipoOperacion == CON_INICIALIZACION){
 			if (request.getParameter("Filtro").equals("Inicio")){
 				registroControl.sPagina = "/Aplicaciones/Sim/Reportes/fSimReportesAmortizacionIndCon.jsp";	
