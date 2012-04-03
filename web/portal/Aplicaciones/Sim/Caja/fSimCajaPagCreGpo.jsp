@@ -29,10 +29,10 @@
 		<input type="hidden" name="TxRespuesta" value='<c:out value='${param.TxRespuesta}'/>' />
 		<input type="hidden" name="TxPregunta" value='<c:out value='${param.TxPregunta}'/>' />
 		<input type="hidden" name="Respuesta" value='<c:out value='${param.Respuesta}'/>' />
-		<input type="hidden" name="TxValidaPagoLimite" value='<c:out value='${param.TxValidaPagoLimite}'/>' />
 		<input type="hidden" name="PagoTotal" value='<c:out value='${param.PagoTotal}'/>' />
 		<input type="hidden" name="Saldo" value='<c:out value='${param.Saldo}'/>' />
 		<input type="hidden" name="IdCaja" value='<c:out value='${param.IdCaja}'/>' />
+		<input type="hidden" name="Excedente" value='<c:out value='${param.Excedente}'/>' />
 		<Portal:FormaBotones>
 			<input type="button" name="Aceptar"  value="Aceptar" onclick='javascript:fAceptar()'>
 		</Portal:FormaBotones>
@@ -93,17 +93,13 @@
 			var answer = confirm('<%=request.getParameter("TxRespuesta")%>');
 					
 			if (answer){
-				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoGrupal&OperacionCatalogo=CR&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&TxPregunta="+document.frmRegistro.TxPregunta.value+"&TxRespuesta="+document.frmRegistro.TxRespuesta.value+"&Respuesta="+document.frmRegistro.Respuesta.value+"&PagoTotal="+document.frmRegistro.PagoTotal.value+"&Saldo="+document.frmRegistro.Saldo.value+"&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoGrupal&OperacionCatalogo=CR&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&TxPregunta="+document.frmRegistro.TxPregunta.value+"&TxRespuesta="+document.frmRegistro.TxRespuesta.value+"&Respuesta="+document.frmRegistro.Respuesta.value+"&PagoTotal="+document.frmRegistro.PagoTotal.value+"&Saldo="+document.frmRegistro.Saldo.value+"&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&Excedente="+document.frmRegistro.Excedente.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
 				document.frmRegistro.submit();	
 			}
 		}else if (document.frmRegistro.TxRespuesta.value == "0"){
-			if (document.frmRegistro.TxValidaPagoLimite.value == "NO"){
-				alert("El pago supera a la deuda del crédito");
-			}else if (document.frmRegistro.TxValidaPagoLimite.value == "SI"){
-				if (document.frmRegistro.TxPregunta.value != "0"){
-					document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoGrupal&OperacionCatalogo=CR&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&TxPregunta="+document.frmRegistro.TxPregunta.value+"&TxRespuesta="+document.frmRegistro.TxRespuesta.value+"&Respuesta="+document.frmRegistro.Respuesta.value+"&PagoTotal="+document.frmRegistro.PagoTotal.value+"&Saldo="+document.frmRegistro.Saldo.value+"&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
-					document.frmRegistro.submit();	
-				}
+			if (document.frmRegistro.TxPregunta.value != "0"){
+				document.frmRegistro.action="ProcesaCatalogo?Funcion=SimCajaPagoGrupal&OperacionCatalogo=CR&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&TxPregunta="+document.frmRegistro.TxPregunta.value+"&TxRespuesta="+document.frmRegistro.TxRespuesta.value+"&Respuesta="+document.frmRegistro.Respuesta.value+"&PagoTotal="+document.frmRegistro.PagoTotal.value+"&Saldo="+document.frmRegistro.Saldo.value+"&IdPrestamo="+document.frmRegistro.IdPrestamo.value+"&IdCaja="+document.frmRegistro.IdCaja.value+"&Importe="+document.frmRegistro.Importe.value+"&Excedente="+document.frmRegistro.Excedente.value+"&FechaMovimiento="+document.frmRegistro.FechaMovimiento.value;
+				document.frmRegistro.submit();	
 			}
 		}
 		

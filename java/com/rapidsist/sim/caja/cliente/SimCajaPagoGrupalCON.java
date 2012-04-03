@@ -64,6 +64,7 @@ public class SimCajaPagoGrupalCON implements CatalogoControlConsultaIN, Catalogo
 			String sIdPrestamoGrupo = (String)prestamogrupo.getDefCampo("ID_PRESTAMO_GRUPO");
 			*/ 
 			parametros.addDefCampo("IMPORTE",request.getParameter("Importe"));
+			parametros.addDefCampo("EXCEDENTE",request.getParameter("Excedente"));
 			parametros.addDefCampo("ID_PRESTAMO_GRUPO",request.getParameter("IdPrestamo"));
 			parametros.addDefCampo("FECHA_MOVIMIENTO",request.getParameter("FechaMovimiento"));
 			

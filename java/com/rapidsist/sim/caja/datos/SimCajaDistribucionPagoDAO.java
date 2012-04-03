@@ -49,8 +49,38 @@ public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionCo
 		String sImporte = "";
 		String sFechaAplicacion = "";
 		String sIdPrestamoGrupo = "";
+		String sIdCliente = "";
+		String sImpDeuda = "";
+		float fImpDeuda;
+		String sExcedente = "";
+		float fExcedente;
 		
 		sImporte = (String)parametros.getDefCampo("IMPORTE");
+		sExcedente = (String)parametros.getDefCampo("EXCEDENTE");
+		
+		System.out.println("sImporte"+sImporte);
+		System.out.println("sExcedente"+sExcedente);
+		
+		sSql =  "SELECT \n"+ 
+				"PG.CVE_GPO_EMPRESA, \n"+ 
+				"PG.CVE_EMPRESA, \n"+ 
+				"PG.ID_GRUPO, \n"+ 
+				"G.NOM_GRUPO, \n"+ 
+				"G.ID_COORDINADOR \n"+ 
+				"FROM \n"+ 
+				"SIM_PRESTAMO_GRUPO PG, \n"+ 
+				"SIM_GRUPO G \n"+ 
+				"WHERE PG.CVE_GPO_EMPRESA = '" + (String)parametros.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				"AND PG.CVE_EMPRESA = '" + (String)parametros.getDefCampo("CVE_EMPRESA") + "' \n" +
+				"AND PG.ID_PRESTAMO_GRUPO = '" + (String)parametros.getDefCampo("ID_PRESTAMO_GRUPO") + "' \n" +
+				"AND G.CVE_GPO_EMPRESA = PG.CVE_GPO_EMPRESA \n" +
+				"AND G.CVE_EMPRESA = PG.CVE_EMPRESA \n" +
+				"AND G.ID_GRUPO = PG.ID_GRUPO \n" ;
+		ejecutaSql();
+		if (rs.next()){
+			sIdCliente = rs.getString("ID_COORDINADOR");
+		}
+		
 		
 		sSql = " SELECT TO_CHAR(TO_DATE('" + (String)parametros.getDefCampo("FECHA_MOVIMIENTO") + "','DD-MM-YYYY'),'DD-MON-YYYY') F_APLICACION FROM DUAL";
 		ejecutaSql();
@@ -82,9 +112,25 @@ public class SimCajaDistribucionPagoDAO extends Conexion2 implements OperacionCo
 			registro.addDefCampo("ID_CLIENTE",rs.getString("ID_CLIENTE"));
 			registro.addDefCampo("NOM_COMPLETO",rs.getString("NOM_COMPLETO"));
 			registro.addDefCampo("IMP_DEUDA",rs.getString("IMP_DEUDA"));
+			//Pregunta si se trata del presidende del grupo
+			if (!sExcedente.equals("0")){
+				if (rs.getString("ID_CLIENTE").equals(sIdCliente)){
+					sImpDeuda = rs.getString("IMP_DEUDA");
+					System.out.println("sImpDeuda************** del presidente: "+sImpDeuda);
+					fImpDeuda = (Float.parseFloat(sImpDeuda));
+					fExcedente = (Float.parseFloat(sExcedente));
+					fImpDeuda = fImpDeuda + fExcedente;
+					sImpDeuda = Float.toString(fImpDeuda);
+	
+					System.out.println("JUNTO CON EL EXCEDENTE RESULTA SER: "+fImpDeuda);
+					registro.addDefCampo("IMP_DEUDA",sImpDeuda);
+				}
+			}
+			
 			lista.add(registro);
 			registro = new Registro();
 		}
+	
 		rs.close();
 		cstmt.close();
 		return lista;

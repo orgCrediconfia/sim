@@ -44,6 +44,7 @@ public class SimCajaPagoGrupalSaldoDAO extends Conexion2 implements OperacionAlt
 		float fSaldoTotal = 0;
 		float fDiferencia = 0;
 		float fSaldoCredito = 0;
+		float fExcedente = 0;
 		
 		sImporte = (String)registro.getDefCampo("IMPORTE");
 		fImporte = (Float.parseFloat(sImporte.replace(",","")));
@@ -62,9 +63,24 @@ public class SimCajaPagoGrupalSaldoDAO extends Conexion2 implements OperacionAlt
 		
 		fSaldoCredito = fSaldoCredito < 0 ? -fSaldoCredito : fSaldoCredito;
 		
-		if (fImporte > fSaldoCredito){
+		//El importe - saldocredito
+		//si el > 0 entonces esta pagando de mas
+		//la diferencia será el excedente que se deba de agregar
+		// el saldo del credito se debera llevar a proporciones
+		
+		fExcedente = fImporte - fSaldoCredito;
+		
+		if (fExcedente > 0){
+			//Agregar este excente al presidente del grupo 
+			//Ahora el importe es fSaldoCredito
+			sImporte = Float.toString(fSaldoCredito);
+			
+			resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","0");
 			resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
-			resultadoCatalogo.Resultado.addDefCampo("VALIDA_PAGO_LIMITE","NO");	
+			resultadoCatalogo.Resultado.addDefCampo("IMPORTE",sImporte);
+			resultadoCatalogo.Resultado.addDefCampo("EXCEDENTE",fExcedente);
+			System.out.println("Excedente por lo tanto el importe nuevo es: "+fSaldoCredito);
+			
 		}else{
 			//El crédito tiene una deuda.
 			if (fSaldoFecha < 0){
@@ -93,8 +109,15 @@ public class SimCajaPagoGrupalSaldoDAO extends Conexion2 implements OperacionAlt
 				resultadoCatalogo.Resultado.addDefCampo("PAGO_TOTAL","1");
 				resultadoCatalogo.Resultado.addDefCampo("SALDO",fSaldoTotal);
 			}
-			resultadoCatalogo.Resultado.addDefCampo("VALIDA_PAGO_LIMITE","SI");	
+			sImporte = Float.toString(fImporte);
+			resultadoCatalogo.Resultado.addDefCampo("IMPORTE",sImporte);
+			resultadoCatalogo.Resultado.addDefCampo("EXCEDENTE","0");
+			System.out.println("importe nuevo siguie siendo el mismo: "+fImporte);
 		}
+		
+		
+		
+			
 		
 		
 		return resultadoCatalogo;
