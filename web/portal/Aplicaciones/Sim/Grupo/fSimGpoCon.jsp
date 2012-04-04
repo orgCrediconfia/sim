@@ -7,7 +7,7 @@
 		<Portal:FormaElemento etiqueta='Nombre' control='Texto' controlnombre='NomGrupo' controllongitud='30' controllongitudmax='30'/>
 		<Portal:Calendario2 etiqueta='Fecha de formaci&oacute;n' contenedor='frmRegistro' controlnombre='FechaFormacion' esfechasis='false'/>
 	</Portal:Forma>
-	<Portal:TablaLista tipo="alta" nombre="Consulta" botontipo="url" url="/ProcesaCatalogo?Funcion=SimGrupo&OperacionCatalogo=IN&Filtro=Alta">
+	<Portal:TablaLista tipo="alta" nombre="Consulta" botontipo="url" url="/ProcesaCatalogo?Funcion=SimGrupo&OperacionCatalogo=IN&Filtro=Alta&ComentarioExcepcion=NO">
 		<Portal:TablaListaTitulos>
 			<Portal:Columna tipovalor='texto' ancho='100' valor='Clave'/>
 			<Portal:Columna tipovalor='texto' ancho='250' valor='Nombre'/>

@@ -55,7 +55,7 @@ public class SimPrestamoAsignaClienteDAO extends Conexion2 implements OperacionC
 				"AND TP.CVE_GPO_EMPRESA = P.CVE_GPO_EMPRESA \n"+
 				"AND TP.CVE_EMPRESA = P.CVE_EMPRESA \n"+
 				"AND TP.ID_PERSONA = P.ID_PERSONA \n"+
-				"AND TP.CVE_TIPO_PERSONA = 'CLIENTE' \n"+
+				"AND (TP.CVE_TIPO_PERSONA = 'CLIENTE' OR TP.CVE_TIPO_PERSONA = 'EMPLEADO') \n"+
 				"AND U.CVE_GPO_EMPRESA (+)= P.CVE_GPO_EMPRESA \n"+
 				"AND U.CVE_EMPRESA (+)= P.CVE_EMPRESA \n"+
 				"AND U.CVE_USUARIO (+)= P.CVE_ASESOR_CREDITO \n"+
