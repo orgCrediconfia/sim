@@ -16,7 +16,7 @@
 		<c:forEach var="registro" items="${requestScope.ListaBusqueda}">		
 			<Portal:TablaListaRenglon>
 				<Portal:Columna tipovalor='texto' ancho='100' valor=''>
-					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["ID_GRUPO"]}' funcion='SimGrupo' operacion='CR' parametros='IdGrupo=${registro.campos["ID_GRUPO"]}' parametrosregreso='\'${registro.campos["ID_GRUPO"]}\', \'${registro.campos["NOM_GRUPO"]}\''/>
+					<Portal:Url tipo='catalogo' nombreliga='${registro.campos["ID_GRUPO"]}' funcion='SimGrupo' operacion='CR' parametros='IdGrupo=${registro.campos["ID_GRUPO"]}&ComentarioExcepcion=NO' parametrosregreso='\'${registro.campos["ID_GRUPO"]}\', \'${registro.campos["NOM_GRUPO"]}\''/>
 				</Portal:Columna>	
 				<Portal:Columna tipovalor='texto' ancho='250' valor='${registro.campos["NOM_GRUPO"]}'/>
 				<Portal:Columna tipovalor='texto' ancho='100%' valor='${registro.campos["FECHA_FORMACION"]}'/>								

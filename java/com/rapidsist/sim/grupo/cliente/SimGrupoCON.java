@@ -75,6 +75,7 @@ public class SimGrupoCON implements CatalogoControlConsultaIN, CatalogoControlAc
 		}
 		
 		else if (iTipoOperacion == CON_CONSULTA_REGISTRO){
+			
 			String sCveAsesorCredito = "ninguno";
 			String sNumAsesor = "";
 			
@@ -143,6 +144,7 @@ public class SimGrupoCON implements CatalogoControlConsultaIN, CatalogoControlAc
 		RegistroControl registroControl = new RegistroControl();
 		
 		String sIdGrupo = "";
+		String sComentarioExcepcion = "NO";
 		
 		registro.addDefCampo("ID_GRUPO",request.getParameter("IdGrupo"));
 		registro.addDefCampo("NOM_GRUPO",request.getParameter("NomGrupo"));
@@ -164,7 +166,7 @@ public class SimGrupoCON implements CatalogoControlConsultaIN, CatalogoControlAc
 		if (iTipoOperacion == 2){
 			registroControl.sPagina = "/Aplicaciones/Sim/Grupo/fSimGpoCon.jsp";
 		}else {
-			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimGrupo&OperacionCatalogo=CR&IdGrupo="+sIdGrupo;
+			registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimGrupo&OperacionCatalogo=CR&IdGrupo="+sIdGrupo+"&ComentarioExcepcion="+sComentarioExcepcion;
 		}
 		
 		return registroControl;

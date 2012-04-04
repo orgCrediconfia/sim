@@ -18,6 +18,8 @@
 			<input type="hidden" name="IdCoordinador" value='<c:out value='${requestScope.registro.campos["ID_COORDINADOR"]}'/>' />
 		</c:if>
 		
+		<input type="hidden" name="ComentarioExcepcion" value='<c:out value='${param.ComentarioExcepcion}'/>' />
+		
 		<Portal:FormaBotones>
 			<Portal:FormaBotonAltaModificacion/>
 			<Portal:FormaBotonBaja/>
@@ -67,5 +69,11 @@
 		<Portal:FormaBotones>
 		</Portal:FormaBotones>
 	</Portal:TablaForma>
+	
+	<script>
+		if (document.frmRegistro.ComentarioExcepcion.value != "NO"){
+			var answer = confirm('<%=request.getParameter("ComentarioExcepcion")%>');
+		}
+	</script>
 	
 </Portal:Pagina>	

@@ -106,7 +106,10 @@ public class SimGrupoIntegranteCON implements CatalogoControlConsultaIN, Catalog
 	public RegistroControl actualiza(Registro registro, HttpServletRequest request, HttpServletResponse response, ServletConfig config, CatalogoSL catalogoSL, Context contexto, int iTipoOperacion)throws RemoteException, Exception{
 		RegistroControl registroControl = new RegistroControl();
 		
+		String sComentarioExcepcion = "NO";
+		
 		if (iTipoOperacion == 1){
+			
 			String sVariable1 = "";
 			int iVariable2 = 0;
 			String sVariable3 = "";
@@ -168,18 +171,16 @@ public class SimGrupoIntegranteCON implements CatalogoControlConsultaIN, Catalog
 							sVariable3 = sVariable1.substring(0,iVariable2);
 							sVariable5 = sVariable1.substring(iVariable2+1,iVariable4);
 							registro.addDefCampo("ID_INTEGRANTE", sVariable3);
+							registro.addDefCampo("EXCEPCION", "NO");
 							registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGrupoIntegrante", registro, iTipoOperacion);
 						}
 					}
 				}else {
-					com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
-					resultadoCatalogoControlado.mensaje.setClave("ERROR_GRUPO_ASESOR");
-					resultadoCatalogoControlado.mensaje.setTipo("Aviso");
-					resultadoCatalogoControlado.mensaje.setDescripcion("Todos los integrantes deben de tener el mismo asesor");
-					registroControl.resultadoCatalogo = resultadoCatalogoControlado;
+					sComentarioExcepcion = "Todos los integrantes deben de tener el mismo asesor";
+					registro.addDefCampo("EXCEPCION", "SI");
+					registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGrupoIntegrante", registro, iTipoOperacion);
 				}
 			}else {
-				
 				Enumeration lista1 = request.getParameterNames();
 				while (lista1.hasMoreElements()){
 					String sNombre = (String)lista1.nextElement();
@@ -213,15 +214,14 @@ public class SimGrupoIntegranteCON implements CatalogoControlConsultaIN, Catalog
 							sVariable3 = sVariable1.substring(0,iVariable2);
 							sVariable5 = sVariable1.substring(iVariable2+1,iVariable4);
 							registro.addDefCampo("ID_INTEGRANTE", sVariable3);
+							registro.addDefCampo("EXCEPCION", "NO");
 							registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGrupoIntegrante", registro, iTipoOperacion);
 						}
 					}
 				}else {
-					com.rapidsist.portal.catalogos.ResultadoCatalogo resultadoCatalogoControlado = new com.rapidsist.portal.catalogos.ResultadoCatalogo();
-					resultadoCatalogoControlado.mensaje.setClave("ERROR_GRUPO_ASESOR");
-					resultadoCatalogoControlado.mensaje.setTipo("Aviso");
-					resultadoCatalogoControlado.mensaje.setDescripcion("Todos los integrantes deben de tener el mismo asesor");
-					registroControl.resultadoCatalogo = resultadoCatalogoControlado;
+					sComentarioExcepcion = "Todos los integrantes deben de tener el mismo asesor";
+					registro.addDefCampo("EXCEPCION", "SI");
+					registroControl.resultadoCatalogo = catalogoSL.modificacion("SimGrupoIntegrante", registro, iTipoOperacion);
 				}
 			}
 			
@@ -259,7 +259,8 @@ public class SimGrupoIntegranteCON implements CatalogoControlConsultaIN, Catalog
 		/*
 		
 		*/
-		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimGrupo&OperacionCatalogo=CR&IdGrupo="+request.getParameter("IdGrupo");
+		
+		registroControl.sPagina = "/ProcesaCatalogo?Funcion=SimGrupo&OperacionCatalogo=CR&ComentarioExcepcion="+sComentarioExcepcion+"&IdGrupo="+request.getParameter("IdGrupo");
 		return registroControl;
 	}
 }

@@ -266,53 +266,61 @@ public class SimGrupoIntegranteDAO extends Conexion2 implements OperacionConsult
 	public ResultadoCatalogo alta(Registro registro) throws SQLException{
 		ResultadoCatalogo resultadoCatalogo = new ResultadoCatalogo();
 		
-		//Inserta el integrante al grupo
-		//Verifica si ya ha sido parte del grupo
-		sSql = "SELECT \n" +
-			   " CVE_GPO_EMPRESA, \n" +
-			   " CVE_EMPRESA, \n" +
-			   " ID_GRUPO, \n"+
-			   " ID_INTEGRANTE, \n"+
-			   " FECHA_ALTA, \n"+
-			   " FECHA_BAJA_LOGICA \n"+
-			   "FROM \n"+
-			   " SIM_GRUPO_INTEGRANTE \n"+
-			   " WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
-			   " AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
-			   " AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-			   " AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
-		ejecutaSql();
-		if (rs.next()){
-			//Borra la fecha de baja logica.
-			sSql = " UPDATE SIM_GRUPO_INTEGRANTE SET"+
-		       " FECHA_BAJA_LOGICA 	= '', \n" +
-		       " FECHA_ALTA			= SYSDATE \n" +
-		       " WHERE ID_GRUPO		='" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
-		       " AND ID_INTEGRANTE	='" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n"+
-		       " AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
-		       " AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
-		}else {
-			//Da de alta el integrante al grupo.
-			sSql = " INSERT INTO SIM_GRUPO_INTEGRANTE ( \n"+
+		
+		if (registro.getDefCampo("EXCEPCION").equals("SI")) {
+			sSql = "Todavia no se da ningún alta";
+		}else if (registro.getDefCampo("EXCEPCION").equals("NO")) {
+			//Inserta el integrante al grupo
+			//Verifica si ya ha sido parte del grupo
+			sSql = "SELECT \n" +
 				   " CVE_GPO_EMPRESA, \n" +
 				   " CVE_EMPRESA, \n" +
 				   " ID_GRUPO, \n"+
 				   " ID_INTEGRANTE, \n"+
 				   " FECHA_ALTA, \n"+
-				   " FECHA_BAJA_LOGICA) \n"+
-				   " VALUES ( \n"+
-				   " '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
-				   " '" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
-				   " '" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
-				   " '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
-				   " SYSDATE, \n" +
-				   " '') \n" ;
+				   " FECHA_BAJA_LOGICA \n"+
+				   "FROM \n"+
+				   " SIM_GRUPO_INTEGRANTE \n"+
+				   " WHERE CVE_GPO_EMPRESA = '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n" +
+				   " AND CVE_EMPRESA = '" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n" +
+				   " AND ID_GRUPO = '" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+				   " AND ID_INTEGRANTE = '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n" ;
+			ejecutaSql();
+			if (rs.next()){
+				//Borra la fecha de baja logica.
+				sSql = " UPDATE SIM_GRUPO_INTEGRANTE SET"+
+			       " FECHA_BAJA_LOGICA 	= '', \n" +
+			       " FECHA_ALTA			= SYSDATE \n" +
+			       " WHERE ID_GRUPO		='" + (String)registro.getDefCampo("ID_GRUPO") + "' \n" +
+			       " AND ID_INTEGRANTE	='" + (String)registro.getDefCampo("ID_INTEGRANTE") + "' \n"+
+			       " AND CVE_EMPRESA	='" + (String)registro.getDefCampo("CVE_EMPRESA") + "' \n"+
+			       " AND CVE_GPO_EMPRESA	='" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "' \n";
+			}else {
+				//Da de alta el integrante al grupo.
+				sSql = " INSERT INTO SIM_GRUPO_INTEGRANTE ( \n"+
+					   " CVE_GPO_EMPRESA, \n" +
+					   " CVE_EMPRESA, \n" +
+					   " ID_GRUPO, \n"+
+					   " ID_INTEGRANTE, \n"+
+					   " FECHA_ALTA, \n"+
+					   " FECHA_BAJA_LOGICA) \n"+
+					   " VALUES ( \n"+
+					   " '" + (String)registro.getDefCampo("CVE_GPO_EMPRESA") + "', \n" +
+					   " '" + (String)registro.getDefCampo("CVE_EMPRESA") + "', \n" +
+					   " '" + (String)registro.getDefCampo("ID_GRUPO") + "', \n" +
+					   " '" + (String)registro.getDefCampo("ID_INTEGRANTE") + "', \n" +
+					   " SYSDATE, \n" +
+					   " '') \n" ;
+			}
+				  	
+			//VERIFICA SI DIO DE ALTA EL REGISTRO
+			if (ejecutaUpdate() == 0){
+				resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
+			}
+			
 		}
-			  	
-		//VERIFICA SI DIO DE ALTA EL REGISTRO
-		if (ejecutaUpdate() == 0){
-			resultadoCatalogo.mensaje.setClave("CATALOGO_NO_OPERACION");
-		}
+		
+		
 		return resultadoCatalogo;
 	}
 
